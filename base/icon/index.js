@@ -45,7 +45,7 @@ Icon.propTypes = {
   from: PropTypes.oneOf(['fw5', 'fw4']),
   name: PropTypes.string,
   size: PropTypes.number,
-  style: PropTypes.object,
+  style: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
 };
 
 export default Icon;
