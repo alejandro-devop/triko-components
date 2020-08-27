@@ -1,6 +1,6 @@
 import React from 'react';
-import Dialog from 'components/base/dialogs/dialog';
-import useStyles from 'hooks/useStyles';
+import Dialog from 'shared/components/dialogs/dialog';
+import useStyles from 'shared/hooks/use-styles';
 
 const MyAddressesList = ({open, onClose}) => {
   const [classes] = useStyles(styles);

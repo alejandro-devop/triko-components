@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {View} from 'react-native';
-import {TextField} from 'components/base/controls';
-import IconButton from 'components/base/buttons/icon-button';
-import useStyles from 'hooks/useStyles';
+import {TextField} from 'shared/components/base/controls';
+import IconButton from 'shared/components/base/buttons/icon-button';
+import useStyles from 'shared/hooks/use-styles';
 
 /**
  * This component displays teh selected address by the user.
