@@ -8,3 +8,24 @@
 * [feat]: Added base button
 * [feat]: Added animation component
 * [feat]: Added address display
+* [feat]: Added address picker
+* [feat]: Added address input 
+* [feat]: Added checkbox
+* [feat]: Added select list
+* [feat]: Added transport type
+* [feat]: Added date picker
+* [feat]: Added email field
+* [feat]: Added gender select
+* [feat]: Added id type
+* [feat]: Added input control
+* [feat]: Added input help
+* [feat]: Added nationality select
+* [feat]: Added number picker
+* [feat]: Added password field
+* [feat]: Added phone field
+* [feat]: Added radio button
+* [feat]: Added select list
+* [feat]: Added text area
+* [feat]: Added common components
+* [feat]: Added text field
+* [feat]: Added time picker
