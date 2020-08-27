@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Dialog from 'components/base/dialogs/dialog';
+import Dialog from 'shared/components/dialogs/dialog';
 
 /**
  * This component handles the Wrapper or container for the bug reporter form
