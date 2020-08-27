@@ -7,4 +7,4 @@
 * [feat]: Added circle button
 * [feat]: Added base button
 * [feat]: Added animation component
-
+* [feat]: Added address display
