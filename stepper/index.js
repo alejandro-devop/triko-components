@@ -7,18 +7,19 @@ import getStyles from './styles';
 import classNames from 'shared/utils/classnames';
 import useStyles from 'shared/hooks/use-styles';
 
-const stepSize = 20;
+const stepSize = 12;
 
 /**
  * This component allows to create a stepper tracker.
  * @author Jorge Alejandro Quiroz Serna <jakop.box@gmail.com>
  * @param current
  * @param steps
+ * @param secondary
  * @param title
  * @returns {null|*}
  * @constructor
  */
-const Stepper = ({current = 0, steps = 0, title}) => {
+const Stepper = ({current = 0, secondary, steps = 0, title}) => {
   const [classes] = useStyles(getStyles(stepSize));
   // We use this to calc the progress with.
   const [availableWidth, setAvailableWidth] = useState(0);
@@ -29,7 +30,12 @@ const Stepper = ({current = 0, steps = 0, title}) => {
   const offset = stepSize * 0.25 * (current / 100);
   return (
     <View style={classes.root}>
-      {title && <Text style={classes.title}>{title}</Text>}
+      {title && (
+        <Text
+          style={classNames({title: true, secondaryText: secondary}, classes)}>
+          {title}
+        </Text>
+      )}
       <View style={classes.stepsWrapper}>
         <View
           style={classes.progressTrack}

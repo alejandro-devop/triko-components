@@ -7,13 +7,13 @@ export default stepSize => ({palette}) => ({
   progressBar: {
     ...barsCommons,
     backgroundColor: palette.orange,
-    height: 5,
+    height: 3,
   },
   progressTrack: {
     ...barsCommons,
     backgroundColor: palette.blue,
     width: '100%',
-    height: 2.5,
+    height: 1.5,
   },
   root: {
     backgroundColor: '#FFF',
@@ -39,5 +39,9 @@ export default stepSize => ({palette}) => ({
   title: {
     color: palette.orange,
     textAlign: 'center',
+  },
+  secondaryText: {
+    color: palette.blue,
+    fontWeight: '600',
   },
 });
