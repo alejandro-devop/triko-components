@@ -4,90 +4,35 @@ import {View} from 'react-native';
 import styles from './styles';
 import useStyles from 'shared/hooks/use-styles';
 import useAddressLocation from 'hooks/useAddressLocation';
-import CircularLoader from 'shared/components/loaders/circular-loader';
 import MapFixer from './map-fixer';
+import LoaderScreen from 'shared/components/loaders/loader-screen';
 
-/**
- * This component allows to fix the location for a given address text
- * @author Jako <jakop.box@gmail.com>
- * @version 1.0.1
- * @app Client
- * @param address
- * @param onCancel
- * @param onToggleEditing
- * @param onSave
- * @returns {*}
- * @constructor
- */
-const AddressFixer = ({address = {}, onCancel, onToggleEditing, onSave}) => {
+const AddressFixer = ({addressObj = {}, onPositionChange, city}) => {
   const [classes] = useStyles(styles);
-  const [editing, setEditing] = useState(false);
-  const [displayAddress, setDisplayAddress] = useState(address.primary || '');
-  const [location, setLocation] = useState(null);
-  const {
-    getAddressLocation,
-    location: addressLocation = {},
-    loading,
-  } = useAddressLocation({});
-  const toggleEditing = () => {
-    if (onToggleEditing) {
-      onToggleEditing(!editing);
-    }
-    setEditing(!editing);
-  };
-  const onLocationFound = (position, addressFound) => {
-    setLocation(position);
-    setDisplayAddress(addressFound);
-  };
-  const handleAccept = ({location: newLocation, address: newAddress}) => {
-    setDisplayAddress(newLocation.address);
-    setLocation(newLocation.location);
-    onSave({location: newLocation, address: newAddress});
-  };
-
-  const handleCancel = () => {
-    onCancel();
-  };
+  const [position, setPosition] = useState(null);
+  const {getCurrentPosition, notFound, loading} = useAddressLocation();
 
   const identifyAddressLocation = async () => {
-    const {position = {}} = await getAddressLocation(
-      `${address.secondary}, ${address.primary}`,
-    );
-    setLocation(position);
+    const positionInfo = await getCurrentPosition({
+      addressQuery: addressObj.address,
+      city,
+    });
+    setPosition(positionInfo);
   };
 
   useEffect(() => {
     identifyAddressLocation();
   }, []);
-
   return (
     <View style={classes.root}>
       {loading && (
         <View style={classes.loaderWrapper}>
-          <CircularLoader />
+          <LoaderScreen />
         </View>
       )}
-      {/*{!editing && (*/}
-      {/*  <AddressDisplay*/}
-      {/*    address={displayAddress}*/}
-      {/*    addressObject={address}*/}
-      {/*    defaultLocation={location}*/}
-      {/*    onEdit={toggleEditing}*/}
-      {/*    onLocationFound={onLocationFound}*/}
-      {/*    onSave={handleSave}*/}
-      {/*    onCancel={onCancel}*/}
-      {/*  />*/}
-      {/*)}*/}
-      {/*{editing && (*/}
-      {!loading && location && (
-        <MapFixer
-          location={location || {}}
-          address={displayAddress}
-          onAccept={handleAccept}
-          onCancel={handleCancel}
-        />
+      {!loading && !notFound && (
+        <MapFixer location={position} updateAddress={onPositionChange} />
       )}
-      {/*)}*/}
     </View>
   );
 };

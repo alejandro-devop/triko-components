@@ -1,71 +1,31 @@
-import {Platform} from 'react-native';
 export default ({palette}) => ({
-  root: {
-    flex: 1,
-    minHeight: 500,
-    borderRadius: 10,
-  },
-  mapViewWrapper: {
-    maxHeight: '100%',
-    width: '100%',
-    borderRadius: 10,
-    ...Platform.select({
-      ios: {
-        height: 500,
-      },
-      android: {
-        height: 450,
-      },
-    }),
-  },
-  rootEditing: {
-    paddingTop: 30,
-  },
+  bottomRow: {},
   mapView: {
-    width: '100%',
-    height: Platform.select({ios: '100%', android: '100%'}),
-    borderRadius: 10,
+    height: 340,
   },
   marker: {
     position: 'absolute',
-    top: '50%',
+    top: 170,
     left: '50%',
     width: 50,
     height: 50,
     transform: [{translateX: -25}, {translateY: -50}],
   },
-  addressDisplay: {
-    position: 'absolute',
-    backgroundColor: '#FFF',
-    width: '100%',
-    paddingVertical: 20,
-    paddingHorizontal: 10,
-    minHeight: 120,
-  },
-  addressTextWrapper: {
-    justifyContent: 'center',
-    flex: 7,
-  },
-  addressActionsWrapper: {
-    marginTop: 10,
-    flexDirection: 'row',
-    flex: 3,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  addressDisplayText: {
-    color: palette.orange,
+  placeholder: {
+    color: palette.blue,
     textAlign: 'center',
+    fontSize: 16,
   },
-  footerButton: {
+  root: {
+    marginTop: 10,
+  },
+  topPlaceholder: {
+    backgroundColor: 'rgba(255,255,255, 0.7)',
     position: 'absolute',
-    backgroundColor: '#FFF',
-    bottom: 0,
+    top: 0,
     width: '100%',
-    height: 100,
-    paddingVertical: 20,
     alignItems: 'center',
-    justifyContent: 'center',
-    flexDirection: 'row',
+    paddingVertical: 10,
+    paddingHorizontal: 10,
   },
 });
