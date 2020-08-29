@@ -71,6 +71,7 @@ const Button = ({
             {
               icon: true,
               iconPrimary: primary,
+              iconSecondary: secondary,
               iconDisabled: disabled,
             },
             classes,

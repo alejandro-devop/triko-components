@@ -33,15 +33,17 @@ const MyAddressesList = ({
       locale,
     },
   });
+  const addressesToList = Array.isArray(myAddresses) ? myAddresses : [];
+  console.log('data: ', addressesToList);
   return (
     <View style={classes.root}>
       {loading && <ListLoader size="lg" />}
       {!loading && (
         <>
-          {myAddresses.map((item, key) => (
+          {addressesToList.map((item, key) => (
             <AddressItem key={`my-address-${key}`} addressItem={item} />
           ))}
-          {myAddresses.length === 0 && (
+          {addressesToList.length === 0 && (
             <View style={classes.emptyLabel}>
               <Text variant="caption">{_t(emptyLabel)}</Text>
             </View>

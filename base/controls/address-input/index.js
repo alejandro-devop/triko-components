@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import InputControl from './InputControl';
 import useSession from 'shared/hooks/use-session-triko';
 import WizardWrapper from 'shared/components/base/controls/address-input/WizardWrapper';
-import MyServicesWrapper from 'shared/components/base/controls/address-input/MyServicesWrapper';
+import MyAddressesWrapper from 'shared/components/base/controls/address-input/MyAddressesWrapper';
 import AddressWizard from 'shared/components/base/address-wizard';
 
 const AddressInput = ({
@@ -19,7 +19,7 @@ const AddressInput = ({
     stack: {logged},
   } = useSession();
   const [openList, setOpenList] = useState(false);
-  const [openForm, setOpenForm] = useState(true);
+  const [openForm, setOpenForm] = useState(false);
   const toggleList = () => setOpenList(!openList);
   const toggleForm = () => {
     toggleList();
@@ -30,8 +30,9 @@ const AddressInput = ({
     setOpenForm(false);
     setTimeout(() => {
       setOpenList(true);
-    }, 300);
+    }, 800);
   };
+
   return (
     <>
       <InputControl
@@ -44,7 +45,7 @@ const AddressInput = ({
         value={value}
       />
       {openList && (
-        <MyServicesWrapper
+        <MyAddressesWrapper
           onAddAddress={toggleForm}
           open={openList}
           onClose={toggleList}

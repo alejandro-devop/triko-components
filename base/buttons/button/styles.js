@@ -9,6 +9,9 @@ export default ({palette}) => ({
   iconPrimary: {
     color: '#FFF',
   },
+  iconSecondary: {
+    color: '#FFF',
+  },
   iconDisabled: {
     color: palette.gray,
     opacity: 0.6,

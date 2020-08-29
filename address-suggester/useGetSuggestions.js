@@ -15,6 +15,7 @@ const useGetSuggestions = (options = {}) => {
       setSuggestions([]);
       return null;
     }
+    setLoading(true);
     try {
       let matches = await RNGooglePlaces.getAutocompletePredictions(
         queryPrepend ? `${queryPrepend}, ${query}` : query,

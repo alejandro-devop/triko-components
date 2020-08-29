@@ -4,7 +4,7 @@ import MyAddressesList from 'shared/components/my-address-list';
 import useStyles from 'shared/hooks/use-styles';
 import useTranslation from 'hooks/useTranslation';
 
-const MyServicesWrapper = ({open, onAddAddress, onClose}) => {
+const MyAddressesWrapper = ({open, onAddAddress, onClose}) => {
   const [classes] = useStyles(styles);
   const {_t} = useTranslation();
   return (
@@ -25,4 +25,4 @@ const styles = () => ({
   },
 });
 
-export default MyServicesWrapper;
+export default MyAddressesWrapper;

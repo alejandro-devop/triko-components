@@ -7,6 +7,7 @@ import useStyles from 'shared/hooks/use-styles';
 import SuggestionsList from './SuggestionsList';
 import Text from 'components/base/text';
 import useTranslation from 'hooks/useTranslation';
+import LinkButton from 'shared/components/base/buttons/link-button';
 
 const AddressSuggester = ({
   autoFocus,
@@ -16,10 +17,13 @@ const AddressSuggester = ({
   name,
   placeholder,
   value,
+  noResultsOptionLabel,
+  onNoResultsOption,
+  minChars,
 }) => {
   const [classes] = useStyles(styles);
   const [selected, setSelected] = useState(value);
-  const [address, setAddress] = useState(value ? value.primaryText : null);
+  const [address, setAddress] = useState(value ? value.primaryText : '');
   const {_t} = useTranslation();
   const {suggestions, loading, getSuggestions} = useGetSuggestions({
     queryPrepend,
@@ -52,7 +56,6 @@ const AddressSuggester = ({
       });
     }
   };
-
   return (
     <>
       <TextField
@@ -78,14 +81,33 @@ const AddressSuggester = ({
           <Text variant="caption">{_t('select_matching_address_text')}</Text>
         </View>
       )}
+      {address.length > minChars && suggestions.length === 0 && (
+        <View style={classes.emptySetWrapper}>
+          <Text variant="caption">{_t('no_results_text')}</Text>
+          {noResultsOptionLabel && (
+            <LinkButton primary onPress={onNoResultsOption}>
+              {_t(noResultsOptionLabel)}
+            </LinkButton>
+          )}
+        </View>
+      )}
       {!selected && (
-        <SuggestionsList suggestions={suggestions} onSelect={onSelectAddress} />
+        <SuggestionsList
+          suggestions={suggestions}
+          onSelect={onSelectAddress}
+          query={address}
+          minChars={minChars}
+        />
       )}
     </>
   );
 };
 
 const styles = () => ({
+  emptySetWrapper: {
+    marginTop: 20,
+    alignItems: 'center',
+  },
   loaderWrapper: {
     marginTop: 20,
     alignItems: 'center',
@@ -96,5 +118,9 @@ const styles = () => ({
     marginBottom: 10,
   },
 });
+
+AddressSuggester.defaultProps = {
+  minChars: 4,
+};
 
 export default AddressSuggester;

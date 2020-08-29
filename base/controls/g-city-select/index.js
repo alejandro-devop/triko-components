@@ -1,9 +1,10 @@
 import React, {useState, useEffect} from 'react';
 import TextField from 'shared/components/base/controls/text-field';
-import {View} from 'react-native';
+import {ScrollView, View} from 'react-native';
 import useStyles from 'shared/hooks/use-styles';
 import useCityFinder from 'shared/components/base/controls/g-city-select/useCityFinder';
 import SelectableList from 'shared/components/base/selectable-list';
+import Text from 'components/base/text';
 
 let timer = null;
 
@@ -14,11 +15,14 @@ const GCitySelect = ({
   onChange,
   name,
   placeholder,
+  searchPlaceholder,
 }) => {
   const [classes] = useStyles(styles);
   const [selected, setSelected] = useState(null);
+  const [query, setQuery] = useState('');
   const {cities = [], findCities} = useCityFinder();
   const onChangeQuery = async ({target: {value}}) => {
+    setQuery(value);
     clearTimeout(timer);
     timer = setTimeout(() => {
       findCities(value);
@@ -60,12 +64,25 @@ const GCitySelect = ({
       {cities.length > 0 && (
         <SelectableList items={items} onSelect={onSelect} value={selected} />
       )}
+      {query.length === 0 && (
+        <View style={classes.caption}>
+          <Text style={classes.captionText} variant="caption">
+            {searchPlaceholder}
+          </Text>
+        </View>
+      )}
     </View>
   );
 };
 
 const styles = () => ({
-  root: {
+  root: {},
+  caption: {
+    paddingHorizontal: 20,
+    marginTop: 20,
+  },
+  captionText: {
+    textAlign: 'center',
   },
 });
 

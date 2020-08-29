@@ -17,6 +17,7 @@ const AddressWizard = ({onSaved}) => {
   const [classes] = useStyles(styles);
   const [currentStep, setCurrentStep] = useState(0);
   const [mode, setMode] = useState(0);
+  const [loading, setLoading] = useState(false);
   const {error, success} = useNotify();
   const [form, setForm] = useState({
     address: null,
@@ -29,7 +30,7 @@ const AddressWizard = ({onSaved}) => {
     stack: {client = {}, locale, myAddresses = []},
     setKey,
   } = useSession();
-  const [saveAddress, {loading}] = useMutation(SAVE_ADDRESS);
+  const [saveAddress] = useMutation(SAVE_ADDRESS);
   const {_t} = useTranslation();
 
   const onChangeMode = newMode => {
@@ -67,10 +68,28 @@ const AddressWizard = ({onSaved}) => {
     onNext();
   };
 
+  const onAcceptAddress = () => {
+    onNext();
+  };
+
   const onSubmit = async () => {
+    const {address: addressObj = {}, name, type} = form;
+    const {address, position = {}} = addressObj;
+    console.log(
+      JSON.stringify({
+        address,
+        client: client.id,
+        buildingType: type,
+        title: name,
+        isMain: 1,
+        lat: position.lat,
+        lng: position.lng,
+        locale,
+      }),
+    );
+    // return null;
+    setLoading(true);
     try {
-      const {address: addressObj = {}, name, type} = form;
-      const {address, position = {}} = addressObj;
       const {data} = await saveAddress({
         variables: {
           address,
@@ -85,23 +104,39 @@ const AddressWizard = ({onSaved}) => {
       });
       if (data.response) {
         await setKey('myAddresses', [...myAddresses, data.response]);
+        setLoading(false);
         success(_t('address_saved_message'));
         if (onSaved) {
-          onSaved();
+          setTimeout(() => {
+            onSaved();
+          }, 300);
         }
       } else {
         error('Could not save the address');
         console.log('Error: while saving the address');
+        setLoading(false);
       }
     } catch (e) {
-      // Todo: translate this error
       error(_t('address_error_message'));
       console.log('Error: ', e);
+      setLoading(false);
     }
+  };
+
+  const onChangePosition = newPosition => {
+    const {address = {}} = form || {};
+    setForm({
+      ...form,
+      address: {
+        ...address,
+        position: newPosition,
+      },
+    });
   };
 
   const {address, city} = form;
   const modeText = mode === 0 ? 'type' : 'my-location';
+  console.log('Data: ', form);
   return (
     <>
       <View style={classes.content}>
@@ -112,23 +147,21 @@ const AddressWizard = ({onSaved}) => {
               autoFocus
               label={_t('where_am_i_city_label')}
               placeholder={_t('where_am_i_city_placeholder')}
+              searchPlaceholder={_t('where_am_i_city_info')}
               onChange={onSelectCity}
               value={city}
             />
-            <View style={classes.caption}>
-              <Text style={classes.captionText} variant="caption">
-                {_t('where_am_i_city_info')}
-              </Text>
-            </View>
           </ScrollView>
         )}
         {currentStep === 2 && (
           <EnterAddress
             citySelected={city}
             onGoBack={onBack}
+            onAccept={onAcceptAddress}
             mode={mode}
             onChangeMode={onChangeMode}
             onSelectAddress={handleSelectAddress}
+            onChangePosition={onChangePosition}
           />
         )}
         {currentStep === 3 && (
@@ -137,6 +170,7 @@ const AddressWizard = ({onSaved}) => {
             address={address}
             city={city}
             onChangeForm={onChangeAddress}
+            onBack={onBack}
             onSubmitAddress={onSubmit}
           />
         )}
@@ -147,13 +181,6 @@ const AddressWizard = ({onSaved}) => {
 };
 
 const styles = () => ({
-  caption: {
-    paddingHorizontal: 20,
-    marginTop: 20,
-  },
-  captionText: {
-    textAlign: 'center',
-  },
   content: {
     flex: 1,
     paddingHorizontal: 20,
