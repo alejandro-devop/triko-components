@@ -14,4 +14,8 @@ export default ({palette}) => ({
   disabledText: {
     color: palette.grayLight,
   },
+  secondary: {
+    color: palette.blue,
+    fontWeight: '600',
+  },
 });

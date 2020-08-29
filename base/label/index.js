@@ -11,10 +11,11 @@ import classNames from 'shared/utils/classnames';
  * @author Jorge Alejandro Quiroz Serna <jakop.box@gmail.com>
  * @param classes
  * @param children
+ * @param secondary
  * @returns {*}
  * @constructor
  */
-const Label = ({children, disabled, style}) => {
+const Label = ({children, disabled, secondary, style}) => {
   const [classes] = useStyles(styles);
   return (
     <View
@@ -27,7 +28,10 @@ const Label = ({children, disabled, style}) => {
       )}>
       <Text
         style={[
-          classNames({text: true, disabledText: disabled}, classes),
+          classNames(
+            {text: true, secondary: secondary, disabledText: disabled},
+            classes,
+          ),
           style,
         ]}>
         {children}
