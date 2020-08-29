@@ -19,6 +19,7 @@ const AddressInput = ({
     stack: {logged},
   } = useSession();
   const [openList, setOpenList] = useState(false);
+  const [selectedAddress, setSelectedAddress] = useState(value);
   const [openForm, setOpenForm] = useState(false);
   const toggleList = () => setOpenList(!openList);
   const toggleForm = () => {
@@ -33,6 +34,18 @@ const AddressInput = ({
     }, 800);
   };
 
+  const onSelectAddress = address => {
+    setSelectedAddress(address);
+    setOpenList(false);
+    if (onChange) {
+      onChange({
+        target: {
+          name,
+          value: address,
+        },
+      });
+    }
+  };
   return (
     <>
       <InputControl
@@ -42,11 +55,12 @@ const AddressInput = ({
         placeholder={placeholder}
         required={required}
         secondary={secondary}
-        value={value}
+        value={selectedAddress}
       />
       {openList && (
         <MyAddressesWrapper
           onAddAddress={toggleForm}
+          onSelectAddress={onSelectAddress}
           open={openList}
           onClose={toggleList}
         />

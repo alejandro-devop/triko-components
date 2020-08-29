@@ -35,7 +35,7 @@ const InputControl = ({
         primary
         secondary={secondary}
         addOn={<IconButton onPress={onPress} name="map-marker" />}
-        value={address ? `${title || ''} ${address}` : null}
+        value={address ? `${title || ''} (${address})` : null}
         error={error}
         label={label}
         onlyMask

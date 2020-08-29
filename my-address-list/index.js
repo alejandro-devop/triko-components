@@ -16,6 +16,7 @@ const MyAddressesList = ({
   emptyLabel,
   enableAddButton = true,
   onAddAddress,
+  onSelectAddress,
 }) => {
   const [classes] = useStyles(styles);
   const {_t} = useTranslation();
@@ -34,14 +35,17 @@ const MyAddressesList = ({
     },
   });
   const addressesToList = Array.isArray(myAddresses) ? myAddresses : [];
-  console.log('data: ', addressesToList);
   return (
     <View style={classes.root}>
       {loading && <ListLoader size="lg" />}
       {!loading && (
         <>
           {addressesToList.map((item, key) => (
-            <AddressItem key={`my-address-${key}`} addressItem={item} />
+            <AddressItem
+              key={`my-address-${key}`}
+              addressItem={item}
+              onPress={() => onSelectAddress(item)}
+            />
           ))}
           {addressesToList.length === 0 && (
             <View style={classes.emptyLabel}>
