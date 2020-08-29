@@ -30,10 +30,12 @@ import palette from 'themes/styles/palette';
  * @param classes
  * @param disabled
  * @param label
+ * @param onKeyPress
  * @param onChange
  * @param onlyMask
  * @param onPress
  * @param placeholder
+ * @param secondary
  * @param name
  * @param value
  * @param secureTextEntry
@@ -57,6 +59,7 @@ const TextField = ({
   maxLength,
   name,
   onChange,
+  onKeyPress,
   onFocus,
   onBlur,
   onPress,
@@ -69,6 +72,7 @@ const TextField = ({
   returnKeyType = 'done',
   required,
   secureTextEntry,
+  secondary,
   style,
   value,
 }) => {
@@ -82,6 +86,7 @@ const TextField = ({
         {label && (
           <Label
             disabled={disabled}
+            secondary={secondary}
             style={classNames(
               {
                 required: required && Boolean(error),
@@ -100,6 +105,7 @@ const TextField = ({
                 withError: Boolean(error) && !disabled,
                 inputWrapper: true,
                 inputPrimaryWrapper: primary,
+                inputSecondaryWrapper: secondary,
                 disabledInputWrapper: disabled,
               },
               classes,
@@ -117,6 +123,7 @@ const TextField = ({
                 autoCorrect={autoCorrect}
                 autoFocus={autoFocus}
                 onBlur={onBlur}
+                onKeyPress={onKeyPress}
                 keyboardType={keyboardType}
                 editable={!disabled}
                 maxLength={maxLength}

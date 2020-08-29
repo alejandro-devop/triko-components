@@ -91,6 +91,9 @@ export default ({palette}) => ({
     borderColor: palette.red,
     opacity: 1,
   },
+  inputSecondaryWrapper: {
+    backgroundColor: '#FFF',
+  },
   inputRoot: {
     width: '100%',
     marginTop: Platform.select({
