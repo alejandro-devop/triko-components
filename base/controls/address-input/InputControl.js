@@ -13,6 +13,7 @@ import useStyles from 'shared/hooks/use-styles';
  * @param label
  * @param onPress
  * @param placeholder
+ * @param secondary
  * @param value
  * @returns {*}
  * @constructor
@@ -23,6 +24,7 @@ const InputControl = ({
   onPress,
   placeholder,
   required,
+  secondary,
   value = {},
 }) => {
   const {title, address} = value || {};
@@ -31,6 +33,7 @@ const InputControl = ({
     <View style={classes.root}>
       <TextField
         primary
+        secondary={secondary}
         addOn={<IconButton onPress={onPress} name="map-marker" />}
         value={address ? `${title || ''} ${address}` : null}
         error={error}

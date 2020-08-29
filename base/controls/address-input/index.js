@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
 import InputControl from './InputControl';
-import MyAddress from './MyAddress';
-import AddressForm from 'shared/components/address-form';
-import {isEmpty} from 'shared/utils/functions';
 import useSession from 'shared/hooks/use-session-triko';
+import WizardWrapper from 'shared/components/base/controls/address-input/WizardWrapper';
+import MyServicesWrapper from 'shared/components/base/controls/address-input/MyServicesWrapper';
+import AddressWizard from 'shared/components/base/address-wizard';
 
 const AddressInput = ({
   error,
@@ -12,46 +12,26 @@ const AddressInput = ({
   onChange,
   placeholder,
   required,
+  secondary,
   value,
 }) => {
   const {
     stack: {logged},
   } = useSession();
   const [openList, setOpenList] = useState(false);
-  const [openForm, setOpenForm] = useState(false);
-  const [form, setForm] = useState({});
+  const [openForm, setOpenForm] = useState(true);
   const toggleList = () => setOpenList(!openList);
   const toggleForm = () => {
     toggleList();
     setOpenForm(!openForm);
   };
-  const onChangeForm = ({target: {name: inputName, value: inputValue}}) => {
-    setForm({
-      ...form,
-      [inputName]: inputValue,
-    });
-  };
-  const isValid = !isEmpty(form.address);
-
-  const submitAddress = () => {
-    const {address} = form;
-    if (onChange) {
-      onChange({
-        target: {
-          name,
-          value: {
-            address: address.address,
-            buildingType: form.buildingType,
-            title: form.name,
-            lat: address.lat,
-            lng: address.lng,
-          },
-        },
-      });
-    }
+  const onCloseForm = () => setOpenForm(false);
+  const onAddressSaved = () => {
     setOpenForm(false);
+    setTimeout(() => {
+      setOpenList(true);
+    }, 300);
   };
-
   return (
     <>
       <InputControl
@@ -60,25 +40,20 @@ const AddressInput = ({
         onPress={() => (logged ? toggleList() : toggleForm())}
         placeholder={placeholder}
         required={required}
+        secondary={secondary}
         value={value}
       />
       {openList && (
-        <MyAddress
-          address={value}
-          onClose={toggleList}
-          toggleForm={toggleForm}
+        <MyServicesWrapper
+          onAddAddress={toggleForm}
           open={openList}
+          onClose={toggleList}
         />
       )}
       {openForm && (
-        <AddressForm
-          form={form}
-          isValid={isValid}
-          onChange={onChangeForm}
-          onNext={submitAddress}
-          onCancel={toggleForm}
-          withDialog
-        />
+        <WizardWrapper onClose={onCloseForm} open={openForm}>
+          <AddressWizard onSaved={onAddressSaved} />
+        </WizardWrapper>
       )}
     </>
   );
