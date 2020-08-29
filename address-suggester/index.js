@@ -1,25 +1,37 @@
-import React, {useState, useEffect} from 'react';
-import {Platform} from 'react-native';
-import RNAndroidLocationEnabler from 'react-native-android-location-enabler';
-import InputControl from 'shared/components/base/controls/input-control';
-import AddressSuggestions from './AddressSuggestions';
-import WarningMessage from 'shared/components/messages/WarningMessage';
+import React, {useState} from 'react';
+import {View} from 'react-native';
+import TextField from 'shared/components/base/controls/text-field';
+import useGetSuggestions from 'shared/components/address-suggester/useGetSuggestions';
+import CircularLoader from 'components/base/loaders/CircularLoader';
+import useStyles from 'shared/hooks/use-styles';
+import SuggestionsList from './SuggestionsList';
+import Text from 'components/base/text';
 import useTranslation from 'hooks/useTranslation';
 
 const AddressSuggester = ({
+  autoFocus,
   label,
-  name,
-  value,
+  queryPrepend,
   onChange,
+  name,
   placeholder,
-  icon = 'map-marker',
+  value,
 }) => {
-  const [openDialog, setOpenDialog] = useState(false);
+  const [classes] = useStyles(styles);
+  const [selected, setSelected] = useState(value);
+  const [address, setAddress] = useState(value ? value.primaryText : null);
   const {_t} = useTranslation();
-  const toggleDialog = () => setOpenDialog(!openDialog);
-  const isIos = Platform.OS === 'ios'
-  const [visible, setVisible] = useState(isIos);
-  const handleSelect = address => {
+  const {suggestions, loading, getSuggestions} = useGetSuggestions({
+    queryPrepend,
+  });
+  const onChangeQuery = async ({target: {value}}) => {
+    setAddress(value);
+    getSuggestions(value);
+  };
+
+  const onSelectAddress = (address = {}) => {
+    setSelected(address);
+    setAddress(address.primaryText);
     if (onChange) {
       onChange({
         target: {
@@ -28,52 +40,61 @@ const AddressSuggester = ({
         },
       });
     }
-    toggleDialog();
   };
-  const checkLocationAvailability = async () => {
-    try {
-      const data = await RNAndroidLocationEnabler.promptForEnableLocationIfNeeded(
-        {
-          interval: 10000,
-          fastInterval: 5000,
+  const onRemove = () => {
+    setSelected(null);
+    if (onChange) {
+      onChange({
+        target: {
+          name,
+          value: null,
         },
-      );
-      if (data === 'enabled') {
-        setVisible(true);
-      } else {
-        setVisible(true);
-      }
-    } catch (e) {
-      console.log('Error: ', e);
-      setVisible(false);
+      });
     }
   };
-
-  useEffect(() => {
-    if (!isIos) {
-      checkLocationAvailability();
-    }
-  }, []);
 
   return (
     <>
-      <InputControl
-        onPress={toggleDialog}
+      <TextField
+        autoFocus={autoFocus}
         label={label}
         placeholder={placeholder}
-        icon={icon}
-        value={value}
+        onKeyPress={({nativeEvent}) => {
+          if (nativeEvent.key === 'Backspace') {
+            onRemove();
+          }
+        }}
+        primary
+        onChange={onChangeQuery}
+        value={address}
       />
-      {!visible && <WarningMessage text={_t('enable_gps_label')} />}
-      {visible && (
-        <AddressSuggestions
-          onSelectAddress={handleSelect}
-          open={openDialog}
-          onClose={toggleDialog}
-        />
+      {loading && (
+        <View style={classes.loaderWrapper}>
+          <CircularLoader />
+        </View>
+      )}
+      {!loading && suggestions.length > 0 && (
+        <View style={classes.suggestionsPH}>
+          <Text variant="caption">{_t('select_matching_address_text')}</Text>
+        </View>
+      )}
+      {!selected && (
+        <SuggestionsList suggestions={suggestions} onSelect={onSelectAddress} />
       )}
     </>
   );
 };
+
+const styles = () => ({
+  loaderWrapper: {
+    marginTop: 20,
+    alignItems: 'center',
+  },
+  suggestionsPH: {
+    marginTop: 10,
+    alignItems: 'center',
+    marginBottom: 10,
+  },
+});
 
 export default AddressSuggester;
