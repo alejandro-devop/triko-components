@@ -1,22 +1,18 @@
 import React from 'react';
 import TextField from 'shared/components/base/controls/text-field';
-import useStyles from 'shared/hooks/use-styles';
 
-const Control = ({placeholder, primary, secondary}) => {
-  const [classes] = useStyles(styles);
+const Control = ({placeholder, disabled, onPress, primary, secondary}) => {
   return (
     <TextField
       onlyMask
+      disabled={disabled}
       // placeholderStyles={}
+      onPress={onPress}
+      secondary
       placeholder={placeholder}
-      primary={primary}
-      secondary={secondary}
+      value={`${primary} ${secondary ? '(' + secondary + ')' : ''}`}
     />
   );
 };
-
-const styles = () => ({
-  placeholder: {},
-});
 
 export default Control;

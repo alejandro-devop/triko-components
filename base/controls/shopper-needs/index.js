@@ -22,8 +22,8 @@ import ViewMore from './ViewMore';
  */
 const ShopperNeeds = ({label, maxItems, name, onChange, value, valueKey}) => {
   const [openMore, setOpenMore] = useState(false);
-  const [selected, setSelected] = useState(value);
   const {loading, data = {}} = useMock(mock);
+  const selected = [...value];
   const toggleViewMore = () => setOpenMore(!openMore);
   const onItemsChange = selectedValue => {
     const itemId = selectedValue[valueKey];
@@ -34,7 +34,6 @@ const ShopperNeeds = ({label, maxItems, name, onChange, value, valueKey}) => {
     } else {
       newSelected = [...selected, itemId];
     }
-    setSelected(newSelected);
     if (onChange) {
       onChange({
         target: {
