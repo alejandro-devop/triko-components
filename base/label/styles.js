@@ -2,7 +2,6 @@ export default ({palette}) => ({
   root: {
     flexDirection: 'row',
     justifyContent: 'center',
-    marginVertical: 10,
   },
   text: {
     color: palette.orange,

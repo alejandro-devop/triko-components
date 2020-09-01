@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import {View} from 'react-native';
 import Icon from 'shared/components/base/icon';
 import useStyles from 'shared/hooks/use-styles';
+import classNames from 'shared/utils/classnames';
 
 /**
  * This component allows to render an icon with decoration
@@ -11,11 +12,22 @@ import useStyles from 'shared/hooks/use-styles';
  * @returns {*}
  * @constructor
  */
-const PrettyIcon = ({name, classes: otherClasses = {}}) => {
+const PrettyIcon = ({name, classes: otherClasses = {}, size}) => {
   const [classes] = useStyles(styles);
   return (
-    <View style={[classes.root, otherClasses.root]}>
-      <Icon name={name} style={[classes.icon, otherClasses.icon]} />
+    <View
+      style={[
+        classNames({root: true, rootSmall: size === 'sm'}, classes),
+        otherClasses,
+      ]}>
+      <Icon
+        name={name}
+        style={[
+          classes.icon,
+          otherClasses.icon,
+          classNames({iconSm: size === 'sm'}, classes),
+        ]}
+      />
     </View>
   );
 };
@@ -25,20 +37,31 @@ const styles = ({palette}) => ({
     fontSize: 120,
     color: palette.blue,
   },
+  iconSm: {
+    fontSize: 60,
+  },
   root: {
     borderRadius: 200,
-    height: 220,
-    width: 220,
+    height: 200,
+    width: 200,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: palette.blueLight,
     borderWidth: 4,
     borderColor: palette.blue,
   },
+  rootSmall: {
+    height: 120,
+    width: 120,
+  },
 });
 
 PrettyIcon.propTypes = {
   name: PropTypes.string,
+};
+
+PrettyIcon.defaultProps = {
+  size: 'md',
 };
 
 export default PrettyIcon;
