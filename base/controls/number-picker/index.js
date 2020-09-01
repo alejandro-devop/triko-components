@@ -8,15 +8,17 @@ import Label from 'shared/components/base/label';
 
 const NumberPicker = ({
   label,
+  labelSecondary,
   name,
   onChange,
   step = 1,
   min = 0,
   max = 5,
   value = 0,
+  secondary,
   primary,
 }) => {
-  const [classes, theme] = useStyles(styles);
+  const [classes] = useStyles(styles);
   const handleChange = toIncrease => {
     const nextValue = value + toIncrease;
     if (nextValue > max || nextValue < min) {
@@ -27,8 +29,8 @@ const NumberPicker = ({
     }
   };
   return (
-    <View style={[classes.root, theme.row]}>
-      {label && <Label>{label}</Label>}
+    <View style={[classes.root]}>
+      {label && <Label secondary={labelSecondary || secondary}>{label}</Label>}
       <View style={classes.controlWrapper}>
         <View style={classes.buttonWrapper}>
           <IconButton
@@ -43,6 +45,7 @@ const NumberPicker = ({
             onlyMask
             primary={primary}
             placeholderStyles={classes.input}
+            secondary={secondary}
             value={value.toString()}
           />
         </View>
