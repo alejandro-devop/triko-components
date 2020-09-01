@@ -10,7 +10,6 @@ export default ({palette}) => ({
   mapViewWrapper: {
     height: 300,
     width: '100%',
-    backgroundColor: 'red',
     // maxHeight: 180,
   },
   mapView: {

@@ -16,8 +16,15 @@ const MarketPlacePicker = ({
   const handleSelectMarket = market => {
     setSelectedMarket(market);
     setOpenDialog(false);
+    if (onChange) {
+      onChange({
+        target: {
+          name,
+          value: market,
+        },
+      });
+    }
   };
-  const {primary, secondary} = selectedMarket || {};
 
   return (
     <>
@@ -25,9 +32,8 @@ const MarketPlacePicker = ({
         disabled={categories.length === 0}
         label={label}
         placeholder={placeholder}
-        primary={primary}
         onPress={toggleDialog}
-        secondary={secondary}
+        value={selectedMarket}
       />
       {openDialog && (
         <MarketPlacesDialog
