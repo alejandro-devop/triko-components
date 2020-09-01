@@ -2,6 +2,9 @@ import {Platform} from 'react-native';
 
 const inputSize = 140;
 export default ({palette}) => ({
+  textArea: {
+    height: 300,
+  },
   counterWrapper: {
     position: 'absolute',
     zIndex: 1,

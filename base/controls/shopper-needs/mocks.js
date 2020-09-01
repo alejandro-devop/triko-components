@@ -1,4 +1,4 @@
-export default [
+const shopperNeeds = [
   {
     id: 1,
     name: 'Alimentos',
@@ -40,3 +40,5 @@ export default [
     name: 'Marroquinería',
   },
 ];
+
+export default shopperNeeds;

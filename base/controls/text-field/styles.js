@@ -97,7 +97,7 @@ export default ({palette}) => ({
   inputRoot: {
     width: '100%',
     marginTop: Platform.select({
-      ios: 10,
+      ios: 2,
       android: 5,
     }),
     paddingHorizontal: 0,

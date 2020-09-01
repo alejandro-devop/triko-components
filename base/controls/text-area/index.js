@@ -126,7 +126,7 @@ const TextArea = ({
               secureTextEntry={secureTextEntry}
               onSubmitEditing={onSubmitEditing}
               style={classNames(
-                {inputBase: true, inputPrimary: primary},
+                {inputBase: true, textArea: true, inputPrimary: primary},
                 [classes],
                 classes.inputBase,
               )}
