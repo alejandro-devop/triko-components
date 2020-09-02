@@ -6,6 +6,7 @@ import useStyles from 'shared/hooks/use-styles';
 import classNames from 'shared/utils/classnames';
 
 const ProductItem = ({
+  added,
   name,
   icon = 'box-open',
   category,
@@ -13,28 +14,47 @@ const ProductItem = ({
   onPress,
 }) => {
   const [classes] = useStyles(styles);
+  const ComponentWrapper = added ? View : TouchableOpacity;
   return (
-    <TouchableOpacity
-      style={classNames({root: true, selected}, classes)}
-      onPress={onPress}>
+    <ComponentWrapper
+      style={classNames({root: true, rootDisabled: added, selected}, classes)}
+      onPress={() => (added ? null : onPress())}>
       <View style={classes.iconWrapper}>
         <Icon name={icon} style={classes.icon} />
       </View>
       <View style={classes.textContent}>
-        <Text
-          style={classNames(
-            {productText: true, selectedText: selected},
-            classes,
-          )}>
-          {name}
-        </Text>
+        <View>
+          <Text
+            style={classNames(
+              {productText: true, selectedText: selected},
+              classes,
+            )}>
+            {name}
+          </Text>
+          {added && (
+            <View
+              style={classNames({line: true, lineSelected: selected}, classes)}
+            />
+          )}
+        </View>
         {category && (
-          <Text variant="caption" style={classNames({selectedText: selected}, classes)}>
+          <Text
+            variant="caption"
+            style={classNames({selectedText: selected}, classes)}>
             {category}
           </Text>
         )}
       </View>
-    </TouchableOpacity>
+      {added && (
+        <Icon
+          style={classNames(
+            {checkedIcon: true, checkedIconSelected: selected},
+            classes,
+          )}
+          name="check-circle"
+        />
+      )}
+    </ComponentWrapper>
   );
 };
 
@@ -67,10 +87,33 @@ const styles = ({palette}) => ({
   selected: {
     backgroundColor: palette.blue,
   },
+  rootDisabled: {
+    opacity: 0.6,
+  },
   selectedText: {
     color: '#FFF',
   },
-  textContent: {},
+  textContent: {
+    flex: 1,
+  },
+  checkedIcon: {
+    color: palette.blue,
+    fontSize: 26,
+    marginRight: 10,
+  },
+  checkedIconSelected: {
+    color: '#FFF',
+  },
+  line: {
+    width: '90%',
+    height: 2,
+    backgroundColor: palette.blueDark,
+    position: 'absolute',
+    top: 13,
+  },
+  lineSelected: {
+    backgroundColor: '#FFF',
+  }
 });
 
 export default ProductItem;

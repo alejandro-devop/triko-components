@@ -16,6 +16,7 @@ const ProductsDialog = ({
   onClose,
   onSelect,
   selected = {},
+  disabledProducts = [],
 }) => {
   const [classes] = useStyles(styles);
   const [query, setQuery] = useState('');
@@ -49,6 +50,7 @@ const ProductsDialog = ({
               products.map((item, key) => (
                 <ProductItem
                   key={`product-item-${key}`}
+                  added={disabledProducts.includes(item.id)}
                   name={item.name}
                   category={item.category}
                   selected={selected && selected.id === item.id}

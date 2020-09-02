@@ -11,6 +11,7 @@ const ProductPicker = ({
   placeholder,
   primary,
   secondary,
+  selected = [],
 }) => {
   const [open, setOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(value);
@@ -47,6 +48,7 @@ const ProductPicker = ({
           open={open}
           onSelect={handleChange}
           onClose={toggleOpen}
+          disabledProducts={selected}
         />
       )}
     </>
