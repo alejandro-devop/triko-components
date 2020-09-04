@@ -37,7 +37,7 @@ const AddressItem = ({addressItem = {}, disableSelect, onPress, selected}) => {
           <Icon name="map-marker" />
         )}
       </View>
-      <View>
+      <View style={classes.textWrapper}>
         <Text>{title}</Text>
         <Text variant="caption">{address}</Text>
       </View>
@@ -67,6 +67,7 @@ const styles = ({palette}) => ({
   },
   root: {
     flexDirection: 'row',
+    alignItems: 'center',
     paddingHorizontal: 30,
     paddingVertical: 10,
     ...Platform.select({
@@ -82,6 +83,9 @@ const styles = ({palette}) => ({
         borderBottomColor: palette.grayLighter,
       },
     }),
+  },
+  textWrapper: {
+    flex: 1,
   },
 });
 

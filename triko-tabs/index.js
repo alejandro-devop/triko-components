@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {View} from 'react-native';
 import useStyles from 'hooks/useStyles';
 import TabIcon from './TabIcon';
@@ -8,7 +8,6 @@ import options from 'config/tab-options';
 
 const TrikoTabs = ({navigation, descriptors, state, styles}) => {
   const {routeNames = []} = state;
-  const [currentOption, setCurrentOption] = useState(routeNames[state.index]);
 
   const {
     stack: {logged},
@@ -21,7 +20,6 @@ const TrikoTabs = ({navigation, descriptors, state, styles}) => {
   }
 
   const selectOption = path => {
-    setCurrentOption(path);
     navigation.navigate(path);
   };
 
@@ -33,7 +31,7 @@ const TrikoTabs = ({navigation, descriptors, state, styles}) => {
             key={`tab-option-${key}`}
             icon={option.icon}
             label={_t(option.label)}
-            selected={option.path === currentOption}
+            selected={option.path === routeNames[state.index]}
             onPress={() => selectOption(option.path)}
             Component={option.component}
           />

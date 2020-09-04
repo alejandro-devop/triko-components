@@ -32,7 +32,7 @@ export const closeButtonStyles = ({palette}) => ({
   },
   wrapper: {
     position: 'absolute',
-    right: 0,
+    right: 5,
     top: 0,
     transform: [{translateX: buttonSize / 4}, {translateY: -(buttonSize / 4)}],
     zIndex: 100,
@@ -53,9 +53,9 @@ export const dialogStyles = ({palette, shadows}) => ({
   contentWrapper: {
     padding: 20,
     paddingHorizontal: 5,
-    width: '90%',
+    width: '95%',
     maxHeight: '80%',
-    maxWidth: '90%',
+    maxWidth: '95%',
     backgroundColor: '#FFF',
     borderRadius: 5,
     ...shadows.shadow4,

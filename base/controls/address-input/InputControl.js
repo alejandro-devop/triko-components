@@ -58,7 +58,9 @@ InputControl.propTypes = {
 };
 
 const styles = () => ({
-  root: {},
+  root: {
+    paddingHorizontal: 20,
+  },
 });
 
 export default InputControl;
