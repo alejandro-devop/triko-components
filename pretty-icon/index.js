@@ -18,14 +18,14 @@ const PrettyIcon = ({name, classes: otherClasses = {}, size}) => {
     <View
       style={[
         classNames({root: true, rootSmall: size === 'sm'}, classes),
-        otherClasses,
+        otherClasses.root,
       ]}>
       <Icon
         name={name}
         style={[
           classes.icon,
-          otherClasses.icon,
           classNames({iconSm: size === 'sm'}, classes),
+          otherClasses.icon,
         ]}
       />
     </View>
