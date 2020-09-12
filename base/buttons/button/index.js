@@ -29,19 +29,25 @@ const Button = ({
   size = 'md',
   icon,
   style,
+  textStyle,
 }) => {
   const [classes] = useStyles(styles);
   const content = children && (
     <Text
-      style={classNames(
-        {
-          buttonText: true,
-          textDisabled: disabled,
-          textPrimary: primary,
-          textSecondary: secondary,
-        },
-        [classes],
-      )}>
+      style={[
+        classNames(
+          {
+            buttonText: true,
+            textDisabled: disabled,
+            textPrimary: primary,
+            textSecondary: secondary,
+            xsButtonText: size === 'xs',
+            xxsButtonText: size === 'xxs',
+          },
+          [classes],
+        ),
+        textStyle,
+      ]}>
       {children}
     </Text>
   );
@@ -52,6 +58,8 @@ const Button = ({
       disabled,
       primary,
       secondary,
+      xxsButton: size === 'xxs',
+      xsButton: size === 'xs',
       smButton: size === 'sm',
       lgButton: size === 'lg',
     },

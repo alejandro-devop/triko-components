@@ -48,6 +48,13 @@ export default ({palette}) => ({
     paddingVertical: 2,
     paddingHorizontal: 15,
   },
+  xsButton: {
+    paddingHorizontal: 10,
+  },
+  xxsButton: {
+    paddingVertical: 1,
+    paddingHorizontal: 12,
+  },
   primary: {
     backgroundColor: palette.orange,
     borderColor: palette.orange,
@@ -71,5 +78,11 @@ export default ({palette}) => ({
   },
   textDisabled: {
     color: palette.gray,
+  },
+  xsButtonText: {
+    fontSize: 16,
+  },
+  xxsButtonText: {
+    fontSize: 13,
   },
 });
