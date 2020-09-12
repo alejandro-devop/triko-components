@@ -67,6 +67,7 @@ const TextField = ({
   placeholder,
   prependControl,
   placeholderStyles,
+  placeholderColor = '#FFF',
   preOn,
   primary,
   returnKeyType = 'done',
@@ -134,7 +135,7 @@ const TextField = ({
                 onFocus={onFocus}
                 placeholder={placeholder}
                 placeholderTextColor={
-                  primary && !disabled ? palette.blue3 : '#FFF'
+                  primary && !disabled ? palette.blue3 : placeholderColor
                 }
                 secureTextEntry={secureTextEntry}
                 style={[
@@ -147,7 +148,11 @@ const TextField = ({
               />
             )}
             {onlyMask && (
-              <View style={classes.mask}>
+              <View
+                style={classNames(
+                  {mask: true, masKSecondary: secondary},
+                  classes,
+                )}>
                 <Text
                   style={[
                     value ? classes.valueHolder : classes.placeholder,

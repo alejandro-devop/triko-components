@@ -15,12 +15,14 @@ import useStyles from 'shared/hooks/use-styles';
  * @param children
  * @param classes
  * @param onPress
+ * @param alternative
  * @param style
  * @param size
  * @returns {*}
  * @constructor
  */
 const Button = ({
+  alternative,
   children,
   disabled,
   onPress,
@@ -43,6 +45,7 @@ const Button = ({
             textSecondary: secondary,
             xsButtonText: size === 'xs',
             xxsButtonText: size === 'xxs',
+            alternativeText: alternative,
           },
           [classes],
         ),
@@ -58,6 +61,7 @@ const Button = ({
       disabled,
       primary,
       secondary,
+      alternative,
       xxsButton: size === 'xxs',
       xsButton: size === 'xs',
       smButton: size === 'sm',

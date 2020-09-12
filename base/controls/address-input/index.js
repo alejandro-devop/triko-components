@@ -11,6 +11,7 @@ const AddressInput = ({
   name,
   onChange,
   placeholder,
+  disabled,
   required,
   secondary,
   value,
@@ -49,6 +50,7 @@ const AddressInput = ({
   return (
     <>
       <InputControl
+        disabled={disabled}
         error={error}
         label={label}
         onPress={() => (logged ? toggleList() : toggleForm())}

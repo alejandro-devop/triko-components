@@ -47,6 +47,7 @@ const SelectList = ({
   value = '',
   valueKey = 'value',
   primary,
+  secondary,
   help,
   helpText,
 }) => {
@@ -108,6 +109,7 @@ const SelectList = ({
         value={getDisplayValue()}
         help={help}
         helpText={helpText}
+        secondary={secondary}
       />
       {opened && (
         <OptionsList

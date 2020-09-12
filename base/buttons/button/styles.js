@@ -68,6 +68,10 @@ export default ({palette}) => ({
     borderColor: palette.blue,
     borderWidth: 2,
   },
+  alternative: {
+    borderColor: '#FFF',
+    backgroundColor: '#FFF',
+  },
   textSecondary: {
     color: '#FFF',
   },
@@ -75,6 +79,9 @@ export default ({palette}) => ({
     backgroundColor: palette.grayLighter,
     borderColor: palette.grayLight,
     opacity: 0.7,
+  },
+  alternativeText: {
+    color: palette.orange,
   },
   textDisabled: {
     color: palette.gray,

@@ -56,7 +56,7 @@ const MonthView = ({
               <DayItem
                 active={currentDay === dayNumber}
                 disabled={currentDay > dayNumber}
-                key={`day-${key}`}
+                key={`month-day-${dayNumber}-${key}`}
                 day={dayNumber}
                 size={blockWidth}
                 events={getEvents(dayNumber, events)}

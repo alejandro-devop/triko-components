@@ -22,6 +22,7 @@ export default ({palette}) => ({
     minHeight: 45,
     justifyContent: 'center',
   },
+  masKSecondary: {},
   valueHolder: {
     paddingHorizontal: 5,
     fontSize: Platform.select({ios: 16}),

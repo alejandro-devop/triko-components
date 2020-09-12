@@ -6,7 +6,18 @@ import useStyles from 'shared/hooks/use-styles';
 import Icon from 'shared/components/base/icon';
 import classNames from 'shared/utils/classnames';
 
-const RadioButton = ({disabled, label, onChange, placeholder, name, value}) => {
+const RadioButton = ({
+  circle,
+  disabled,
+  horizontal,
+  label,
+  onChange,
+  placeholder,
+  name,
+  value,
+  secondary,
+  labelStyles,
+}) => {
   const [classes, theme] = useStyles(styles);
   const selected = Boolean(value);
   const handleOnChange = () => {
@@ -21,10 +32,29 @@ const RadioButton = ({disabled, label, onChange, placeholder, name, value}) => {
   };
   const Wrapper = disabled ? View : TouchableOpacity;
   return (
-    <View style={[classes.root, theme.row]}>
+    <View
+      style={[
+        classNames({root: true, horizontal, secondary}, classes),
+        theme.row,
+      ]}>
       {label && (
-        <View style={classes.labelWrapper}>
-          <Text style={classes.labelText}>{label}</Text>
+        <View
+          style={[
+            classNames(
+              {labelWrapper: true, labelWrapperHorizontal: horizontal},
+              classes,
+            ),
+          ]}>
+          <Text
+            style={[
+              classNames(
+                {labelText: true, labelTextHorizontal: horizontal},
+                classes,
+              ),
+              labelStyles,
+            ]}>
+            {label}
+          </Text>
         </View>
       )}
       <Wrapper
@@ -34,14 +64,20 @@ const RadioButton = ({disabled, label, onChange, placeholder, name, value}) => {
           style={classNames(
             {
               radioCircle: true,
+              circleFill: circle && selected,
+              circleFillSecondary: circle && selected && secondary,
+              secondaryControl: secondary,
               radioCircleDisabled: disabled,
             },
             classes,
           )}>
-          {selected && (
+          {selected && !circle && (
             <Icon
               name="check"
-              style={classNames({icon: true, iconDisabled: disabled}, classes)}
+              style={classNames(
+                {icon: true, iconSecondary: secondary, iconDisabled: disabled},
+                classes,
+              )}
             />
           )}
         </View>

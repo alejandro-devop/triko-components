@@ -20,6 +20,7 @@ import useStyles from 'shared/hooks/use-styles';
  */
 const InputControl = ({
   error,
+  disabled,
   label,
   onPress,
   placeholder,
@@ -32,6 +33,7 @@ const InputControl = ({
   return (
     <View style={classes.root}>
       <TextField
+        disabled={disabled}
         primary
         secondary={secondary}
         addOn={<IconButton onPress={onPress} name="map-marker" />}
@@ -59,7 +61,7 @@ InputControl.propTypes = {
 
 const styles = () => ({
   root: {
-    paddingHorizontal: 20,
+    // paddingHorizontal: 20,
   },
 });
 

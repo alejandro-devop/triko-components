@@ -37,7 +37,7 @@ const DayItem = ({
       </View>
       <View style={classes.eventsWrapper}>
         {_.times(eventsToDisplay.length, key => (
-          <View style={classes.eventItem} />
+          <View key={`dayevent-${key}=${day}`} style={classes.eventItem} />
         ))}
         {otherEvents.length > 0 && (
           <View style={classes.otherEventsWrapper}>

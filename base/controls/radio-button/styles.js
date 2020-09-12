@@ -1,10 +1,12 @@
 export default ({palette}) => ({
   root: {
     alignSelf: 'center',
+    alignItems: 'center',
     paddingHorizontal: 20,
+    marginBottom: 10,
   },
   radioCircle: {
-    marginRight: 10,
+    // marginRight: 10,
     borderRadius: 100,
     width: 25,
     height: 25,
@@ -18,7 +20,7 @@ export default ({palette}) => ({
   },
   icon: {
     color: palette.blue,
-    fontSize: 14,
+    fontSize: 16,
   },
   iconDisabled: {
     color: palette.grayLight,
@@ -28,7 +30,7 @@ export default ({palette}) => ({
   },
   labelText: {
     color: palette.orange,
-    marginBottom: 20,
+    marginBottom: 10,
   },
   controlWrapper: {
     flexDirection: 'row',
@@ -39,5 +41,28 @@ export default ({palette}) => ({
   },
   placeholderDisabled: {
     color: palette.grayLight,
+  },
+  horizontal: {
+    flexDirection: 'row-reverse',
+  },
+  labelWrapperHorizontal: {
+    marginLeft: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  labelTextHorizontal: {
+    marginBottom: 0,
+  },
+  secondaryControl: {
+    borderColor: palette.orange,
+  },
+  iconSecondary: {
+    color: palette.orange,
+  },
+  circleFill: {
+    backgroundColor: palette.blue,
+  },
+  circleFillSecondary: {
+    backgroundColor: palette.orange,
   },
 });
