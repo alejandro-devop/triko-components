@@ -20,6 +20,7 @@ const screenHeight = Dimensions.get('window').height;
  * @constructor
  */
 const SlideAnimation = ({
+  contentOnDone,
   children,
   delay = 100,
   direction = 'right',
@@ -41,7 +42,7 @@ const SlideAnimation = ({
       }
       setTimeout(() => {
         setEnd(true);
-      }, duration * 2.5);
+      }, duration * 0.5);
     });
   }, [animControl, delay, duration]);
 
@@ -74,7 +75,11 @@ const SlideAnimation = ({
   });
 
   const anim = getDirection(movement);
-  return <Animated.View style={[style, anim]}>{children}</Animated.View>;
+  return (
+    <Animated.View style={[style, anim]}>
+      {!contentOnDone ? children : end ? children : null}
+    </Animated.View>
+  );
 };
 
 SlideAnimation.propTypes = {
