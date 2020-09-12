@@ -1,9 +1,10 @@
 import React, {useState} from 'react';
-import TextField from 'shared/components/base/controls/text-field';
-import IconButton from 'shared/components/base/buttons/icon-button';
-import moment from 'moment';
-import DialogControl from 'shared/components/base/controls/time-picker/DialogControl';
-import {isEmpty} from 'shared/utils/functions';
+import TextField from 'components/base/controls/text-field';
+import IconButton from 'components/base/buttons/icon-button';
+import moment, {min} from 'moment';
+import CalendarWrapper from 'components/base/calendar-wrapper';
+import DialogControl from 'components/base/controls/time-picker/DialogControl';
+import {isEmpty} from 'utils/functions';
 
 /**
  * This component allows to create a time picker with modal
@@ -21,6 +22,8 @@ import {isEmpty} from 'shared/utils/functions';
  * @constructor
  */
 const TimePicker = ({
+  disableMinutes,
+  disabled,
   label,
   format = 'hh:mm:ss a',
   displayFormat = 'h:mm a',
@@ -51,7 +54,14 @@ const TimePicker = ({
   return (
     <>
       <TextField
-        addOn={<IconButton onPress={toggleVisible} name="clock" />}
+        disabled={disabled}
+        addOn={
+          <IconButton
+            disabled={disabled}
+            onPress={toggleVisible}
+            name="clock"
+          />
+        }
         placeholder={placeholder}
         onlyMask
         label={label}
@@ -62,6 +72,7 @@ const TimePicker = ({
       {visible && (
         <DialogControl
           open={visible}
+          disableMinutes={disableMinutes}
           onClose={toggleVisible}
           placeholder={placeholder}
           date={isEmpty(value) ? minDate : value}
