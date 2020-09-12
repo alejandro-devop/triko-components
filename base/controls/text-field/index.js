@@ -80,6 +80,7 @@ const TextField = ({
   const [openHelp, setOpenHelp] = useState(false);
   const toggleHelp = () => setOpenHelp(!openHelp);
   const {_t} = useTranslation();
+  const WrapperComponent = disabled ? View : TouchableOpacity;
   return (
     <>
       <View style={[classes.inputRoot, otherClasses.root]}>
@@ -98,7 +99,7 @@ const TextField = ({
         )}
         <View style={classes.inputRow}>
           {prependControl}
-          <TouchableOpacity
+          <WrapperComponent
             onPress={() => (!disabled && onPress ? onPress() : null)}
             style={classNames(
               {
@@ -163,7 +164,7 @@ const TextField = ({
               </View>
             )}
             {addOn && <View style={classes.addOn}>{addOn}</View>}
-          </TouchableOpacity>
+          </WrapperComponent>
         </View>
         {error && typeof error === 'string' && (
           <View style={classes.errorWrapper}>
