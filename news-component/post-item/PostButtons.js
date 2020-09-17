@@ -1,12 +1,42 @@
 import React from 'react';
-import {View} from 'react-native';
+import {View, TouchableOpacity} from 'react-native';
+import Icon from 'components/base/icon';
+import useStyles from 'shared/hooks/use-styles';
+import classNames from 'shared/utils/classnames';
 
-const PostActions = () => {
+const PostButtons = ({buttons = [], alt}) => {
+  const [classes] = useStyles(styles);
   return (
-    <View>
-      
+    <View style={classes.root}>
+      {buttons.map((item, key) => {
+        const {icon} = item;
+        return (
+          <TouchableOpacity key={`item-${key}`} style={classes.button}>
+            <Icon
+              name={icon}
+              style={classNames({icon: true, iconAlt: alt}, classes)}
+            />
+          </TouchableOpacity>
+        );
+      })}
     </View>
   );
 };
 
-export default PostActions;
+const styles = ({palette}) => ({
+  button: {
+    marginRight: 25,
+  },
+  icon: {
+    color: palette.blue,
+  },
+  iconAlt: {
+    color: '#FFF',
+  },
+  root: {
+    flexDirection: 'row',
+    marginVertical: 10,
+  },
+});
+
+export default PostButtons;
