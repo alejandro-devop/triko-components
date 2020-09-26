@@ -1,6 +1,7 @@
 import React, {useEffect, useRef, useCallback, useState} from 'react';
 import PropTypes from 'prop-types';
 import {Animated, Dimensions} from 'react-native';
+import * as Animatable from 'react-native-animatable';
 
 const screenWidth = Dimensions.get('window').width;
 const screenHeight = Dimensions.get('window').height;
@@ -28,57 +29,41 @@ const SlideAnimation = ({
   style,
   onAnimationCompleted,
 }) => {
-  const animControl = useRef(new Animated.Value(0.001)).current;
+  const view = useRef(null);
   const [end, setEnd] = useState(false);
+  useEffect(() => {}, []);
 
-  const initAnimation = useCallback(() => {
-    Animated.timing(animControl, {
-      toValue: 1,
-      duration,
-      delay,
-    }).start(() => {
-      if (onAnimationCompleted && !end) {
-        onAnimationCompleted();
-      }
-      setTimeout(() => {
-        setEnd(true);
-      }, duration * 0.5);
-    });
-  }, [animControl, delay, duration]);
-
-  useEffect(() => {
-    if (!end) {
-      initAnimation();
+  const getAnimation = () => {
+    switch (direction) {
+      case 'bottom':
+        return 'fadeInUpBig';
+      case 'top':
+        return 'fadeInDownBig';
+      case 'left':
+        return 'fadeInRightBig';
+      case 'right':
+        return 'fadeInLeftBig';
+      default:
+        return 'slideInUp';
     }
-  }, [end, initAnimation]);
-
-  const getDirection = movement => {
-    const styles = {};
-    if (direction === 'left') {
-      styles.left = movement;
-    } else if (direction === 'right') {
-      styles.right = movement;
-    } else if (direction === 'bottom') {
-      styles.bottom = movement;
-    } else if (direction === 'top') {
-      styles.top = movement;
-    }
-    return styles;
   };
-
-  const containerDimension =
-    direction === 'left' || direction === 'right' ? screenWidth : screenHeight;
-
-  const movement = animControl.interpolate({
-    inputRange: [0, 1],
-    outputRange: [-containerDimension, 0],
-  });
-
-  const anim = getDirection(movement);
+  const handleAnimationEnd = () => {
+    setEnd(true);
+    if (onAnimationCompleted) {
+      onAnimationCompleted();
+    }
+  };
+  // const anim = getDirection(movement);
   return (
-    <Animated.View style={[style, anim]}>
+    <Animatable.View
+      animation={getAnimation()}
+      ref={view}
+      onAnimationEnd={handleAnimationEnd}
+      duration={duration}
+      style={[style]}
+      delay={delay}>
       {!contentOnDone ? children : end ? children : null}
-    </Animated.View>
+    </Animatable.View>
   );
 };
 

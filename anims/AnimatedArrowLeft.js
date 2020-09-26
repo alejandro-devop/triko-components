@@ -25,6 +25,7 @@ class AnimatedArrowLeft extends React.PureComponent {
       toValue: 1,
       duration: 1000,
       easing: Easing.in(),
+      useNativeDriver: true,
     }).start(() => this.startMove());
   };
 

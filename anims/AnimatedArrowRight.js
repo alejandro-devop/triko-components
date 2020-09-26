@@ -24,6 +24,7 @@ class AnimatedArrowRight extends React.PureComponent {
     Animated.timing(this.animControl, {
       toValue: 1,
       duration: 1000,
+      useNativeDriver: true,
       easing: Easing.in(),
     }).start(() => this.startMove());
   };

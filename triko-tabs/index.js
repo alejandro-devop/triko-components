@@ -25,19 +25,17 @@ const TrikoTabs = ({navigation, descriptors, state, styles}) => {
 
   return (
     <View style={classes.root}>
-      <View style={classes.wrapper}>
-        <View style={classes.container}>
-          {options.map((option, key) => (
-            <TabIcon
-              key={`tab-option-${key}`}
-              icon={option.icon}
-              label={_t(option.label)}
-              selected={option.path === routeNames[state.index]}
-              onPress={() => selectOption(option.path)}
-              Component={option.component}
-            />
-          ))}
-        </View>
+      <View style={classes.container}>
+        {options.map((option, key) => (
+          <TabIcon
+            key={`tab-option-${key}`}
+            icon={option.icon}
+            label={_t(option.label)}
+            selected={option.path === routeNames[state.index]}
+            onPress={() => selectOption(option.path)}
+            Component={option.component}
+          />
+        ))}
       </View>
     </View>
   );
