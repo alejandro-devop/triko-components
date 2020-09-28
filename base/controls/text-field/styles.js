@@ -108,6 +108,8 @@ export default ({palette}) => ({
   },
   disabledInputWrapper: {
     backgroundColor: palette.grayLighter,
-    // backgroundColor: 'red',
+  },
+  inputSecondary: {
+    color: palette.black,
   },
 });

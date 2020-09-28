@@ -129,19 +129,26 @@ const TextField = ({
                 keyboardType={keyboardType}
                 editable={!disabled}
                 maxLength={maxLength}
-                onChangeText={newValue =>
+                onChangeText={(newValue) =>
                   handleChange(newValue, {name, onChange})
                 }
                 onFocus={onFocus}
                 placeholder={placeholder}
                 placeholderTextColor={
-                  primary && !disabled ? palette.blue3 : placeholderColor
+                  (primary || secondary) && !disabled
+                    ? palette.blue3
+                    : placeholderColor
                 }
                 secureTextEntry={secureTextEntry}
                 style={[
-                  classNames({inputBase: true, inputPrimary: primary}, [
-                    classes,
-                  ]),
+                  classNames(
+                    {
+                      inputBase: true,
+                      inputPrimary: primary,
+                      inputSecondary: secondary,
+                    },
+                    [classes],
+                  ),
                   style,
                 ]}
                 value={value}
