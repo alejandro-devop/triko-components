@@ -6,7 +6,9 @@ import MyAddressesWrapper from 'shared/components/base/controls/address-input/My
 import AddressWizard from 'shared/components/base/address-wizard';
 
 const AddressInput = ({
+  enableAddButton,
   error,
+  isTriko,
   label,
   name,
   onChange,
@@ -14,6 +16,8 @@ const AddressInput = ({
   disabled,
   required,
   secondary,
+  useWizard,
+  useWizardLabel = 'other_address_text',
   value,
 }) => {
   const {
@@ -28,14 +32,19 @@ const AddressInput = ({
     setOpenForm(!openForm);
   };
   const onCloseForm = () => setOpenForm(false);
-  const onAddressSaved = () => {
+
+  const onAddressSaved = (address) => {
     setOpenForm(false);
-    setTimeout(() => {
-      setOpenList(true);
-    }, 800);
+    if (useWizard) {
+      onSelectAddress(address);
+    } else {
+      setTimeout(() => {
+        setOpenList(true);
+      }, 800);
+    }
   };
 
-  const onSelectAddress = address => {
+  const onSelectAddress = (address) => {
     setSelectedAddress(address);
     setOpenList(false);
     if (onChange) {
@@ -61,15 +70,27 @@ const AddressInput = ({
       />
       {openList && (
         <MyAddressesWrapper
+          enableAddButton={enableAddButton || !isTriko}
+          isTriko={isTriko}
           onAddAddress={toggleForm}
           onSelectAddress={onSelectAddress}
           open={openList}
           onClose={toggleList}
+          useWizard={useWizard}
+          useWizardLabel={useWizardLabel}
         />
       )}
       {openForm && (
-        <WizardWrapper onClose={onCloseForm} open={openForm}>
-          <AddressWizard onSaved={onAddressSaved} />
+        <WizardWrapper
+          title={useWizard ? useWizardLabel : null}
+          onClose={onCloseForm}
+          open={openForm}>
+          <AddressWizard
+            isTriko={isTriko}
+            useWizard={useWizard}
+            useWizardLabel={useWizardLabel}
+            onSaved={onAddressSaved}
+          />
         </WizardWrapper>
       )}
     </>

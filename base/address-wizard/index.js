@@ -4,7 +4,6 @@ import useTranslation from 'hooks/useTranslation';
 import useStyles from 'shared/hooks/use-styles';
 import GCitySelect from 'shared/components/base/controls/g-city-select';
 import EnterAddress from 'shared/components/base/address-wizard/EnterAddress';
-import Text from 'components/base/text';
 import FixTheAddress from 'shared/components/address-suggester/FixTheAddress';
 import AddressForm from './AddressForm';
 import {useMutation} from '@apollo/react-hooks';
@@ -13,9 +12,9 @@ import {useSession} from 'hooks/index';
 import useNotify from 'hooks/useNotification';
 import LoadingCurtain from 'components/base/dialogs/loading-curtain';
 
-const AddressWizard = ({onSaved}) => {
+const AddressWizard = ({isTriko, useWizard, onSaved}) => {
   const [classes] = useStyles(styles);
-  const [currentStep, setCurrentStep] = useState(0);
+  const [currentStep, setCurrentStep] = useState(isTriko ? 1 : 0);
   const [mode, setMode] = useState(0);
   const [loading, setLoading] = useState(false);
   const {error, success} = useNotify();
@@ -33,7 +32,7 @@ const AddressWizard = ({onSaved}) => {
   const [saveAddress] = useMutation(SAVE_ADDRESS);
   const {_t} = useTranslation();
 
-  const onChangeMode = newMode => {
+  const onChangeMode = (newMode) => {
     setMode(newMode);
   };
 
@@ -48,7 +47,7 @@ const AddressWizard = ({onSaved}) => {
   const onNext = () => setCurrentStep(currentStep + 1);
   const onBack = () => setCurrentStep(currentStep - 1);
 
-  const handleSelectAddress = address => {
+  const handleSelectAddress = (address) => {
     setForm({
       ...form,
       address,
@@ -56,14 +55,14 @@ const AddressWizard = ({onSaved}) => {
     onNext();
   };
 
-  const onChangeAddress = formData => {
+  const onChangeAddress = (formData) => {
     setForm({
       ...form,
       address: formData,
     });
   };
 
-  const onChangeForm = formData => {
+  const onChangeForm = (formData) => {
     setForm({...form, ...formData});
     onNext();
   };
@@ -72,21 +71,24 @@ const AddressWizard = ({onSaved}) => {
     onNext();
   };
 
+  const onSubmitNoSave = () => {
+    const {address: addressObj = {}, description, name, type} = form;
+    const {address, position = {}} = addressObj;
+    if (onSaved) {
+      onSaved({
+        address,
+        lat: position.lat,
+        lng: position.lng,
+        description,
+        title: name,
+        type,
+      });
+    }
+  };
+
   const onSubmit = async () => {
     const {address: addressObj = {}, name, type} = form;
     const {address, position = {}} = addressObj;
-    console.log(
-      JSON.stringify({
-        address,
-        client: client.id,
-        buildingType: type,
-        title: name,
-        isMain: 1,
-        lat: position.lat,
-        lng: position.lng,
-        locale,
-      }),
-    );
     // return null;
     setLoading(true);
     try {
@@ -123,7 +125,7 @@ const AddressWizard = ({onSaved}) => {
     }
   };
 
-  const onChangePosition = newPosition => {
+  const onChangePosition = (newPosition) => {
     const {address = {}} = form || {};
     setForm({
       ...form,
@@ -136,7 +138,6 @@ const AddressWizard = ({onSaved}) => {
 
   const {address, city} = form;
   const modeText = mode === 0 ? 'type' : 'my-location';
-  console.log('Data: ', form);
   return (
     <>
       <View style={classes.content}>
@@ -171,7 +172,7 @@ const AddressWizard = ({onSaved}) => {
             city={city}
             onChangeForm={onChangeAddress}
             onBack={onBack}
-            onSubmitAddress={onSubmit}
+            onSubmitAddress={useWizard ? onSubmitNoSave : onSubmit}
           />
         )}
       </View>

@@ -19,6 +19,7 @@ const EnterAddress = ({
 }) => {
   const {_t} = useTranslation();
   const [selected, setSelected] = useState(null);
+  const [isSearching, setIsSearching] = useState(false);
   const [classes] = useStyles(styles);
   const handleSelect = ({target: {value}}) => {
     setSelected(value);
@@ -35,9 +36,12 @@ const EnterAddress = ({
       enableOnAndroid
       showsVerticalScrollIndicator={false}>
       <View style={classes.root}>
-        <Options value={mode} onChange={newMode => onChangeMode(newMode)} />
+        {!isSearching && (
+          <Options value={mode} onChange={(newMode) => onChangeMode(newMode)} />
+        )}
         {mode === 0 && (
           <AddressSuggester
+            onSearch={(searching) => setIsSearching(searching)}
             onChange={handleSelect}
             label={_t('type_your_address_label')}
             placeholder={_t('address_example_placeholder')}

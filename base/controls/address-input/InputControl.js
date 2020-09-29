@@ -11,6 +11,8 @@ import useStyles from 'shared/hooks/use-styles';
  * @version 1.0.0
  * @app Client
  * @param label
+ * @param disabled
+ * @param required
  * @param onPress
  * @param placeholder
  * @param secondary
@@ -36,7 +38,9 @@ const InputControl = ({
         disabled={disabled}
         primary
         secondary={secondary}
-        addOn={<IconButton onPress={onPress} name="map-marker" />}
+        addOn={
+          <IconButton disabled={disabled} onPress={onPress} name="map-marker" />
+        }
         value={address ? `${title || ''} (${address})` : null}
         error={error}
         label={label}

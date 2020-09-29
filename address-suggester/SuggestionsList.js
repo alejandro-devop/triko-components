@@ -2,23 +2,16 @@ import React from 'react';
 import {View} from 'react-native';
 import useStyles from 'shared/hooks/use-styles';
 import SuggestionItem from './SuggestionItem';
-import Text from 'components/base/text';
-import useTranslation from 'hooks/useTranslation';
 
-const SuggestionsList = ({
-  suggestions = [],
-  onSelect,
-  query = '',
-  minChars,
-}) => {
+const SuggestionsList = ({suggestions = [], onSelect}) => {
   const [classes] = useStyles(styles);
-  const {_t} = useTranslation();
   return (
     <View style={classes.root}>
       {suggestions.map((item, key) => (
         <SuggestionItem
           key={`suggestion-${key}`}
           label={item.primaryText}
+          description={item.secondaryText}
           onPress={() => (onSelect ? onSelect(item) : null)}
         />
       ))}

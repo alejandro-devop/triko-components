@@ -8,12 +8,14 @@ import SuggestionsList from './SuggestionsList';
 import Text from 'components/base/text';
 import useTranslation from 'hooks/useTranslation';
 import LinkButton from 'shared/components/base/buttons/link-button';
+import {isEmpty} from 'shared/utils/functions';
 
 const AddressSuggester = ({
   autoFocus,
   label,
   queryPrepend,
   onChange,
+  onSearch,
   name,
   placeholder,
   value,
@@ -30,6 +32,9 @@ const AddressSuggester = ({
   });
   const onChangeQuery = async ({target: {value}}) => {
     setAddress(value);
+    if (onSearch) {
+      onSearch(!isEmpty(value) && value.length >= minChars); // If the query is empty searching is false
+    }
     getSuggestions(value);
   };
 
@@ -56,6 +61,7 @@ const AddressSuggester = ({
       });
     }
   };
+
   return (
     <>
       <TextField

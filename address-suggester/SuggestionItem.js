@@ -1,14 +1,19 @@
 import React from 'react';
-import {TouchableOpacity} from 'react-native';
+import {TouchableOpacity, View} from 'react-native';
 import useStyles from 'shared/hooks/use-styles';
 import Text from 'components/base/text';
 import Icon from 'components/base/icon';
 
-const SuggestionItem = ({label, onPress}) => {
+const SuggestionItem = ({description, label, onPress}) => {
   const [classes] = useStyles(styles);
   return (
     <TouchableOpacity style={classes.root} onPress={onPress}>
-      <Text style={classes.text}>{label}</Text>
+      <View style={classes.textWrapper}>
+        <Text style={classes.text}>{label}</Text>
+        {description && (
+          <Text style={[classes.text, classes.textDescription]}>{description}</Text>
+        )}
+      </View>
       <Icon name="map-marker" style={classes.icon} />
     </TouchableOpacity>
   );
@@ -30,9 +35,14 @@ const styles = ({palette}) => ({
     flexDirection: 'row',
   },
   text: {
-    flex: 1,
-    fontSize: 16,
+    fontSize: 15,
     color: palette.gray,
+  },
+  textDescription: {
+    fontSize: 12,
+  },
+  textWrapper: {
+    flex: 1,
   },
 });
 
