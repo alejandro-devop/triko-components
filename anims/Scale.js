@@ -30,6 +30,7 @@ const ScaleAnimation = ({
       toValue: 1,
       duration,
       delay,
+      useNativeDriver: true,
     }).start(() => {
       setTimeout(() => {
         setEnd(true);

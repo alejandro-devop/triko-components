@@ -29,7 +29,7 @@ const FixFromMap = ({position, confirmAddress, onSubmit}) => {
     changeAddress(`${value}, ${city}, ${department}, ${country}`);
   };
 
-  const changeAddress = value =>
+  const changeAddress = (value) =>
     confirmAddress({
       address: value,
       position,
@@ -38,9 +38,7 @@ const FixFromMap = ({position, confirmAddress, onSubmit}) => {
   const fetchUserLocation = async () => {
     const location = await getLocationInfo(position);
     changeAddress(
-      `${location.address}, ${location.city}, ${location.department}, ${
-        location.country
-      }`,
+      `${location.address}, ${location.city}, ${location.department}, ${location.country}`,
     );
   };
 

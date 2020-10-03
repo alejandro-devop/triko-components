@@ -24,6 +24,7 @@ class AnimatedArrowDown extends React.PureComponent {
     Animated.timing(this.animControl, {
       toValue: 1,
       duration: 2000,
+      useNativeDriver: true,
       easing: Easing.bounce,
     }).start(() => this.startMove());
   };

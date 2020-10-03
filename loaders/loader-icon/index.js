@@ -14,6 +14,7 @@ const LoaderIcon = ({duration = 1000, delay = 0}) => {
       toValue: 1,
       duration,
       delay,
+      useNativeDriver: true,
     }).start(() => {
       initAnimatiom();
     });

@@ -7,11 +7,13 @@ import classNames from 'shared/utils/classnames';
 import useTranslation from 'hooks/useTranslation';
 import usePhotoCapture from 'shared/hooks/use-photo-capture';
 import {isEmpty} from 'shared/utils/functions';
+import PreImage from 'shared/components/base/pre-image';
 
 const ImagePicker = ({
   icon = 'image',
   label = 'select_image_label',
-  clearLabel = 'clear_label',
+  // clearLabel = 'clear_label',
+  onChange,
   secondary,
 }) => {
   const [classes] = useStyles(styles);
@@ -25,18 +27,21 @@ const ImagePicker = ({
 
   const handlePhotoCapture = async () => {
     capturePhoto({
-      onPhotoSelected: response => {
+      onPhotoSelected: (response) => {
         const {uri, data} = response;
+        const imageData = {
+          uri,
+          data,
+        };
         if (uri) {
-          setPhoto({
-            uri,
-            data,
-          });
+          setPhoto(imageData);
+          if (onChange) {
+            onChange(imageData);
+          }
         }
       },
     });
   };
-
   return (
     <View style={classes.root}>
       <TouchableOpacity style={classes.button} onPress={handlePhotoCapture}>
@@ -45,7 +50,10 @@ const ImagePicker = ({
             {iconWrapper: true, iconSecondary: secondary},
             classes,
           )}>
-          <Icon name={icon} style={classes.icon} />
+          {photo && (
+            <PreImage source={{uri: photo.uri}} style={classes.image} />
+          )}
+          {!photo && <Icon name={icon} style={classes.icon} />}
         </View>
         <View style={classes.textWrapper}>
           <Text style={classes.label}>{_t(label)}</Text>
@@ -72,6 +80,11 @@ const styles = ({palette}) => ({
     borderRadius: 100,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  image: {
+    width: '100%',
+    height: '100%',
+    borderRadius: 100,
   },
   button: {
     flexDirection: 'row',

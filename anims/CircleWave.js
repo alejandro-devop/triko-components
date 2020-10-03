@@ -24,6 +24,7 @@ const CircleWave = ({children, duration = 2000, delay = 0}) => {
       duration,
       delay,
       easing: Easing.ease,
+      useNativeDriver: true,
     }).start(() => {
       initAnimation();
     });

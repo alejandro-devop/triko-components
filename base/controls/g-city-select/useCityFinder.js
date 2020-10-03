@@ -8,7 +8,7 @@ const useCityFinder = () => {
   const {
     stack: {countryCode},
   } = useSession();
-  const findCities = async query => {
+  const findCities = async (query) => {
     const results = await RNGooglePlaces.getAutocompletePredictions(query, {
       type: 'cities',
       country: countryCode,

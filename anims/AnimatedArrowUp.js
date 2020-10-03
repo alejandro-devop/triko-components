@@ -23,6 +23,7 @@ class AnimatedArrowUp extends React.PureComponent {
     this.animControl.setValue(0);
     Animated.timing(this.animControl, {
       toValue: 1,
+      useNativeDriver: true,
       duration: this.props.duration || 2000,
     }).start(() => this.startMove());
   };
