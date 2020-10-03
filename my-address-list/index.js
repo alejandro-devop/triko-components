@@ -77,8 +77,13 @@ const MyAddressesList = ({
       {addControl}
       {useWizard && (
         <View style={classes.actions}>
-          <Button secondary onPress={onAddAddress}>
-            {_t(useWizardLabel || 'other_address_text')}
+          <Button secondary onPress={onAddAddress} style={classes.otherButton}>
+            {_t(
+              useWizardLabel ||
+                (myAddresses.length === 0
+                  ? 'add_address'
+                  : 'other_address_text'),
+            )}
           </Button>
         </View>
       )}

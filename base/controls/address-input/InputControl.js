@@ -4,15 +4,21 @@ import {View} from 'react-native';
 import {TextField} from 'shared/components/base/controls';
 import IconButton from 'shared/components/base/buttons/icon-button';
 import useStyles from 'shared/hooks/use-styles';
+import ConfirmSlide from 'components/base/confirm-slide';
+import useTranslation from 'hooks/useTranslation';
 
 /**
  * This component displays teh selected address by the user.
  * @author Jako <jakop.box@gmail.com>
  * @version 1.0.0
  * @app Client
+ * @param askSaveAddress
+ * @param error
  * @param label
  * @param disabled
  * @param required
+ * @param onAcceptSave
+ * @param onCancelSave
  * @param onPress
  * @param placeholder
  * @param secondary
@@ -21,6 +27,9 @@ import useStyles from 'shared/hooks/use-styles';
  * @constructor
  */
 const InputControl = ({
+  askSaveAddress,
+  onCancelSave,
+  onAcceptSave,
   error,
   disabled,
   label,
@@ -31,6 +40,7 @@ const InputControl = ({
   value = {},
 }) => {
   const {title, address} = value || {};
+  const {_t} = useTranslation();
   const [classes] = useStyles(styles);
   return (
     <View style={classes.root}>
@@ -49,6 +59,14 @@ const InputControl = ({
         placeholder={placeholder}
         required={required}
       />
+      {askSaveAddress && (
+        <ConfirmSlide
+          onCancel={onCancelSave}
+          onAccept={onAcceptSave}
+          message={_t('wanna_save_this_address')}
+          buttonSize="sm"
+        />
+      )}
     </View>
   );
 };
