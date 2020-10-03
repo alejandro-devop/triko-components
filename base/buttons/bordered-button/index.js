@@ -11,7 +11,7 @@ const BorderedButton = ({disabled, icon = '', label, onPress, secondary}) => {
   return (
     <View style={classes.root}>
       <WrapperComponent
-        onPress={() => (!disabled ? onPress() : null)}
+        onPress={() => (!disabled && onPress ? onPress() : null)}
         style={classNames(
           {buttonWrapper: true, secondaryButton: secondary, disabled},
           classes,
@@ -39,8 +39,8 @@ const BorderedButton = ({disabled, icon = '', label, onPress, secondary}) => {
 
 const styles = ({palette}) => ({
   buttonWrapper: {
-    height: 70,
-    width: 70,
+    height: 50,
+    width: 50,
     borderRadius: 100,
     justifyContent: 'center',
     alignItems: 'center',
@@ -55,7 +55,7 @@ const styles = ({palette}) => ({
     borderColor: palette.orange,
   },
   icon: {
-    fontSize: 34,
+    fontSize: 28,
     color: palette.blue,
   },
   iconDisabled: {
@@ -69,13 +69,14 @@ const styles = ({palette}) => ({
     fontWeight: '600',
     textAlign: 'center',
     marginTop: 5,
+    fontSize: 18,
   },
   labelSecondary: {
     color: palette.orange,
   },
   labelDisabled: {
     color: palette.gray,
-    opacity: 0.3
+    opacity: 0.3,
   },
   root: {
     width: 90,

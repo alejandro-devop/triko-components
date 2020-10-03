@@ -39,7 +39,7 @@ const styles = () => ({
     left: 0,
     top: '25%',
     opacity: 0.6,
-    zIndex: 500,
+    zIndex: 1500,
   },
   text: {
     marginTop: 2,
