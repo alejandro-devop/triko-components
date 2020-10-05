@@ -1,5 +1,5 @@
 import React from 'react';
-import {View} from 'react-native';
+import {SafeAreaView, View} from 'react-native';
 import useStyles from 'hooks/useStyles';
 import TabIcon from './TabIcon';
 import useTranslation from 'hooks/useTranslation';
@@ -19,7 +19,7 @@ const TrikoTabs = ({navigation, descriptors, state, styles}) => {
     return null;
   }
 
-  const selectOption = path => {
+  const selectOption = (path) => {
     navigation.navigate(path);
   };
 

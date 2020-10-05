@@ -8,7 +8,7 @@ import EmptySet from 'main/screens/commons/EmptySet';
 import mocks from './chat.mocks';
 import useMock from 'shared/hooks/use-mock';
 
-const ClientChatList = () => {
+const TrikoChatList = () => {
   const {loading, data = {}} = useMock(mocks);
 
   const chatList = data.response || [];
@@ -37,4 +37,4 @@ const styles = () => ({
   },
 });
 
-export default ClientChatList;
+export default TrikoChatList;
