@@ -4,7 +4,8 @@ import useStyles from 'shared/hooks/use-styles';
 import cartColor from 'assets/icons/car-color.png';
 import CardIcon from '../card-icon';
 import ServiceRate from '../ServiceRate';
-import TrikoInfo from '../TrikoInfo';
+import TrikoInfo from '../info-triko';
+import ClientInfo from '../info-client';
 import ServiceInfo from './ServiceInfo';
 import ConfirmIcon from '../ConfirmIcon';
 import {
@@ -27,8 +28,8 @@ const acceptedStatus = [
   STATUS_FINISHED,
 ];
 
-const ShopperCard = ({request = {}}) => {
-  const {triko = {}} = request;
+const ShopperCard = ({isTriko, request = {}}) => {
+  const {client = {}, triko = {}} = request;
   const [classes] = useStyles(styles);
   const transition = request.transition ? request.transition.workflow : '';
 
@@ -40,7 +41,8 @@ const ShopperCard = ({request = {}}) => {
       </View>
       <View style={classes.avatarInfoWrapper}>
         <ServiceInfo request={request} showDate />
-        <TrikoInfo triko={triko} />
+        {isTriko && <ClientInfo client={client} />}
+        {!isTriko && <TrikoInfo triko={triko} />}
       </View>
       {acceptedStatus.includes(transition) && <ConfirmIcon />}
     </View>

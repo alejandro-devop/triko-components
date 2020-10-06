@@ -1,39 +1,29 @@
-import React, {useEffect} from 'react';
-import {useLazyQuery} from '@apollo/react-hooks';
-import {GET_PENDING_REQUEST_CLIENT, GET_PENDING_REQUEST_TRIKO} from './queries';
+import React, {useEffect, useState} from 'react';
 import useSession from 'hooks/useSession';
 import Wrapper from './wrapper';
 import Loader from './loader';
 import RequestCard from './RequestCard';
 import useNavigate from 'shared/hooks/use-navigate';
 import NoRequestItems from './NoRequestItems';
+import Filter from './Filter';
+import useRequestList from 'shared/hooks/use-request-list';
 import {
   REQUEST_TYPE_COURIER,
   REQUEST_TYPE_SHOPPER,
   REQUEST_TYPE_TASK,
 } from 'config/constants';
 
-const MyActivityComponent = ({isTriko}) => {
-  const {
-    stack: {client = {}, triko = {}, locale},
-    setKey,
-  } = useSession();
-  const variables = {
-    ...(isTriko ? {triko: triko.id} : {client: client.id}),
-    locale,
-  };
-  const {navigation} = useNavigate();
-  const [getPendingRequests, {data = {}, loading}] = useLazyQuery(
-    isTriko ? GET_PENDING_REQUEST_TRIKO : GET_PENDING_REQUEST_CLIENT,
-    {
-      fetchPolicy: 'network-only',
-      pollInterval: 10000,
-      variables,
-    },
+const MyActivityComponent = ({enableFilter, isTriko}) => {
+  const {setKey} = useSession();
+  const [currentFilter, setCurrentFilter] = useState(0);
+  const filters = ['requests_text', 'triko_favor_text'];
+  const {getPendingRequests, loading, requests = []} = useRequestList(
+    currentFilter,
+    isTriko,
   );
-
-  const requests = data.response ? data.response : [];
+  const {navigation} = useNavigate();
   const totalRequests = requests.length;
+
   const handleSelectItem = (request) => {
     const [detail] = request.details;
     const {service} = detail;
@@ -46,28 +36,40 @@ const MyActivityComponent = ({isTriko}) => {
     });
     navigation.navigate('request-detail');
   };
+
   const onRefresh = async () => {
     getPendingRequests();
   };
+
   useEffect(() => {
     getPendingRequests();
   }, []);
+
   return (
-    <Wrapper onRefresh={onRefresh} refreshing={loading}>
-      {loading && <Loader />}
-      {!loading && requests.length === 0 && <NoRequestItems />}
-      {requests.map((item, key) => (
-        <RequestCard
-          block={totalRequests > 3}
-          delay={100 * key}
-          even={key % 2 === 0}
-          isTriko={isTriko}
-          item={item}
-          key={`request-item-${key}`}
-          onSelect={handleSelectItem}
+    <>
+      {enableFilter && (
+        <Filter
+          currentFilter={currentFilter}
+          onChange={(filter) => setCurrentFilter(filter)}
+          options={filters}
         />
-      ))}
-    </Wrapper>
+      )}
+      <Wrapper onRefresh={onRefresh} refreshing={loading}>
+        {loading && <Loader />}
+        {!loading && requests.length === 0 && <NoRequestItems />}
+        {requests.map((item, key) => (
+          <RequestCard
+            block={totalRequests > 3}
+            delay={100 * key}
+            even={key % 2 === 0}
+            isTriko={isTriko}
+            item={item}
+            key={`request-${item.id}`}
+            onSelect={handleSelectItem}
+          />
+        ))}
+      </Wrapper>
+    </>
   );
 };
 
