@@ -45,6 +45,17 @@ const MyActivityComponent = ({enableFilter, isTriko}) => {
     getPendingRequests();
   }, []);
 
+  const onViewOnMap = ({}) => {
+    alert('View map');
+  };
+
+  const onAcceptRequest = () => {
+    alert('Accept');
+  };
+  const onCancelRequest = () => {
+    alert('Cancel');
+  };
+
   return (
     <>
       {enableFilter && (
@@ -66,6 +77,9 @@ const MyActivityComponent = ({enableFilter, isTriko}) => {
             item={item}
             key={`request-${item.id}`}
             onSelect={handleSelectItem}
+            onAccept={onAcceptRequest}
+            onCancel={onCancelRequest}
+            onViewOnMap={() => onViewOnMap(item)}
           />
         ))}
       </Wrapper>

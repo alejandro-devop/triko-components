@@ -4,8 +4,17 @@ import Text from 'shared/components/base/text';
 import Icon from 'shared/components/base/icon';
 import useStyles from 'shared/hooks/use-styles';
 import classNames from 'shared/utils/classnames';
+import styles from './styles';
 
-const BorderedButton = ({disabled, icon = '', label, onPress, secondary}) => {
+const BorderedButton = ({
+  disabled,
+  icon = '',
+  label,
+  onPress,
+  success,
+  danger,
+  secondary,
+}) => {
   const [classes] = useStyles(styles);
   const WrapperComponent = disabled ? View : TouchableOpacity;
   return (
@@ -13,13 +22,25 @@ const BorderedButton = ({disabled, icon = '', label, onPress, secondary}) => {
       <WrapperComponent
         onPress={() => (!disabled && onPress ? onPress() : null)}
         style={classNames(
-          {buttonWrapper: true, secondaryButton: secondary, disabled},
+          {
+            buttonWrapper: true,
+            secondaryButton: secondary,
+            disabled,
+            wrapperSuccess: success,
+            wrapperDanger: danger,
+          },
           classes,
         )}>
         <Icon
           name={icon}
           style={classNames(
-            {icon: true, iconSecondary: secondary, iconDisabled: disabled},
+            {
+              icon: true,
+              iconSecondary: secondary,
+              iconDisabled: disabled,
+              iconSuccess: success,
+              iconDanger: danger,
+            },
             classes,
           )}
         />
@@ -36,53 +57,5 @@ const BorderedButton = ({disabled, icon = '', label, onPress, secondary}) => {
     </View>
   );
 };
-
-const styles = ({palette}) => ({
-  buttonWrapper: {
-    height: 50,
-    width: 50,
-    borderRadius: 100,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderWidth: 3,
-    borderColor: palette.blue,
-  },
-  disabled: {
-    borderColor: palette.gray,
-    opacity: 0.3,
-  },
-  secondaryButton: {
-    borderColor: palette.orange,
-  },
-  icon: {
-    fontSize: 28,
-    color: palette.blue,
-  },
-  iconDisabled: {
-    color: palette.gray,
-  },
-  iconSecondary: {
-    color: palette.orange,
-  },
-  label: {
-    color: palette.blue,
-    fontWeight: '600',
-    textAlign: 'center',
-    marginTop: 5,
-    fontSize: 18,
-  },
-  labelSecondary: {
-    color: palette.orange,
-  },
-  labelDisabled: {
-    color: palette.gray,
-    opacity: 0.3,
-  },
-  root: {
-    width: 90,
-    marginHorizontal: 15,
-    alignItems: 'center',
-  },
-});
 
 export default BorderedButton;

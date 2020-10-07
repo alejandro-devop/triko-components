@@ -13,7 +13,16 @@ import ShopperCard from './shopper-card';
 import CourierCard from './courier-card';
 import TaskCard from './task-card';
 
-const RequestCard = ({delay = 0, even, item = {}, isTriko, onSelect}) => {
+const RequestCard = ({
+  delay = 0,
+  even,
+  item = {},
+  isTriko,
+  onSelect,
+  onAccept,
+  onCancel,
+  onViewOnMap,
+}) => {
   const [classes] = useStyles(styles);
   const {details = []} = item;
   const [serviceDetail] = details;
@@ -59,7 +68,13 @@ const RequestCard = ({delay = 0, even, item = {}, isTriko, onSelect}) => {
             },
             classes,
           )}>
-          <Component request={item} isTriko={isTriko} />
+          <Component
+            request={item}
+            isTriko={isTriko}
+            onAccept={onAccept}
+            onCancel={onCancel}
+            onViewOnMap={onViewOnMap}
+          />
         </TouchableOpacity>
       </View>
     </Slide>

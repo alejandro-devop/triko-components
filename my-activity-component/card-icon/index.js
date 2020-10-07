@@ -5,6 +5,7 @@ import PreImage from 'shared/components/base/pre-image';
 import useStyles from 'shared/hooks/use-styles';
 import Text from 'components/base/text';
 import styles from './styles';
+import classNames from 'shared/utils/classnames';
 
 /**
  * This component renders the icon for the request card.
@@ -15,6 +16,7 @@ import styles from './styles';
  * @param primary
  * @param secondary
  * @param maxChars
+ * @param isTriko
  * @returns {*}
  * @constructor
  */
@@ -23,6 +25,7 @@ const CardIcon = ({
   image,
   primary,
   secondary,
+  isTriko,
   maxChars = 16,
 }) => {
   const [classes] = useStyles(styles);
@@ -31,8 +34,12 @@ const CardIcon = ({
       ? `${primary.substring(0, maxChars)}...`
       : primary;
   return (
-    <View style={[classes.root, otherClasses.root]}>
-      <View style={[classes.imageWrapper, otherClasses.imageWrapper]}>
+    <View style={[classNames({root: true}, classes), otherClasses.root]}>
+      <View
+        style={[
+          classNames({imageWrapper: true, imageWrapperTriko: isTriko}, classes),
+          otherClasses.imageWrapper,
+        ]}>
         <PreImage style={[classes.image, otherClasses.image]} source={image} />
       </View>
       <View style={[classes.textWrapper, otherClasses.textWrapper]}>
@@ -53,9 +60,13 @@ const CardIcon = ({
 
 CardIcon.propTypes = {
   classes: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
-  image: PropTypes.string,
+  image: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.shape({uri: PropTypes.string}),
+  ]),
   primary: PropTypes.bool,
   secondary: PropTypes.bool,
+  isTriko: PropTypes.bool,
   maxChars: PropTypes.number,
 };
 

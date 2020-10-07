@@ -5,8 +5,10 @@ import CardIcon from '../card-icon';
 import ServiceRate from '../ServiceRate';
 import TrikoInfo from '../info-triko';
 import ClientInfo from '../info-client';
-import ServiceInfo from './ServiceInfo';
+import ServiceInfo from '../service-info';
 import ConfirmIcon from '../ConfirmIcon';
+import RateInfo from '../rate-info';
+import CardActions from '../card-actions';
 import {
   STATUS_ACCEPTED,
   STATUS_CONFIRM_FINISHED,
@@ -27,11 +29,17 @@ const acceptedStatus = [
   STATUS_FINISHED,
 ];
 
-const NormalCard = ({isTriko, request = {}}) => {
+const NormalCard = ({
+  isTriko,
+  onAccept,
+  onCancel,
+  onViewOnMap,
+  request = {},
+}) => {
   const {triko = {}, client = {}} = request;
   const [classes] = useStyles(styles);
-  const {transition = {}, details = []} = request;
-  const [detail = {}] = details;
+  const {transition = {}} = request;
+  const [detail = {}] = request.details || [];
   const {service} = detail;
   const workflow = transition ? transition.workflow : '';
   const icon = service.icon || service.type.icon;
@@ -41,17 +49,41 @@ const NormalCard = ({isTriko, request = {}}) => {
         <CardIcon
           image={{uri: icon}}
           primary={service.name}
+          isTriko={isTriko}
           classes={{
             imageWrapper: classes.imageWrapper,
             image: classes.image,
           }}
         />
-        <ServiceRate rate={10000} />
+        {!isTriko && (
+          <>
+            <ServiceRate rate={10000} />
+          </>
+        )}
+        {isTriko && (
+          <>
+            <ClientInfo client={client} />
+          </>
+        )}
       </View>
       <View style={classes.avatarInfoWrapper}>
-        <ServiceInfo request={request} showDate />
-        {!isTriko && <TrikoInfo triko={triko} />}
-        {isTriko && <ClientInfo client={client} />}
+        <ServiceInfo
+          isTriko={isTriko}
+          request={request}
+          showDate
+          onViewMap={onViewOnMap}
+        />
+        {isTriko && (
+          <>
+            <RateInfo request={request} />
+            <CardActions onAccept={onAccept} onCancel={onCancel} />
+          </>
+        )}
+        {!isTriko && (
+          <>
+            <TrikoInfo triko={triko} />
+          </>
+        )}
       </View>
       {acceptedStatus.includes(workflow) && <ConfirmIcon />}
     </View>
@@ -62,12 +94,6 @@ const styles = () => ({
   image: {
     width: '100%',
     height: '100%',
-  },
-  imageWrapper: {
-    width: 70,
-    height: 70,
-    backgroundColor: '#FFF',
-    borderRadius: 100,
   },
   root: {
     flexDirection: 'row',
