@@ -7,6 +7,7 @@ import Text from 'components/base/text';
 import defaultAvatar from 'assets/avatars/profile-photo.jpg';
 import styles from './styles';
 import RatingStars from 'components/base/rating-stars';
+import classNames from 'shared/utils/classnames';
 
 /**
  * This component renders the client information for the request card
@@ -16,7 +17,7 @@ import RatingStars from 'components/base/rating-stars';
  * @returns {*}
  * @constructor
  */
-const ClientInfo = ({client = {}}) => {
+const ClientInfo = ({client = {}, isTriko, isFavor}) => {
   const [classes] = useStyles(styles);
   const {
     user: {photo_url},
@@ -24,18 +25,35 @@ const ClientInfo = ({client = {}}) => {
     rating = 5,
   } = client;
   return (
-    <View style={classes.root}>
-      <View style={classes.avatarWrapper}>
+    <View style={classNames({root: true, rootFavor: isFavor}, classes)}>
+      <View
+        style={classNames(
+          {avatarWrapper: true, avatarWrapperFavor: isFavor},
+          classes,
+        )}>
         <PreImage
           source={photo_url ? {uri: photo_url} : defaultAvatar}
-          style={classes.avatar}
+          style={classNames({avatar: true, avatarFavor: isFavor}, classes)}
         />
       </View>
-      <View style={classes.infoWrapper}>
+      <View
+        style={classNames(
+          {infoWrapper: true, infoWrapperFavor: isFavor},
+          classes,
+        )}>
         <Text style={classes.fullName}>{`${firstName} ${lastName[0]}.`}</Text>
-        <View style={classes.ratingWrapper}>
-          <Text style={classes.rating}>{`${rating}.0`}</Text>
+        <View
+          style={classNames(
+            {ratingWrapper: true, ratingWrapperFavor: isFavor},
+            classes,
+          )}>
+          {!isTriko && <Text style={classes.rating}>{`${rating}.0`}</Text>}
           <RatingStars size={10} value={rating} />
+          {isFavor && (
+            <View style={classes.rateWrapper}>
+              <Text style={classes.ratingText}>{`${rating}.0`}</Text>
+            </View>
+          )}
         </View>
       </View>
     </View>

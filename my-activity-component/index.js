@@ -12,10 +12,13 @@ import {
   REQUEST_TYPE_SHOPPER,
   REQUEST_TYPE_TASK,
 } from 'config/constants';
+import useUserLocation from 'shared/hooks/use-user-location';
+import {LoadingCurtain} from 'components/base/dialogs';
 
 const MyActivityComponent = ({enableFilter, isTriko}) => {
   const {setKey} = useSession();
   const [currentFilter, setCurrentFilter] = useState(0);
+  const {location, loading: loadingLocation} = useUserLocation();
   const filters = ['requests_text', 'triko_favor_text'];
   const {getPendingRequests, loading, requests = []} = useRequestList(
     currentFilter,
@@ -56,6 +59,10 @@ const MyActivityComponent = ({enableFilter, isTriko}) => {
     alert('Cancel');
   };
 
+  const onView = () => {
+    alert('onView');
+  };
+
   return (
     <>
       {enableFilter && (
@@ -79,10 +86,13 @@ const MyActivityComponent = ({enableFilter, isTriko}) => {
             onSelect={handleSelectItem}
             onAccept={onAcceptRequest}
             onCancel={onCancelRequest}
+            userLocation={location}
             onViewOnMap={() => onViewOnMap(item)}
+            onView={onView}
           />
         ))}
       </Wrapper>
+      {loadingLocation && <LoadingCurtain />}
     </>
   );
 };

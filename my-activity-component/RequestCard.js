@@ -22,6 +22,8 @@ const RequestCard = ({
   onAccept,
   onCancel,
   onViewOnMap,
+  userLocation,
+  onView,
 }) => {
   const [classes] = useStyles(styles);
   const {details = []} = item;
@@ -74,6 +76,8 @@ const RequestCard = ({
             onAccept={onAccept}
             onCancel={onCancel}
             onViewOnMap={onViewOnMap}
+            onView={onView}
+            userLocation={userLocation}
           />
         </TouchableOpacity>
       </View>

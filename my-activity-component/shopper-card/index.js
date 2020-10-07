@@ -6,8 +6,15 @@ import CardIcon from '../card-icon';
 import ServiceRate from '../ServiceRate';
 import TrikoInfo from '../info-triko';
 import ClientInfo from '../info-client';
-import ServiceInfo from './ServiceInfo';
+import ServiceInfo from '../service-info';
 import ConfirmIcon from '../ConfirmIcon';
+import DistanceRender from '../distance-render';
+import DateRender from '../date-render';
+import shopperIcon from 'assets/icons/shopper-icon.png';
+import Text from 'components/base/text';
+import Icon from 'components/base/icon';
+import FavorIcon from '../favor-icon';
+import Button from 'components/base/buttons/button';
 import {
   STATUS_ACCEPTED,
   STATUS_CONFIRM_FINISHED,
@@ -17,6 +24,7 @@ import {
   STATUS_ON_YOUR_DOOR,
   STATUS_STARTED,
 } from 'config/request-statuses';
+import useTranslation from 'hooks/useTranslation';
 
 const acceptedStatus = [
   STATUS_ACCEPTED,
@@ -28,28 +36,105 @@ const acceptedStatus = [
   STATUS_FINISHED,
 ];
 
-const ShopperCard = ({isTriko, request = {}}) => {
+const ShopperCard = ({isTriko, request = {}, userLocation, onView}) => {
   const {client = {}, triko = {}} = request;
+  const {_t} = useTranslation();
   const [classes] = useStyles(styles);
   const transition = request.transition ? request.transition.workflow : '';
-
+  const totalProducts = 4;
   return (
     <View style={classes.root}>
       <View style={classes.serviceWrapper}>
-        <CardIcon image={cartColor} primary="SHOPPER" />
-        <ServiceRate rate={10000} />
+        {isTriko && (
+          <>
+            <ClientInfo isTriko={isTriko} client={client} isFavor />
+            <DistanceRender userLocation={userLocation} request={request} />
+            <DateRender request={request} />
+          </>
+        )}
+        {!isTriko && (
+          <>
+            <CardIcon image={cartColor} primary="SHOPPER" />
+            <ServiceRate rate={10000} />
+          </>
+        )}
       </View>
       <View style={classes.avatarInfoWrapper}>
-        <ServiceInfo request={request} showDate />
-        {isTriko && <ClientInfo client={client} />}
-        {!isTriko && <TrikoInfo triko={triko} />}
+        {isTriko && (
+          <>
+            <FavorIcon iconSource={shopperIcon} name={'SHOPPER'} />
+            <View style={classes.productsCountWrapper}>
+              <Text style={classes.productsCountText}>
+                {_t('products_count_text')}
+              </Text>
+              <View style={classes.iconWrapper}>
+                <Icon name="shopping-cart" style={classes.icon} />
+                <View style={classes.countWrapper}>
+                  <Text style={classes.countText}>{totalProducts}</Text>
+                </View>
+              </View>
+            </View>
+            <View style={classes.actionsWrapper}>
+              <Button primary size="xs" style={classes.button} onPress={onView}>
+                {_t('view_text')}
+              </Button>
+            </View>
+          </>
+        )}
+        {!isTriko && (
+          <>
+            <ServiceInfo request={request} showDate isTriko={isTriko} />
+            <TrikoInfo triko={triko} />
+          </>
+        )}
       </View>
       {acceptedStatus.includes(transition) && <ConfirmIcon />}
     </View>
   );
 };
 
-const styles = () => ({
+const styles = ({palette, variables: {textSmall}}) => ({
+  actionsWrapper: {
+    marginTop: 10,
+  },
+  button: {
+    paddingHorizontal: 20,
+    minWidth: 100,
+  },
+  countText: {
+    color: '#FFF',
+    fontSize: 14,
+  },
+  countWrapper: {
+    position: 'absolute',
+    borderRadius: 30,
+    top: 0,
+    right: 0,
+    transform: [{translateX: 10}, {translateY: -10}],
+    backgroundColor: palette.blue,
+    paddingHorizontal: 10,
+  },
+  icon: {
+    color: '#FFF',
+  },
+  iconWrapper: {
+    width: 35,
+    height: 35,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 100,
+    backgroundColor: palette.orange,
+    marginLeft: 5,
+  },
+  productsCountWrapper: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 20,
+  },
+  productsCountText: {
+    color: palette.orange,
+    fontSize: textSmall,
+  },
   root: {
     flexDirection: 'row',
   },
