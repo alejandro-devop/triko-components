@@ -3,6 +3,7 @@ import {View} from 'react-native';
 import useStyles from 'shared/hooks/use-styles';
 import cartColor from 'assets/icons/car-color.png';
 import CardIcon from '../card-icon';
+import ClientInfo from '../info-client';
 import Text from 'components/base/text';
 import ServiceInfo from './ServiceInfo';
 import ConfirmIcon from '../ConfirmIcon';
@@ -19,6 +20,11 @@ import {
 import useTranslation from 'hooks/useTranslation';
 import {postulatesMock} from 'shared/components/my-activity-component/postulates.mock';
 import BellCount from './BellCount';
+import DistanceRender from '../distance-render';
+import serviceIcon from 'assets/icons/triko-courrier.png';
+import FavorIcon from '../favor-icon';
+import DateRender from '../date-render';
+import Button from 'shared/components/base/buttons/button';
 
 const acceptedStatus = [
   STATUS_ACCEPTED,
@@ -30,39 +36,84 @@ const acceptedStatus = [
   STATUS_FINISHED,
 ];
 
-const CourierCard = ({request = {}}) => {
+const CourierCard = ({
+  isTriko,
+  request = {},
+  userLocation,
+  onViewOnMap,
+  onView,
+}) => {
   const postulates = postulatesMock;
+  const {client = {}} = request;
   const [classes] = useStyles(styles);
   const transition = request.transition ? request.transition.workflow : '';
   const {_t} = useTranslation();
   return (
     <View style={classes.root}>
       <View style={classes.serviceWrapper}>
-        <CardIcon
-          image={cartColor}
-          primary={_t('triko_courier_label').toUpperCase()}
-        />
+        {isTriko && (
+          <>
+            <ClientInfo isTriko={isTriko} client={client} isFavor />
+            <DistanceRender
+              onViewOnMap={onViewOnMap}
+              userLocation={userLocation}
+              request={request}
+            />
+            <DateRender request={request} />
+          </>
+        )}
+        {!isTriko && (
+          <CardIcon
+            image={cartColor}
+            primary={_t('triko_courier_label').toUpperCase()}
+          />
+        )}
       </View>
       <View style={classes.avatarInfoWrapper}>
-        <ServiceInfo request={request} isUrgent />
-        {postulates.length > 0 && (
-          <Postulates postulates={postulates} max={4} />
+        {isTriko && (
+          <>
+            <FavorIcon iconSource={serviceIcon} name={_t('triko_courier')} />
+            <View style={classes.actionsWrapper}>
+              <Button primary size="xs" style={classes.button} onPress={onView}>
+                {_t('view_text')}
+              </Button>
+            </View>
+          </>
         )}
-        {postulates.length === 0 && (
-          <View style={classes.noTrikosLabelWrapper}>
-            <Text style={classes.noTrikosLabel}>
-              {_t('no_trikos_postulated')}
-            </Text>
-          </View>
+        {!isTriko && (
+          <>
+            <ServiceInfo request={request} isUrgent />
+            {postulates.length > 0 && (
+              <Postulates postulates={postulates} max={4} />
+            )}
+            {postulates.length === 0 && (
+              <View style={classes.noTrikosLabelWrapper}>
+                <Text style={classes.noTrikosLabel}>
+                  {_t('no_trikos_postulated')}
+                </Text>
+              </View>
+            )}
+          </>
         )}
       </View>
-      {acceptedStatus.includes(transition) && <ConfirmIcon />}
-      <BellCount count={postulates.length} />
+      {!isTriko && (
+        <>
+          {acceptedStatus.includes(transition) && <ConfirmIcon />}
+          <BellCount count={postulates.length} />
+        </>
+      )}
     </View>
   );
 };
 
 const styles = ({palette}) => ({
+  actionsWrapper: {
+    marginTop: 10,
+  },
+  button: {
+    paddingHorizontal: 20,
+    minWidth: 100,
+  },
   root: {
     flexDirection: 'row',
     paddingTop: 20,

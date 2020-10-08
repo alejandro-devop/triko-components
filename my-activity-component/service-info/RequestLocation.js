@@ -5,10 +5,12 @@ import {useStyles} from 'hooks/index';
 import LinkButton from 'components/base/buttons/link-button';
 import Geocoding from 'react-native-geocoding';
 import useTranslation from 'hooks/useTranslation';
+import {SkeletonLoader} from 'components/base/loaders';
 
 const RequestLocation = ({delay = 200, onViewMap, request}) => {
   const [classes] = useStyles(styles);
   const {latitude, longitude} = request.attrs || {};
+  const [loading, setLoading] = useState(true);
   const {_t} = useTranslation();
   const [locationInfo, setLocationInfo] = useState(null);
 
@@ -20,6 +22,7 @@ const RequestLocation = ({delay = 200, onViewMap, request}) => {
         const [, city] = first.formatted_address.split(',');
         setLocationInfo(`${city}`);
       }
+      setLoading(false);
     } catch (err) {
       console.log(err);
     }
@@ -33,6 +36,7 @@ const RequestLocation = ({delay = 200, onViewMap, request}) => {
 
   return (
     <View style={classes.root}>
+      {loading && <SkeletonLoader style={classes.loader} />}
       {locationInfo && (
         <>
           <Text style={[classes.text]}>{locationInfo}</Text>
@@ -57,6 +61,10 @@ const styles = () => ({
   },
   linkWrapper: {
     paddingVertical: 0,
+  },
+  loader: {
+    height: 20,
+    width: 100,
   },
   root: {
     alignItems: 'flex-end',

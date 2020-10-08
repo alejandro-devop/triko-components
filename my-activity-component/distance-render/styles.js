@@ -3,10 +3,22 @@ export default ({palette}) => ({
     marginRight: 8,
     color: palette.orangeLight,
   },
+  linkButton: {
+    paddingVertical: 0,
+    marginLeft: 34,
+  },
+  linkButtonText: {
+    textDecorationLine: 'none',
+    fontSize: 14,
+    color: palette.orange,
+    fontWeight: '600',
+  },
   root: {
+    marginTop: 10,
+  },
+  textWrapper: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: 10,
   },
   text: {
     fontSize: 13,
