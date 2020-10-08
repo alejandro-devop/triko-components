@@ -4,7 +4,7 @@ import useStyles from 'shared/hooks/use-styles';
 import cartColor from 'assets/icons/car-color.png';
 import CardIcon from '../card-icon';
 import Text from 'components/base/text';
-import ServiceInfo from './ServiceInfo';
+import ServiceInfo from '../service-info';
 import ConfirmIcon from '../ConfirmIcon';
 import {
   STATUS_ACCEPTED,
@@ -18,6 +18,12 @@ import {
 import useTranslation from 'hooks/useTranslation';
 import Icon from 'components/base/icon';
 import moment from 'moment';
+import ClientInfo from 'shared/components/my-activity-component/info-client';
+import DistanceRender from 'shared/components/my-activity-component/distance-render';
+import DateRender from 'shared/components/my-activity-component/date-render';
+import FavorIcon from 'shared/components/my-activity-component/favor-icon';
+import serviceIcon from 'assets/icons/triko-task.png';
+import Button from 'shared/components/base/buttons/button';
 
 const acceptedStatus = [
   STATUS_ACCEPTED,
@@ -29,7 +35,14 @@ const acceptedStatus = [
   STATUS_FINISHED,
 ];
 
-const TaskCard = ({request = {}}) => {
+const TaskCard = ({
+  isTriko,
+  onViewOnMap,
+  onView,
+  userLocation,
+  request = {},
+}) => {
+  const {client = {}} = request;
   const [classes] = useStyles(styles);
   const {
     transition,
@@ -48,25 +61,66 @@ const TaskCard = ({request = {}}) => {
   return (
     <View style={classes.root}>
       <View style={classes.serviceWrapper}>
-        <CardIcon image={cartColor} primary={_t('task_label').toUpperCase()} />
-        {shortDescription && (
-          <Text style={classes.shortDescription}>{shortDescription}</Text>
+        {isTriko && (
+          <>
+            <ClientInfo isTriko={isTriko} client={client} isFavor />
+            <DistanceRender
+              onViewOnMap={onViewOnMap}
+              userLocation={userLocation}
+              request={request}
+            />
+            <DateRender request={request} />
+          </>
         )}
-        {date && <Text style={classes.date}>{`${date} | ${time}`}</Text>}
+        {!isTriko && (
+          <>
+            <CardIcon
+              image={cartColor}
+              primary={_t('task_label').toUpperCase()}
+            />
+            {shortDescription && (
+              <Text style={classes.shortDescription}>{shortDescription}</Text>
+            )}
+            {date && <Text style={classes.date}>{`${date} | ${time}`}</Text>}
+          </>
+        )}
       </View>
       <View style={classes.avatarInfoWrapper}>
-        <ServiceInfo request={request} />
-        <View style={classes.label}>
-          <Text style={classes.labelText}>{_t('waiting_for_candidates')}</Text>
-          <Icon name="history" style={classes.icon} />
-        </View>
+        {isTriko && (
+          <>
+            <FavorIcon iconSource={serviceIcon} name={_t('triko_task')} />
+            <View style={classes.actionsWrapper}>
+              <Button primary size="xs" style={classes.button} onPress={onView}>
+                {_t('view_text')}
+              </Button>
+            </View>
+          </>
+        )}
+        {!isTriko && (
+          <>
+            <ServiceInfo request={request} />
+            <View style={classes.label}>
+              <Text style={classes.labelText}>
+                {_t('waiting_for_candidates')}
+              </Text>
+              <Icon name="history" style={classes.icon} />
+            </View>
+          </>
+        )}
       </View>
-      {acceptedStatus.includes(workflow) && <ConfirmIcon />}
+      {!isTriko && acceptedStatus.includes(workflow) && <ConfirmIcon />}
     </View>
   );
 };
 
 const styles = ({palette}) => ({
+  actionsWrapper: {
+    marginTop: 10,
+  },
+  button: {
+    paddingHorizontal: 20,
+    minWidth: 100,
+  },
   date: {
     fontSize: 14,
     fontWeight: '600',
