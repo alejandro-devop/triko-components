@@ -4,6 +4,7 @@ import {TouchableOpacity} from 'react-native';
 import Text from 'shared/components/base/text';
 import useStyles from 'shared/hooks/use-styles';
 import classNames from 'shared/utils/classnames';
+import Icon from 'components/base/icon';
 import styles from './styles';
 
 /**
@@ -12,6 +13,7 @@ import styles from './styles';
  * @author Jorge Alejandro Quiroz Serna <jakop.box@gmail.com>
  * @param style
  * @param children
+ * @param disableUnderline
  * @param primary
  * @param onPress
  * @returns {*}
@@ -19,6 +21,8 @@ import styles from './styles';
  */
 const LinkButton = ({
   children,
+  disableUnderline,
+  icon,
   onPress,
   primary,
   style,
@@ -35,6 +39,7 @@ const LinkButton = ({
             {
               text: true,
               primary,
+              disableUnderline,
             },
             classes,
           ),
@@ -43,6 +48,23 @@ const LinkButton = ({
         variant="link">
         {children}
       </Text>
+      {icon && (
+        <Icon
+          name={icon}
+          style={[
+            classNames(
+              {
+                icon: true,
+                text: true,
+                primary,
+                disableUnderline,
+              },
+              classes,
+            ),
+            style,
+          ]}
+        />
+      )}
     </TouchableOpacity>
   );
 };

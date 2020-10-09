@@ -20,10 +20,10 @@ import {
 import useTranslation from 'hooks/useTranslation';
 import {postulatesMock} from 'shared/components/my-activity-component/postulates.mock';
 import BellCount from './BellCount';
-import DistanceRender from '../distance-render';
+import DistanceRender from 'shared/components/request-commons/distance-render';
 import serviceIcon from 'assets/icons/triko-courrier.png';
 import FavorIcon from '../favor-icon';
-import DateRender from '../date-render';
+import DateRender from 'shared/components/request-commons/date-render';
 import Button from 'shared/components/base/buttons/button';
 
 const acceptedStatus = [

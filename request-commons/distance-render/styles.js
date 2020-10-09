@@ -3,6 +3,9 @@ export default ({palette}) => ({
     marginRight: 8,
     color: palette.orangeLight,
   },
+  iconTriko: {
+    color: palette.orange,
+  },
   linkButton: {
     paddingVertical: 0,
     marginLeft: 34,

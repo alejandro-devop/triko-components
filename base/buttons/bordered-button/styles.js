@@ -36,7 +36,7 @@ export default ({palette}) => ({
     fontWeight: '600',
     textAlign: 'center',
     marginTop: 5,
-    fontSize: 18,
+    fontSize: 14,
   },
   labelSecondary: {
     color: palette.orange,
