@@ -4,6 +4,13 @@ import PreImage from 'components/pre-image';
 import useStyles from 'hooks/useStyles';
 import useSession from 'hooks/useSession';
 
+/**
+ * This component renders only the profile button in the tabBar
+ * @author Alejandro <alejandro.devop@gmail.com>
+ * @version 1.0.0
+ * @returns {*}
+ * @constructor
+ */
 const ProfileButton = () => {
   const [classes] = useStyles(styles);
   const {

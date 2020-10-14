@@ -8,7 +8,9 @@ import classNames from 'utils/classnames';
 import styles from './styles';
 
 /**
- * This component renders the application menu tab
+ * This component renders the single tab button.
+ * @author Alejandro <alejandro.devop@gmail.com>
+ * @version 1.0.0
  * @param Component
  * @param icon
  * @param photo

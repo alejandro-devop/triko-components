@@ -1,4 +1,4 @@
-export default ({palette}) => ({
+export default () => ({
   icon: {
     width: 32,
     height: 32,

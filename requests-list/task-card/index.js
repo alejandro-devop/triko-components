@@ -18,10 +18,10 @@ import {
 import useTranslation from 'hooks/useTranslation';
 import Icon from 'components/base/icon';
 import moment from 'moment';
-import ClientInfo from 'shared/components/my-activity-component/info-client';
+import ClientInfo from '../info-client';
 import DistanceRender from 'shared/components/request-commons/distance-render';
 import DateRender from 'shared/components/request-commons/date-render';
-import FavorIcon from 'shared/components/my-activity-component/favor-icon';
+import FavorIcon from '../favor-icon';
 import serviceIcon from 'assets/icons/triko-task.png';
 import Button from 'shared/components/base/buttons/button';
 

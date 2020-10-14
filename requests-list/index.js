@@ -15,15 +15,24 @@ import {
 import useUserLocation from 'shared/hooks/use-user-location';
 import {LoadingCurtain} from 'components/base/dialogs';
 
-const MyActivityComponent = ({enableFilter, isTriko}) => {
+const MyActivityComponent = ({
+  currentFilter = 0,
+  enableFilter,
+  filters = [],
+  isTriko,
+  onChangeFilter,
+  onlyFavors,
+  onlyCurrentDay,
+  onlyMyServices,
+}) => {
   const {setKey} = useSession();
-  const [currentFilter, setCurrentFilter] = useState(0);
   const {location, loading: loadingLocation} = useUserLocation();
-  const filters = ['requests_text', 'triko_favor_text'];
-  const {getPendingRequests, loading, requests = []} = useRequestList(
-    currentFilter,
+  const {getPendingRequests, loading, requests = []} = useRequestList({
+    onlyFavors,
     isTriko,
-  );
+    onlyCurrentDay,
+    onlyMyServices,
+  });
   const {navigation} = useNavigate();
   const totalRequests = requests.length;
 
@@ -68,7 +77,9 @@ const MyActivityComponent = ({enableFilter, isTriko}) => {
       {enableFilter && (
         <Filter
           currentFilter={currentFilter}
-          onChange={(filter) => setCurrentFilter(filter)}
+          onChange={(filter) =>
+            onChangeFilter ? onChangeFilter(filter) : null
+          }
           options={filters}
         />
       )}

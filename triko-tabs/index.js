@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {View} from 'react-native';
 import useStyles from 'hooks/useStyles';
 import TabIcon from './TabIcon';
@@ -7,7 +8,18 @@ import useSession from 'hooks/useSession';
 import options from 'config/tab-options';
 import tabIcons from './tab-icons';
 
-const TrikoTabs = ({navigation, descriptors, state, styles}) => {
+/**
+ * This component renders the application main navigation bar.
+ * @author Alejandro <alejandro.devop@gmail.com>
+ * @version 1.0.0
+ * @param navigation
+ * @param descriptors
+ * @param state
+ * @param styles
+ * @returns {null|*}
+ * @constructor
+ */
+const TrikoTabs = ({navigation, state, styles}) => {
   const {routeNames = []} = state;
 
   const {
@@ -40,6 +52,12 @@ const TrikoTabs = ({navigation, descriptors, state, styles}) => {
       </View>
     </View>
   );
+};
+
+TrikoTabs.propTypes = {
+  navigation: PropTypes.oneOfType([PropTypes.any]),
+  state: PropTypes.oneOfType([PropTypes.any]),
+  styles: PropTypes.oneOfType([PropTypes.Object, PropTypes.array]),
 };
 
 export default TrikoTabs;

@@ -18,7 +18,7 @@ import {
   STATUS_STARTED,
 } from 'config/request-statuses';
 import useTranslation from 'hooks/useTranslation';
-import {postulatesMock} from 'shared/components/my-activity-component/postulates.mock';
+import {postulatesMock} from 'shared/components/requests-list/postulates.mock';
 import BellCount from './BellCount';
 import DistanceRender from 'shared/components/request-commons/distance-render';
 import serviceIcon from 'assets/icons/triko-courrier.png';
