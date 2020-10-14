@@ -30,7 +30,7 @@ const DialogControl = ({
 
   const onNextMonth = () => {};
 
-  const onSelectDay = selectedDay => {
+  const onSelectDay = (selectedDay) => {
     setSelectedDate({...displayDate, day: selectedDay});
   };
 
@@ -41,17 +41,17 @@ const DialogControl = ({
     setMonthDays(tmpDate.daysInMonth());
   };
 
-  const onChangeYear = selectedYear => {
+  const onChangeYear = (selectedYear) => {
     const newPayload = {...displayDate, year: selectedYear};
     updateDays(newPayload);
     setDisplayDate(newPayload);
   };
 
-  const onChangeMonth = substract => {
+  const onChangeMonth = (substract) => {
     onSelectMonth(displayDate.month + (substract ? -1 : 1));
   };
 
-  const onSelectMonth = selectedMonth => {
+  const onSelectMonth = (selectedMonth) => {
     let month = selectedMonth;
     let year = displayDate.year;
     let day = displayDate.day;
@@ -112,7 +112,7 @@ const styles = () => ({
   },
   root: {
     height: Platform.select({
-      ios: 600,
+      ios: 620,
       android: 600,
     }),
     maxHeight: '95%',

@@ -25,11 +25,12 @@ const Filter = ({currentFilter, onChange, options = []}) => {
         const isActive = key === currentFilter;
         return (
           <Button
-            primary={!isActive}
+            secondary={!isActive}
             alternative={isActive}
             key={`option-${key}`}
             onPress={() => onChange(key)}
-            size="sm">
+            style={classes.button}
+            size="xs">
             {_t(option)}
           </Button>
         );

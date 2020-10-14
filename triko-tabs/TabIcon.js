@@ -1,20 +1,34 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {TouchableOpacity, View} from 'react-native';
 import PreImage from 'components/pre-image';
 import useStyles from 'hooks/useStyles';
 import Text from 'components/base/text';
 import classNames from 'utils/classnames';
+import styles from './styles';
 
+/**
+ * This component renders the application menu tab
+ * @param Component
+ * @param icon
+ * @param photo
+ * @param label
+ * @param onPress
+ * @param selected
+ * @returns {*}
+ * @constructor
+ */
 const TabIcon = ({Component, icon, photo, label, onPress, selected}) => {
   const [classes] = useStyles(styles);
+  const menuIcon = icon ? (selected ? icon.active : icon.normal) : null;
   return (
     <TouchableOpacity style={classes.root} onPress={onPress}>
       <View style={classNames({wrapper: true, selected}, classes)}>
         <>
-          {icon && (
+          {menuIcon && (
             <PreImage
               style={classes.icon}
-              source={photo ? {uri: photo} : icon}
+              source={photo ? {uri: photo} : menuIcon}
             />
           )}
           {Component && <Component />}
@@ -25,32 +39,13 @@ const TabIcon = ({Component, icon, photo, label, onPress, selected}) => {
   );
 };
 
-const styles = ({palette}) => ({
-  icon: {
-    width: 32,
-    height: 32,
-    resizeMode: 'contain',
-  },
-  label: {
-    color: '#FFF',
-    fontSize: 8,
-    fontWeight: '600',
-  },
-  root: {
-    width: 65,
-    height: 65,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 100,
-  },
-  wrapper: {
-    padding: 10,
-    borderRadius: 100,
-  },
-  selected: {
-    backgroundColor: 'rgba(255,255,255,0.3)',
-    borderRadius: 100,
-  },
-});
+TabIcon.propTypes = {
+  Component: PropTypes.oneOfType([PropTypes.any]),
+  icon: PropTypes.string,
+  photo: PropTypes.string,
+  label: PropTypes.string,
+  onPress: PropTypes.func,
+  selected: PropTypes.bool,
+};
 
 export default TabIcon;

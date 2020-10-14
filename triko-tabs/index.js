@@ -1,10 +1,11 @@
 import React from 'react';
-import {SafeAreaView, View} from 'react-native';
+import {View} from 'react-native';
 import useStyles from 'hooks/useStyles';
 import TabIcon from './TabIcon';
 import useTranslation from 'hooks/useTranslation';
 import useSession from 'hooks/useSession';
 import options from 'config/tab-options';
+import tabIcons from './tab-icons';
 
 const TrikoTabs = ({navigation, descriptors, state, styles}) => {
   const {routeNames = []} = state;
@@ -29,7 +30,7 @@ const TrikoTabs = ({navigation, descriptors, state, styles}) => {
         {options.map((option, key) => (
           <TabIcon
             key={`tab-option-${key}`}
-            icon={option.icon}
+            icon={tabIcons[option.icon]}
             label={_t(option.label)}
             selected={option.path === routeNames[state.index]}
             onPress={() => selectOption(option.path)}

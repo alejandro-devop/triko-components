@@ -22,12 +22,12 @@ const PhotoButton = ({
   });
   const onPickImage = async () => {
     capturePhoto({
-      onCustom: button => {
+      onCustom: (button) => {
         if (button === 'vu') {
           toggleVisible();
         }
       },
-      onPhotoSelected: response => {
+      onPhotoSelected: (response) => {
         const {uri, data} = response;
         if (onTaken) {
           onTaken({
