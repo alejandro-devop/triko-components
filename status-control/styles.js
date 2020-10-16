@@ -1,6 +1,6 @@
 export default () => ({
   buttonWrapper: {
-    width: 60,
+    width: 50,
   },
   mask: {
     position: 'absolute',
