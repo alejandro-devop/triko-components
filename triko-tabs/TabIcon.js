@@ -43,7 +43,7 @@ const TabIcon = ({Component, icon, photo, label, onPress, selected}) => {
 
 TabIcon.propTypes = {
   Component: PropTypes.oneOfType([PropTypes.any]),
-  icon: PropTypes.string,
+  icon: PropTypes.oneOfType([PropTypes.any]),
   photo: PropTypes.string,
   label: PropTypes.string,
   onPress: PropTypes.func,

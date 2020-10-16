@@ -58,7 +58,7 @@ const SwitchButton = ({onPress, disabled, initialState = true}) => {
                   {
                     translateX: animation.interpolate({
                       inputRange: [0, 1],
-                      outputRange: [0, containerWidth - 25],
+                      outputRange: [-1, containerWidth - 26],
                     }),
                   },
                 ],
