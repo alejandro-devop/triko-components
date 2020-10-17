@@ -9,24 +9,32 @@ import classNames from 'shared/utils/classnames';
 import useTranslation from 'hooks/useTranslation';
 import Slide from 'shared/components/anims/Slide';
 
-const ChatItem = ({chatItem = {}, delay = 0, maxChars = 30}) => {
+const ChatItem = ({chatItem = {}, delay = 0, maxChars = 30, onPress}) => {
   const [classes] = useStyles(styles);
+  const {
+    client = {},
+    lastMessage,
+    messages,
+    date,
+    // user: {photo_url: photoUrl},
+    // pi: {first_name: firstName, last_name: lastName},
+    // lastMessage,
+    // messages = [],
+    // unReadCount = 0,
+  } = chatItem;
   const {
     user: {photo_url: photoUrl},
     pi: {first_name: firstName, last_name: lastName},
-    lastMessage,
-    messages = [],
-    unReadCount = 0,
-  } = chatItem;
+  } = client;
+
   const {_t} = useTranslation();
   const fullName = `${firstName} ${lastName.substring(0, 1)}.`;
-  const elapsed = lastMessage ? getElapsedTime(lastMessage).split(' ')[0] : 0;
-  const active = unReadCount > 0;
-  const [message = {}] = [...messages].reverse();
+  const elapsed = lastMessage ? getElapsedTime(date).split(' ')[0] : 0;
   return (
     <Slide direction="right" delay={delay}>
       <TouchableOpacity
-        style={classNames({root: true, rootActive: active}, classes)}>
+        onPress={onPress}
+        style={classNames({root: true}, classes)}>
         <View style={classes.avatarWrapper}>
           <PreImage
             style={classes.avatar}
@@ -34,39 +42,25 @@ const ChatItem = ({chatItem = {}, delay = 0, maxChars = 30}) => {
           />
         </View>
         <View style={classes.content}>
-          <Text
-            style={classNames(
-              {fullName: true, text: true, textActive: active},
-              classes,
-            )}>
+          <Text style={classNames({fullName: true, text: true}, classes)}>
             {`${fullName}`}
           </Text>
-          {message.message && (
-            <Text
-              style={classNames(
-                {textPreview: true, text: true, textActive: active},
-                classes,
-              )}>
+          {lastMessage.message && (
+            <Text style={classNames({textPreview: true, text: true}, classes)}>
               {`${_t('chat_says_label')}: ${
-                message.message.length >= maxChars
-                  ? message.message.substring(0, maxChars) + '...'
-                  : message.message
+                lastMessage.message.length >= maxChars
+                  ? lastMessage.message.substring(0, maxChars) + '...'
+                  : lastMessage.message
               }`}
             </Text>
           )}
-          <Text
-            style={classNames(
-              {timeText: true, text: true, textActive: active},
-              classes,
-            )}>
+          <Text style={classNames({timeText: true, text: true}, classes)}>
             {_t('chat_elapsed_time', {time: elapsed})}
           </Text>
         </View>
-        {unReadCount > 0 && (
-          <View style={classes.unReadWrapper}>
-            <Text style={classes.unReadText}>{unReadCount}</Text>
-          </View>
-        )}
+        <View style={classes.unReadWrapper}>
+          <Text style={classes.unReadText}>{messages}</Text>
+        </View>
       </TouchableOpacity>
     </Slide>
   );
@@ -78,10 +72,12 @@ const styles = ({palette}) => ({
   avatar: {
     width: avatarSize,
     height: avatarSize,
+    borderRadius: 100,
   },
   avatarWrapper: {
     width: avatarSize,
     height: avatarSize,
+    borderRadius: 100,
     marginRight: 20,
   },
   content: {
