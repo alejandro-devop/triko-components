@@ -2,7 +2,7 @@ import React from 'react';
 import {View} from 'react-native';
 import PreImage from 'shared/components/base/pre-image';
 import Text from 'shared/components/base/text';
-import noNewsIcon from 'assets/icons/news-icon.png';
+import noNewsIcon from 'shared/assets/icons/news-icon.png';
 import useStyles from 'shared/hooks/use-styles';
 import useTranslation from 'hooks/useTranslation';
 
