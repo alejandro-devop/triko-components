@@ -5,4 +5,10 @@ export default () => ({
   scroll: {
     flexGrow: 1,
   },
+  view: {
+    flexGrow: 1,
+  },
+  withMargin: {
+    paddingBottom: 80,
+  },
 });

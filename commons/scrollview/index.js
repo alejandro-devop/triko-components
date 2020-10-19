@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scrollview';
 import {ScrollView as ScrollViewBase} from 'react-native';
 import styles from './styles';
 import {useStyles} from 'hooks/index';
@@ -9,11 +10,21 @@ import {useStyles} from 'hooks/index';
  * @author Alejandro <alejandro.devop@gmail.com>
  * @version 1.0.0
  * @param children
+ * @param disableScroll
  * @returns {*}
  * @constructor
  */
-const ScrollView = ({children}) => {
+const ScrollView = ({children, useKeyboard}) => {
   const [classes] = useStyles(styles);
+  if (useKeyboard) {
+    return (
+      <KeyboardAwareScrollView
+        style={classes.root}
+        contentContainerStyle={classes.scroll}>
+        {children}
+      </KeyboardAwareScrollView>
+    );
+  }
   return (
     <ScrollViewBase
       showsVerticalScrollIndicator={false}
@@ -26,6 +37,7 @@ const ScrollView = ({children}) => {
 
 ScrollView.propTypes = {
   children: PropTypes.node,
+  useKeyboard: PropTypes.bool,
 };
 
 export default ScrollView;

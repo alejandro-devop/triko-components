@@ -16,8 +16,6 @@ export default stepSize => ({palette}) => ({
     height: 1.5,
   },
   root: {
-    backgroundColor: '#FFF',
-    paddingVertical: 10,
     paddingHorizontal: 20,
   },
   step: {
