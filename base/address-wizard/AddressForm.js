@@ -1,9 +1,9 @@
 import React from 'react';
 import {View} from 'react-native';
-import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-import HomePickerType from 'components/base/home-type-picker';
+import {ScrollView} from 'shared/components/commons';
+import HomePickerType from 'shared/components/base/home-type-picker';
 import useTranslation from 'hooks/useTranslation';
-import {TextField} from 'components/base/controls';
+import TextField from 'shared/components/base/controls/text-field';
 import Button from 'shared/components/base/buttons/button';
 import useStyles from 'shared/hooks/use-styles';
 import useForm from 'hooks/useForm';
@@ -28,7 +28,7 @@ const AddressForm = ({onChangeForm}) => {
   };
 
   return (
-    <KeyboardAwareScrollView enableOnAndroid>
+    <ScrollView useKeyboard>
       <HomePickerType
         label={_t('address_manager_label_type')}
         name="type"
@@ -58,7 +58,7 @@ const AddressForm = ({onChangeForm}) => {
           {_t('address_manager_next_button')}
         </Button>
       </View>
-    </KeyboardAwareScrollView>
+    </ScrollView>
   );
 };
 

@@ -1,10 +1,13 @@
 import React, {useState, useEffect} from 'react';
+import PropTypes from 'prop-types';
 import TextField from 'shared/components/base/controls/text-field';
-import {ScrollView, View} from 'react-native';
+import CircularLoader from 'shared/components/loaders/circular-loader';
+import {View} from 'react-native';
 import useStyles from 'shared/hooks/use-styles';
 import useCityFinder from 'shared/components/base/controls/g-city-select/useCityFinder';
 import SelectableList from 'shared/components/base/selectable-list';
 import Text from 'components/base/text';
+import styles from './styles';
 
 let timer = null;
 
@@ -20,7 +23,7 @@ const GCitySelect = ({
   const [classes] = useStyles(styles);
   const [selected, setSelected] = useState(null);
   const [query, setQuery] = useState('');
-  const {cities = [], findCities} = useCityFinder();
+  const {cities = [], findCities, loading} = useCityFinder();
   const onChangeQuery = async ({target: {value}}) => {
     setQuery(value);
     clearTimeout(timer);
@@ -35,7 +38,7 @@ const GCitySelect = ({
     [],
   );
 
-  const items = cities.map(item => ({
+  const items = cities.map((item) => ({
     value: item,
     label: item,
   }));
@@ -61,6 +64,11 @@ const GCitySelect = ({
         primary
         onChange={onChangeQuery}
       />
+      {loading && (
+        <View style={classes.loaderWrapper}>
+          <CircularLoader />
+        </View>
+      )}
       {cities.length > 0 && (
         <SelectableList items={items} onSelect={onSelect} value={selected} />
       )}
@@ -75,15 +83,14 @@ const GCitySelect = ({
   );
 };
 
-const styles = () => ({
-  root: {},
-  caption: {
-    paddingHorizontal: 20,
-    marginTop: 20,
-  },
-  captionText: {
-    textAlign: 'center',
-  },
-});
+GCitySelect.propTypes = {
+  autoFocus: PropTypes.bool,
+  delay: PropTypes.number,
+  label: PropTypes.string,
+  onChange: PropTypes.func,
+  name: PropTypes.string,
+  placeholder: PropTypes.string,
+  searchPlaceholder: PropTypes.string,
+};
 
 export default GCitySelect;
