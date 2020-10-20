@@ -3,18 +3,22 @@ import moment from 'moment';
 import PropTypes from 'prop-types';
 import TextField from 'shared/components/base/controls/text-field';
 import IconButton from 'shared/components/base/buttons/icon-button';
-import DialogControl from './DialogControl';
+import DialogControl from './dialog-control';
 import {isEmpty} from 'shared/utils/functions';
 
 /**
  * This component allows to create a select box.
  * @author Jorge Alejandro Quiroz Serna <jakop.box@gmail.com>
+ * @param disabled
+ * @param error
  * @param label
  * @param name
  * @param placeholder
  * @param onChange
  * @param format
  * @param displayFormat
+ * @param minDate
+ * @param disablePast
  * @param value
  * @returns {*}
  * @constructor
@@ -86,11 +90,20 @@ const DatePicker = ({
 };
 
 DatePicker.propTypes = {
+  disabled: PropTypes.bool,
+  displayFormat: PropTypes.string,
+  error: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+  format: PropTypes.string,
   label: PropTypes.string, // Label to be used for the input
   name: PropTypes.string, // Key to reference the input.
-  onChange: PropTypes.func,
   placeholder: PropTypes.string,
-  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  onChange: PropTypes.func,
+  value: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.object,
+    PropTypes.number,
+  ]),
+  disablePast: PropTypes.bool,
 };
 
 export default DatePicker;

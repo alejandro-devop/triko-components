@@ -1,13 +1,29 @@
 import React, {useState} from 'react';
+import PropTypes from 'prop-types';
 import moment from 'moment';
-import {Platform, View} from 'react-native';
+import {View} from 'react-native';
 import Dialog from 'shared/components/dialogs/dialog';
 import Label from 'shared/components/base/label';
 import CircleButton from 'shared/components/base/buttons/circle-button';
 import useStyles from 'shared/hooks/use-styles';
-import Calendar from './Calendar';
-import {formatNumber} from './commons';
+import Calendar from '../calendar';
+import {formatNumber} from '../commons';
+import styles from './styles';
 
+/**
+ * This component renders the control input to select date.
+ * @author Alejandro <alejandro.devop@gmail.com>
+ * @version 1.0.0
+ * @param date
+ * @param format
+ * @param open
+ * @param onClose
+ * @param placeholder
+ * @param disablePast
+ * @param onSelectDate
+ * @returns {*}
+ * @constructor
+ */
 const DialogControl = ({
   date,
   format = 'hh:mm:ss a',
@@ -30,7 +46,7 @@ const DialogControl = ({
 
   const onNextMonth = () => {};
 
-  const onSelectDay = (selectedDay) => {
+  const onSelectDay = selectedDay => {
     setSelectedDate({...displayDate, day: selectedDay});
   };
 
@@ -41,17 +57,17 @@ const DialogControl = ({
     setMonthDays(tmpDate.daysInMonth());
   };
 
-  const onChangeYear = (selectedYear) => {
+  const onChangeYear = selectedYear => {
     const newPayload = {...displayDate, year: selectedYear};
     updateDays(newPayload);
     setDisplayDate(newPayload);
   };
 
-  const onChangeMonth = (substract) => {
+  const onChangeMonth = substract => {
     onSelectMonth(displayDate.month + (substract ? -1 : 1));
   };
 
-  const onSelectMonth = (selectedMonth) => {
+  const onSelectMonth = selectedMonth => {
     let month = selectedMonth;
     let year = displayDate.year;
     let day = displayDate.day;
@@ -103,20 +119,14 @@ const DialogControl = ({
   );
 };
 
-const styles = () => ({
-  actionWrapper: {
-    alignItems: 'center',
-  },
-  label: {
-    fontSize: Platform.select({android: 20, ios: 22}),
-  },
-  root: {
-    height: Platform.select({
-      ios: 620,
-      android: 600,
-    }),
-    maxHeight: '95%',
-  },
-});
+DialogControl.propTypes = {
+  date: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+  format: PropTypes.string,
+  open: PropTypes.bool,
+  onClose: PropTypes.func,
+  placeholder: PropTypes.string,
+  disablePast: PropTypes.bool,
+  onSelectDate: PropTypes.func,
+};
 
 export default DialogControl;

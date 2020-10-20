@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Platform, View} from 'react-native';
+import { View} from 'react-native';
 import {WebView} from 'react-native-webview';
 import Button from 'components/base/buttons/button';
 import useStyles from 'hooks/useStyles';

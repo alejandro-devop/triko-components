@@ -1,17 +1,36 @@
 import React, {useRef} from 'react';
+import PropTypes from 'prop-types';
 import _ from 'lodash';
-import {Platform, ScrollView, TouchableOpacity} from 'react-native';
+import {TouchableOpacity} from 'react-native';
 import Dialog from 'shared/components/dialogs/dialog';
+import {ScrollView} from 'shared/components/commons';
 import useStyles from 'shared/hooks/use-styles';
 import Text from 'shared/components/base/text';
 import Label from 'shared/components/base/label';
 import classNames from 'shared/utils/classnames';
 import useTranslation from 'hooks/useTranslation';
+import styles from './styles';
 
-const YearPicker = ({open, onClose, onSelect, fromDate = 0, to = 0, year}) => {
+/**
+ * This component is used to display a dialog to list the year
+ * @author Alejandro <alejandro.devop@gmail.com>
+ * @version 1.0.0
+ * @param open
+ * @param onClose
+ * @param onSelect
+ * @param fromDate
+ * @param to
+ * @param year
+ * @param ref
+ * @returns {null|*}
+ * @constructor
+ */
+const YearPicker = (
+  {open, onClose, onSelect, fromDate = 0, to = 0, year},
+  ref,
+) => {
   const [classes] = useStyles(styles);
   const {_t} = useTranslation();
-  const scrollRef = useRef(null);
   const years = to - fromDate;
   if (!years) {
     return null;
@@ -23,8 +42,8 @@ const YearPicker = ({open, onClose, onSelect, fromDate = 0, to = 0, year}) => {
       onClose={onClose}
       contentStyles={classes.root}>
       <Label>{_t('date_picker_select_year')}</Label>
-      <ScrollView ref={scrollRef}>
-        {_.times(years, yearKey => {
+      <ScrollView>
+        {_.times(years, (yearKey) => {
           const yearToDisplay = to - yearKey;
           const selected = yearToDisplay === parseInt(year, 10);
           return (
@@ -49,32 +68,13 @@ const YearPicker = ({open, onClose, onSelect, fromDate = 0, to = 0, year}) => {
   );
 };
 
-const styles = ({palette}) => ({
-  item: {
-    paddingVertical: 5,
-    alignItems: 'center',
-    borderBottomColor: palette.grayLighter,
-    ...Platform.select({
-      ios: {
-        borderWidth: 1,
-        borderColor: 'transparent',
-        borderRadius: 20,
-      },
-      android: {
-        borderBottomWidth: 1,
-      },
-    }),
-  },
-  root: {
-    height: '60%',
-    width: Platform.select({ios: 200, android: 200}),
-  },
-  selected: {
-    backgroundColor: palette.blue,
-  },
-  selectedText: {
-    color: '#FFF',
-  },
-});
+YearPicker.propTypes = {
+  open: PropTypes.bool,
+  onClose: PropTypes.func,
+  onSelect: PropTypes.func,
+  fromDate: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  to: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  year: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+};
 
 export default YearPicker;

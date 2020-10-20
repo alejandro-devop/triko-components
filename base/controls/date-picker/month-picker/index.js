@@ -1,12 +1,14 @@
 import React from 'react';
-import {Platform, ScrollView, TouchableOpacity} from 'react-native';
+import {TouchableOpacity} from 'react-native';
 import Dialog from 'shared/components/dialogs/dialog';
+import {ScrollView} from 'shared/components/commons';
 import useStyles from 'shared/hooks/use-styles';
 import Text from 'shared/components/base/text';
 import Label from 'shared/components/base/label';
 import classNames from 'shared/utils/classnames';
 import useLocales from 'hooks/useLocales';
 import useTranslation from 'hooks/useTranslation';
+import styles from './styles';
 
 const MonthPicker = ({open, onClose, onSelect, month}) => {
   const {months} = useLocales();
@@ -43,33 +45,5 @@ const MonthPicker = ({open, onClose, onSelect, month}) => {
     </Dialog>
   );
 };
-
-const styles = ({palette}) => ({
-  item: {
-    paddingVertical: 5,
-    alignItems: 'center',
-    borderBottomColor: palette.grayLighter,
-    ...Platform.select({
-      ios: {
-        borderWidth: 1,
-        borderColor: 'transparent',
-        borderRadius: 20,
-      },
-      android: {
-        borderBottomWidth: 1,
-      },
-    }),
-  },
-  root: {
-    height: '60%',
-    width: Platform.select({ios: 200, android: 200}),
-  },
-  selected: {
-    backgroundColor: palette.blue,
-  },
-  selectedText: {
-    color: '#FFF',
-  },
-});
 
 export default MonthPicker;

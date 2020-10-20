@@ -19,6 +19,7 @@ const ScrollView = ({children, useKeyboard}) => {
   if (useKeyboard) {
     return (
       <KeyboardAwareScrollView
+        showsVerticalScrollIndicator={false}
         style={classes.root}
         contentContainerStyle={classes.scroll}>
         {children}

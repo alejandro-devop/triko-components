@@ -1,17 +1,38 @@
 import React, {useState} from 'react';
+import PropTypes from 'prop-types';
 import _ from 'lodash';
 import moment from 'moment';
-import {Platform, TouchableOpacity, View} from 'react-native';
+import {TouchableOpacity, View} from 'react-native';
 import Text from 'shared/components/base/text';
-import DayItem from './DayItem';
+import DayItem from '../day-item';
 import useLocales from 'hooks/useLocales';
 import useStyles from 'shared/hooks/use-styles';
 import IconButton from 'shared/components/base/buttons/icon-button';
-import YearPicker from './YearPicker';
-import MonthPicker from './MonthPicker';
+import YearPicker from '../year-picker';
+import MonthPicker from '../month-picker';
+import daysMap from '../days-map';
+import styles from './styles';
 
-const daysMap = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-
+/**
+ * this component renders a dialog with the days for the displaying month
+ * @version 1.0.0
+ * @param day
+ * @param year
+ * @param month
+ * @param days
+ * @param currentMonth
+ * @param currentYear
+ * @param yearsFrom
+ * @param yearsTo
+ * @param onSelectDay
+ * @param onChangeYear
+ * @param onChangeMonth
+ * @param onSelectMonth
+ * @param disablePast
+ * @param today
+ * @returns {*}
+ * @constructor
+ */
 const Calendar = ({
   day,
   year,
@@ -137,66 +158,21 @@ const Calendar = ({
   );
 };
 
-const styles = ({palette}) => ({
-  root: {
-    backgroundColor: palette.white,
-    marginBottom: 20,
-  },
-  day: {
-    height: 30,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  dayWrapper: {
-    flexDirection: 'row',
-  },
-  offset: {
-    width: Platform.select({ios: 50, android: 40}),
-  },
-  daysWrapper: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    width: '100%',
-  },
-  icon: {
-    color: '#FFF',
-  },
-  textWrapper: {
-    flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'center',
-  },
-  monthText: {
-    flex: 1,
-    color: palette.gray,
-    textAlign: 'center',
-  },
-  yearText: {
-    color: '#FFF',
-    textAlign: 'center',
-    fontWeight: '600',
-    fontSize: Platform.select({ios: 20, android: 18}),
-  },
-  yearWrapper: {
-    paddingHorizontal: 20,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: palette.blue,
-    paddingVertical: 5,
-    borderTopLeftRadius: 10,
-    borderTopRightRadius: 10,
-  },
-  monthTouch: {
-    flex: 1,
-    flexDirection: 'row',
-  },
-  monthWrapper: {
-    paddingVertical: 4,
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: palette.white,
-  },
-});
+Calendar.propTypes = {
+  day: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  year: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  month: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  days: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  currentMonth: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  currentYear: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  yearsFrom: PropTypes.number,
+  yearsTo: PropTypes.number,
+  onSelectDay: PropTypes.func,
+  onChangeYear: PropTypes.func,
+  onChangeMonth: PropTypes.func,
+  onSelectMonth: PropTypes.func,
+  disablePast: PropTypes.bool,
+  today: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+};
 
 export default Calendar;

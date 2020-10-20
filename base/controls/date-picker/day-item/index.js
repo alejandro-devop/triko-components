@@ -3,7 +3,20 @@ import {TouchableOpacity, View} from 'react-native';
 import Text from 'shared/components/base/text';
 import useStyles from 'shared/hooks/use-styles';
 import classNames from 'shared/utils/classnames';
+import styles from './styles';
 
+/**
+ * This component renders a dialog which allows to select the day.
+ * @author Alejandro <alejandro.devop@gmail.com>
+ * @version 1.0.0
+ * @param day
+ * @param disabled
+ * @param selected
+ * @param onSelect
+ * @param size
+ * @returns {*}
+ * @constructor
+ */
 const DayItem = ({day, disabled, selected, onSelect, size = 30}) => {
   const [classes] = useStyles(styles);
   const WrapperComponent = disabled ? View : TouchableOpacity;
@@ -37,27 +50,5 @@ const DayItem = ({day, disabled, selected, onSelect, size = 30}) => {
     </WrapperComponent>
   );
 };
-
-const styles = ({palette}) => ({
-  root: {
-    borderRadius: 100,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  selected: {
-    backgroundColor: palette.blue,
-  },
-  disabled: {
-    opacity: 0.2,
-  },
-  text: {
-    color: palette.gray,
-    textAlign: 'center',
-  },
-  textSelected: {
-    color: '#FFF',
-    fontWeight: '600',
-  },
-});
 
 export default DayItem;
