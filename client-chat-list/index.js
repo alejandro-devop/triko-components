@@ -9,8 +9,8 @@ import {useChatList} from 'shared/components/chat-room/hooks';
 import useNavigate from 'shared/hooks/use-navigate';
 import {useSession} from 'hooks/index';
 
-const TrikoChatList = () => {
-  const {loading, chats = []} = useChatList();
+const ClientChatList = () => {
+  const {loading, chats = []} = useChatList({isClient: true});
   const {setKey} = useSession();
   const {navigation} = useNavigate();
 
@@ -44,4 +44,4 @@ const styles = () => ({
   },
 });
 
-export default TrikoChatList;
+export default ClientChatList;

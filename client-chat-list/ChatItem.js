@@ -9,20 +9,32 @@ import classNames from 'shared/utils/classnames';
 import useTranslation from 'hooks/useTranslation';
 import Slide from 'shared/components/anims/Slide';
 
-const ChatItem = ({chatItem = {}, delay = 0, maxChars = 30}) => {
+const ChatItem = ({chatItem = {}, delay = 0, maxChars = 30, onPress}) => {
   const [classes] = useStyles(styles);
-  const {triko = {}, lastMessage, messages, date} = chatItem;
+  const {
+    client = {},
+    lastMessage,
+    messages,
+    date,
+    // user: {photo_url: photoUrl},
+    // pi: {first_name: firstName, last_name: lastName},
+    // lastMessage,
+    // messages = [],
+    // unReadCount = 0,
+  } = chatItem;
   const {
     user: {photo_url: photoUrl},
     pi: {first_name: firstName, last_name: lastName},
-  } = triko;
+  } = client;
 
   const {_t} = useTranslation();
   const fullName = `${firstName} ${lastName.substring(0, 1)}.`;
   const elapsed = lastMessage ? getElapsedTime(date).split(' ')[0] : 0;
   return (
     <Slide direction="right" delay={delay}>
-      <TouchableOpacity style={classNames({root: true}, classes)}>
+      <TouchableOpacity
+        onPress={onPress}
+        style={classNames({root: true}, classes)}>
         <View style={classes.avatarWrapper}>
           <PreImage
             style={classes.avatar}
@@ -33,7 +45,7 @@ const ChatItem = ({chatItem = {}, delay = 0, maxChars = 30}) => {
           <Text style={classNames({fullName: true, text: true}, classes)}>
             {`${fullName}`}
           </Text>
-          {Boolean(lastMessage.message) && (
+          {lastMessage.message && (
             <Text style={classNames({textPreview: true, text: true}, classes)}>
               {`${_t('chat_says_label')}: ${
                 lastMessage.message.length >= maxChars
@@ -65,6 +77,7 @@ const styles = ({palette}) => ({
   avatarWrapper: {
     width: avatarSize,
     height: avatarSize,
+    borderRadius: 100,
     marginRight: 20,
   },
   content: {

@@ -5,22 +5,20 @@ import useStyles from 'shared/hooks/use-styles';
 import ChatIcon from 'assets/icons/comments-bubble.png';
 import ChatItem from './ChatItem';
 import EmptySet from 'main/screens/commons/EmptySet';
-import mocks from './chat.mocks';
-import useMock from 'shared/hooks/use-mock';
+import {useChatList} from 'shared/components/chat-room/hooks';
 
 const ClientChatList = () => {
-  const {loading, data = {}} = useMock(mocks);
-
-  const chatList = data.response || [];
+  const {loading, chats = []} = useChatList({isClient: true});
   const [classes] = useStyles(styles);
+  console.log('chats: ', chats);
   return (
     <View style={classes.root}>
       {loading && <Loader />}
-      {!loading && chatList.length === 0 && (
+      {!loading && chats.length === 0 && (
         <EmptySet source={ChatIcon} label="no_messages_from_trikos" />
       )}
       {!loading &&
-        chatList.map((chatItem, key) => (
+        chats.map((chatItem, key) => (
           <ChatItem
             chatItem={chatItem}
             delay={200 * key}

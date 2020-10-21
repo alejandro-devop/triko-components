@@ -1,6 +1,6 @@
-import {useState} from 'react';
+import {useState, useMemo} from 'react';
 import {useMutation, useQuery} from '@apollo/react-hooks';
-import {GET_MESSAGES, SEND_MESSAGE} from './queries';
+import {GET_MESSAGES, SEND_MESSAGE, GET_TRIKO_REQUESTS} from './queries';
 import useNotify from 'hooks/useNotification';
 import {useSession} from 'hooks/index';
 
@@ -85,5 +85,61 @@ export const useMessagesFetcher = (options = {}) => {
     readMessages,
     refresh,
     user,
+  };
+};
+
+/**
+ * This hook lists the user chat list
+ * @author Alejandro <alejandro.devop@gmail.com>
+ * @version 1.0.0
+ * @returns {{chats: *, loading: *}}
+ */
+export const useChatList = (options = {}) => {
+  const {isClient} = options;
+  const {
+    stack: {client = {}, triko = {}, locale},
+  } = useSession();
+  const {loading, data = {}} = useQuery(
+    isClient ? GET_TRIKO_REQUESTS : GET_TRIKO_REQUESTS,
+    {
+      fetchPolicy: 'no-cache',
+      pollInterval: 5000,
+      variables: {
+        ...(isClient
+          ? {
+              client: client.id,
+            }
+          : {
+              triko: triko.id,
+            }),
+        locale,
+      },
+    },
+  );
+  const response = data.response;
+  const chats = useMemo(() => {
+    const chatList = [];
+    if (Array.isArray(response)) {
+      response.forEach((item) => {
+        const {chat = {}} = item;
+        if (chat && chat.messages && chat.messages.length > 0) {
+          const messagesCount = chat.messages.length;
+          const lastMessage = chat.messages[messagesCount - 1];
+          chatList.push({
+            request: item,
+            client: item.client,
+            triko: item.triko,
+            lastMessage,
+            messages: messagesCount,
+            date: lastMessage.date,
+          });
+        }
+      });
+    }
+    return chatList;
+  }, [response]);
+  return {
+    chats,
+    loading,
   };
 };
