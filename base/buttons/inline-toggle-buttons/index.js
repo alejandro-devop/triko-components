@@ -34,7 +34,7 @@ const ToggleButtons = ({buttons = [], currentButton = 0}) => {
 };
 
 ToggleButtons.propTypes = {
-  buttons: PropTypes.arrayOf(PropTypes.string),
+  buttons: PropTypes.arrayOf(PropTypes.shape({label: PropTypes.string})),
   currentButton: PropTypes.number,
 };
 

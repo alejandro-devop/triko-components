@@ -9,7 +9,7 @@ import classNames from 'shared/utils/classnames';
 import useTranslation from 'hooks/useTranslation';
 import Slide from 'shared/components/anims/Slide';
 
-const ChatItem = ({chatItem = {}, delay = 0, maxChars = 30}) => {
+const ChatItem = ({chatItem = {}, delay = 0, maxChars = 30, onPress}) => {
   const [classes] = useStyles(styles);
   const {triko = {}, lastMessage, messages, date} = chatItem;
   const {
@@ -22,7 +22,9 @@ const ChatItem = ({chatItem = {}, delay = 0, maxChars = 30}) => {
   const elapsed = lastMessage ? getElapsedTime(date).split(' ')[0] : 0;
   return (
     <Slide direction="right" delay={delay}>
-      <TouchableOpacity style={classNames({root: true}, classes)}>
+      <TouchableOpacity
+        onPress={onPress}
+        style={classNames({root: true}, classes)}>
         <View style={classes.avatarWrapper}>
           <PreImage
             style={classes.avatar}
