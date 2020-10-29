@@ -13,8 +13,8 @@ export const getBlockInfo = (
     itemPreDate.format(`YYYY-MM-${(day < 9 ? '0' : '') + day} HH:mm:ss`),
   ).format('x');
   let eventInfo = {};
-  events.forEach(event => {
-    const {begins, ends, type, title} = event;
+  events.forEach((event) => {
+    const {start: begins, end: ends, type, title} = event;
     const beginDate = moment(begins, inputFormat);
     const endDate = moment(ends, inputFormat);
     const beginTimestamp = beginDate.format('x');

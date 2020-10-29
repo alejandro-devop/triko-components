@@ -33,7 +33,7 @@ const WeekView = ({
     inputFormat,
   );
   const duration = moment.duration(endDate.diff(startDate));
-  const dateBlocks = [...Array(duration.hours()).keys()].map(key => {
+  const dateBlocks = [...Array(duration.hours()).keys()].map((key) => {
     startDate.add(interval, 'hour');
     return {
       hour: startDate.format('h:mm a'),
@@ -44,9 +44,7 @@ const WeekView = ({
   const blockHeight = 35;
 
   const daysToRender = days.map((dayName, key) => {
-    const currentWeek = moment()
-      .startOf('isoWeek')
-      .add(key, 'days');
+    const currentWeek = moment().startOf('isoWeek').add(key, 'days');
     return {
       dayLetter: dayName.substring(0, 1),
       day: dayName,
@@ -81,7 +79,7 @@ const WeekView = ({
                       hourBlocks={dateBlocks}
                       blockWidth={blockWidth * 1.5}
                       blockHeight={blockHeight}
-                      events={getEvents(dayNumber, events)}
+                      events={getEvents(dayNumber)}
                     />
                   ))}
                 </View>

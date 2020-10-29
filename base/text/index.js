@@ -4,6 +4,7 @@ import styles from './styles';
 import {Text as TextBase} from 'react-native';
 import classNames from 'shared/utils/classnames';
 import useStyles from 'shared/hooks/use-styles';
+import useTranslation from 'hooks/useTranslation';
 
 /**
  * This component allows to render a simple text, it injects the common styling
@@ -18,6 +19,7 @@ import useStyles from 'shared/hooks/use-styles';
  */
 const Text = ({children, style, color, variant}) => {
   const [classes, theme] = useStyles(styles);
+  const {_t} = useTranslation();
   return (
     <TextBase
       style={[
@@ -36,7 +38,7 @@ const Text = ({children, style, color, variant}) => {
         ),
         color ? {color} : null,
       ]}>
-      {children}
+      {_t(children)}
     </TextBase>
   );
 };

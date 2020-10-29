@@ -12,7 +12,24 @@ import DatePicker from 'shared/components/base/controls/date-picker';
 import TimePicker from 'shared/components/base/controls/time-picker';
 import useForm from 'hooks/useForm';
 import Button from 'shared/components/base/buttons/button';
-import {oneIsEmpty} from 'utils/functions';
+import {isEmpty, isGreaterThen, oneIsEmpty} from 'utils/functions';
+import Text from 'shared/components/base/text';
+
+/**
+ * This function helps  to validate if the time is valid.
+ * @param starts
+ * @param ends
+ * @returns {string|null}
+ */
+const validateTime = (starts, ends) => {
+  if (isEmpty(starts) || isEmpty(ends)) {
+    return null;
+  } else if (isGreaterThen(starts, ends)) {
+    return 'add_event_error_initial_greater';
+  } else if (starts === ends) {
+    return 'add_event_error_equals';
+  }
+};
 
 /**
  * This component renders and handle the event form
@@ -38,12 +55,16 @@ const Form = ({onCancel, onSubmit}) => {
   );
   const {allDay, starts, ends, day, title} = form;
   const {_t} = useTranslation();
-  const disableSave = !isValid || (!allDay && oneIsEmpty([starts, ends]));
+  const timeError = validateTime(starts, ends);
+  const disableSave =
+    !isValid || (!allDay && (oneIsEmpty([starts, ends]) || Boolean(timeError)));
+
   const handleSubmit = () => {
     if (onSubmit) {
       onSubmit(form);
     }
   };
+
   return (
     <ScrollView>
       <TextField
@@ -76,6 +97,8 @@ const Form = ({onCancel, onSubmit}) => {
         <View style={[classes.timeRowItem, classes.timeRowItemFirst]}>
           <TimePicker
             disabled={allDay}
+            disableMinutes
+            step={0}
             primary
             placeholder={_t('event_start_time')}
             name="starts"
@@ -87,6 +110,8 @@ const Form = ({onCancel, onSubmit}) => {
           <TimePicker
             disabled={allDay}
             primary
+            disableMinutes
+            minutes={0}
             placeholder={_t('event_end_time')}
             name="ends"
             value={ends}
@@ -94,6 +119,11 @@ const Form = ({onCancel, onSubmit}) => {
           />
         </View>
       </View>
+      {!allDay && Boolean(timeError) && (
+        <View style={classes.errorWrapper}>
+          <Text style={classes.error}>{timeError}</Text>
+        </View>
+      )}
       <View style={classes.actions}>
         <Button onPress={handleSubmit} disabled={disableSave} primary>
           {_t('save_text')}

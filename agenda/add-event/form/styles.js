@@ -1,10 +1,17 @@
-export default () => ({
+export default ({palette}) => ({
   actions: {
     marginTop: 50,
     paddingHorizontal: 40,
   },
   allDayWrapper: {
     width: 60,
+  },
+  error: {
+    color: palette.red,
+    textAlign: 'center',
+  },
+  errorWrapper: {
+    marginTop: 20,
   },
   timeRow: {
     flexDirection: 'row',

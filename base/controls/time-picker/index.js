@@ -28,14 +28,16 @@ const TimePicker = ({
   format = 'hh:mm:ss a',
   displayFormat = 'h:mm a',
   name,
+  minutes,
   placeholder,
   onChange,
   minDate,
+  step,
   value = '',
   primary,
 }) => {
   const [visible, setVisible] = useState(false);
-  const date = value ? moment(value, format).toDate() : moment().toDate();
+  // const date = value ? moment(value, format).toDate() : moment().toDate();
   const displayDate = value
     ? moment(value, displayFormat).format(displayFormat)
     : '';
@@ -43,11 +45,9 @@ const TimePicker = ({
   const toggleVisible = () => {
     setVisible(!visible);
   };
-  const handleDateChange = newDate => {
+  const handleDateChange = (newDate) => {
     if (onChange) {
-      const strDate = moment(newDate)
-        .format(format)
-        .toString();
+      const strDate = moment(newDate).format(format).toString();
       onChange({target: {name, value: strDate}});
     }
   };
@@ -74,10 +74,12 @@ const TimePicker = ({
           open={visible}
           disableMinutes={disableMinutes}
           onClose={toggleVisible}
+          minutes={minutes}
           placeholder={placeholder}
           date={isEmpty(value) ? minDate : value}
           onSelectDate={handleDateChange}
           format={format}
+          step={step}
         />
       )}
     </>

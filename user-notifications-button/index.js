@@ -19,7 +19,7 @@ const UserNotificationButton = () => {
     useCallback(() => {
       refresh();
       return () => {};
-    }),
+    }, []),
   );
   if (total === 0) {
     return null;

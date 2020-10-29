@@ -3,7 +3,6 @@ import {TouchableOpacity, View} from 'react-native';
 import useStyles from 'shared/hooks/use-styles';
 import classNames from 'shared/utils/classnames';
 import Text from 'components/base/text';
-import moment from 'moment';
 import {getBlockInfo} from '../commons';
 import useTranslation from 'hooks/useTranslation';
 
