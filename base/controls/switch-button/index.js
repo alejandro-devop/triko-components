@@ -20,7 +20,7 @@ import useTranslation from 'hooks/useTranslation';
 const SwitchButton = ({buttons, label, name, onChange, value}) => {
   const [classes] = useStyles(styles);
   const {_t} = useTranslation();
-  const handleChange = index => {
+  const handleChange = (index) => {
     if (onChange) {
       onChange({
         target: {

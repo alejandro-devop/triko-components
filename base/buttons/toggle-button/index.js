@@ -36,7 +36,6 @@ const ToggleButton = ({
       onPress();
     }
   };
-  console.log('toggled: ', toggled);
   return (
     <ComponentWrapper
       onLayout={({
