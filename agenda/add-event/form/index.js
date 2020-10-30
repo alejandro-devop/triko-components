@@ -24,7 +24,7 @@ import Text from 'shared/components/base/text';
 const validateTime = (starts, ends) => {
   if (isEmpty(starts) || isEmpty(ends)) {
     return null;
-  } else if (isGreaterThen(starts, ends)) {
+  } else if (isGreaterThen(starts, ends, 'hh:mm:ss a')) {
     return 'add_event_error_initial_greater';
   } else if (starts === ends) {
     return 'add_event_error_equals';
@@ -98,7 +98,7 @@ const Form = ({onCancel, onSubmit}) => {
           <TimePicker
             disabled={allDay}
             disableMinutes
-            step={0}
+            minutes={0}
             primary
             placeholder={_t('event_start_time')}
             name="starts"
