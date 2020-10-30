@@ -7,6 +7,7 @@ import {useStyles} from 'hooks/index';
 import bellIcon from 'shared/assets/icons/notify-bell.png';
 import styles from './styles';
 import Scale from 'shared/components/anims/Scale';
+import classNames from 'shared/utils/classnames';
 
 /**
  * This component renders the bell button for the notifications
@@ -14,16 +15,17 @@ import Scale from 'shared/components/anims/Scale';
  * @version
  * @param count
  * @param onPress
+ * @param isTriko
  * @returns {*}
  * @constructor
  */
-const Button = ({count, onPress}) => {
+const Button = ({count, isTriko, onPress}) => {
   const [classes] = useStyles(styles);
   return (
     <Scale delay={1000} style={classes.root}>
       <TouchableOpacity onPress={onPress}>
         <PreImage style={classes.image} source={bellIcon} />
-        <View style={classes.caret}>
+        <View style={classNames({caret: true, caretTriko: isTriko}, classes)}>
           <Text style={classes.caretText}>{count < 10 ? count : '9+'}</Text>
         </View>
       </TouchableOpacity>
@@ -34,6 +36,7 @@ const Button = ({count, onPress}) => {
 Button.propTypes = {
   count: PropTypes.number,
   onPress: PropTypes.func,
+  isTriko: PropTypes.bool,
 };
 
 export default Button;

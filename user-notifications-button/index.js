@@ -3,13 +3,14 @@ import {useFocusEffect} from '@react-navigation/native';
 import Button from './button';
 import useNavigate from 'shared/hooks/use-navigate';
 import useUserNotifications from 'shared/hooks/use-user-notifications';
+import PropTypes from 'prop-types';
 
 /**
  * This component renders the notifications button
  * @returns {null|*}
  * @constructor
  */
-const UserNotificationButton = () => {
+const UserNotificationButton = ({isTriko}) => {
   const {navigation} = useNavigate();
   const {refresh, total = 0} = useUserNotifications();
   const onViewNotifications = () => {
@@ -24,7 +25,13 @@ const UserNotificationButton = () => {
   if (total === 0) {
     return null;
   }
-  return <Button count={total} onPress={onViewNotifications} />;
+  return (
+    <Button count={total} isTriko={isTriko} onPress={onViewNotifications} />
+  );
+};
+
+UserNotificationButton.propTypes = {
+  isTriko: PropTypes.bool,
 };
 
 export default UserNotificationButton;

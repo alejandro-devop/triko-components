@@ -6,6 +6,11 @@ export default () => ({
     width: 18,
     alignItems: 'center',
   },
+  caretTriko: {
+    width: 16,
+    right: 2,
+    alignItems: 'center',
+  },
   caretText: {
     color: '#FFF',
     fontWeight: '600',
