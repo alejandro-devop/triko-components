@@ -1,10 +1,10 @@
 export default () => ({
   caret: {
     position: 'absolute',
-    right: 8,
+    right: 5,
     top: 10,
-    width: 12,
-    // backgroundColor: 'red',
+    width: 18,
+    alignItems: 'center',
   },
   caretText: {
     color: '#FFF',
