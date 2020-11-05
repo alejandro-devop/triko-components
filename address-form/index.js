@@ -16,6 +16,8 @@ import PermissionsManager, {
  * @author Jako <jakop.box@gmail.com>
  * @version 1.0.1
  * @app Client
+ * @param form
+ * @param loading
  * @param onChange
  * @param onCancel
  * @param onNext

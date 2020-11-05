@@ -11,8 +11,16 @@ import useAddressSave from './useAddressSave';
 import PermissionsManager, {
   PERMISSIONS,
 } from 'shared/components/permissions-manager';
+import WizardDialog from 'shared/components/base/address-wizard/wizard-dialog';
 
-const AddressWizard = ({isTriko, useWizard, onSaved}) => {
+const AddressWizard = ({
+  isTriko,
+  useDialog,
+  useWizard,
+  open,
+  onClose,
+  onSaved,
+}) => {
   const [classes] = useStyles(styles);
   const [currentStep, setCurrentStep] = useState(isTriko ? 1 : 0);
   const [mode, setMode] = useState(0);
@@ -85,46 +93,10 @@ const AddressWizard = ({isTriko, useWizard, onSaved}) => {
       form,
       onSaved,
     });
+    if (onClose) {
+      onClose();
+    }
   };
-
-  // const onSubmit = async () => {
-  //   const {address: addressObj = {}, name, type} = form;
-  //   const {address, position = {}} = addressObj;
-  //   // return null;
-  //   setLoading(true);
-  //   try {
-  //     const {data} = await saveAddress({
-  //       variables: {
-  //         address,
-  //         client: client.id,
-  //         buildingType: type,
-  //         title: name,
-  //         isMain: 1,
-  //         lat: position.lat,
-  //         lng: position.lng,
-  //         locale,
-  //       },
-  //     });
-  //     if (data.response) {
-  //       await setKey('myAddresses', [...myAddresses, data.response]);
-  //       setLoading(false);
-  //       success(_t('address_saved_message'));
-  //       if (onSaved) {
-  //         setTimeout(() => {
-  //           onSaved();
-  //         }, 300);
-  //       }
-  //     } else {
-  //       error('Could not save the address');
-  //       console.log('Error: while saving the address');
-  //       setLoading(false);
-  //     }
-  //   } catch (e) {
-  //     error(_t('address_error_message'));
-  //     console.log('Error: ', e);
-  //     setLoading(false);
-  //   }
-  // };
 
   const onChangePosition = (newPosition) => {
     const {address = {}} = form || {};
@@ -139,7 +111,7 @@ const AddressWizard = ({isTriko, useWizard, onSaved}) => {
 
   const {address, city} = form;
   const modeText = mode === 0 ? 'type' : 'my-location';
-  return (
+  const content = (
     <>
       <PermissionsManager permissions={[PERMISSIONS.ACCESS_LOCATION]}>
         <View style={classes.content}>
@@ -182,6 +154,16 @@ const AddressWizard = ({isTriko, useWizard, onSaved}) => {
       {loading && <LoadingCurtain />}
     </>
   );
+
+  if (useDialog) {
+    return (
+      <WizardDialog open={open} onClose={onClose}>
+        {content}
+      </WizardDialog>
+    );
+  }
+
+  return content;
 };
 
 const styles = () => ({
