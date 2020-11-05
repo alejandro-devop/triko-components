@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Platform, TouchableOpacity, View} from 'react-native';
+import {TouchableOpacity, View} from 'react-native';
 import Text from 'shared/components/base/text';
 import Icon from 'shared/components/base/icon';
 import classNames from 'shared/utils/classnames';
 import useStyles from 'shared/hooks/use-styles';
 import ImageIcon from 'shared/components/base/image-icon';
+import styles from './styles';
 
 /**
  * This component renders a single element from the user addresses
@@ -13,6 +14,7 @@ import ImageIcon from 'shared/components/base/image-icon';
  * @version 1.0.0
  * @app Client
  * @param addressItem
+ * @param disableSelect
  * @param onPress
  * @param selected
  * @returns {*}
@@ -44,50 +46,6 @@ const AddressItem = ({addressItem = {}, disableSelect, onPress, selected}) => {
     </Wrapper>
   );
 };
-
-const styles = ({palette}) => ({
-  selected: {
-    backgroundColor: palette.blue1,
-  },
-  iconWrapper: {
-    borderRadius: 100,
-    width: 40,
-    height: 40,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: palette.grayLighter,
-    marginRight: 20,
-  },
-  imageWrapper: {
-    width: '100%',
-    height: '100%',
-    borderRadius: 100,
-    padding: 3,
-    backgroundColor: '#FFF',
-  },
-  root: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingHorizontal: 30,
-    paddingVertical: 10,
-    ...Platform.select({
-      ios: {
-        borderColor: 'transparent',
-        borderRadius: 50,
-        borderWidth: 1,
-        borderBottomColor: palette.grayLighter,
-      },
-      android: {
-        borderRadius: 10,
-        borderBottomWidth: 1,
-        borderBottomColor: palette.grayLighter,
-      },
-    }),
-  },
-  textWrapper: {
-    flex: 1,
-  },
-});
 
 AddressItem.propTypes = {
   addressItem: PropTypes.shape({
