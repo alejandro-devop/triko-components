@@ -21,7 +21,7 @@ import useTranslation from 'hooks/useTranslation';
 import {postulatesMock} from 'shared/components/requests-list/postulates.mock';
 import BellCount from './BellCount';
 import DistanceRender from 'shared/components/request-commons/distance-render';
-import serviceIcon from 'assets/icons/triko-courrier.png';
+import serviceIcon from 'shared/assets/icons/triko-courier.png';
 import FavorIcon from '../favor-icon';
 import DateRender from 'shared/components/request-commons/date-render';
 import Button from 'shared/components/base/buttons/button';

@@ -10,7 +10,7 @@ import ServiceInfo from '../service-info';
 import ConfirmIcon from '../ConfirmIcon';
 import DistanceRender from 'shared/components/request-commons/distance-render';
 import DateRender from 'shared/components/request-commons/date-render';
-import shopperIcon from 'assets/icons/shopper-icon.png';
+import shopperIcon from 'shared/assets/icons/triko-shopper.png';
 import Text from 'components/base/text';
 import Icon from 'components/base/icon';
 import FavorIcon from '../favor-icon';

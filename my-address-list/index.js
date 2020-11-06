@@ -125,7 +125,7 @@ MyAddressesList.propTypes = {
   ]),
   addLabel: PropTypes.string,
   disableSelect: PropTypes.bool,
-  emptyLabel: PropTypes.bool,
+  emptyLabel: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   enableAddButton: PropTypes.bool,
   isTriko: PropTypes.bool,
   onAddAddress: PropTypes.func,

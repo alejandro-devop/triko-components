@@ -22,7 +22,7 @@ import ClientInfo from '../info-client';
 import DistanceRender from 'shared/components/request-commons/distance-render';
 import DateRender from 'shared/components/request-commons/date-render';
 import FavorIcon from '../favor-icon';
-import serviceIcon from 'assets/icons/triko-task.png';
+import serviceIcon from 'shared/assets/icons/triko-task.png';
 import Button from 'shared/components/base/buttons/button';
 
 const acceptedStatus = [

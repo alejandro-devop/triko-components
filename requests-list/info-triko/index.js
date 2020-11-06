@@ -7,6 +7,7 @@ import Text from 'components/base/text';
 import defaultAvatar from 'assets/avatars/profile-photo.jpg';
 import RatingStars from 'components/base/rating-stars';
 import styles from './styles';
+import {isEmpty} from 'shared/utils/functions';
 
 /**
  * This component renders the triko information for the request card
@@ -18,11 +19,9 @@ import styles from './styles';
  */
 const InfoTriko = ({triko = {}}) => {
   const [classes] = useStyles(styles);
-  const {
-    user: {photo_url},
-    pi: {first_name: firstName, last_name: lastName},
-    rating,
-  } = triko;
+  const {user = {}, pi = {}, rating} = triko;
+  const {photo_url} = user;
+  const {first_name: firstName, last_name: lastName} = pi;
   return (
     <View style={classes.root}>
       <View style={classes.avatarWrapper}>
@@ -32,7 +31,9 @@ const InfoTriko = ({triko = {}}) => {
         />
       </View>
       <View style={classes.infoWrapper}>
-        <Text style={classes.fullName}>{`${firstName} ${lastName[0]}.`}</Text>
+        {!isEmpty(firstName) && !isEmpty(lastName) && (
+          <Text style={classes.fullName}>{`${firstName} ${lastName[0]}.`}</Text>
+        )}
         <View style={classes.ratingWrapper}>
           <Text style={classes.ratingText}>{`${rating}.0`}</Text>
         </View>

@@ -9,6 +9,7 @@ import ServiceInfo from '../service-info';
 import ConfirmIcon from '../ConfirmIcon';
 import RateInfo from '../rate-info';
 import CardActions from '../card-actions';
+import styles from './styles';
 import {
   STATUS_ACCEPTED,
   STATUS_CONFIRM_FINISHED,
@@ -36,7 +37,8 @@ const NormalCard = ({
   onViewOnMap,
   request = {},
 }) => {
-  const {triko = {}, client = {}} = request;
+  const {triko: trikos = [], client = {}} = request;
+  const [triko = {}] = trikos;
   const [classes] = useStyles(styles);
   const {transition = {}} = request;
   const [detail = {}] = request.details || [];
@@ -89,22 +91,5 @@ const NormalCard = ({
     </View>
   );
 };
-
-const styles = () => ({
-  image: {
-    width: '100%',
-    height: '100%',
-  },
-  root: {
-    flexDirection: 'row',
-  },
-  serviceWrapper: {
-    flex: 3,
-  },
-  avatarInfoWrapper: {
-    flex: 4,
-    alignItems: 'flex-end',
-  },
-});
 
 export default NormalCard;

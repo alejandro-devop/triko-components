@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import useSession from 'hooks/useSession';
 import Wrapper from './wrapper';
 import Loader from './loader';

@@ -64,7 +64,7 @@ CardIcon.propTypes = {
     PropTypes.string,
     PropTypes.shape({uri: PropTypes.string}),
   ]),
-  primary: PropTypes.bool,
+  primary: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   secondary: PropTypes.bool,
   isTriko: PropTypes.bool,
   maxChars: PropTypes.number,
