@@ -177,7 +177,7 @@ class PermissionsManager extends React.Component {
             await RNPermissions.check(IOS_PERMISSIONS[permissionName]),
         ),
       );
-      console.log('permissionStatuses', permissionStatuses);
+
       permissionStatuses.forEach((status, key) => {
         if (status === 'granted') {
           granted.push(permissions[key]);

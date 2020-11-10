@@ -3,12 +3,21 @@ import {View} from 'react-native';
 import useStyles from 'shared/hooks/use-styles';
 import SkeletonLoader from 'shared/components/loaders/skeleton';
 import _ from 'lodash';
+import styles from './styles';
 
+/**
+ * This component renders the chat loader
+ * @author Alejandro <alejandro.devop@gmail.com>
+ * @version 1.0.0
+ * @param times
+ * @returns {*}
+ * @constructor
+ */
 const Loader = ({times = 4}) => {
   const [classes] = useStyles(styles);
   return (
     <View style={classes.root}>
-      {_.times(times, index => (
+      {_.times(times, (index) => (
         <View style={classes.loaderCard} key={`chat-item-${index}`}>
           <View style={classes.avatarWrapper}>
             <SkeletonLoader type="circle" style={classes.avatar} />
@@ -25,49 +34,5 @@ const Loader = ({times = 4}) => {
     </View>
   );
 };
-
-const styles = ({palette}) => ({
-  avatar: {
-    width: 70,
-    height: 70,
-  },
-  avatarWrapper: {
-    marginRight: 10,
-  },
-  count: {
-    borderRadius: 100,
-    width: 20,
-    height: 20,
-    backgroundColor: palette.blueLight,
-  },
-  countWrapper: {
-    flexDirection: 'row',
-    flex: 1,
-    height: '100%',
-    alignItems: 'flex-end',
-    justifyContent: 'flex-end',
-  },
-  loaderCard: {
-    backgroundColor: palette.blueLightAccent,
-    paddingHorizontal: 15,
-    paddingVertical: 10,
-    borderRadius: 30,
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 20,
-    opacity: 0.6,
-  },
-  nameText: {
-    // width: 200,
-  },
-  root: {
-  },
-  textWrapper: {
-    flex: 9,
-  },
-  timeText: {
-    width: 50,
-  },
-});
 
 export default Loader;

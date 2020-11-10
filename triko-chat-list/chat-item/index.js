@@ -8,20 +8,22 @@ import {getElapsedTime} from 'shared/utils/functions';
 import classNames from 'shared/utils/classnames';
 import useTranslation from 'hooks/useTranslation';
 import Slide from 'shared/components/anims/Slide';
+import styles from './styles';
 
+/**
+ * This component renders a single chat item for the trikolaborator.
+ * @author Alejandro <alejandro.devop@gmail.com>
+ * @version 1.0.0
+ * @param chatItem
+ * @param delay
+ * @param maxChars
+ * @param onPress
+ * @returns {*}
+ * @constructor
+ */
 const ChatItem = ({chatItem = {}, delay = 0, maxChars = 30, onPress}) => {
   const [classes] = useStyles(styles);
-  const {
-    client = {},
-    lastMessage,
-    messages,
-    date,
-    // user: {photo_url: photoUrl},
-    // pi: {first_name: firstName, last_name: lastName},
-    // lastMessage,
-    // messages = [],
-    // unReadCount = 0,
-  } = chatItem;
+  const {client = {}, lastMessage, messages, date} = chatItem;
   const {
     user: {photo_url: photoUrl},
     pi: {first_name: firstName, last_name: lastName},
@@ -65,69 +67,5 @@ const ChatItem = ({chatItem = {}, delay = 0, maxChars = 30, onPress}) => {
     </Slide>
   );
 };
-
-const avatarSize = 60;
-
-const styles = ({palette}) => ({
-  avatar: {
-    width: avatarSize,
-    height: avatarSize,
-    borderRadius: 100,
-  },
-  avatarWrapper: {
-    width: avatarSize,
-    height: avatarSize,
-    borderRadius: 100,
-    marginRight: 20,
-  },
-  content: {
-    justifyContent: 'center',
-    flex: 1,
-    paddingRight: 30,
-  },
-  root: {
-    flexDirection: 'row',
-    backgroundColor: palette.blueLight,
-    paddingHorizontal: 10,
-    paddingVertical: 10,
-    marginBottom: 20,
-    borderRadius: 30,
-  },
-  rootActive: {
-    backgroundColor: palette.orange,
-  },
-  text: {
-    color: palette.blue,
-    fontWeight: '400',
-    fontSize: 16,
-    marginBottom: 2,
-  },
-  textActive: {
-    color: '#FFF',
-  },
-  textPreview: {
-    fontSize: 10,
-  },
-  timeText: {
-    fontSize: 10,
-  },
-  unReadWrapper: {
-    backgroundColor: palette.blue,
-    padding: 2,
-    minWidth: 20,
-    minHeight: 20,
-    borderRadius: 100,
-    position: 'absolute',
-    bottom: 20,
-    right: 20,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  unReadText: {
-    color: '#FFF',
-    fontSize: 12,
-    fontWeight: '800',
-  },
-});
 
 export default ChatItem;

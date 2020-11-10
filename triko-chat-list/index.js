@@ -1,14 +1,22 @@
 import React from 'react';
 import {View} from 'react-native';
-import Loader from './Loader';
+import Loader from './loader';
 import useStyles from 'shared/hooks/use-styles';
 import ChatIcon from 'assets/icons/comments-bubble.png';
-import ChatItem from './ChatItem';
+import ChatItem from './chat-item';
 import EmptySet from 'main/screens/commons/EmptySet';
 import {useChatList} from 'shared/components/chat-room/hooks';
 import useNavigate from 'shared/hooks/use-navigate';
 import {useSession} from 'hooks/index';
+import styles from './styles';
 
+/**
+ * This component renders the chat for the triko
+ * @version 1.0.0
+ * @author Alejandro <alejandro.devop@gmail.com>
+ * @returns {*}
+ * @constructor
+ */
 const TrikoChatList = () => {
   const {loading, chats = []} = useChatList();
   const {setKey} = useSession();
@@ -37,11 +45,5 @@ const TrikoChatList = () => {
     </View>
   );
 };
-
-const styles = () => ({
-  root: {
-    paddingHorizontal: 20,
-  },
-});
 
 export default TrikoChatList;
