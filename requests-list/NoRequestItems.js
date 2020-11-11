@@ -2,12 +2,9 @@ import React from 'react';
 import {View} from 'react-native';
 import useStyles from 'hooks/useStyles';
 import PrettyIcon from 'shared/components/pretty-icon';
-import Text from 'components/base/text';
-import useTranslation from 'hooks/useTranslation';
 
 const NoRequestItems = () => {
   const [classes] = useStyles(styles);
-  const {_t} = useTranslation();
   return (
     <View style={classes.root}>
       <PrettyIcon
@@ -17,7 +14,6 @@ const NoRequestItems = () => {
           icon: classes.icon,
         }}
       />
-      <Text style={classes.label}>{_t('no_service_requests_to_list')}</Text>
     </View>
   );
 };

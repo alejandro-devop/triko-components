@@ -6,6 +6,7 @@ export default ({palette}) => ({
   label: {
     color: palette.dark,
     fontSize: 14,
+    textAlign: 'center',
   },
   root: {
     flexDirection: 'row',

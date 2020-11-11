@@ -7,8 +7,16 @@ import moment from 'moment';
 import useRequestStatus from 'shared/hooks/use-request-status';
 import useTranslation from 'hooks/useTranslation';
 import styles from './styles';
+import ConfirmIcon from 'shared/components/requests-list/ConfirmIcon';
 
-const ServiceInfo = ({isTriko, onViewMap, request = {}, showDate}) => {
+const ServiceInfo = ({
+  isTriko,
+  onViewMap,
+  request = {},
+  showDate,
+  acceptedStatus = [],
+  workflow,
+}) => {
   const {application_date, duration} = request;
   const requestDuration = parseInt(duration ? duration : 0, 10);
   const {_t} = useTranslation();
@@ -38,10 +46,13 @@ const ServiceInfo = ({isTriko, onViewMap, request = {}, showDate}) => {
         </>
       )}
       {isTriko && (
-        <>
-          {showDate && <Text style={classes.date}>{formattedDate}</Text>}
-          <RequestLocation request={request} onViewMap={onViewMap} />
-        </>
+        <View style={classes.infoWrapper}>
+          <View>
+            {showDate && <Text style={classes.date}>{formattedDate}</Text>}
+            <RequestLocation request={request} onViewMap={onViewMap} />
+          </View>
+          {acceptedStatus.includes(workflow) && <ConfirmIcon />}
+        </View>
       )}
     </View>
   );

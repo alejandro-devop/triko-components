@@ -5,6 +5,8 @@ import {useSession, useStyles} from 'hooks/index';
 import Text from 'components/base/text';
 import useCurrency from 'hooks/useCurrency';
 import useTranslation from 'hooks/useTranslation';
+import {useCalcRate} from 'shared/hooks/use-rate-calc';
+import CircularLoader from 'shared/components/loaders/circular-loader';
 
 /**
  * This component renders the duration and price for the current request
@@ -16,25 +18,16 @@ import useTranslation from 'hooks/useTranslation';
  */
 const RateInfo = ({request}) => {
   const [classes] = useStyles(styles);
-  const {
-    stack: {myServices},
-  } = useSession();
   const {format} = useCurrency();
   const {_t} = useTranslation();
-  const {attrs = {}, duration, details = []} = request;
+  const {duration, details = [], application_date} = request;
+  const servicesIds = details.map((item) => item.service.id);
+  const {loading, total} = useCalcRate({
+    date: application_date,
+    duration: parseInt(duration, 10),
+    services: servicesIds,
+  });
   const requestDuration = parseInt(duration, 10);
-  const price = details.reduce((accumulator, currentItem) => {
-    const service = myServices.find(
-      (item) => item.id === currentItem.service.id,
-    );
-    if (service) {
-      accumulator = service.price_base;
-    }
-    return accumulator;
-  }, 0);
-  const {tip, transport} = attrs;
-  const total =
-    price * requestDuration + parseFloat(tip) + parseFloat(transport);
   return (
     <View style={classes.root}>
       <Text style={classes.totalText}>
@@ -45,7 +38,8 @@ const RateInfo = ({request}) => {
         })}
       </Text>
       <View style={classes.priceWrapper}>
-        <Text style={classes.priceText}>{format(total)}</Text>
+        {loading && <CircularLoader color="#FFF" size="small" />}
+        {!loading && <Text style={classes.priceText}>{format(total)}</Text>}
       </View>
     </View>
   );

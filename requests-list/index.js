@@ -14,6 +14,7 @@ import {
 } from 'config/constants';
 import useUserLocation from 'shared/hooks/use-user-location';
 import {LoadingCurtain} from 'components/base/dialogs';
+import useRequestUpdate from 'shared/hooks/use-request-update';
 
 const MyActivityComponent = ({
   currentFilter = 0,
@@ -21,6 +22,7 @@ const MyActivityComponent = ({
   filters = [],
   isTriko,
   onChangeFilter,
+  onlyPending,
   onlyFavors,
   onlyCurrentDay,
   onlyMyServices,
@@ -29,11 +31,18 @@ const MyActivityComponent = ({
   const {location, loading: loadingLocation} = useUserLocation();
   const {getPendingRequests, loading, requests = []} = useRequestList({
     onlyFavors,
+    onlyPending,
     isTriko,
     onlyCurrentDay,
     onlyMyServices,
   });
   const {navigation} = useNavigate();
+  const {
+    loading: updatingRequest,
+    acceptRequest,
+    cancelRequest,
+  } = useRequestUpdate();
+
   const totalRequests = requests.length;
 
   const handleSelectItem = (request) => {
@@ -57,20 +66,16 @@ const MyActivityComponent = ({
     getPendingRequests();
   }, []);
 
-  const onViewOnMap = ({}) => {
-    alert('View map');
+  const onViewOnMap = ({}) => {};
+
+  const onAcceptRequest = async (selectedRequest) => {
+    await acceptRequest(selectedRequest);
+  };
+  const onCancelRequest = async (selectedRequest) => {
+    await cancelRequest(selectedRequest);
   };
 
-  const onAcceptRequest = () => {
-    alert('Accept');
-  };
-  const onCancelRequest = () => {
-    alert('Cancel');
-  };
-
-  const onView = () => {
-    alert('onView');
-  };
+  const onView = () => {};
 
   return (
     <>
@@ -95,15 +100,16 @@ const MyActivityComponent = ({
             item={item}
             key={`request-${item.id}`}
             onSelect={handleSelectItem}
-            onAccept={onAcceptRequest}
-            onCancel={onCancelRequest}
+            onAccept={() => onAcceptRequest(item)}
+            onCancel={() => onCancelRequest(item)}
             userLocation={location}
             onViewOnMap={() => onViewOnMap(item)}
-            onView={onView}
+            onView={() => onView(item)}
           />
         ))}
       </Wrapper>
       {loadingLocation && <LoadingCurtain />}
+      {updatingRequest && <LoadingCurtain />}
     </>
   );
 };

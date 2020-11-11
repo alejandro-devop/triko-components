@@ -22,7 +22,7 @@ export default ({palette}) => ({
     alignSelf: 'center',
     ...Platform.select({
       ios: {
-        marginTop: 40,
+        marginTop: 20,
       },
       android: {
         marginTop: 10,
@@ -33,6 +33,9 @@ export default ({palette}) => ({
     color: palette.blue,
     fontSize: 16,
     fontWeight: '600',
+  },
+  nameTextTriko: {
+    color: palette.orange,
   },
   nameWrapper: {},
   wrapperLg: {
