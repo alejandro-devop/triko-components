@@ -11,11 +11,11 @@ import Slide from 'shared/components/anims/Slide';
 
 const ChatItem = ({chatItem = {}, delay = 0, maxChars = 30, onPress}) => {
   const [classes] = useStyles(styles);
-  const {triko = {}, lastMessage, messages, date} = chatItem;
-  const {
-    user: {photo_url: photoUrl},
-    pi: {first_name: firstName, last_name: lastName},
-  } = triko;
+  const {triko: trikos = [], lastMessage, messages, date} = chatItem;
+  const [triko = {}] = trikos;
+  const {user = {}, pi = {}} = triko;
+  const {first_name: firstName = '', last_name: lastName = ''} = pi;
+  const {photo_url: photoUrl} = user;
 
   const {_t} = useTranslation();
   const fullName = `${firstName} ${lastName.substring(0, 1)}.`;

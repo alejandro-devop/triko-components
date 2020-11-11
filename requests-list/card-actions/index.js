@@ -6,7 +6,6 @@ import BorderedButton from 'shared/components/base/buttons/bordered-button';
 import Text from 'components/base/text';
 import useTranslation from 'hooks/useTranslation';
 import {STATUS_ACCEPTED, STATUS_PENDING} from 'config/request-statuses';
-import {STATUS_APPROVED} from 'config/document-status';
 
 /**
  * This component allows to render the current cart actions

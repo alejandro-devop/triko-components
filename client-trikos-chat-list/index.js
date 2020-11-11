@@ -19,7 +19,6 @@ const ClientChatList = () => {
     setKey('selectedChat', item);
     navigation.navigate('chat-room');
   };
-
   return (
     <View style={classes.root}>
       {loading && <Loader />}
