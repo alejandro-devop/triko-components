@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {View} from 'react-native';
 import Text from 'components/base/text';
 import {useStyles} from 'hooks/index';
@@ -55,6 +56,18 @@ const DistanceRender = ({
       )}
     </View>
   );
+};
+
+DistanceRender.propTypes = {
+  isTriko: PropTypes.bool,
+  userLocation: PropTypes.shape({
+    latitude: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    longitude: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  }),
+  request: PropTypes.shape({
+    attrs: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
+  }),
+  onViewOnMap: PropTypes.func,
 };
 
 export default DistanceRender;

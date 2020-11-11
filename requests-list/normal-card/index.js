@@ -19,8 +19,6 @@ import {
   STATUS_ON_YOUR_DOOR,
   STATUS_STARTED,
 } from 'config/request-statuses';
-import {acc} from 'react-native-reanimated';
-import {useCalcRate} from 'shared/hooks/use-rate-calc';
 
 const acceptedStatus = [
   STATUS_ACCEPTED,

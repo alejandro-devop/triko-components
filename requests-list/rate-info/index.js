@@ -1,7 +1,7 @@
 import React from 'react';
 import {View} from 'react-native';
 import styles from './styles';
-import {useSession, useStyles} from 'hooks/index';
+import {useStyles} from 'hooks/index';
 import Text from 'components/base/text';
 import useCurrency from 'hooks/useCurrency';
 import useTranslation from 'hooks/useTranslation';
@@ -20,12 +20,9 @@ const RateInfo = ({request}) => {
   const [classes] = useStyles(styles);
   const {format} = useCurrency();
   const {_t} = useTranslation();
-  const {duration, details = [], application_date} = request;
-  const servicesIds = details.map((item) => item.service.id);
+  const {duration} = request;
   const {loading, total} = useCalcRate({
-    date: application_date,
-    duration: parseInt(duration, 10),
-    services: servicesIds,
+    request,
   });
   const requestDuration = parseInt(duration, 10);
   return (

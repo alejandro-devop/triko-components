@@ -1,8 +1,9 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
+import PropTypes from 'prop-types';
 import useSession from 'hooks/useSession';
 import Wrapper from './wrapper';
 import Loader from './loader';
-import RequestCard from './RequestCard';
+import RequestCard from './request-card';
 import useNavigate from 'shared/hooks/use-navigate';
 import NoRequestItems from './NoRequestItems';
 import Filter from './Filter';
@@ -15,7 +16,25 @@ import {
 import useUserLocation from 'shared/hooks/use-user-location';
 import {LoadingCurtain} from 'components/base/dialogs';
 import useRequestUpdate from 'shared/hooks/use-request-update';
+import ConfirmMessage from 'shared/components/requests-list/confirm-message';
+import {isEmpty} from 'shared/utils/functions';
 
+/**
+ * This component renders the trikolaborator and clients requests list.
+ * @author Alejandro <alejandro.devop@gmail.com>
+ * @version 1.0.0
+ * @param currentFilter
+ * @param enableFilter
+ * @param filters
+ * @param isTriko
+ * @param onChangeFilter
+ * @param onlyPending
+ * @param onlyFavors
+ * @param onlyCurrentDay
+ * @param onlyMyServices
+ * @returns {*}
+ * @constructor
+ */
 const MyActivityComponent = ({
   currentFilter = 0,
   enableFilter,
@@ -28,6 +47,10 @@ const MyActivityComponent = ({
   onlyMyServices,
 }) => {
   const {setKey} = useSession();
+  const [selectedRequest, setSelectedRequest] = useState(null);
+  const [openConfirm, setOpenConfirm] = useState(false);
+  const [rejecting, setRejecting] = useState(false);
+  const [accepting, setApproving] = useState(false);
   const {location, loading: loadingLocation} = useUserLocation();
   const {getPendingRequests, loading, requests = []} = useRequestList({
     onlyFavors,
@@ -45,6 +68,10 @@ const MyActivityComponent = ({
 
   const totalRequests = requests.length;
 
+  /**
+   * Used to store the selected service as the service to display in the detail screen.
+   * @param request
+   */
   const handleSelectItem = (request) => {
     const [detail] = request.details;
     const {service} = detail;
@@ -58,8 +85,12 @@ const MyActivityComponent = ({
     navigation.navigate('request-detail');
   };
 
+  /**
+   * Used to execute logic associated with the requests refetch.
+   * @returns {Promise<void>}
+   */
   const onRefresh = async () => {
-    getPendingRequests();
+    await getPendingRequests();
   };
 
   useEffect(() => {
@@ -68,11 +99,57 @@ const MyActivityComponent = ({
 
   const onViewOnMap = ({}) => {};
 
-  const onAcceptRequest = async (selectedRequest) => {
-    await acceptRequest(selectedRequest);
+  /**
+   * Called when the user accepts the dialog box to approve the request.
+   * @param requestToAccept
+   * @returns {Promise<void>}
+   */
+  const handleAccept = async (requestToAccept) => {
+    await acceptRequest(requestToAccept);
+    handleCloseDialog();
+    await onRefresh();
+    navigation.navigate('activity');
   };
-  const onCancelRequest = async (selectedRequest) => {
-    await cancelRequest(selectedRequest);
+
+  /**
+   * Called when the user accepts the dialog box to reject the request.
+   * @param requestToCancel
+   * @returns {Promise<void>}
+   */
+  const handleCancel = async (requestToCancel) => {
+    await cancelRequest(requestToCancel);
+    handleCloseDialog();
+    await onRefresh();
+  };
+
+  /**
+   * Enable the flags when the user wants to cancel (Reject) a service request.
+   * @param selected
+   */
+  const handleSelectToCancel = (selected = null) => {
+    setSelectedRequest(selected);
+    setOpenConfirm(true);
+    setRejecting(true);
+  };
+
+  /**
+   * Enable the flags when the user wants to accept a service request.
+   * @param selected
+   */
+  const handleSelectToApprove = (selected = null) => {
+    setSelectedRequest(selected);
+    setOpenConfirm(true);
+    setApproving(true);
+  };
+
+  /**
+   * Used to clear the flags when the dialog box must to disappear.
+   */
+  const handleCloseDialog = () => {
+    setApproving(false);
+    setRejecting(false);
+    setSelectedRequest(null);
+    setOpenConfirm(false);
   };
 
   const onView = () => {};
@@ -100,8 +177,8 @@ const MyActivityComponent = ({
             item={item}
             key={`request-${item.id}`}
             onSelect={handleSelectItem}
-            onAccept={() => onAcceptRequest(item)}
-            onCancel={() => onCancelRequest(item)}
+            onAccept={() => handleSelectToApprove(item)}
+            onCancel={() => handleSelectToCancel(item)}
             userLocation={location}
             onViewOnMap={() => onViewOnMap(item)}
             onView={() => onView(item)}
@@ -110,8 +187,30 @@ const MyActivityComponent = ({
       </Wrapper>
       {loadingLocation && <LoadingCurtain />}
       {updatingRequest && <LoadingCurtain />}
+      {openConfirm && !isEmpty(selectedRequest) && !updatingRequest && (
+        <ConfirmMessage
+          accepting={accepting}
+          rejecting={rejecting}
+          onAcceptRequest={handleAccept}
+          onRejectRequest={handleCancel}
+          request={selectedRequest}
+          onClose={handleCloseDialog}
+        />
+      )}
     </>
   );
+};
+
+MyActivityComponent.propTypes = {
+  currentFilter: PropTypes.number, // Indicates which filter is selected.
+  enableFilter: PropTypes.bool,
+  filters: PropTypes.arrayOf(PropTypes.string), // ['label', 'label']
+  isTriko: PropTypes.bool,
+  onChangeFilter: PropTypes.func, // Function to control the active filter
+  onlyPending: PropTypes.bool, // Display only services in pending state.
+  onlyFavors: PropTypes.bool, // Display only services of type 3 (Favor)
+  onlyCurrentDay: PropTypes.bool, // Display only services which apply for the current day.
+  onlyMyServices: PropTypes.bool, // Display only services which I apply to
 };
 
 export default MyActivityComponent;

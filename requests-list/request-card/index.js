@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {TouchableOpacity, View} from 'react-native';
 import Slide from 'components/anims/Slide';
 import useStyles from 'shared/hooks/use-styles';
@@ -8,11 +9,30 @@ import {
   REQUEST_TYPE_SHOPPER,
   REQUEST_TYPE_TASK,
 } from 'config/constants';
-import NormalCard from './normal-card';
-import ShopperCard from './shopper-card';
-import CourierCard from './courier-card';
-import TaskCard from './task-card';
+import NormalCard from '../normal-card';
+import ShopperCard from '../shopper-card';
+import CourierCard from '../courier-card';
+import TaskCard from '../task-card';
+import styles from './styles';
 
+/**
+ * This component is a generic container for the service requests, it resolves which component
+ * should be used to render a service request
+ * @version 1.0.0
+ * @author Alejandro <alejandro.devop@gmail.com>
+ * @param delay
+ * @param even
+ * @param item
+ * @param isTriko
+ * @param onSelect
+ * @param onAccept
+ * @param onCancel
+ * @param onViewOnMap
+ * @param userLocation
+ * @param onView
+ * @returns {*}
+ * @constructor
+ */
 const RequestCard = ({
   delay = 0,
   even,
@@ -85,53 +105,26 @@ const RequestCard = ({
   );
 };
 
-const styles = ({palette, shadows}) => ({
-  contentWrapper: {
-    // backgroundColor: palette.blue,
-    backgroundColor: palette.blueLightAccent1,
-    flex: 1,
-    height: 260,
-    borderTopRightRadius: 50,
-    borderTopLeftRadius: 50,
-    top: -60,
-    paddingHorizontal: 30,
-    paddingTop: 20,
-    borderTopWidth: 2,
-    borderLeftWidth: 2,
-    borderRightWidth: 2,
-    borderColor: '#FFF',
-  },
-  contentWrapperEven: {
-    backgroundColor: palette.blueLight,
-  },
-  contentWrapperShopper: {
-    // backgroundColor: palette.blueLight,
-  },
-  contentWrapperCourier: {
-    // backgroundColor: palette.blueLightAccent,
-  },
-  contentWrapperTask: {
-    // backgroundColor: palette.green,
-  },
-  root: {
-    height: 220,
-    borderBottomRightRadius: 50,
-    borderBottomLeftRadius: 50,
-    backgroundColor: palette.blueLightAccent1,
-  },
-  rootEven: {
-    backgroundColor: palette.blueLight,
-  },
-  rootShopper: {
-    // backgroundColor: palette.blueLight,
-  },
-  rootCourier: {
-    // backgroundColor: palette.blueLightAccent,
-  },
-  rootTask: {
-    // backgroundColor: palette.green,
-  },
-  rootBlock: {},
-});
+RequestCard.propTypes = {
+  delay: PropTypes.number,
+  even: PropTypes.bool,
+  item: PropTypes.shape({
+    details: PropTypes.arrayOf(
+      PropTypes.shape({
+        service: PropTypes.object,
+      }),
+    ),
+  }),
+  isTriko: PropTypes.bool,
+  onSelect: PropTypes.func,
+  onAccept: PropTypes.func,
+  onCancel: PropTypes.func,
+  onViewOnMap: PropTypes.func,
+  userLocation: PropTypes.shape({
+    latitude: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    longitude: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  }),
+  onView: PropTypes.func,
+};
 
 export default RequestCard;
