@@ -14,11 +14,12 @@ const BorderedButton = ({
   success,
   danger,
   secondary,
+  classes: otherClasses = {},
 }) => {
   const [classes] = useStyles(styles);
   const WrapperComponent = disabled ? View : TouchableOpacity;
   return (
-    <View style={classes.root}>
+    <View style={[classes.root, otherClasses.root]}>
       <WrapperComponent
         onPress={() => (!disabled && onPress ? onPress() : null)}
         style={classNames(
