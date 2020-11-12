@@ -6,10 +6,10 @@ import useRequestStatus from 'shared/hooks/use-request-status';
 import moment from 'moment';
 import styles from './styles';
 
-const RequestStatus = ({request = {}}) => {
+const RequestStatus = ({paidOut, request = {}}) => {
   const [classes] = useStyles(styles);
   const {workflow} = request.transition;
-  const status = useRequestStatus(workflow);
+  const status = useRequestStatus(workflow, false, paidOut);
   const date = moment(request.application_date).format('MMM DD YYYY | h:mm a');
   return (
     <View style={classes.root}>

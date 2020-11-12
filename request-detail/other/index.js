@@ -13,6 +13,8 @@ const Other = ({
   onCancel,
   onPay,
   onBack,
+  onEdit,
+  paidOut,
   workflow,
   request = {},
   title,
@@ -61,8 +63,10 @@ const Other = ({
       <ActionButtons
         onPayment={onPay}
         workflow={workflow}
+        onEdit={onEdit}
         onCancel={onCancel}
         onBack={onBack}
+        paidOut={paidOut}
       />
     </>
   );

@@ -5,7 +5,8 @@ export default ({palette}) => ({
   },
   actionsWrapper: {
     backgroundColor: '#FFF',
-    paddingVertical: 20,
+    paddingBottom: 25,
+    paddingTop: 10,
     borderTopStartRadius: 40,
     borderTopEndRadius: 40,
     borderColor: palette.grayLighter,

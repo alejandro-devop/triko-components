@@ -7,12 +7,14 @@ import Slide from 'shared/components/anims/Slide';
 import RequestStatus from '../request-status';
 import PreImage from 'shared/components/base/pre-image';
 import styles from './styles';
+import useRequestStatus from 'shared/hooks/use-request-status';
 
-const RequestHeader = ({request = {}}) => {
+const RequestHeader = ({paidOut, request = {}}) => {
   const [classes] = useStyles(styles);
-  const {triko: trikos = [], details = []} = request;
+  const {triko: trikos = [], details = [], transition = {}} = request;
   const [triko = {}] = trikos;
   const {service} = details[0];
+  const statusText = useRequestStatus(transition.workflow, true, paidOut);
   return (
     <>
       <StatusBar barStyle="light-content" />
@@ -30,17 +32,17 @@ const RequestHeader = ({request = {}}) => {
               <Text style={classes.serviceCategory}>{service.type.name}</Text>
             </View>
             <View style={classes.trikoWrapper}>
-              <RequestStatus request={request} />
+              <RequestStatus paidOut={paidOut} request={request} />
               <TrikoInfo triko={triko} />
             </View>
           </View>
         </SafeAreaView>
       </Slide>
-      {/*<Slide delay={500} direction="top" style={classes.statusAnimWrapper}>*/}
-      {/*  <View style={classes.statusWrapper}>*/}
-      {/*    <Text style={classes.pendingText}>{_t('pending_approval_text')}</Text>*/}
-      {/*  </View>*/}
-      {/*</Slide>*/}
+      <Slide delay={500} direction="top" style={classes.statusAnimWrapper}>
+        <View style={classes.statusWrapper}>
+          <Text style={classes.pendingText}>{statusText}</Text>
+        </View>
+      </Slide>
     </>
   );
 };

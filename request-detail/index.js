@@ -13,17 +13,22 @@ import {LoadingCurtain} from 'components/base/dialogs';
 import {useCalcRateClient} from 'shared/hooks/use-rate-calc';
 import styles from './styles';
 import useNavigate from 'shared/hooks/use-navigate';
+import {STATUS_ACCEPTED} from 'config/request-statuses';
+import {CONFIRM_ORDER} from 'components/pay-service/queries';
+import {PAYMENT_COMPLETED_STATUS} from 'components/pay-service/payment-statuses';
 
-const RequestDetail = ({}) => {
+const RequestDetail = () => {
   const [classes] = useStyles(styles);
   const {_t} = useTranslation();
   const {navigation} = useNavigate();
   const {loading: loadingPayment, initPayment} = usePayment();
   const {
     stack: {requestDetailSelected = {}},
+    setKey,
   } = useSession();
   const {isShopper, isCourier, isTask} = requestDetailSelected;
   const {request = {}} = requestDetailSelected;
+  const {order = {}} = request;
   const {workflow} = request.transition || {};
   const {total} = useCalcRateClient({
     request: {
@@ -43,20 +48,30 @@ const RequestDetail = ({}) => {
   }
 
   const handlePayment = async () => {
-    await initPayment(request);
+    if (workflow === STATUS_ACCEPTED) {
+      await initPayment(request);
+    } else {
+      setKey('selectedToPay', request);
+    }
+    navigation.navigate('payment');
   };
 
   const handleBack = () => {
     navigation.goBack();
   };
+  const {workflow: orderWorkflow} = order.transition || {};
+  const paidOut = orderWorkflow === PAYMENT_COMPLETED_STATUS;
 
   return (
     <>
-      <Layout disableContent header={<Header request={request} />}>
+      <Layout
+        disableContent
+        header={<Header paidOut={paidOut} request={request} />}>
         <View style={classes.root}>
           <Component
             onPay={handlePayment}
             onBack={handleBack}
+            paidOut={paidOut}
             request={request}
             title={_t('about_the_request')}
             workflow={workflow}

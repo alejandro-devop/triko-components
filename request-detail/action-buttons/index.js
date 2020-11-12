@@ -11,7 +11,14 @@ import {
 
 const paymentStatuses = [STATUS_ACCEPTED, STATUS_PAYMENT];
 
-const ActionButtons = ({onEdit, onCancel, onBack, onPayment, workflow}) => {
+const ActionButtons = ({
+  onEdit,
+  onCancel,
+  onBack,
+  onPayment,
+  paidOut,
+  workflow,
+}) => {
   const [classes] = useStyles(styles);
   const {_t} = useTranslation();
   return (
@@ -31,13 +38,17 @@ const ActionButtons = ({onEdit, onCancel, onBack, onPayment, workflow}) => {
         classes={{root: classes.button}}
       />
       {workflow === STATUS_PENDING && (
-        <BorderedButton
-          icon={'pen'}
-          label={_t('request_detail_edit')}
-          classes={{root: classes.button}}
-        />
+        <>
+          {onEdit && (
+            <BorderedButton
+              icon={'pen'}
+              label={_t('request_detail_edit')}
+              classes={{root: classes.button}}
+            />
+          )}
+        </>
       )}
-      {paymentStatuses.includes(workflow) && (
+      {!paidOut && paymentStatuses.includes(workflow) && (
         <BorderedButton
           icon={'credit-card'}
           label={_t('request_detail_payment')}

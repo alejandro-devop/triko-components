@@ -4,15 +4,22 @@ import Text from 'components/base/text';
 import useStyles from 'shared/hooks/use-styles';
 import useTranslation from 'hooks/useTranslation';
 import useCurrency from 'hooks/useCurrency';
+import {useCalcRateClient} from 'shared/hooks/use-rate-calc';
 
-const ServiceRate = ({rate = 0}) => {
+const ServiceRate = ({request = {}}) => {
   const [classes] = useStyles(styles);
   const {_t} = useTranslation();
   const {format} = useCurrency();
+  const {total} = useCalcRateClient({
+    request: {
+      ...request,
+      triko: request.triko[0],
+    },
+  });
   return (
     <View style={classes.root}>
       <Text style={classes.label}>{_t('total_text')}</Text>
-      <Text style={classes.rateText}>{format(rate)}</Text>
+      <Text style={classes.rateText}>{format(total)}</Text>
     </View>
   );
 };
