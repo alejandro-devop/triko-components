@@ -1,4 +1,4 @@
-export default ({palette}) => ({
+export default ({palette, variables: {textSmall}}) => ({
   priceWrapper: {
     backgroundColor: palette.blueAccent,
     alignItems: 'center',
@@ -14,6 +14,11 @@ export default ({palette}) => ({
   },
   root: {
     marginVertical: 10,
+  },
+  statusText: {
+    fontSize: textSmall,
+    marginTop: 5,
+    textAlign: 'center',
   },
   totalText: {
     fontSize: 14,

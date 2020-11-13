@@ -11,4 +11,12 @@ export default () => ({
   title: {
     fontWeight: '600',
   },
+  titlePaid: {
+    color: '#FFF',
+    fontWeight: '600',
+  },
+  datePaid: {
+    color: '#FFF',
+    fontWeight: '600',
+  },
 });

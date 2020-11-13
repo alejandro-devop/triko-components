@@ -27,6 +27,7 @@ const CardIcon = ({
   secondary,
   isTriko,
   maxChars = 16,
+  isPaid,
 }) => {
   const [classes] = useStyles(styles);
   const stringToDisplay =
@@ -44,7 +45,11 @@ const CardIcon = ({
       </View>
       <View style={[classes.textWrapper, otherClasses.textWrapper]}>
         {primary && (
-          <Text style={[classes.primary, otherClasses.primary]}>
+          <Text
+            style={[
+              classNames({primary: true, primaryPaid: isPaid}, classes),
+              otherClasses.primary,
+            ]}>
             {stringToDisplay}
           </Text>
         )}

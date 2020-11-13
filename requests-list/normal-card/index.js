@@ -37,20 +37,21 @@ const NormalCard = ({
   onView,
   onViewOnMap,
   request = {},
+  workflow,
+  isPaid,
 }) => {
   const {triko: trikos = [], client = {}} = request;
   const [triko = {}] = trikos;
   const [classes] = useStyles(styles);
-  const {transition = {}} = request;
   const [detail = {}] = request.details || [];
   const {service} = detail;
-  const workflow = transition ? transition.workflow : '';
   const icon = service.icon || service.type.icon;
   return (
     <View style={classes.root}>
       <View style={classes.serviceWrapper}>
         <CardIcon
           image={{uri: icon}}
+          isPaid={isPaid}
           primary={service.name}
           isTriko={isTriko}
           classes={{
@@ -65,7 +66,7 @@ const NormalCard = ({
         )}
         {isTriko && (
           <>
-            <ClientInfo client={client} isTriko={isTriko} />
+            <ClientInfo isPaid={isPaid} client={client} isTriko={isTriko} />
           </>
         )}
       </View>
@@ -73,6 +74,7 @@ const NormalCard = ({
         <ServiceInfo
           acceptedStatus={acceptedStatus}
           isTriko={isTriko}
+          isPaid={isPaid}
           request={request}
           showDate
           onViewMap={onViewOnMap}
@@ -80,11 +82,12 @@ const NormalCard = ({
         />
         {isTriko && (
           <>
-            <RateInfo request={request} />
+            <RateInfo isPaid={isPaid} request={request} workflow={workflow} />
             <CardActions
               onAccept={onAccept}
               onCancel={onCancel}
               onView={onView}
+              isPaid={isPaid}
               workflow={workflow}
             />
           </>

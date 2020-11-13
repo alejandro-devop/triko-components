@@ -4,8 +4,8 @@ export default ({palette}) => ({
     height: 25,
   },
   imageWrapper: {
-    width: 60,
-    height: 60,
+    width: 50,
+    height: 50,
     backgroundColor: '#FFF',
     borderRadius: 100,
   },
@@ -17,6 +17,9 @@ export default ({palette}) => ({
     fontSize: 14,
     marginTop: 5,
     fontWeight: '800',
+  },
+  primaryPaid: {
+    color: '#FFF',
   },
   root: {},
 });

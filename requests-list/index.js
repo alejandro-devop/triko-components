@@ -18,6 +18,7 @@ import {LoadingCurtain} from 'components/base/dialogs';
 import useRequestUpdate from 'shared/hooks/use-request-update';
 import ConfirmMessage from 'shared/components/requests-list/confirm-message';
 import {isEmpty} from 'shared/utils/functions';
+import useMyServices from 'hooks/useMyServices';
 
 /**
  * This component renders the trikolaborator and clients requests list.
@@ -59,6 +60,7 @@ const MyActivityComponent = ({
     onlyCurrentDay,
     onlyMyServices,
   });
+  useMyServices();
   const {navigation} = useNavigate();
   const {
     loading: updatingRequest,

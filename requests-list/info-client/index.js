@@ -14,10 +14,13 @@ import classNames from 'shared/utils/classnames';
  * @author Alejandro <alejandro.devop@gmail.com>
  * @version 1.0.0
  * @param client
+ * @param isPaid
+ * @param isTriko
+ * @param isFavor
  * @returns {*}
  * @constructor
  */
-const ClientInfo = ({client = {}, isTriko, isFavor}) => {
+const ClientInfo = ({client = {}, isPaid, isTriko, isFavor}) => {
   const [classes] = useStyles(styles);
   const {
     user: {photo_url},
@@ -41,7 +44,11 @@ const ClientInfo = ({client = {}, isTriko, isFavor}) => {
           {infoWrapper: true, infoWrapperFavor: isFavor},
           classes,
         )}>
-        <Text style={classes.fullName}>{`${firstName} ${lastName[0]}.`}</Text>
+        <Text
+          style={classNames(
+            {fullName: true, fullNamePaid: isPaid},
+            classes,
+          )}>{`${firstName} ${lastName[0]}.`}</Text>
         <View
           style={classNames(
             {ratingWrapper: true, ratingWrapperFavor: isFavor},

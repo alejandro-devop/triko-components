@@ -16,6 +16,10 @@ export default ({palette}) => ({
   contentWrapperEven: {
     backgroundColor: palette.blueLight,
   },
+  contentWrapperPaid: {
+    backgroundColor: palette.green,
+    borderColor: palette.green,
+  },
   root: {
     height: 220,
     borderBottomRightRadius: 50,
@@ -24,5 +28,12 @@ export default ({palette}) => ({
   },
   rootEven: {
     backgroundColor: palette.blueLight,
+  },
+  rootPaid: {
+    backgroundColor: palette.green,
+    borderBottomWidth: 2,
+    borderLeftWidth: 2,
+    borderRightWidth: 2,
+    borderColor: '#fff',
   },
 });

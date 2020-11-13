@@ -21,6 +21,9 @@ export default ({palette}) => ({
     fontWeight: '600',
     textAlign: 'center',
   },
+  fullNamePaid: {
+    color: '#FFF',
+  },
   infoWrapperFavor: {
     alignItems: 'center',
     paddingLeft: 5,

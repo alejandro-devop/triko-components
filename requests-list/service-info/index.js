@@ -8,6 +8,7 @@ import useRequestStatus from 'shared/hooks/use-request-status';
 import useTranslation from 'hooks/useTranslation';
 import styles from './styles';
 import ConfirmIcon from 'shared/components/requests-list/ConfirmIcon';
+import classNames from 'shared/utils/classnames';
 
 const ServiceInfo = ({
   isTriko,
@@ -16,6 +17,7 @@ const ServiceInfo = ({
   showDate,
   acceptedStatus = [],
   workflow,
+  isPaid,
 }) => {
   const {application_date, duration} = request;
   const requestDuration = parseInt(duration ? duration : 0, 10);
@@ -25,7 +27,7 @@ const ServiceInfo = ({
   const isUrgent = true;
 
   const date = (application_date ? moment(application_date) : moment()).format(
-    'MMM DD YYYY',
+    'MMM DD',
   );
   const time = (application_date ? moment(application_date) : moment()).format(
     'H:mm a',
@@ -40,16 +42,34 @@ const ServiceInfo = ({
     <View style={classes.root}>
       {!isTriko && (
         <>
-          <Text style={classes.title}>{status}</Text>
-          {isUrgent && <Text style={classes.date}>{_t('is_urgent')}</Text>}
-          {showDate && <Text style={classes.date}>{formattedDate}</Text>}
+          <Text style={classNames({title: true, titlePaid: isPaid}, classes)}>
+            {status}
+          </Text>
+          {isUrgent && (
+            <Text style={classNames({date: true, datePaid: isPaid}, classes)}>
+              {_t('is_urgent')}
+            </Text>
+          )}
+          {showDate && (
+            <Text style={classNames({date: true, datePaid: isPaid}, classes)}>
+              {formattedDate}
+            </Text>
+          )}
         </>
       )}
       {isTriko && (
         <View style={classes.infoWrapper}>
           <View>
-            {showDate && <Text style={classes.date}>{formattedDate}</Text>}
-            <RequestLocation request={request} onViewMap={onViewMap} />
+            {showDate && (
+              <Text style={classNames({date: true, datePaid: isPaid}, classes)}>
+                {formattedDate}
+              </Text>
+            )}
+            <RequestLocation
+              isPaid={isPaid}
+              request={request}
+              onViewMap={onViewMap}
+            />
           </View>
           {acceptedStatus.includes(workflow) && <ConfirmIcon />}
         </View>

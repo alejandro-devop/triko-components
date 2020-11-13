@@ -14,6 +14,7 @@ import ShopperCard from '../shopper-card';
 import CourierCard from '../courier-card';
 import TaskCard from '../task-card';
 import styles from './styles';
+import {PAYMENT_COMPLETED_STATUS} from 'config/order-statuses';
 
 /**
  * This component is a generic container for the service requests, it resolves which component
@@ -64,6 +65,11 @@ const RequestCard = ({
     isTask = true;
     Component = TaskCard;
   }
+  const {transition = {}, order = {}} = item;
+  const {workflow: orderWorkflow} =
+    order && order.transition ? order.transition : {};
+  const workflow = transition ? transition.workflow : '';
+  const paid = orderWorkflow === PAYMENT_COMPLETED_STATUS;
   return (
     <Slide delay={delay}>
       <View
@@ -74,6 +80,7 @@ const RequestCard = ({
             rootShopper: isShopper,
             rootCourier: isCourier,
             rootTask: isTask,
+            rootPaid: paid,
           },
           classes,
         )}>
@@ -87,6 +94,7 @@ const RequestCard = ({
               contentWrapperShopper: isShopper,
               contentWrapperCourier: isCourier,
               contentWrapperTask: isTask,
+              contentWrapperPaid: paid,
             },
             classes,
           )}>
@@ -98,6 +106,8 @@ const RequestCard = ({
             onViewOnMap={onViewOnMap}
             onView={onView}
             userLocation={userLocation}
+            workflow={workflow}
+            isPaid={paid}
           />
         </TouchableOpacity>
       </View>

@@ -6,8 +6,9 @@ import LinkButton from 'components/base/buttons/link-button';
 import Geocoding from 'react-native-geocoding';
 import useTranslation from 'hooks/useTranslation';
 import {SkeletonLoader} from 'components/base/loaders';
+import classNames from 'shared/utils/classnames';
 
-const RequestLocation = ({delay = 200, onViewMap, request}) => {
+const RequestLocation = ({delay = 200, isPaid, onViewMap, request}) => {
   const [classes] = useStyles(styles);
   const {latitude, longitude} = request.attrs || {};
   const [loading, setLoading] = useState(true);
@@ -39,11 +40,13 @@ const RequestLocation = ({delay = 200, onViewMap, request}) => {
       {loading && <SkeletonLoader style={classes.loader} />}
       {locationInfo && (
         <>
-          <Text style={[classes.text]}>{locationInfo}</Text>
+          <Text style={classNames({text: true, textPaid: isPaid}, classes)}>
+            {locationInfo}
+          </Text>
           <LinkButton
             onPress={onViewMap}
             primary
-            style={classes.link}
+            style={classNames({link: true, linkPaid: isPaid}, classes)}
             styles={{root: classes.linkWrapper}}>
             {_t('view_in_map')}
           </LinkButton>
@@ -53,11 +56,15 @@ const RequestLocation = ({delay = 200, onViewMap, request}) => {
   );
 };
 
-const styles = () => ({
+const styles = ({palette}) => ({
   link: {
     fontSize: 12,
     fontWeight: '800',
     textDecorationLine: 'none',
+  },
+  linkPaid: {
+    color: '#FFF',
+    fontSize: 13,
   },
   linkWrapper: {
     paddingVertical: 0,
@@ -71,6 +78,9 @@ const styles = () => ({
   },
   text: {
     fontSize: 12,
+  },
+  textPaid: {
+    color: '#FFF',
   },
 });
 
