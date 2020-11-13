@@ -31,6 +31,7 @@ import {PAYMENT_COMPLETED_STATUS} from 'config/order-statuses';
  * @param onViewOnMap
  * @param userLocation
  * @param onView
+ * @param onStart
  * @returns {*}
  * @constructor
  */
@@ -45,6 +46,7 @@ const RequestCard = ({
   onViewOnMap,
   userLocation,
   onView,
+  onStart,
 }) => {
   const [classes] = useStyles(styles);
   const {details = []} = item;
@@ -105,6 +107,7 @@ const RequestCard = ({
             onCancel={onCancel}
             onViewOnMap={onViewOnMap}
             onView={onView}
+            onStart={onStart}
             userLocation={userLocation}
             workflow={workflow}
             isPaid={paid}

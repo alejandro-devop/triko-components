@@ -4,13 +4,13 @@ import {useStyles} from 'hooks/index';
 import styles from './styles';
 import BorderedButton from 'shared/components/base/buttons/bordered-button';
 import Text from 'components/base/text';
-import useTranslation from 'hooks/useTranslation';
 import {
   STATUS_ACCEPTED,
   STATUS_PAYMENT,
   STATUS_PENDING,
 } from 'config/request-statuses';
 import Button from 'shared/components/base/buttons/button';
+import {startedStatuses} from 'shared/hooks/use-request-status';
 
 /**
  * This component allows to render the current cart actions
@@ -18,11 +18,12 @@ import Button from 'shared/components/base/buttons/button';
  * @param onAccept
  * @param onView
  * @param onCancel
+ * @param onStart
  * @param workflow
  * @returns {*}
  * @constructor
  */
-const CardActions = ({onAccept, onView, onCancel, workflow}) => {
+const CardActions = ({onAccept, onView, onStart, onCancel, workflow}) => {
   const [classes] = useStyles(styles);
   return (
     <>
@@ -35,11 +36,24 @@ const CardActions = ({onAccept, onView, onCancel, workflow}) => {
               </Text>
             </View>
             <View>
-              <Button alternative size="xs" textStyle={classes.altButton}>
+              <Button
+                alternative
+                size="xs"
+                textStyle={classes.altButton}
+                onPress={onStart}>
                 start_text
               </Button>
             </View>
           </View>
+        )}
+        {startedStatuses.includes(workflow) && (
+          <Button
+            alternative
+            size="xs"
+            textStyle={classes.altButton}
+            onPress={onView}>
+            view_text
+          </Button>
         )}
         {workflow === STATUS_PENDING && (
           <>

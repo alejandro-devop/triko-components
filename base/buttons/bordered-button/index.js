@@ -14,6 +14,8 @@ const BorderedButton = ({
   success,
   danger,
   secondary,
+  warning,
+  size,
   classes: otherClasses = {},
 }) => {
   const [classes] = useStyles(styles);
@@ -29,6 +31,8 @@ const BorderedButton = ({
             disabled,
             wrapperSuccess: success,
             wrapperDanger: danger,
+            wrapperWarning: warning,
+            wrapperSm: size === 'sm',
           },
           classes,
         )}>
@@ -41,6 +45,8 @@ const BorderedButton = ({
               iconDisabled: disabled,
               iconSuccess: success,
               iconDanger: danger,
+              iconWarning: warning,
+              iconSm: size === 'sm',
             },
             classes,
           )}
@@ -49,7 +55,13 @@ const BorderedButton = ({
       {label && (
         <Text
           style={classNames(
-            {label: true, labelSecondary: secondary, labelDisabled: disabled},
+            {
+              label: true,
+              labelSecondary: secondary,
+              labelDisabled: disabled,
+              labelWarning: warning,
+              labelDanger: danger,
+            },
             classes,
           )}>
           {label}

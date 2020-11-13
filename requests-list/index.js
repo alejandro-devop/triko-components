@@ -66,6 +66,7 @@ const MyActivityComponent = ({
     loading: updatingRequest,
     acceptRequest,
     cancelRequest,
+    updateRequest,
   } = useRequestUpdate();
 
   const totalRequests = requests.length;
@@ -154,7 +155,17 @@ const MyActivityComponent = ({
     setOpenConfirm(false);
   };
 
-  const onView = () => {};
+  const onView = (request) => {
+    setKey('selectedToExecution', request);
+    navigation.navigate('execution');
+  };
+
+  const onStart = async (request) => {
+    await updateRequest(request);
+    await onRefresh();
+    setKey('selectedToExecution', request);
+    navigation.navigate('execution');
+  };
 
   return (
     <>
@@ -184,6 +195,7 @@ const MyActivityComponent = ({
             userLocation={location}
             onViewOnMap={() => onViewOnMap(item)}
             onView={() => onView(item)}
+            onStart={() => onStart(item)}
           />
         ))}
       </Wrapper>

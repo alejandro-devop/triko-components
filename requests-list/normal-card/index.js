@@ -35,6 +35,7 @@ const NormalCard = ({
   onAccept,
   onCancel,
   onView,
+  onStart,
   onViewOnMap,
   request = {},
   workflow,
@@ -86,6 +87,7 @@ const NormalCard = ({
             <CardActions
               onAccept={onAccept}
               onCancel={onCancel}
+              onStart={onStart}
               onView={onView}
               isPaid={isPaid}
               workflow={workflow}

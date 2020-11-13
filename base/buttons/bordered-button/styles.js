@@ -31,12 +31,18 @@ export default ({palette}) => ({
   iconDanger: {
     color: palette.red,
   },
+  iconWarning: {
+    color: palette.orangeDark,
+  },
+  iconSm: {
+    fontSize: 20,
+  },
   label: {
     color: palette.blue,
     fontWeight: '600',
     textAlign: 'center',
     marginTop: 5,
-    fontSize: 14,
+    fontSize: 12,
   },
   labelSecondary: {
     color: palette.orange,
@@ -44,6 +50,12 @@ export default ({palette}) => ({
   labelDisabled: {
     color: palette.gray,
     opacity: 0.3,
+  },
+  labelWarning: {
+    color: palette.orangeDark,
+  },
+  labelDanger: {
+    color: palette.red,
   },
   root: {
     alignItems: 'center',
@@ -53,5 +65,12 @@ export default ({palette}) => ({
   },
   wrapperDanger: {
     borderColor: palette.red,
+  },
+  wrapperWarning: {
+    borderColor: palette.orangeDark,
+  },
+  wrapperSm: {
+    width: 35,
+    height: 35,
   },
 });
