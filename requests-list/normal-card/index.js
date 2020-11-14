@@ -6,7 +6,6 @@ import ServiceRate from '../ServiceRate';
 import TrikoInfo from '../info-triko';
 import ClientInfo from '../info-client';
 import ServiceInfo from '../service-info';
-import ConfirmIcon from '../ConfirmIcon';
 import RateInfo from '../rate-info';
 import CardActions from '../card-actions';
 import styles from './styles';

@@ -78,10 +78,12 @@ export const GET_REQUEST = gql`
           id
           name
           icon
+          attrs
           type: servicetype {
             id
             name
             icon
+            attrs
           }
         }
       }
@@ -185,3 +187,4 @@ export const SAVE_RATING = gql`
     }
   }
 `;
+

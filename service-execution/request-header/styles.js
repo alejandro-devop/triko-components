@@ -1,3 +1,6 @@
+import {Platform} from 'react-native';
+import DeviceInfo from 'react-native-device-info';
+
 export default ({palette, variables: {cornerRadius, textSmall}}) => ({
   contentWrapper: {
     flexDirection: 'row',
@@ -29,6 +32,19 @@ export default ({palette, variables: {cornerRadius, textSmall}}) => ({
     borderBottomLeftRadius: cornerRadius,
     backgroundColor: palette.green,
     zIndex: -1,
-    top: '100%',
+    ...Platform.select({
+      ios: DeviceInfo.hasNotch()
+        ? {
+            top: '120%',
+          }
+        : {
+            top: '100%',
+          },
+      android: DeviceInfo.hasNotch()
+        ? {top: '100%'}
+        : {
+            top: '100%',
+          },
+    }),
   },
 });

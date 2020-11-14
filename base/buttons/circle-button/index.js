@@ -53,6 +53,7 @@ const CircleButton = ({
             xl: size === 'xl',
             lg: size === 'lg',
             sm: size === 'sm',
+            xs: size === 'xs',
           },
           [classes],
           styles.root,

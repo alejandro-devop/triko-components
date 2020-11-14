@@ -13,7 +13,7 @@ export default ({palette, variables: {cornerRadius}}) => ({
     backgroundColor: palette.blueLight,
     borderBottomRightRadius: cornerRadius,
     borderBottomLeftRadius: cornerRadius,
-    // position: 'absolute',
+    position: 'absolute',
     top: '100%',
     minHeight: 40,
     width: '100%',

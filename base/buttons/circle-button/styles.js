@@ -30,6 +30,10 @@ export default ({palette, shadows}) => ({
     width: 75,
     height: 75,
   },
+  xs: {
+    width: 30,
+    height: 30,
+  },
   iconXl: {
     fontSize: 30,
   },

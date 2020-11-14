@@ -74,23 +74,12 @@ const getCurrentStep = (workflow) => {
   }
 };
 
-const ServiceExecution = () => {
-  const [classes] = useStyles(styles);
+const ServiceExecution = ({isTriko}) => {
   const {
-    stack: {
-      selectedToExecution,
-      locationEnabled,
-      user,
-      readMessages = {},
-      locale,
-    },
+    stack: {selectedToExecution, locale},
   } = useSession();
-  const [visibleChat, setVisibleChat] = useState(false);
   const [appState, setAppState] = useState('active');
-  const [finished, setFinished] = useState(false);
-  const [openDetail, setOpenDetail] = useState(false);
   const {subscribeEvent, unSubscribeEvent} = usePusherSubscriber();
-  const {_t} = useTranslation();
   const {location, loading} = useUserLocation();
   const {loading: loadingRequest, refetch, data = {}} = useQuery(GET_REQUEST, {
     pollInterval: 8000,
@@ -101,13 +90,7 @@ const ServiceExecution = () => {
   });
   const [request = {}] =
     data.response && Array.isArray(data.response) ? data.response : [];
-  const {transition = {}} = request;
-  const workflow = transition.workflow;
-  const currentStep = getCurrentStep(workflow);
   const {redirectTo} = useNavigate();
-  const statusLabel = steps[currentStep];
-
-  const onNext = () => {};
 
   const onRefresh = async () => {
     await refetch();
@@ -133,27 +116,17 @@ const ServiceExecution = () => {
     };
   });
 
-  const toggleChat = () => setVisibleChat(!visibleChat);
-  const toggleDetail = () => setOpenDetail(!openDetail);
-  const onDone = () => {
-    redirectTo('dashboard');
-  };
   if (appState !== 'active') {
     return null;
   }
-  const {chat = {}} = request;
-  const chatReadMessages = (chat && chat.id ? readMessages[chat.id] : []) || [];
-  const messagesCount = (chat && chat.messages ? chat.messages : []).filter(
-    (item) => !chatReadMessages.includes(item.id) && item.sender.id !== user.id,
-  ).length;
 
   return (
     <>
       {loadingRequest && <LoadingCurtain />}
-      {!isEmpty(request) && <Header request={request} />}
+      {!isEmpty(request) && <Header isTriko={isTriko} request={request} />}
       <Wrapper>
         <ScrollView>
-          <ComponentWrapper />
+          <ComponentWrapper isTriko={isTriko} request={request} />
         </ScrollView>
         {!location && (loading || loadingRequest) && <CircularLoader />}
         {/*{location && !loading && !loadingRequest && (*/}
