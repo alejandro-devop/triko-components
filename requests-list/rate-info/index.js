@@ -8,6 +8,7 @@ import useTranslation from 'hooks/useTranslation';
 import {useCalcRate} from 'shared/hooks/use-rate-calc';
 import CircularLoader from 'shared/components/loaders/circular-loader';
 import StatusCard from 'shared/components/requests-list/status-card';
+import {STATUS_FINISHED} from 'config/request-statuses';
 
 /**
  * This component renders the duration and price for the current request
@@ -46,7 +47,7 @@ const RateInfo = ({isPaid, request, workflow}) => {
         </>
       )}
 
-      {isPaid && (
+      {isPaid && workflow !== STATUS_FINISHED && (
         <>
           <StatusCard isPaid={isPaid} workflow={workflow} />
         </>

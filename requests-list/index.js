@@ -19,6 +19,7 @@ import useRequestUpdate from 'shared/hooks/use-request-update';
 import ConfirmMessage from 'shared/components/requests-list/confirm-message';
 import {isEmpty} from 'shared/utils/functions';
 import useMyServices from 'hooks/useMyServices';
+import {startedStatuses} from 'shared/hooks/use-request-status';
 
 /**
  * This component renders the trikolaborator and clients requests list.
@@ -33,6 +34,8 @@ import useMyServices from 'hooks/useMyServices';
  * @param onlyFavors
  * @param onlyCurrentDay
  * @param onlyMyServices
+ * @param noFinished
+ * @param noCanceled
  * @returns {*}
  * @constructor
  */
@@ -45,6 +48,8 @@ const MyActivityComponent = ({
   onlyPending,
   onlyFavors,
   onlyCurrentDay,
+  noFinished,
+  noCanceled,
   onlyMyServices,
 }) => {
   const {setKey} = useSession();
@@ -59,6 +64,8 @@ const MyActivityComponent = ({
     isTriko,
     onlyCurrentDay,
     onlyMyServices,
+    noFinished,
+    noCanceled,
   });
   useMyServices();
   const {navigation} = useNavigate();
@@ -156,8 +163,13 @@ const MyActivityComponent = ({
   };
 
   const onView = (request) => {
-    setKey('selectedToExecution', request);
-    navigation.navigate('execution');
+    const {transition = {}} = request;
+    if (startedStatuses.includes(transition.workflow)) {
+      setKey('selectedToExecution', request);
+      navigation.navigate('execution');
+    } else {
+      handleSelectItem(request);
+    }
   };
 
   const onStart = async (request) => {
@@ -225,6 +237,7 @@ MyActivityComponent.propTypes = {
   onlyFavors: PropTypes.bool, // Display only services of type 3 (Favor)
   onlyCurrentDay: PropTypes.bool, // Display only services which apply for the current day.
   onlyMyServices: PropTypes.bool, // Display only services which I apply to
+  noFinished: PropTypes.bool, // Display only services which I apply to
 };
 
 export default MyActivityComponent;
