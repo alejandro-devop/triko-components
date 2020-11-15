@@ -6,7 +6,11 @@ import styles from './styles';
 import {useStyles, useSession} from 'hooks/index';
 import currency from 'currency-formatter';
 import moment from 'moment';
-import {STATUS_FINISHED, STATUS_STARTED} from 'config/request-statuses';
+import {
+  STATUS_FINISHED,
+  STATUS_QUALIFY_TRIKO,
+  STATUS_STARTED,
+} from 'config/request-statuses';
 import Button from 'shared/components/base/buttons/button';
 import useRequestUpdateAttrs from 'shared/hooks/use-request-update-attrs';
 import {LoadingCurtain} from 'components/base/dialogs';
@@ -20,9 +24,12 @@ const ServiceResume = ({onTerminate, isTriko, request}) => {
   const startTransition = history.find(
     (item) => item.transition.workflow === STATUS_STARTED,
   );
-  const endTransition = history.find(
-    (item) => item.transition.workflow === STATUS_FINISHED,
+  const endTransition = history.find((item) =>
+    isTriko
+      ? item.transition.workflow === STATUS_FINISHED
+      : item.transition.workflow === STATUS_QUALIFY_TRIKO,
   );
+
   const scheduledDate = moment(application_date, 'YYYY-MM-DD HH:mm:ss');
   const startDate = moment(startTransition.created_at, 'YYYY-MM-DD HH:mm:ss');
   const endDate = moment(endTransition.created_at, 'YYYY-MM-DD HH:mm:ss');
@@ -38,6 +45,7 @@ const ServiceResume = ({onTerminate, isTriko, request}) => {
       onTerminate();
     }
   };
+
   return (
     <>
       <View style={classes.root}>

@@ -32,8 +32,8 @@ const ConfirmDialog = ({message, onAccept, onCancel, onClose, open, title}) => {
         <Text style={classes.message}>{message}</Text>
       </View>
       <View style={classes.actions}>
-        <CircleButton name="times" onPress={onCancel} size="lg" />
         <CircleButton name="check" onPress={onAccept} primary size="lg" />
+        <CircleButton name="times" onPress={onCancel} size="lg" />
       </View>
     </Dialog>
   );

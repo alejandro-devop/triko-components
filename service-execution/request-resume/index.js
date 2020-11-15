@@ -7,7 +7,7 @@ import {useStyles, useSession} from 'hooks';
 import currency from 'currency-formatter';
 import moment from 'moment';
 
-const Component = ({request}) => {
+const Component = ({request, isTriko}) => {
   const [classes] = useStyles(styles);
   const {stack = {}} = useSession();
   const {region} = stack;
@@ -15,7 +15,6 @@ const Component = ({request}) => {
     application_date,
     address,
     details = [],
-    attrs = {},
     duration = 0,
   } = request;
   const total = details.reduce((a, v) => a + (v.service.price || 2000), 0);
