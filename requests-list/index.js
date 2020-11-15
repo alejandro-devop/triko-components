@@ -18,7 +18,7 @@ import {LoadingCurtain} from 'components/base/dialogs';
 import useRequestUpdate from 'shared/hooks/use-request-update';
 import ConfirmMessage from 'shared/components/requests-list/confirm-message';
 import {isEmpty} from 'shared/utils/functions';
-import useMyServices from 'hooks/useMyServices';
+import useMyServices from 'shared/hooks/use-my-services';
 import {startedStatuses} from 'shared/hooks/use-request-status';
 
 /**

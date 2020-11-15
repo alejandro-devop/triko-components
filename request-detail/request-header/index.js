@@ -13,7 +13,7 @@ const RequestHeader = ({paidOut, request = {}}) => {
   const [classes] = useStyles(styles);
   const {triko: trikos = [], details = [], transition = {}} = request;
   const [triko = {}] = trikos;
-  const {service} = details[0];
+  const {service = {}} = details && details.length > 0 ? details[0] : [];
   const statusText = useRequestStatus(transition.workflow, true, paidOut);
   return (
     <>

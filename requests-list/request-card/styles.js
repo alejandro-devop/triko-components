@@ -18,7 +18,9 @@ export default ({palette}) => ({
   },
   contentWrapperPaid: {
     backgroundColor: palette.green,
-    borderColor: palette.green,
+    borderTopColor: '#FFF',
+    borderLeftWidth: 0,
+    borderRightWidth: 0,
   },
   root: {
     height: 220,
@@ -31,9 +33,5 @@ export default ({palette}) => ({
   },
   rootPaid: {
     backgroundColor: palette.green,
-    borderBottomWidth: 2,
-    borderLeftWidth: 2,
-    borderRightWidth: 2,
-    borderColor: '#fff',
   },
 });

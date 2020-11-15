@@ -34,6 +34,7 @@ const ActionButtons = ({
       <BorderedButton
         icon={'times'}
         secondary
+        onPress={onCancel}
         label={_t('request_detail_cancel')}
         classes={{root: classes.button}}
       />

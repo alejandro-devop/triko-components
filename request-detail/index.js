@@ -14,14 +14,15 @@ import {useCalcRateClient} from 'shared/hooks/use-rate-calc';
 import styles from './styles';
 import useNavigate from 'shared/hooks/use-navigate';
 import {STATUS_ACCEPTED} from 'config/request-statuses';
-import {CONFIRM_ORDER} from 'components/pay-service/queries';
 import {PAYMENT_COMPLETED_STATUS} from 'components/pay-service/payment-statuses';
+import useRequestUpdate from 'shared/hooks/use-request-update';
 
 const RequestDetail = () => {
   const [classes] = useStyles(styles);
   const {_t} = useTranslation();
   const {navigation} = useNavigate();
   const {loading: loadingPayment, initPayment} = usePayment();
+  const {cancelRequest, loading} = useRequestUpdate();
   const {
     stack: {requestDetailSelected = {}},
     setKey,
@@ -30,12 +31,14 @@ const RequestDetail = () => {
   const {request = {}} = requestDetailSelected;
   const {order = {}} = request;
   const {workflow} = request.transition || {};
-  const {total} = useCalcRateClient({
-    request: {
-      ...request,
-      triko: request.triko[0],
-    },
-  });
+  const total = 0;
+  console.log('the request; ', request);
+  // const {total} = useCalcRateClient({
+  //   request: {
+  //     ...request,
+  //     triko: request.triko[0],
+  //   },
+  // });
   let Layout = InsidesLayout;
   let Component = Other;
   if (isShopper) {
@@ -59,7 +62,14 @@ const RequestDetail = () => {
   const handleBack = () => {
     navigation.goBack();
   };
-  const {workflow: orderWorkflow} = order.transition || {};
+
+  const handleCancel = async () => {
+    await cancelRequest(request);
+    navigation.goBack();
+  };
+
+  const {workflow: orderWorkflow} =
+    order && order.transition ? order.transition : {};
   const paidOut = orderWorkflow === PAYMENT_COMPLETED_STATUS;
 
   return (
@@ -70,6 +80,7 @@ const RequestDetail = () => {
         <View style={classes.root}>
           <Component
             onPay={handlePayment}
+            onCancel={handleCancel}
             onBack={handleBack}
             paidOut={paidOut}
             request={request}
@@ -79,6 +90,7 @@ const RequestDetail = () => {
           />
         </View>
       </Layout>
+      {loading && <LoadingCurtain />}
       {loadingPayment && <LoadingCurtain />}
     </>
   );

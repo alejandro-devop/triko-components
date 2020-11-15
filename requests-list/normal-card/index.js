@@ -61,7 +61,7 @@ const NormalCard = ({
         />
         {!isTriko && (
           <>
-            <ServiceRate request={request} />
+            <ServiceRate request={request} isPaid={isPaid} />
           </>
         )}
         {isTriko && (

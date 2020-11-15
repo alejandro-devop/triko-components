@@ -23,7 +23,7 @@ const ServiceInfo = ({
   const requestDuration = parseInt(duration ? duration : 0, 10);
   const {_t} = useTranslation();
   const transition = request.transition ? request.transition.workflow : '';
-  const status = useRequestStatus(transition);
+  const status = useRequestStatus(transition, false, isPaid);
   const isUrgent = true;
 
   const date = (application_date ? moment(application_date) : moment()).format(

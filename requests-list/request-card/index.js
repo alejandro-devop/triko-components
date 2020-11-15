@@ -15,6 +15,7 @@ import CourierCard from '../courier-card';
 import TaskCard from '../task-card';
 import styles from './styles';
 import {PAYMENT_COMPLETED_STATUS} from 'config/order-statuses';
+import {STATUS_CANCEL} from 'config/request-statuses';
 
 /**
  * This component is a generic container for the service requests, it resolves which component
@@ -82,7 +83,7 @@ const RequestCard = ({
             rootShopper: isShopper,
             rootCourier: isCourier,
             rootTask: isTask,
-            rootPaid: paid,
+            rootPaid: paid && workflow !== STATUS_CANCEL,
           },
           classes,
         )}>
