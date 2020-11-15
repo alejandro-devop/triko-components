@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {View} from 'react-native';
 import Stepper from '../stepper';
 import {useStyles} from 'hooks/index';
@@ -15,13 +15,17 @@ import moment from 'moment';
 import useTranslation from 'hooks/useTranslation';
 import Timer from '../timer';
 import ConfirmBubble from 'shared/components/base/confirm-bubble';
+import ViewOnMap from '../view-on-map';
 
 const NormalRequest = ({isTriko, onUpdateRequest, request = {}, workflow}) => {
+  const [visibleMap, setVisibleMap] = useState(false);
   const [classes] = useStyles(styles);
   const {_t} = useTranslation();
   const activeStep = useExecutionStep(request);
   const isPendingConfirmStart = workflow === STATUS_CONFIRM_START;
-  const {history = []} = request;
+  const {history = [], attrs = {}, triko: trikos = []} = request;
+  const [triko = {}] = trikos;
+  const {longitude, latitude} = attrs;
   const isStarted = workflow === STATUS_STARTED;
   const isFinished = workflow === STATUS_CONFIRM_FINISHED;
   const startedTransition = history.find(
@@ -81,36 +85,54 @@ const NormalRequest = ({isTriko, onUpdateRequest, request = {}, workflow}) => {
     await onUpdateRequest();
   };
 
+  const toggleViewMap = () => setVisibleMap(!visibleMap);
+
   return (
-    <View style={classes.root}>
-      <View style={classes.content}>
-        <Stepper
-          collapsed={isStarted || isFinished}
-          activeStep={activeStep}
-          isTriko={isTriko}
+    <>
+      <View style={classes.root}>
+        <View style={classes.content}>
+          <Stepper
+            collapsed={isStarted || isFinished}
+            activeStep={activeStep}
+            isTriko={isTriko}
+            request={request}
+            steps={steps}
+          />
+          {isStarted && (
+            <Timer request={request} onPressFinish={handleFinish} />
+          )}
+          {!isTriko && workflow === STATUS_CONFIRM_START && (
+            <ConfirmBubble
+              message="triko_is_waiting_for_start_confirm"
+              onAccept={handleAccept}
+            />
+          )}
+          {!isTriko && workflow === STATUS_CONFIRM_FINISHED && (
+            <ConfirmBubble
+              message="triko_is_waiting_for_end_confirm"
+              onAccept={handleAccept}
+            />
+          )}
+        </View>
+        {isTriko && (
+          <View style={classes.actions}>
+            <Button primary size="xxs" onPress={toggleViewMap}>
+              view_in_map
+            </Button>
+          </View>
+        )}
+      </View>
+      {visibleMap && (
+        <ViewOnMap
+          open={visibleMap}
+          destination={{latitude, longitude}}
+          triko={triko}
+          onClose={toggleViewMap}
           request={request}
-          steps={steps}
+          title={request.address}
         />
-        {isStarted && <Timer request={request} onPressFinish={handleFinish} />}
-        {!isTriko && workflow === STATUS_CONFIRM_START && (
-          <ConfirmBubble
-            message="triko_is_waiting_for_start_confirm"
-            onAccept={handleAccept}
-          />
-        )}
-        {!isTriko && workflow === STATUS_CONFIRM_FINISHED && (
-          <ConfirmBubble
-            message="triko_is_waiting_for_end_confirm"
-            onAccept={handleAccept}
-          />
-        )}
-      </View>
-      <View style={classes.actions}>
-        <Button primary size="xxs">
-          view_in_map
-        </Button>
-      </View>
-    </View>
+      )}
+    </>
   );
 };
 

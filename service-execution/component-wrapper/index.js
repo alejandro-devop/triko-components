@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {View} from 'react-native';
 import {useSession, useStyles} from 'hooks/index';
 import styles from './styles';
@@ -21,12 +21,15 @@ import {
 } from 'config/request-statuses';
 import ServiceResume from '../service-resume';
 import useNavigate from 'shared/hooks/use-navigate';
+import ConfirmMessage from 'shared/components/requests-list/confirm-message';
+import ConfirmSlide from 'components/base/confirm-slide';
 
 const ComponentWrapper = ({isTriko, request = {}}) => {
   const {details = [], transition = {}} = request;
+  const [openCancel, setOpenCancel] = useState(false);
   const {workflow} = transition;
   const {navigation} = useNavigate();
-  const {updateRequest, loading} = useRequestUpdate();
+  const {updateRequest, cancelRequest, loading} = useRequestUpdate();
   const {setKey} = useSession();
   const [detail = {}] = details;
   const {service = {}} = detail;
@@ -48,6 +51,8 @@ const ComponentWrapper = ({isTriko, request = {}}) => {
   }
   const [classes] = useStyles(styles);
 
+  const toggleCancel = () => setOpenCancel(!openCancel);
+
   const handleRequestUpdate = async () => {
     await updateRequest(request);
   };
@@ -60,6 +65,12 @@ const ComponentWrapper = ({isTriko, request = {}}) => {
     navigation.navigate('chat-room');
   };
 
+  const handleCancel = () => {
+    toggleCancel();
+  };
+
+  // const handleReport = () => {};
+
   const isQualifying = [STATUS_QUALIFY_CLIENT, STATUS_QUALIFY_TRIKO].includes(
     workflow,
   );
@@ -67,6 +78,10 @@ const ComponentWrapper = ({isTriko, request = {}}) => {
     [STATUS_FINISHED].includes(workflow) ||
     (!isTriko && workflow === STATUS_QUALIFY_TRIKO);
   const shouldRenderComponent = !isQualifying && !isQualifying;
+  const handleCancelRequest = async () => {
+    await cancelRequest(request);
+    navigation.navigate('activity');
+  };
   return (
     <>
       <View style={classes.root}>
@@ -102,8 +117,17 @@ const ComponentWrapper = ({isTriko, request = {}}) => {
             />
           )}
           <View style={classes.tip} />
+          {openCancel && (
+            <ConfirmSlide
+              message="confirm_cancel_request"
+              onAccept={handleCancelRequest}
+              onCancel={toggleCancel}
+            />
+          )}
         </View>
-        <Actions onOpenChat={handleOpenChat} />
+        {!openCancel && (
+          <Actions onCancel={handleCancel} onOpenChat={handleOpenChat} />
+        )}
       </View>
       {loading && <LoadingCurtain />}
     </>
