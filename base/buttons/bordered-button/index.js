@@ -10,6 +10,7 @@ const BorderedButton = ({
   disabled,
   icon = '',
   label,
+  filled,
   onPress,
   success,
   danger,
@@ -33,6 +34,7 @@ const BorderedButton = ({
             wrapperDanger: danger,
             wrapperWarning: warning,
             wrapperSm: size === 'sm',
+            buttonWrapperFilled: filled,
           },
           classes,
         )}>
@@ -54,16 +56,19 @@ const BorderedButton = ({
       </WrapperComponent>
       {label && (
         <Text
-          style={classNames(
-            {
-              label: true,
-              labelSecondary: secondary,
-              labelDisabled: disabled,
-              labelWarning: warning,
-              labelDanger: danger,
-            },
-            classes,
-          )}>
+          style={[
+            classNames(
+              {
+                label: true,
+                labelSecondary: secondary,
+                labelDisabled: disabled,
+                labelWarning: warning,
+                labelDanger: danger,
+              },
+              classes,
+            ),
+            otherClasses.label,
+          ]}>
           {label}
         </Text>
       )}

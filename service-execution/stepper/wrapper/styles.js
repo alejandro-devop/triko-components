@@ -9,16 +9,8 @@ export default () => ({
     borderBottomRightRadius: 40,
   },
   rootCollapsed: {
-    marginTop: -20,
     paddingTop: 20,
+    paddingBottom: 0,
     paddingHorizontal: 10,
-  },
-  tip: {
-    backgroundColor: '#FFF',
-    width: '100%',
-    height: 40,
-    position: 'absolute',
-    top: '100%',
-    zIndex: -1,
   },
 });

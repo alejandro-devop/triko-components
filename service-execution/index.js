@@ -1,78 +1,44 @@
 import React, {useState, useEffect} from 'react';
 // import Header from './Header';
 import Header from './request-header';
-import {AppState, View} from 'react-native';
+import {AppState} from 'react-native';
 import {ScrollView} from 'shared/components/commons';
 import Wrapper from './Wrapper';
-import OnMyWay from './on-my-way';
-import Actions from './Actions';
-import InTheLocation from './InTheLocation';
-import useStyles from 'hooks/useStyles';
-import OnExecution from './OnExecution';
-import Finished from './Finished';
-import RateService from './RateService';
+// import OnMyWay from './on-my-way';
+// import Actions from './Actions';
+// import InTheLocation from './InTheLocation';
+// import useStyles from 'hooks/useStyles';
+// import OnExecution from './OnExecution';
+// import Finished from './Finished';
+// import RateService from './RateService';
 import useUserLocation from 'hooks/useUserLocation';
 import CircularLoader from 'components/base/loaders/CircularLoader';
-import useNavigate from 'hooks/useNavigate';
 import ComponentWrapper from './component-wrapper';
 import useSession from 'hooks/useSession';
 import {useQuery} from '@apollo/react-hooks';
 import {GET_REQUEST} from './queries';
 import LoadingCurtain from 'components/base/dialogs/loading-curtain';
-import ChatDialog from 'components/service-execution/ChatDialog';
-import {
-  STATUS_ACCEPTED,
-  STATUS_CONFIRM_FINISHED,
-  STATUS_CONFIRM_START,
-  STATUS_ON_MY_WAY,
-  STATUS_ON_YOUR_DOOR,
-  STATUS_QUALIFY,
-  STATUS_STARTED,
-  STATUS_QUALIFY_CLIENT,
-  STATUS_QUALIFY_TRIKO,
-} from 'config/request-statuses';
+// import ChatDialog from 'components/service-execution/ChatDialog';
+// import {
+//   STATUS_ACCEPTED,
+//   STATUS_CONFIRM_FINISHED,
+//   STATUS_CONFIRM_START,
+//   STATUS_ON_MY_WAY,
+//   STATUS_ON_YOUR_DOOR,
+//   STATUS_QUALIFY,
+//   STATUS_STARTED,
+//   STATUS_QUALIFY_CLIENT,
+//   STATUS_QUALIFY_TRIKO,
+// } from 'config/request-statuses';
 import usePusherSubscriber from 'hooks/usePusherSubscriber';
 import {EVENT__MESSAGE, EVENT__SERVICE_REQUEST} from 'helpers/PusherClient';
-import useTranslation from 'hooks/useTranslation';
-import LinkButton from 'components/base/buttons/link-button';
-import RequestDetail from 'components/request-detail';
-import PermissionsManager, {
-  PERMISSIONS,
-} from 'components/base/permissions-manager';
+// import useTranslation from 'hooks/useTranslation';
+// import LinkButton from 'components/base/buttons/link-button';
+// import RequestDetail from 'components/request-detail';
+// import PermissionsManager, {
+//   PERMISSIONS,
+// } from 'components/base/permissions-manager';
 import {isEmpty} from 'shared/utils/functions';
-
-const steps = [
-  'service_execution_on_my_way',
-  'service_execution_in_the_location',
-  'service_execution_in_execution',
-  'service_execution_finished',
-  'service_execution_finished',
-];
-
-const getCurrentStep = (workflow) => {
-  switch (workflow) {
-    case STATUS_ACCEPTED:
-      return 0;
-    case STATUS_ON_MY_WAY:
-      return 0;
-    case STATUS_ON_YOUR_DOOR:
-      return 1;
-    case STATUS_CONFIRM_START:
-      return 1;
-    case STATUS_STARTED:
-      return 2;
-    case STATUS_CONFIRM_FINISHED:
-      return 2;
-    case STATUS_QUALIFY:
-      return 3;
-    case STATUS_QUALIFY_CLIENT:
-      return 3;
-    case STATUS_QUALIFY_TRIKO:
-      return 3;
-    default:
-      return 0;
-  }
-};
 
 const ServiceExecution = ({isTriko}) => {
   const {
@@ -90,7 +56,6 @@ const ServiceExecution = ({isTriko}) => {
   });
   const [request = {}] =
     data.response && Array.isArray(data.response) ? data.response : [];
-  const {redirectTo} = useNavigate();
 
   const onRefresh = async () => {
     await refetch();

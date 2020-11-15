@@ -67,6 +67,7 @@ const MyActivityComponent = ({
     noFinished,
     noCanceled,
   });
+  console.log('requests: ', requests);
   useMyServices();
   const {navigation} = useNavigate();
   const {
@@ -83,16 +84,25 @@ const MyActivityComponent = ({
    * @param request
    */
   const handleSelectItem = (request) => {
+    const {workflow} = request.transition;
     const [detail] = request.details;
     const {service} = detail;
     const serviceAttrs = service.attrs ? JSON.parse(service.attrs) : {};
-    setKey('requestDetailSelected', {
-      request,
+    const requestPayload = {
       isShopper: serviceAttrs && serviceAttrs.type === REQUEST_TYPE_SHOPPER,
       isCourier: serviceAttrs && serviceAttrs.type === REQUEST_TYPE_COURIER,
       isTask: serviceAttrs && serviceAttrs.type === REQUEST_TYPE_TASK,
-    });
-    navigation.navigate('request-detail');
+    };
+    if (startedStatuses.includes(workflow)) {
+      setKey('selectedToExecution', {
+        ...request,
+        ...requestPayload,
+      });
+      navigation.navigate('execution');
+    } else {
+      setKey('requestDetailSelected', {request, ...requestPayload});
+      navigation.navigate('request-detail');
+    }
   };
 
   /**

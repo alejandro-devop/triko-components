@@ -11,7 +11,7 @@ import Button from 'shared/components/base/buttons/button';
 import useRequestUpdateAttrs from 'shared/hooks/use-request-update-attrs';
 import {LoadingCurtain} from 'components/base/dialogs';
 
-const ServiceResume = ({onTerminate, request}) => {
+const ServiceResume = ({onTerminate, isTriko, request}) => {
   const [classes] = useStyles(styles);
   const {stack = {}} = useSession();
   const {sendRequest, loading} = useRequestUpdateAttrs(request);
@@ -31,7 +31,9 @@ const ServiceResume = ({onTerminate, request}) => {
   const total = order ? order.total : 0;
 
   const handleTerminate = async () => {
-    await sendRequest({attrs: {terminated: true}});
+    await sendRequest({
+      attrs: isTriko ? {terminatedTriko: true} : {terminatedClient: true},
+    });
     if (onTerminate) {
       onTerminate();
     }

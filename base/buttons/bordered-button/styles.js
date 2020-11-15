@@ -8,6 +8,9 @@ export default ({palette}) => ({
     borderWidth: 2,
     borderColor: palette.blue,
   },
+  buttonWrapperFilled: {
+    backgroundColor: '#FFF',
+  },
   disabled: {
     borderColor: palette.gray,
     opacity: 0.3,

@@ -14,6 +14,7 @@ import {
 import moment from 'moment';
 import useTranslation from 'hooks/useTranslation';
 import Timer from '../timer';
+import ConfirmBubble from 'shared/components/base/confirm-bubble';
 
 const NormalRequest = ({isTriko, onUpdateRequest, request = {}, workflow}) => {
   const [classes] = useStyles(styles);
@@ -22,6 +23,7 @@ const NormalRequest = ({isTriko, onUpdateRequest, request = {}, workflow}) => {
   const isPendingConfirmStart = workflow === STATUS_CONFIRM_START;
   const {history = []} = request;
   const isStarted = workflow === STATUS_STARTED;
+  const isFinished = workflow === STATUS_CONFIRM_FINISHED;
   const startedTransition = history.find(
     ({transition = {}}) => transition.workflow === STATUS_STARTED,
   );
@@ -40,14 +42,15 @@ const NormalRequest = ({isTriko, onUpdateRequest, request = {}, workflow}) => {
   const steps = [
     {
       label: 'on_my_way',
-      title: 'My  address',
-      description: 'Address description',
+      title: request.address,
+      description: request.addressDescription,
       action: {
         label: 'arrive_to_location',
         callback: () => {
           onUpdateRequest();
         },
       },
+      noAction: !isTriko,
     },
     {
       label: 'arrive_to_location',
@@ -58,7 +61,7 @@ const NormalRequest = ({isTriko, onUpdateRequest, request = {}, workflow}) => {
         label: 'start_service',
         callback: () => onUpdateRequest(),
       },
-      noAction: isPendingConfirmStart,
+      noAction: isPendingConfirmStart || !isTriko,
     },
     {
       label: 'service_start_service',
@@ -74,17 +77,33 @@ const NormalRequest = ({isTriko, onUpdateRequest, request = {}, workflow}) => {
     await onUpdateRequest();
   };
 
+  const handleAccept = async () => {
+    await onUpdateRequest();
+  };
+
   return (
     <View style={classes.root}>
       <View style={classes.content}>
         <Stepper
-          collapsed={isStarted}
+          collapsed={isStarted || isFinished}
           activeStep={activeStep}
           isTriko={isTriko}
           request={request}
           steps={steps}
         />
         {isStarted && <Timer request={request} onPressFinish={handleFinish} />}
+        {!isTriko && workflow === STATUS_CONFIRM_START && (
+          <ConfirmBubble
+            message="triko_is_waiting_for_start_confirm"
+            onAccept={handleAccept}
+          />
+        )}
+        {!isTriko && workflow === STATUS_CONFIRM_FINISHED && (
+          <ConfirmBubble
+            message="triko_is_waiting_for_end_confirm"
+            onAccept={handleAccept}
+          />
+        )}
       </View>
       <View style={classes.actions}>
         <Button primary size="xxs">

@@ -4,6 +4,7 @@ import {useStyles} from 'hooks/index';
 import styles from './styles';
 import Actions from '../request-actions';
 import RateClientWrapper from '../rate-client';
+import RateTrikoService from '../rate-triko';
 import {
   REQUEST_TYPE_COURIER,
   REQUEST_TYPE_SHOPPER,
@@ -26,7 +27,6 @@ const ComponentWrapper = ({isTriko, request = {}}) => {
   const {workflow} = transition;
   const {navigation} = useNavigate();
   const {updateRequest, loading} = useRequestUpdate();
-  // const {trikoFavorIds = []} = useRegionConfig();
   const [detail = {}] = details;
   const {service = {}} = detail;
   const serviceAttrs = service.attrs ? JSON.parse(service.attrs) : {};
@@ -56,13 +56,15 @@ const ComponentWrapper = ({isTriko, request = {}}) => {
   const isQualifying = [STATUS_QUALIFY_CLIENT, STATUS_QUALIFY_TRIKO].includes(
     workflow,
   );
-  const isFinished = [STATUS_FINISHED].includes(workflow);
+  const isFinished =
+    [STATUS_FINISHED].includes(workflow) ||
+    (!isTriko && workflow === STATUS_QUALIFY_TRIKO);
   const shouldRenderComponent = !isQualifying && !isQualifying;
   return (
     <>
       <View style={classes.root}>
         <View style={classes.content}>
-          {!shouldRenderComponent && (
+          {shouldRenderComponent && (
             <Component
               isTriko={isTriko}
               isShopper={isShopper}
@@ -79,8 +81,18 @@ const ComponentWrapper = ({isTriko, request = {}}) => {
               onRateSend={handleRequestUpdate}
             />
           )}
+          {workflow === STATUS_QUALIFY_CLIENT && !isTriko && (
+            <RateTrikoService
+              request={request}
+              onRateSend={handleRequestUpdate}
+            />
+          )}
           {isFinished && (
-            <ServiceResume request={request} onTerminate={handleTerminate} />
+            <ServiceResume
+              request={request}
+              isTriko={isTriko}
+              onTerminate={handleTerminate}
+            />
           )}
           <View style={classes.tip} />
         </View>
