@@ -22,7 +22,8 @@ import {isEmpty} from 'utils/functions';
  * @constructor
  */
 const Chat = ({isTriko, onClose, request = {}}) => {
-  const {client = {}, triko = {}, attrs = {}} = request;
+  const {client = {}, triko: trikos = [], attrs = {}} = request;
+  const [triko = {}] = trikos;
   const {pi = {}, user: userTo} = isTriko ? client : triko;
   const {
     stack: {user = {}},

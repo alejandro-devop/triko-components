@@ -5,7 +5,7 @@ import styles from './styles';
 import BorderedButton from 'shared/components/base/buttons/bordered-button';
 import FloatingButton from './FloatingButton';
 
-const RequestActions = () => {
+const RequestActions = ({onOpenChat}) => {
   const [classes] = useStyles(styles);
   return (
     <View style={classes.root}>
@@ -19,7 +19,7 @@ const RequestActions = () => {
         />
       </View>
       <View style={classes.floatingActions}>
-        <FloatingButton icon="comment-dots" />
+        <FloatingButton icon="comment-dots" onPress={onOpenChat} />
       </View>
     </View>
   );

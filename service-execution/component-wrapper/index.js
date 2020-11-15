@@ -1,6 +1,6 @@
 import React from 'react';
 import {View} from 'react-native';
-import {useStyles} from 'hooks/index';
+import {useSession, useStyles} from 'hooks/index';
 import styles from './styles';
 import Actions from '../request-actions';
 import RateClientWrapper from '../rate-client';
@@ -27,6 +27,7 @@ const ComponentWrapper = ({isTriko, request = {}}) => {
   const {workflow} = transition;
   const {navigation} = useNavigate();
   const {updateRequest, loading} = useRequestUpdate();
+  const {setKey} = useSession();
   const [detail = {}] = details;
   const {service = {}} = detail;
   const serviceAttrs = service.attrs ? JSON.parse(service.attrs) : {};
@@ -53,6 +54,12 @@ const ComponentWrapper = ({isTriko, request = {}}) => {
   const handleTerminate = () => {
     navigation.navigate('activity');
   };
+
+  const handleOpenChat = () => {
+    setKey('selectedChat', {request});
+    navigation.navigate('chat-room');
+  };
+
   const isQualifying = [STATUS_QUALIFY_CLIENT, STATUS_QUALIFY_TRIKO].includes(
     workflow,
   );
@@ -96,7 +103,7 @@ const ComponentWrapper = ({isTriko, request = {}}) => {
           )}
           <View style={classes.tip} />
         </View>
-        <Actions />
+        <Actions onOpenChat={handleOpenChat} />
       </View>
       {loading && <LoadingCurtain />}
     </>
