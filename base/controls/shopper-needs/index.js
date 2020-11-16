@@ -39,7 +39,7 @@ const ShopperNeeds = ({label, maxItems, name, onChange, value, valueKey}) => {
       onChange({
         target: {
           name,
-          value: newSelected,
+          value: categories.filter((item) => newSelected.includes(item.id)),
         },
       });
     }

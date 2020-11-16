@@ -8,7 +8,7 @@ import useStyles from 'shared/hooks/use-styles';
 import useTranslation from 'hooks/useTranslation';
 
 const MarketPreview = ({market = {}, onSelectMarket, onClearSelection}) => {
-  const {address, primary, secondary, location = {}} = market;
+  const {name, description, latitude, longitude} = market;
   const {_t} = useTranslation();
   const [classes] = useStyles(styles);
   return (
@@ -16,21 +16,20 @@ const MarketPreview = ({market = {}, onSelectMarket, onClearSelection}) => {
       <View style={classes.header}>
         <View style={classes.textContent}>
           <Text variant="subtitle" style={classes.title}>
-            {primary}
-          </Text>
-          <Text variant="caption" style={classes.caption}>
-            ({secondary})
+            {name}
           </Text>
         </View>
         <View style={classes.iconWrapper}>
           <Icon name="store-alt" style={classes.icon} />
         </View>
       </View>
-      <View style={classes.addressWrapper}>
-        <Icon name="map-marker" style={classes.iconAddress} />
-        <Text style={classes.addressText}>{address}</Text>
-      </View>
-      <MapPreview location={location} />
+      {description && (
+        <View style={classes.addressWrapper}>
+          <Icon name="map-marker" style={classes.iconAddress} />
+          <Text style={classes.addressText}>{description}</Text>
+        </View>
+      )}
+      <MapPreview location={{latitude, longitude}} />
       <View style={classes.actions}>
         <Button secondary onPress={onSelectMarket}>
           {_t('select_this_market')}

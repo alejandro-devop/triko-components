@@ -4,8 +4,8 @@ import TextField from 'shared/components/base/controls/text-field';
 const Control = ({placeholder, disabled, onPress, value}) => {
   let inputValue = null;
   if (value && typeof value === 'object') {
-    const {primary, secondary} = value;
-    inputValue = primary + (secondary ? `(${secondary})` : '');
+    const {name, description} = value;
+    inputValue = name + (description ? ` - ${description}` : '');
   }
   return (
     <TextField

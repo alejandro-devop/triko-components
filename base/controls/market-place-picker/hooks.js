@@ -8,6 +8,7 @@ export const useMarketsList = (options = {}) => {
     stack: {locale},
   } = useSession();
   const {data = {}, loading} = useQuery(GET_MARKET_PLACES, {
+    fetchPolicy: 'no-cache',
     variables: {
       name: query,
       categories: JSON.stringify(categories),

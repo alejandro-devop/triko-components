@@ -19,9 +19,9 @@ const MapPreview = ({location = {}}) => {
 
   const latitudeDelta = 0.005;
   const longitudeDelta = 0.005;
-  const {lat: latitude, lng: longitude} = location || {};
+  const {latitude, longitude} = location || {};
 
-  if (!location.lat && !location.lng) {
+  if (!latitude && !longitude) {
     // ToDo: Catch the address error
     return null;
   }

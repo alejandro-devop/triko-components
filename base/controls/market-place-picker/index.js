@@ -9,9 +9,10 @@ const MarketPlacePicker = ({
   placeholder,
   name,
   onChange,
+  value,
 }) => {
   const [openDialog, setOpenDialog] = useState(false);
-  const [selectedMarket, setSelectedMarket] = useState(null);
+  const [selectedMarket, setSelectedMarket] = useState(value);
   const toggleDialog = () => setOpenDialog(!openDialog);
   const handleSelectMarket = (market) => {
     setSelectedMarket(market);

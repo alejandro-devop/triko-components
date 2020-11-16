@@ -39,7 +39,6 @@ const MarketPlacesDialog = ({
   const onSelectOther = () => {
     setSelected(null);
   };
-  console.log('Places: ', places);
   return (
     <Dialog
       contentStyles={classes.root}
@@ -47,7 +46,6 @@ const MarketPlacesDialog = ({
       open={open}
       onClose={onClose}>
       <ScrollView showsVerticalScrollIndicator={false}>
-        {loading && <CircularLoader />}
         {!selected && (
           <>
             <View style={classes.content}>
@@ -63,6 +61,7 @@ const MarketPlacesDialog = ({
                 value={categories}
               />
             </View>
+            {loading && <CircularLoader />}
             {!loading && (
               <SuggestionsList items={places} onSelect={onSelectMarket} />
             )}
@@ -85,7 +84,8 @@ const styles = () => ({
     paddingHorizontal: 20,
   },
   root: {
-    height: '80%',
+    height: '90%',
+    maxHeight: '90%',
   },
 });
 
