@@ -8,7 +8,8 @@ import useTranslation from 'hooks/useTranslation';
 import ListLoader from 'shared/components/loaders/list-loader';
 import ProductItem from './ProductItem';
 import Text from 'components/base/text';
-import {useProductMock} from 'shared/components/product-picker/products.mock';
+import {useProductsList} from 'shared/components/product-picker/hooks';
+import AddProduct from './add-product';
 
 const ProductsDialog = ({
   label,
@@ -16,52 +17,78 @@ const ProductsDialog = ({
   onClose,
   onSelect,
   selected = {},
+  categories = [],
+  market = {},
   disabledProducts = [],
 }) => {
   const [classes] = useStyles(styles);
+  const [openAdd, setOpenAdd] = useState(false);
   const [query, setQuery] = useState('');
   const {_t} = useTranslation();
-  const {loading, products = []} = useProductMock({query});
+  const {loading, products = [], refresh} = useProductsList({
+    query,
+    categories,
+  });
+  const toggleAddProduct = () => setOpenAdd(!openAdd);
+  const handleOnSaved = async () => {
+    toggleAddProduct();
+    await refresh();
+  };
   const onChangeQuery = ({target: {value}}) => setQuery(value);
   return (
     <Dialog
       disableScroll
       onClose={onClose}
       contentStyles={classes.root}
-      title={label}>
+      title={openAdd ? 'add_new_product' : label}>
       <View style={classes.wrapper}>
-        <TextField
-          primary
-          placeholder={placeholder}
-          onChange={onChangeQuery}
-          value={query}
-        />
-        <ScrollView showsVerticalScrollIndicator={false}>
-          <View style={classes.itemsWrapper}>
-            {loading && <ListLoader size="md" />}
-            {!loading && products.length === 0 && (
-              <View style={classes.emptyTextWrapper}>
-                <Text style={classes.emptyText}>
-                  {_t('no_product_results')}
-                </Text>
+        {!openAdd && (
+          <>
+            <TextField
+              primary
+              placeholder={placeholder}
+              onChange={onChangeQuery}
+              value={query}
+            />
+            <ScrollView showsVerticalScrollIndicator={false}>
+              <View style={classes.itemsWrapper}>
+                {loading && <ListLoader size="md" />}
+                {!loading && products.length === 0 && (
+                  <View style={classes.emptyTextWrapper}>
+                    <Text style={classes.emptyText}>
+                      {_t('no_product_results')}
+                    </Text>
+                  </View>
+                )}
+                {!loading &&
+                  products.map((item, key) => (
+                    <ProductItem
+                      key={`product-item-${key}`}
+                      added={disabledProducts.includes(item.id)}
+                      name={item.name}
+                      category={item.category}
+                      selected={selected && selected.id === item.id}
+                      onPress={() => (onSelect ? onSelect(item) : null)}
+                    />
+                  ))}
               </View>
-            )}
-            {!loading &&
-              products.map((item, key) => (
-                <ProductItem
-                  key={`product-item-${key}`}
-                  added={disabledProducts.includes(item.id)}
-                  name={item.name}
-                  category={item.category}
-                  selected={selected && selected.id === item.id}
-                  onPress={() => (onSelect ? onSelect(item) : null)}
-                />
-              ))}
-          </View>
-        </ScrollView>
+            </ScrollView>
+          </>
+        )}
+        {openAdd && (
+          <AddProduct
+            market={market}
+            categories={categories}
+            onSaved={handleOnSaved}
+          />
+        )}
         {/*{loading && <ListLoader size="md" />}*/}
         <View style={classes.action}>
-          <Button secondary>{_t('add_new_product_text')}</Button>
+          {!openAdd && (
+            <Button secondary onPress={toggleAddProduct}>
+              {_t('add_new_product_text')}
+            </Button>
+          )}
         </View>
       </View>
     </Dialog>

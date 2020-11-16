@@ -133,7 +133,7 @@ const TextField = ({
                   handleChange(newValue, {name, onChange})
                 }
                 onFocus={onFocus}
-                placeholder={placeholder}
+                placeholder={_t(placeholder)}
                 placeholderTextColor={
                   (primary || secondary) && !disabled
                     ? palette.blue3

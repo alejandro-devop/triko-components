@@ -12,6 +12,7 @@ import Text from 'shared/components/base/text';
 import classNames from 'shared/utils/classnames';
 import useStyles from 'shared/hooks/use-styles';
 import palette from 'themes/styles/palette';
+import useTranslation from 'hooks/useTranslation';
 
 /**
  * This component allows to create a text field
@@ -62,7 +63,8 @@ const TextArea = ({
 }) => {
   const [classes] = useStyles(styles);
   const [textAreaValue, setTextAreaValue] = useState('');
-  const handleChange = newValue => {
+  const {_t} = useTranslation();
+  const handleChange = (newValue) => {
     if (maxChars && newValue.length > maxChars) {
       return false;
     }
@@ -121,7 +123,7 @@ const TextArea = ({
               multiline
               returnKeyType={returnKeyType}
               onChangeText={handleChange}
-              placeholder={placeholder}
+              placeholder={_t(placeholder)}
               placeholderTextColor={primary ? palette.blue3 : palette.grayLight}
               secureTextEntry={secureTextEntry}
               onSubmitEditing={onSubmitEditing}

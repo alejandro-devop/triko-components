@@ -12,12 +12,14 @@ const ProductPicker = ({
   primary,
   secondary,
   selected = [],
+  categories = [],
+  market = {},
 }) => {
   const [open, setOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(value);
   const toggleOpen = () => setOpen(!open);
 
-  const handleChange = product => {
+  const handleChange = (product) => {
     setSelectedProduct(product);
     toggleOpen();
     if (onChange) {
@@ -42,6 +44,8 @@ const ProductPicker = ({
       />
       {open && (
         <ProductsDialog
+          market={market}
+          categories={categories}
           label={label}
           placeholder={placeholder}
           selected={selectedProduct}
