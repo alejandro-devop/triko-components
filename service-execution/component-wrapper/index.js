@@ -60,7 +60,7 @@ const ComponentWrapper = ({isTriko, request = {}}) => {
       await handleRequestUpdate();
       setTimeout(() => {
         navigation.navigate('activity');
-      }, 500);
+      }, 1000);
     } else {
       navigation.navigate('activity');
     }
@@ -87,6 +87,7 @@ const ComponentWrapper = ({isTriko, request = {}}) => {
     await cancelRequest(request);
     navigation.navigate('activity');
   };
+  console.log('request: ', workflow === STATUS_QUALIFY_CLIENT && !isTriko);
   return (
     <>
       <View style={classes.root}>
