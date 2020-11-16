@@ -5,7 +5,7 @@ import useStyles from 'hooks/useStyles';
 import Loader from './Loader';
 import Label from 'components/base/label';
 import BadgeItem from './BadgeItem';
-import {GET_MEDALS} from 'components/badges-picker/queries';
+import {GET_MEDALS} from './queries';
 import {useQuery} from '@apollo/react-hooks';
 import useSession from 'hooks/useSession';
 
@@ -47,11 +47,11 @@ const BadgesPicker = ({
   const medals =
     data.response && Array.isArray(data.response) ? data.response : [];
 
-  const handleSelect = selectedBadge => {
-    const selected = selectedBadges.find(item => item === selectedBadge.id);
+  const handleSelect = (selectedBadge) => {
+    const selected = selectedBadges.find((item) => item === selectedBadge.id);
     let newBadges = [...selectedBadges];
     if (selected) {
-      newBadges = newBadges.filter(item => item !== selectedBadge.id);
+      newBadges = newBadges.filter((item) => item !== selectedBadge.id);
     } else {
       newBadges = [...selectedBadges, selectedBadge.id];
     }
@@ -61,7 +61,7 @@ const BadgesPicker = ({
         target: {
           name,
           value: newBadges,
-          entities: medals.filter(item => newBadges.includes(item.id)),
+          entities: medals.filter((item) => newBadges.includes(item.id)),
         },
       });
     }

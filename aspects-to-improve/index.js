@@ -7,7 +7,7 @@ import {CheckboxField} from '../base/controls';
 import Label from 'components/base/label';
 import TextArea from '../base/controls/text-area';
 import {useQuery} from '@apollo/react-hooks';
-import {GET_ASPECTS_TO_IMPROVE} from 'components/aspects-to-improve/queries';
+import {GET_ASPECTS_TO_IMPROVE} from './queries';
 import useSession from 'hooks/useSession';
 
 /**
@@ -51,10 +51,10 @@ const AspectsToImprove = ({name, label, onChange}) => {
   };
 
   const handleSelect = ({id}) => {
-    const selectedItem = selectedItems.find(item => item === id);
+    const selectedItem = selectedItems.find((item) => item === id);
     let newSelected = [...selectedItems];
     if (selectedItem) {
-      newSelected = selectedItems.filter(item => item !== id);
+      newSelected = selectedItems.filter((item) => item !== id);
     } else {
       newSelected = [...selectedItems, id];
     }
