@@ -9,21 +9,19 @@ const ShopperNeedsHorizontal = ({
   maxItems,
   name,
   onChange,
-  value,
+  value = [],
   valueKey,
 }) => {
-  const [selected, setSelected] = useState(value);
   const {loading, data = {}} = useMock(mock);
 
   const handleItemChange = (selectedValue = 0) => {
     const itemId = selectedValue[valueKey];
-    let newSelected = [...selected];
-    if (selected.includes(itemId)) {
-      newSelected = selected.filter(item => item !== itemId);
+    let newSelected = [...value];
+    if (value.includes(itemId)) {
+      newSelected = value.filter((item) => item !== itemId);
     } else {
-      newSelected = [...selected, itemId];
+      newSelected = [...value, itemId];
     }
-    setSelected(newSelected);
     if (onChange) {
       onChange({
         target: {
@@ -39,7 +37,7 @@ const ShopperNeedsHorizontal = ({
         <ItemList
           max={maxItems}
           items={data.response}
-          selected={selected}
+          selected={value}
           handleChange={handleItemChange}
           valueKey={valueKey}
         />

@@ -6,14 +6,14 @@ import useStyles from 'shared/hooks/use-styles';
 
 const SuggestionItem = ({item = {}, onPress}) => {
   const [classes] = useStyles(styles);
-  const {primary, secondary} = item;
+  const {name, description} = item;
   return (
     <TouchableOpacity style={classes.root} onPress={onPress}>
       <View style={classes.content}>
-        <Text style={classes.title}>{primary}</Text>
-        {secondary && (
+        <Text style={classes.title}>{name}</Text>
+        {description && (
           <Text variant="caption" style={classes.caption}>
-            {secondary}
+            {description}
           </Text>
         )}
       </View>
