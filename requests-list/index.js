@@ -21,6 +21,11 @@ import {isEmpty} from 'shared/utils/functions';
 import useMyServices from 'shared/hooks/use-my-services';
 import {startedStatuses} from 'shared/hooks/use-request-status';
 
+const TrikoServicesFetcher = () => {
+  useMyServices();
+  return null;
+};
+
 /**
  * This component renders the trikolaborator and clients requests list.
  * @author Alejandro <alejandro.devop@gmail.com>
@@ -67,8 +72,7 @@ const MyActivityComponent = ({
     noFinished,
     noCanceled,
   });
-  console.log('requests: ', requests);
-  useMyServices();
+
   const {navigation} = useNavigate();
   const {
     loading: updatingRequest,
@@ -191,6 +195,7 @@ const MyActivityComponent = ({
 
   return (
     <>
+      {isTriko && <TrikoServicesFetcher />}
       {enableFilter && (
         <Filter
           currentFilter={currentFilter}
