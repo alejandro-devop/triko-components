@@ -7,6 +7,7 @@ import Loader from './Loader';
 import Label from 'components/base/label';
 import ItemList from './ItemList';
 import ViewMore from './ViewMore';
+import useMarketCategories from 'shared/components/base/controls/shopper-needs/hooks';
 
 /**
  * This component allows to render the shopper needs
@@ -22,15 +23,15 @@ import ViewMore from './ViewMore';
  */
 const ShopperNeeds = ({label, maxItems, name, onChange, value, valueKey}) => {
   const [openMore, setOpenMore] = useState(false);
-  const {loading, data = {}} = useMock(mock);
+  const {categories = [], loading} = useMarketCategories();
   const selected = [...value];
   const toggleViewMore = () => setOpenMore(!openMore);
-  const onItemsChange = selectedValue => {
+  const onItemsChange = (selectedValue) => {
     const itemId = selectedValue[valueKey];
     let newSelected = [...selected];
     // If the current item is already selected
     if (selected.includes(itemId)) {
-      newSelected = selected.filter(item => item !== itemId);
+      newSelected = selected.filter((item) => item !== itemId);
     } else {
       newSelected = [...selected, itemId];
     }
@@ -50,7 +51,7 @@ const ShopperNeeds = ({label, maxItems, name, onChange, value, valueKey}) => {
         {!loading && (
           <ItemList
             max={maxItems}
-            items={data.response}
+            items={categories}
             toggleMore={toggleViewMore}
             handleChange={onItemsChange}
             selected={selected}
@@ -59,7 +60,7 @@ const ShopperNeeds = ({label, maxItems, name, onChange, value, valueKey}) => {
         {loading && <Loader />}
         <ViewMore
           title={label}
-          items={data.response}
+          items={categories}
           open={openMore}
           onClose={toggleViewMore}
           onDone={toggleViewMore}
