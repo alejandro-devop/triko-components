@@ -14,13 +14,16 @@ export const useProductsList = (options = {}) => {
     fetchPolicy: 'no-cache',
     variables: {
       product: query,
-      categories: JSON.stringify(categories),
+      categories: JSON.stringify(categories.map((item) => item.id)),
       locale,
     },
   });
-  console.log('categories: ', categories);
   const refresh = async () => {
-    await refetch();
+    await refetch({
+      product: query,
+      categories: JSON.stringify(categories.map((item) => item.id)),
+      locale,
+    });
   };
   return {
     products:

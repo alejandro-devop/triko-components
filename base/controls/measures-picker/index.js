@@ -1,13 +1,13 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import {TouchableOpacity, View} from 'react-native';
-import useMock from 'hooks/useMock';
-import measures from './measures.mocks';
 import Label from 'components/base/label';
 import useStyles from 'shared/hooks/use-styles';
 import Text from 'components/base/text';
 import SkeletonLoader from 'shared/components/loaders/skeleton';
 import MeasuresList from './MeasuresList';
 import classNames from 'shared/utils/classnames';
+import {useMeasures} from './hooks';
+import {isEmpty} from 'shared/utils/functions';
 
 const MeasuresPicker = ({
   label,
@@ -18,11 +18,10 @@ const MeasuresPicker = ({
 }) => {
   const [classes] = useStyles(styles);
   const [visible, setVisible] = useState(false);
-  const [selected, setSelected] = useState(value || {id: 1, name: 'Uni.'});
-  const {loading, data = {}} = useMock(measures, 1000);
+  const [selected, setSelected] = useState(value);
+  const {loading, measures = {}} = useMeasures();
   const toggleVisible = () => setVisible(!visible);
-  const units = data.response ? data.response : [];
-  const handleSelect = item => {
+  const handleSelect = (item) => {
     setSelected(item);
     setVisible(false);
     if (onChange) {
@@ -36,9 +35,7 @@ const MeasuresPicker = ({
   };
 
   const {name} = selected || {};
-  useEffect(() => {
-    handleSelect({id: 1, name: 'Uni.'});
-  }, []);
+
   return (
     <View style={classes.root}>
       {!loading && (
@@ -67,8 +64,8 @@ const MeasuresPicker = ({
           {visible && (
             <MeasuresList
               onSelect={handleSelect}
-              options={units}
-              selected={selected}
+              options={measures}
+              selected={selected || {}}
             />
           )}
         </>

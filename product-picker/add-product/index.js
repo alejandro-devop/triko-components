@@ -9,12 +9,18 @@ import useForm from 'hooks/useForm';
 import {LoadingCurtain} from 'components/base/dialogs';
 import {useSaveProduct} from '../hooks';
 
-const AddProduct = ({market = {}, categories = [], onSaved, onCancel}) => {
+const AddProduct = ({
+  market = {},
+  defaultName,
+  categories = [],
+  onSaved,
+  onCancel,
+}) => {
   const [classes] = useStyles(styles);
   const {loading, saveProduct} = useSaveProduct();
   const {form = {}, isValid, onChange} = useForm(
     {
-      name: '',
+      name: defaultName,
       description: '',
     },
     {

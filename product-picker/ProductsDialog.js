@@ -77,9 +77,11 @@ const ProductsDialog = ({
         )}
         {openAdd && (
           <AddProduct
+            defaultName={query}
             market={market}
             categories={categories}
             onSaved={handleOnSaved}
+            onCancel={toggleAddProduct}
           />
         )}
         {/*{loading && <ListLoader size="md" />}*/}
