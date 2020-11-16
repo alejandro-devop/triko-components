@@ -19,7 +19,7 @@ import {isEmpty} from 'shared/utils/functions';
  */
 const InfoTriko = ({triko = {}}) => {
   const [classes] = useStyles(styles);
-  const {user = {}, pi = {}, rating} = triko;
+  const {user = {}, pi = {}, rating = 5} = triko;
   const {photo_url} = user;
   const {first_name: firstName, last_name: lastName} = pi;
   return (

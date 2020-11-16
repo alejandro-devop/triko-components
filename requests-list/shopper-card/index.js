@@ -3,7 +3,6 @@ import {View} from 'react-native';
 import useStyles from 'shared/hooks/use-styles';
 import cartColor from 'assets/icons/car-color.png';
 import CardIcon from '../card-icon';
-import ServiceRate from '../ServiceRate';
 import TrikoInfo from '../info-triko';
 import ClientInfo from '../info-client';
 import ServiceInfo from '../service-info';
@@ -37,7 +36,8 @@ const acceptedStatus = [
 ];
 
 const ShopperCard = ({isTriko, request = {}, userLocation, onView}) => {
-  const {client = {}, triko = {}} = request;
+  const {client = {}, triko: trikos = []} = request;
+  const [triko = {}] = trikos;
   const {_t} = useTranslation();
   const [classes] = useStyles(styles);
   const transition = request.transition ? request.transition.workflow : '';
@@ -55,7 +55,6 @@ const ShopperCard = ({isTriko, request = {}, userLocation, onView}) => {
         {!isTriko && (
           <>
             <CardIcon image={cartColor} primary="SHOPPER" />
-            <ServiceRate rate={10000} />
           </>
         )}
       </View>

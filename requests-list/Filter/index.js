@@ -11,12 +11,13 @@ import useTranslation from 'hooks/useTranslation';
  * @author Alejandro <alejandro.devop@gmail.com>
  * @version 1.0.0
  * @param currentFilter
+ * @param filterPrimary
  * @param onChange
  * @param options
  * @returns {*}
  * @constructor
  */
-const Filter = ({currentFilter, onChange, options = []}) => {
+const Filter = ({currentFilter, filterPrimary, onChange, options = []}) => {
   const [classes] = useStyles(styles);
   const {_t} = useTranslation();
   return (
@@ -25,8 +26,9 @@ const Filter = ({currentFilter, onChange, options = []}) => {
         const isActive = key === currentFilter;
         return (
           <Button
+            primary={filterPrimary}
             secondary={!isActive}
-            alternative={isActive}
+            alternative={isActive && !filterPrimary}
             key={`option-${key}`}
             onPress={() => onChange(key)}
             style={classes.button}

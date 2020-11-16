@@ -8,6 +8,7 @@ import {
   REQUEST_TYPE_COURIER,
   REQUEST_TYPE_SHOPPER,
   REQUEST_TYPE_TASK,
+  SERVICES_TYPES,
 } from 'config/constants';
 import NormalCard from '../normal-card';
 import ShopperCard from '../shopper-card';
@@ -50,7 +51,7 @@ const RequestCard = ({
   onStart,
 }) => {
   const [classes] = useStyles(styles);
-  const {details = []} = item;
+  const {details = [], type = {}} = item;
   const [serviceDetail] = details;
   const service = serviceDetail.service;
   const serviceAttrs = service.attrs ? JSON.parse(service.attrs) : {};
@@ -58,7 +59,7 @@ const RequestCard = ({
   let isCourier = false;
   let isTask = false;
   let Component = NormalCard;
-  if (serviceAttrs && serviceAttrs.type === REQUEST_TYPE_SHOPPER) {
+  if (type.id === SERVICES_TYPES.bag) {
     isShopper = true;
     Component = ShopperCard;
   } else if (serviceAttrs && serviceAttrs.type === REQUEST_TYPE_COURIER) {

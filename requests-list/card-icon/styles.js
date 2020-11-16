@@ -6,6 +6,8 @@ export default ({palette}) => ({
   imageWrapper: {
     width: 50,
     height: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
     backgroundColor: '#FFF',
     borderRadius: 100,
   },

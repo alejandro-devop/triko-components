@@ -33,6 +33,7 @@ const TrikoServicesFetcher = () => {
  * @param currentFilter
  * @param enableFilter
  * @param filters
+ * @param filterPrimary
  * @param isTriko
  * @param onChangeFilter
  * @param onlyPending
@@ -48,6 +49,7 @@ const MyActivityComponent = ({
   currentFilter = 0,
   enableFilter,
   filters = [],
+  filterPrimary,
   isTriko,
   onChangeFilter,
   onlyPending,
@@ -198,6 +200,7 @@ const MyActivityComponent = ({
       {isTriko && <TrikoServicesFetcher />}
       {enableFilter && (
         <Filter
+          filterPrimary={filterPrimary}
           currentFilter={currentFilter}
           onChange={(filter) =>
             onChangeFilter ? onChangeFilter(filter) : null
