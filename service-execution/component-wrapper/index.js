@@ -77,9 +77,9 @@ const ComponentWrapper = ({isTriko, request = {}}) => {
 
   // const handleReport = () => {};
 
-  const isQualifying = [STATUS_QUALIFY_CLIENT, STATUS_QUALIFY_TRIKO].includes(
-    workflow,
-  );
+  const isQualifying =
+    [STATUS_QUALIFY_TRIKO].includes(workflow) ||
+    (!isTriko && workflow === STATUS_QUALIFY_CLIENT);
   const isFinished =
     [STATUS_FINISHED].includes(workflow) ||
     (!isTriko && workflow === STATUS_QUALIFY_TRIKO);
@@ -87,24 +87,21 @@ const ComponentWrapper = ({isTriko, request = {}}) => {
     await cancelRequest(request);
     navigation.navigate('activity');
   };
-  console.log('request: ', workflow === STATUS_QUALIFY_CLIENT && !isTriko);
   return (
     <>
       <View style={classes.root}>
         <View style={classes.content}>
-          {!isFinished &&
-            workflow !== STATUS_QUALIFY_CLIENT &&
-            workflow !== STATUS_QUALIFY_TRIKO && (
-              <Component
-                isTriko={isTriko}
-                isShopper={isShopper}
-                isCourier={isCourier}
-                isTask={isTask}
-                onUpdateRequest={handleRequestUpdate}
-                request={request}
-                workflow={workflow}
-              />
-            )}
+          {!isFinished && !isQualifying && (
+            <Component
+              isTriko={isTriko}
+              isShopper={isShopper}
+              isCourier={isCourier}
+              isTask={isTask}
+              onUpdateRequest={handleRequestUpdate}
+              request={request}
+              workflow={workflow}
+            />
+          )}
           {workflow === STATUS_QUALIFY_TRIKO && isTriko && (
             <RateClientWrapper
               request={request}
