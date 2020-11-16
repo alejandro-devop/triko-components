@@ -21,7 +21,6 @@ import {
 } from 'config/request-statuses';
 import ServiceResume from '../service-resume';
 import useNavigate from 'shared/hooks/use-navigate';
-import ConfirmMessage from 'shared/components/requests-list/confirm-message';
 import ConfirmSlide from 'components/base/confirm-slide';
 
 const ComponentWrapper = ({isTriko, request = {}}) => {
@@ -86,7 +85,7 @@ const ComponentWrapper = ({isTriko, request = {}}) => {
     <>
       <View style={classes.root}>
         <View style={classes.content}>
-          {shouldRenderComponent && (
+          {shouldRenderComponent && !isFinished && (
             <Component
               isTriko={isTriko}
               isShopper={isShopper}
@@ -125,7 +124,7 @@ const ComponentWrapper = ({isTriko, request = {}}) => {
             />
           )}
         </View>
-        {!openCancel && (
+        {!openCancel && !isQualifying && (
           <Actions onCancel={handleCancel} onOpenChat={handleOpenChat} />
         )}
       </View>

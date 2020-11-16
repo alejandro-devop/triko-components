@@ -99,7 +99,11 @@ const NormalRequest = ({isTriko, onUpdateRequest, request = {}, workflow}) => {
             steps={steps}
           />
           {isStarted && (
-            <Timer request={request} onPressFinish={handleFinish} />
+            <Timer
+              request={request}
+              isTriko={isTriko}
+              onPressFinish={handleFinish}
+            />
           )}
           {!isTriko && workflow === STATUS_CONFIRM_START && (
             <ConfirmBubble
@@ -114,7 +118,7 @@ const NormalRequest = ({isTriko, onUpdateRequest, request = {}, workflow}) => {
             />
           )}
         </View>
-        {isTriko && (
+        {isTriko && !isFinished && (
           <View style={classes.actions}>
             <Button primary size="xxs" onPress={toggleViewMap}>
               view_in_map

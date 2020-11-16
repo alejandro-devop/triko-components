@@ -1,5 +1,5 @@
 import React from 'react';
-import RateTriko from 'components/rate-triko';
+import RateTriko from 'shared/components/rate-triko';
 const RateTrikoService = ({onRateSend, request}) => {
   return (
     <>

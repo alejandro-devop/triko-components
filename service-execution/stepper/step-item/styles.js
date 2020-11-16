@@ -1,4 +1,7 @@
 export default ({palette, variables: {textSmall}}) => ({
+  actionButtonText: {
+    fontSize: 12,
+  },
   avatar: {
     width: '100%',
     height: '100%',
@@ -16,7 +19,7 @@ export default ({palette, variables: {textSmall}}) => ({
     transform: [{translateX: 7}],
   },
   descriptionText: {
-    fontSize: textSmall,
+    fontSize: 12,
     paddingHorizontal: 2,
     textAlign: 'center',
   },

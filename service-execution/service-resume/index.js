@@ -24,12 +24,12 @@ const ServiceResume = ({onTerminate, isTriko, request}) => {
   const startTransition = history.find(
     (item) => item.transition.workflow === STATUS_STARTED,
   );
+
   const endTransition = history.find((item) =>
     isTriko
       ? item.transition.workflow === STATUS_FINISHED
       : item.transition.workflow === STATUS_QUALIFY_TRIKO,
   );
-
   const scheduledDate = moment(application_date, 'YYYY-MM-DD HH:mm:ss');
   const startDate = moment(startTransition.created_at, 'YYYY-MM-DD HH:mm:ss');
   const endDate = moment(endTransition.created_at, 'YYYY-MM-DD HH:mm:ss');

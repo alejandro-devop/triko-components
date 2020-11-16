@@ -15,7 +15,6 @@ import ConfirmSlide from 'components/base/confirm-slide';
 const StepItem = ({
   active,
   collapsed,
-  isTriko,
   isFirst,
   isLast,
   request = {},
@@ -27,8 +26,9 @@ const StepItem = ({
   const toggleConfirm = () => setConfirm(!confirm);
   const {label, title, description, action = {}, noAction} = step;
   const {label: actionLabel, callback} = action;
-  const {client = {}, triko = {}} = request;
-  const {user = {}} = isTriko ? triko : client;
+  const {triko: trikos = []} = request;
+  const [triko = {}] = trikos;
+  const {user = {}} = triko;
   const {photo_url: photo} = user;
   return (
     <View style={classNames({root: true, rootCollapsed: collapsed}, classes)}>
@@ -73,7 +73,7 @@ const StepItem = ({
                 {title}
               </Text>
             )}
-            {description && (
+            {description && !confirm && (
               <Text style={[classes.description, classes.descriptionText]}>
                 {description}
               </Text>
@@ -81,7 +81,11 @@ const StepItem = ({
             {actionLabel && (
               <>
                 {!confirm && !noAction && (
-                  <Button size="xxs" secondary onPress={toggleConfirm}>
+                  <Button
+                    size="xxs"
+                    secondary
+                    onPress={toggleConfirm}
+                    textStyle={classes.actionButtonText}>
                     {actionLabel}
                   </Button>
                 )}
@@ -91,7 +95,12 @@ const StepItem = ({
                     message="confirm_execute_action"
                     buttonSize="xs"
                     onCancel={toggleConfirm}
-                    onAccept={callback}
+                    onAccept={() => {
+                      if (callback) {
+                        callback();
+                      }
+                      toggleConfirm();
+                    }}
                   />
                 )}
               </>
