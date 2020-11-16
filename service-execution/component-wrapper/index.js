@@ -55,7 +55,10 @@ const ComponentWrapper = ({isTriko, request = {}}) => {
   const handleRequestUpdate = async () => {
     await updateRequest(request);
   };
-  const handleTerminate = () => {
+  const handleTerminate = async () => {
+    if (isTriko) {
+      await handleRequestUpdate();
+    }
     navigation.navigate('activity');
   };
 
@@ -81,6 +84,7 @@ const ComponentWrapper = ({isTriko, request = {}}) => {
     await cancelRequest(request);
     navigation.navigate('activity');
   };
+  
   return (
     <>
       <View style={classes.root}>

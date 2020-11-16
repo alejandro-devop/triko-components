@@ -1,5 +1,5 @@
 import React from 'react';
-import {SafeAreaView, View} from 'react-native';
+import {SafeAreaView, StatusBar, View} from 'react-native';
 import {useStyles} from 'hooks/index';
 import styles from './styles';
 import ServiceInfo from '../service-info';
@@ -21,23 +21,26 @@ const RequestHeader = ({request = {}, isTriko}) => {
   const dateObj = moment(application_date, 'YYYY-MM-DD HH:mm:ss');
   const dateLabel = dateObj.format('M/D h:mm a');
   return (
-    <Slide direction="top">
-      <SafeAreaView style={classes.root}>
-        <View style={classes.contentWrapper}>
-          <View style={[classes.panel, classes.left]}>
-            <ServiceInfo request={request} />
+    <>
+      <StatusBar barStyle="light-content" />
+      <Slide direction="top">
+        <SafeAreaView style={classes.root}>
+          <View style={classes.contentWrapper}>
+            <View style={[classes.panel, classes.left]}>
+              <ServiceInfo request={request} />
+            </View>
+            <View style={[classes.panel, classes.right]}>
+              <Text style={[classes.text, classes.textTitle]}>{statusLabel}</Text>
+              <Text style={[classes.text]}>
+                {_t('request_execution_date', {date: dateLabel})}
+              </Text>
+              <UserInfo request={request} isTriko={isTriko} />
+            </View>
           </View>
-          <View style={[classes.panel, classes.right]}>
-            <Text style={[classes.text, classes.textTitle]}>{statusLabel}</Text>
-            <Text style={[classes.text]}>
-              {_t('request_execution_date', {date: dateLabel})}
-            </Text>
-            <UserInfo request={request} isTriko={isTriko} />
-          </View>
-        </View>
-        <View style={classes.tip} />
-      </SafeAreaView>
-    </Slide>
+          <View style={classes.tip} />
+        </SafeAreaView>
+      </Slide>
+      </>
   );
 };
 

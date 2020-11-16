@@ -29,16 +29,15 @@ const RequestDetail = () => {
   } = useSession();
   const {isShopper, isCourier, isTask} = requestDetailSelected;
   const {request = {}} = requestDetailSelected;
-  const {order = {}} = request;
+  const {order = {}, triko: trikos = []} = request;
+  const [triko = {}] = trikos;
   const {workflow} = request.transition || {};
-  const total = 0;
-  console.log('the request; ', request);
-  // const {total} = useCalcRateClient({
-  //   request: {
-  //     ...request,
-  //     triko: request.triko[0],
-  //   },
-  // });
+  const {total} = useCalcRateClient({
+    request: {
+      ...request,
+      triko: triko,
+    },
+  });
   let Layout = InsidesLayout;
   let Component = Other;
   if (isShopper) {
