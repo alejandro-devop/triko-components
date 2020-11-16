@@ -7,7 +7,7 @@ import {useStyles, useSession} from 'hooks/index';
 import currency from 'currency-formatter';
 import moment from 'moment';
 import {
-  STATUS_FINISHED,
+  STATUS_QUALIFY_CLIENT,
   STATUS_QUALIFY_TRIKO,
   STATUS_STARTED,
 } from 'config/request-statuses';
@@ -27,7 +27,7 @@ const ServiceResume = ({onTerminate, isTriko, request}) => {
 
   const endTransition = history.find((item) =>
     isTriko
-      ? item.transition.workflow === STATUS_FINISHED
+      ? item.transition.workflow === STATUS_QUALIFY_CLIENT
       : item.transition.workflow === STATUS_QUALIFY_TRIKO,
   );
   const scheduledDate = moment(application_date, 'YYYY-MM-DD HH:mm:ss');

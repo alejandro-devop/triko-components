@@ -58,8 +58,12 @@ const ComponentWrapper = ({isTriko, request = {}}) => {
   const handleTerminate = async () => {
     if (isTriko) {
       await handleRequestUpdate();
+      setTimeout(() => {
+        navigation.navigate('activity');
+      }, 500);
+    } else {
+      navigation.navigate('activity');
     }
-    navigation.navigate('activity');
   };
 
   const handleOpenChat = () => {
@@ -79,28 +83,28 @@ const ComponentWrapper = ({isTriko, request = {}}) => {
   const isFinished =
     [STATUS_FINISHED].includes(workflow) ||
     (!isTriko && workflow === STATUS_QUALIFY_TRIKO);
-  const shouldRenderComponent = !isQualifying && !isQualifying;
   const handleCancelRequest = async () => {
     await cancelRequest(request);
     navigation.navigate('activity');
   };
-  
   return (
     <>
       <View style={classes.root}>
         <View style={classes.content}>
-          {shouldRenderComponent && !isFinished && (
-            <Component
-              isTriko={isTriko}
-              isShopper={isShopper}
-              isCourier={isCourier}
-              isTask={isTask}
-              onUpdateRequest={handleRequestUpdate}
-              request={request}
-              workflow={workflow}
-            />
-          )}
-          {isQualifying && isTriko && (
+          {!isFinished &&
+            workflow !== STATUS_QUALIFY_CLIENT &&
+            workflow !== STATUS_QUALIFY_TRIKO && (
+              <Component
+                isTriko={isTriko}
+                isShopper={isShopper}
+                isCourier={isCourier}
+                isTask={isTask}
+                onUpdateRequest={handleRequestUpdate}
+                request={request}
+                workflow={workflow}
+              />
+            )}
+          {workflow === STATUS_QUALIFY_TRIKO && isTriko && (
             <RateClientWrapper
               request={request}
               onRateSend={handleRequestUpdate}

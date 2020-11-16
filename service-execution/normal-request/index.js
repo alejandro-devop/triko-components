@@ -9,6 +9,7 @@ import {
   STATUS_CONFIRM_FINISHED,
   STATUS_CONFIRM_START,
   STATUS_QUALIFY_CLIENT,
+  STATUS_QUALIFY_TRIKO,
   STATUS_STARTED,
 } from 'config/request-statuses';
 import moment from 'moment';
@@ -118,13 +119,16 @@ const NormalRequest = ({isTriko, onUpdateRequest, request = {}, workflow}) => {
             />
           )}
         </View>
-        {isTriko && !isFinished && (
-          <View style={classes.actions}>
-            <Button primary size="xxs" onPress={toggleViewMap}>
-              view_in_map
-            </Button>
-          </View>
-        )}
+        {isTriko &&
+          !isFinished &&
+          workflow !== STATUS_QUALIFY_CLIENT &&
+          workflow !== STATUS_QUALIFY_TRIKO && (
+            <View style={classes.actions}>
+              <Button primary size="xxs" onPress={toggleViewMap}>
+                view_in_map
+              </Button>
+            </View>
+          )}
       </View>
       {visibleMap && (
         <ViewOnMap
