@@ -13,9 +13,13 @@ import {LoadingCurtain} from 'components/base/dialogs';
 import {useCalcRateClient} from 'shared/hooks/use-rate-calc';
 import styles from './styles';
 import useNavigate from 'shared/hooks/use-navigate';
-import {STATUS_ACCEPTED} from 'config/request-statuses';
+import {
+  STATUS_ACCEPTED,
+  STATUS_WAITING_FOR_TRIKO,
+} from 'config/request-statuses';
 import {PAYMENT_COMPLETED_STATUS} from 'components/pay-service/payment-statuses';
 import useRequestUpdate from 'shared/hooks/use-request-update';
+import {isEmpty} from 'shared/utils/functions';
 
 const RequestDetail = () => {
   const [classes] = useStyles(styles);
@@ -27,7 +31,11 @@ const RequestDetail = () => {
     stack: {requestDetailSelected = {}},
     setKey,
   } = useSession();
-  const {request = {}, isShopper, isCourier, isTask} = requestDetailSelected;
+  const {request = {}, isShopper, isCourier, isTask} = !isEmpty(
+    requestDetailSelected,
+  )
+    ? requestDetailSelected
+    : {};
   const {order = {}, triko: trikos = [], details = []} = request;
   const [triko = {}] = trikos;
   const {workflow} = request.transition || {};
@@ -50,9 +58,9 @@ const RequestDetail = () => {
 
   const handlePayment = async () => {
     if (workflow === STATUS_ACCEPTED) {
-      await initPayment(request);
+      await initPayment(request, {isShopper});
     } else {
-      setKey('selectedToPay', request);
+      setKey('selectedToPay', {...request, isShopper});
     }
     navigation.navigate('payment');
   };
@@ -66,6 +74,10 @@ const RequestDetail = () => {
     navigation.goBack();
   };
 
+  if (isEmpty(requestDetailSelected)) {
+    return null;
+  }
+
   const {workflow: orderWorkflow} =
     order && order.transition ? order.transition : {};
   const paidOut = orderWorkflow === PAYMENT_COMPLETED_STATUS;
@@ -74,7 +86,13 @@ const RequestDetail = () => {
     <>
       <Layout
         disableContent
-        header={<Header paidOut={paidOut} request={request} />}>
+        header={
+          <Header
+            paidOut={paidOut}
+            hideTrikoInfo={isShopper && workflow === STATUS_WAITING_FOR_TRIKO}
+            request={request}
+          />
+        }>
         <View style={classes.root}>
           <Component
             onPay={handlePayment}

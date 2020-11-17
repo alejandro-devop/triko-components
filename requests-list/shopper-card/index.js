@@ -13,6 +13,7 @@ import shopperIcon from 'shared/assets/icons/triko-shopper.png';
 import Text from 'components/base/text';
 import Icon from 'components/base/icon';
 import FavorIcon from '../favor-icon';
+import TrikoInfo from '../info-triko';
 import Button from 'components/base/buttons/button';
 import {
   STATUS_ACCEPTED,
@@ -21,7 +22,9 @@ import {
   STATUS_FINISHED,
   STATUS_ON_MY_WAY,
   STATUS_ON_YOUR_DOOR,
+  STATUS_PENDING,
   STATUS_STARTED,
+  STATUS_WAITING_FOR_TRIKO,
 } from 'config/request-statuses';
 import useTranslation from 'hooks/useTranslation';
 
@@ -35,7 +38,14 @@ const acceptedStatus = [
   STATUS_FINISHED,
 ];
 
-const ShopperCard = ({isTriko, request = {}, userLocation, onView}) => {
+const ShopperCard = ({
+  isTriko,
+  request = {},
+  userLocation,
+  onView,
+  workflow,
+  isPaid,
+}) => {
   const {client = {}, triko: trikos = [], details = []} = request;
   const [serviceDetail = {}] = details;
   const [triko = {}] = trikos;
@@ -60,7 +70,7 @@ const ShopperCard = ({isTriko, request = {}, userLocation, onView}) => {
         )}
         {!isTriko && (
           <>
-            <CardIcon image={cartColor} primary="SHOPPER" />
+            <CardIcon isPaid={isPaid} image={cartColor} primary="SHOPPER" />
           </>
         )}
       </View>
@@ -89,8 +99,13 @@ const ShopperCard = ({isTriko, request = {}, userLocation, onView}) => {
         {!isTriko && (
           <>
             <ServiceInfo request={request} showDate isTriko={isTriko} />
-            <Candidates request={request} />
-            {/*<TrikoInfo triko={triko} />*/}
+            {workflow === STATUS_WAITING_FOR_TRIKO && (
+              <Candidates request={request} />
+            )}
+            {workflow !== STATUS_PENDING &&
+              workflow !== STATUS_WAITING_FOR_TRIKO && (
+                <TrikoInfo triko={triko} />
+              )}
           </>
         )}
       </View>

@@ -40,6 +40,9 @@ export default ({palette}) => ({
   iconSm: {
     fontSize: 20,
   },
+  iconXs: {
+    fontSize: 18,
+  },
   label: {
     color: palette.blue,
     fontWeight: '600',
@@ -75,5 +78,9 @@ export default ({palette}) => ({
   wrapperSm: {
     width: 35,
     height: 35,
+  },
+  wrapperXs: {
+    width: 30,
+    height: 30,
   },
 });

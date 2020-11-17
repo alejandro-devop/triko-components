@@ -9,7 +9,13 @@ import PreImage from 'shared/components/base/pre-image';
 import styles from './styles';
 import useRequestStatus from 'shared/hooks/use-request-status';
 
-const RequestHeader = ({paidOut, request = {}}) => {
+const RequestHeader = ({
+  disableStatus,
+  hideTrikoInfo,
+  paidOut,
+  isFavor,
+  request = {},
+}) => {
   const [classes] = useStyles(styles);
   const {triko: trikos = [], details = [], transition = {}} = request;
   const [triko = {}] = trikos;
@@ -33,16 +39,18 @@ const RequestHeader = ({paidOut, request = {}}) => {
             </View>
             <View style={classes.trikoWrapper}>
               <RequestStatus paidOut={paidOut} request={request} />
-              <TrikoInfo triko={triko} />
+              {!hideTrikoInfo && <TrikoInfo triko={triko} />}
             </View>
           </View>
         </SafeAreaView>
       </Slide>
-      <Slide delay={500} direction="top" style={classes.statusAnimWrapper}>
-        <View style={classes.statusWrapper}>
-          <Text style={classes.pendingText}>{statusText}</Text>
-        </View>
-      </Slide>
+      {!disableStatus && (
+        <Slide delay={500} direction="top" style={classes.statusAnimWrapper}>
+          <View style={classes.statusWrapper}>
+            <Text style={classes.pendingText}>{statusText}</Text>
+          </View>
+        </Slide>
+      )}
     </>
   );
 };

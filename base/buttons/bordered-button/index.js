@@ -34,6 +34,7 @@ const BorderedButton = ({
             wrapperDanger: danger,
             wrapperWarning: warning,
             wrapperSm: size === 'sm',
+            wrapperXs: size === 'xs',
             buttonWrapperFilled: filled,
           },
           classes,
@@ -49,6 +50,7 @@ const BorderedButton = ({
               iconDanger: danger,
               iconWarning: warning,
               iconSm: size === 'sm',
+              iconXs: size === 'xs',
             },
             classes,
           )}
