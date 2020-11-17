@@ -6,8 +6,8 @@ import PreImage from 'shared/components/base/pre-image';
 import palette from 'themes/styles/palette';
 
 const ShoppingItem = ({shoppingItem = {}}) => {
-  const {product = {}, photo, quantity, unit = {}} = shoppingItem;
-  const {name} = product;
+  const {product = {}, quantity, measure = {}} = shoppingItem;
+  const {name, image = {}} = product;
   const [classes] = useStyles(styles);
   return (
     <View style={classes.root}>
@@ -18,12 +18,15 @@ const ShoppingItem = ({shoppingItem = {}}) => {
         <Text style={[classes.text, classes.quantity]}>{quantity}</Text>
       </View>
       <View style={[classes.container, classes.unitContainer]}>
-        <Text style={[classes.text, classes.unit]}>{unit.name}</Text>
+        <Text style={[classes.text, classes.unit]}>{measure.shortName}</Text>
       </View>
       <View style={[classes.container, classes.photoContainer]}>
         <View style={classes.photoWrapper}>
-          {Boolean(photo) && (
-            <PreImage source={{uri: photo}} style={classes.photo} />
+          {Boolean(image.url_download_file) && (
+            <PreImage
+              source={{uri: image.url_download_file}}
+              style={classes.photo}
+            />
           )}
         </View>
       </View>

@@ -12,6 +12,7 @@ import {
   REQUEST_TYPE_COURIER,
   REQUEST_TYPE_SHOPPER,
   REQUEST_TYPE_TASK,
+  SERVICES_TYPES,
 } from 'config/constants';
 import useUserLocation from 'shared/hooks/use-user-location';
 import {LoadingCurtain} from 'components/base/dialogs';
@@ -94,8 +95,9 @@ const MyActivityComponent = ({
     const [detail] = request.details;
     const {service} = detail;
     const serviceAttrs = service.attrs ? JSON.parse(service.attrs) : {};
+    const {type = {}} = request;
     const requestPayload = {
-      isShopper: serviceAttrs && serviceAttrs.type === REQUEST_TYPE_SHOPPER,
+      isShopper: type.id === SERVICES_TYPES.bag,
       isCourier: serviceAttrs && serviceAttrs.type === REQUEST_TYPE_COURIER,
       isTask: serviceAttrs && serviceAttrs.type === REQUEST_TYPE_TASK,
     };

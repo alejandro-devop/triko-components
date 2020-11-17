@@ -1,18 +1,27 @@
 import React from 'react';
-import {ScrollView, View} from 'react-native';
+import {View} from 'react-native';
+import {ScrollView} from 'shared/components/commons';
 import Text from 'components/base/text';
 import useStyles from 'shared/hooks/use-styles';
 import InfoRow from '../info-row';
 import Icon from 'components/base/icon';
-import ShoppingItem from './ShoppingItem';
-import {mockedCart, mockedForm} from './mocks';
+import ShoppingItem from './ShoppingItem'
 import useTranslation from 'hooks/useTranslation';
 import ActionButtons from '../action-buttons';
+import {isEmpty} from 'shared/utils/functions';
 
-const Shopper = ({request = {}, title}) => {
+const Shopper = ({onCancel, onBack, request = {}, title}) => {
   const [classes] = useStyles(styles);
   const {_t} = useTranslation();
-  const {address = {}, market = {}, bagSize} = mockedForm;
+  const {attributes, details = []} = request;
+  const requestAttrs = !isEmpty(attributes) ? JSON.parse(attributes) : {};
+  const [serviceDetail = {}] = details;
+  const {products = []} = serviceDetail;
+  const {bagSize, market = {}} = requestAttrs;
+  const address = {
+    title: request.address,
+  };
+
   return (
     <>
       <ScrollView
@@ -21,18 +30,18 @@ const Shopper = ({request = {}, title}) => {
         <View style={classes.root}>
           {title && <Text style={classes.title}>{title}</Text>}
           <InfoRow
-            label={_t('request_detail_market_address')}
+            label={_t('request_detail_deliver_address')}
             value={address.title}
             icon="map-marker"
           />
           <InfoRow
-            label={_t('request_detail_deliver_address')}
-            value={`${market.primary} (${market.secondary})`}
+            label={_t('request_detail_market_address')}
+            value={`${market.name} (${market.description})`}
             icon="map-marker"
           />
           <InfoRow
             label={_t('request_detail_bag_size')}
-            value={bagSize}
+            value={`bag_size_${bagSize}`}
             icon="shopping-bag"
           />
           <View style={classes.cartTitle}>
@@ -40,13 +49,13 @@ const Shopper = ({request = {}, title}) => {
             <Icon name="shopping-cart" style={classes.icon} />
           </View>
           <View style={classes.cartWrapper}>
-            {mockedCart.map((item, key) => (
+            {products.map((item, key) => (
               <ShoppingItem key={`shopping-item-${key}`} shoppingItem={item} />
             ))}
           </View>
         </View>
       </ScrollView>
-      <ActionButtons />
+      <ActionButtons onBack={onBack} onCancel={onCancel} />
     </>
   );
 };

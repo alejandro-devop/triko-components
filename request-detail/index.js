@@ -27,9 +27,8 @@ const RequestDetail = () => {
     stack: {requestDetailSelected = {}},
     setKey,
   } = useSession();
-  const {isShopper, isCourier, isTask} = requestDetailSelected;
-  const {request = {}} = requestDetailSelected;
-  const {order = {}, triko: trikos = []} = request;
+  const {request = {}, isShopper, isCourier, isTask} = requestDetailSelected;
+  const {order = {}, triko: trikos = [], details = []} = request;
   const [triko = {}] = trikos;
   const {workflow} = request.transition || {};
   const {total} = useCalcRateClient({
