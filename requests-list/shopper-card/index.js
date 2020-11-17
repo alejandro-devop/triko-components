@@ -45,7 +45,9 @@ const ShopperCard = ({isTriko, request = {}, userLocation, onView}) => {
   const totalProducts = serviceDetail.products
     ? serviceDetail.products.length
     : 0;
-
+  const isPostulated = isTriko
+    ? trikos.map((item) => item.id).includes(triko.id)
+    : false;
   return (
     <View style={classes.root}>
       <View style={classes.serviceWrapper}>
@@ -92,6 +94,11 @@ const ShopperCard = ({isTriko, request = {}, userLocation, onView}) => {
         )}
       </View>
       {acceptedStatus.includes(transition) && <ConfirmIcon />}
+      {isPostulated && (
+        <View style={classes.postulatedWrapper}>
+          <Text style={classes.postulatedText}>postulated_text</Text>
+        </View>
+      )}
     </View>
   );
 };
@@ -133,6 +140,24 @@ const styles = ({palette, variables: {textSmall}}) => ({
     flexDirection: 'row',
     alignItems: 'center',
     marginTop: 20,
+  },
+  postulatedWrapper: {
+    position: 'absolute',
+    // left: '50%',
+    right: 0,
+    top: 0,
+    transform: [{translateX: 10}, {translateY: -10}],
+    backgroundColor: '#FFF',
+    paddingHorizontal: 10,
+    paddingVertical: 10,
+    borderRadius: 40,
+    borderWidth: 2,
+    borderColor: palette.orange,
+  },
+  postulatedText: {
+    color: palette.orange,
+    fontSize: 12,
+    fontWeight: '600',
   },
   productsCountText: {
     color: palette.orange,
