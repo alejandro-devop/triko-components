@@ -3,7 +3,7 @@ import {View} from 'react-native';
 import useStyles from 'shared/hooks/use-styles';
 import cartColor from 'assets/icons/car-color.png';
 import CardIcon from '../card-icon';
-import TrikoInfo from '../info-triko';
+import Candidates from './candidates';
 import ClientInfo from '../info-client';
 import ServiceInfo from '../service-info';
 import ConfirmIcon from '../ConfirmIcon';
@@ -89,7 +89,8 @@ const ShopperCard = ({isTriko, request = {}, userLocation, onView}) => {
         {!isTriko && (
           <>
             <ServiceInfo request={request} showDate isTriko={isTriko} />
-            <TrikoInfo triko={triko} />
+            <Candidates request={request} />
+            {/*<TrikoInfo triko={triko} />*/}
           </>
         )}
       </View>
