@@ -36,12 +36,16 @@ const acceptedStatus = [
 ];
 
 const ShopperCard = ({isTriko, request = {}, userLocation, onView}) => {
-  const {client = {}, triko: trikos = []} = request;
+  const {client = {}, triko: trikos = [], details = []} = request;
+  const [serviceDetail = {}] = details;
   const [triko = {}] = trikos;
   const {_t} = useTranslation();
   const [classes] = useStyles(styles);
   const transition = request.transition ? request.transition.workflow : '';
-  const totalProducts = 4;
+  const totalProducts = serviceDetail.products
+    ? serviceDetail.products.length
+    : 0;
+
   return (
     <View style={classes.root}>
       <View style={classes.serviceWrapper}>
