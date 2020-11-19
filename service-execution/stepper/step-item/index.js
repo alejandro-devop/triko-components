@@ -25,7 +25,7 @@ const StepItem = ({
   const [confirm, setConfirm] = useState(false);
   const toggleConfirm = () => setConfirm(!confirm);
   const {label, title, description, action = {}, noAction} = step;
-  const {label: actionLabel, callback} = action;
+  const {label: actionLabel, callback, dontConfirm} = action;
   const {triko: trikos = []} = request;
   const [triko = {}] = trikos;
   const {user = {}} = triko;
@@ -84,7 +84,9 @@ const StepItem = ({
                   <Button
                     size="xxs"
                     secondary
-                    onPress={toggleConfirm}
+                    onPress={() =>
+                      dontConfirm && callback ? callback() : toggleConfirm()
+                    }
                     textStyle={classes.actionButtonText}>
                     {actionLabel}
                   </Button>

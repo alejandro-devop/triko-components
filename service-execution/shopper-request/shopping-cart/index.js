@@ -58,7 +58,7 @@ const ShoppingCart = ({isTriko, request = {}, onClose, refreshRequest}) => {
         <CartTotal request={request} />
         <View style={classes.actionsRow}>
           <Button disabled={added === 0} primary onPress={handleFinish}>
-            finish_text
+            finish_shopping
           </Button>
           <Button secondary onPress={onClose}>
             close_cart

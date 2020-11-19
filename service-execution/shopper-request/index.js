@@ -4,6 +4,7 @@ import {useStyles} from 'hooks/index';
 import styles from './styles';
 import Stepper from 'shared/components/service-execution/stepper';
 import useExecutionStep from 'shared/hooks/use-execution-step';
+import UploadBill from './upload-bill';
 import {isEmpty} from 'shared/utils/functions';
 import Button from 'shared/components/base/buttons/button';
 import useRequestUpdate from 'shared/hooks/use-request-update';
@@ -16,7 +17,7 @@ const ShopperRequest = ({isTriko, request = {}, refreshRequest}) => {
   const [classes] = useStyles(styles);
   const [openCart, setOpenCart] = useState(false);
   // const activeStep = useExecutionStep(request);
-  const activeStep = 0;
+  const activeStep = 2;
   const [serviceDetail = {}] = !isEmpty(request.details) ? request.details : [];
   const {products = []} = serviceDetail;
   const {loading, updateRequest} = useRequestUpdate();
@@ -43,13 +44,20 @@ const ShopperRequest = ({isTriko, request = {}, refreshRequest}) => {
     },
     {
       // The triko start buying items, and then the triko ask for confirmation to pay the cart
-      label: 'shopping',
-      title: market.name,
+      label: 'making_purchase',
+      title: 'get_products_in_list',
+      action: {
+        label: 'view_cart',
+        dontConfirm: true,
+        callback: () => {
+          toggleCart();
+        },
+      },
     },
     {
       // the triko starts paying the products, upload the bill and wait for client confirmation.
       label: 'paying_cart',
-      title: market.name,
+      title: 'go_to_cash_register',
     },
     {
       // The triko starts traveling to the deliver address
@@ -65,7 +73,7 @@ const ShopperRequest = ({isTriko, request = {}, refreshRequest}) => {
       description: 'hi',
     },
   ];
-
+  const cashRegister = true;
   // const steps = [
   //   {
   //     label: 'going_to_shopping_place',
@@ -99,14 +107,16 @@ const ShopperRequest = ({isTriko, request = {}, refreshRequest}) => {
   // ];
 
   const viewOnMap = () => {};
-
+  const isCollapsed = cashRegister || openCart;
+  const hideCart = cashRegister;
+  const hideMap = cashRegister;
   return (
     <>
       {loading && <LoadingCurtain />}
       <View style={classes.root}>
         <View style={classes.content}>
           <Stepper
-            collapsed={openCart}
+            collapsed={isCollapsed}
             activeStep={activeStep}
             isTriko={isTriko}
             request={request}
@@ -120,23 +130,28 @@ const ShopperRequest = ({isTriko, request = {}, refreshRequest}) => {
               refreshRequest={refreshRequest}
             />
           )}
+          {cashRegister && <UploadBill request={request} />}
           {!openCart && (
             <>
               <View style={classes.actionsWrapper}>
-                <View style={classes.cartButtonWrapper}>
-                  <View style={classes.countWrapper}>
-                    <Text style={classes.countText}>{products.length}</Text>
+                {!hideCart && (
+                  <View style={classes.cartButtonWrapper}>
+                    <View style={classes.countWrapper}>
+                      <Text style={classes.countText}>{products.length}</Text>
+                    </View>
+                    <BorderedButton
+                      icon="shopping-cart"
+                      filled
+                      label="view_cart"
+                      onPress={toggleCart}
+                    />
                   </View>
-                  <BorderedButton
-                    icon="shopping-cart"
-                    filled
-                    label="view_cart"
-                    onPress={toggleCart}
-                  />
-                </View>
-                <Button primary size="xxs" onPress={viewOnMap}>
-                  view_on_map
-                </Button>
+                )}
+                {!hideMap && (
+                  <Button primary size="xxs" onPress={viewOnMap}>
+                    view_on_map
+                  </Button>
+                )}
               </View>
             </>
           )}
