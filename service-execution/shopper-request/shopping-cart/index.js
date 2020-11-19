@@ -10,7 +10,7 @@ import {isEmpty} from 'shared/utils/functions';
 import useRequestUpdate from 'shared/hooks/use-request-update';
 import {LoadingCurtain} from 'components/base/dialogs';
 
-const ShoppingCart = ({isTriko, request = {}, refreshRequest}) => {
+const ShoppingCart = ({isTriko, request = {}, onClose, refreshRequest}) => {
   const [serviceDetail = {}] = request.details;
   const {products = []} = serviceDetail;
   const cart = !isEmpty(serviceDetail.products) ? serviceDetail.products : [];
@@ -59,6 +59,9 @@ const ShoppingCart = ({isTriko, request = {}, refreshRequest}) => {
         <View style={classes.actionsRow}>
           <Button disabled={added === 0} primary onPress={handleFinish}>
             finish_text
+          </Button>
+          <Button secondary onPress={onClose}>
+            close_cart
           </Button>
         </View>
       </View>

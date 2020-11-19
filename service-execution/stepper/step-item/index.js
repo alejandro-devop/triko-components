@@ -78,7 +78,7 @@ const StepItem = ({
                 {description}
               </Text>
             )}
-            {actionLabel && (
+            {actionLabel && !collapsed && (
               <>
                 {!confirm && !noAction && (
                   <Button

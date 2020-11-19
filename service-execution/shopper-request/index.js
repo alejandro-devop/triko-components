@@ -14,8 +14,9 @@ import ShoppingCart from './shopping-cart';
 
 const ShopperRequest = ({isTriko, request = {}, refreshRequest}) => {
   const [classes] = useStyles(styles);
-  const [openCart, setOpenCart] = useState(true);
-  const activeStep = useExecutionStep(request);
+  const [openCart, setOpenCart] = useState(false);
+  // const activeStep = useExecutionStep(request);
+  const activeStep = 0;
   const [serviceDetail = {}] = !isEmpty(request.details) ? request.details : [];
   const {products = []} = serviceDetail;
   const {loading, updateRequest} = useRequestUpdate();
@@ -29,6 +30,7 @@ const ShopperRequest = ({isTriko, request = {}, refreshRequest}) => {
 
   const steps = [
     {
+      // Here the triko goes to the shopping place, indicates he's acquiring the products
       label: 'going_to_shopping_place',
       title: market.name,
       description: 'indicate_arrival',
@@ -40,24 +42,61 @@ const ShopperRequest = ({isTriko, request = {}, refreshRequest}) => {
       },
     },
     {
-      title: 'shopping_items',
-      label: 'acquiring_products',
-      description: 'buying_items',
-      action: {
-        label: 'make_payment',
-        callback: () => {},
-      },
-      noAction: openCart,
+      // The triko start buying items, and then the triko ask for confirmation to pay the cart
+      label: 'shopping',
+      title: market.name,
     },
     {
-      label: 'service_start_service',
-      title: 'Other',
+      // the triko starts paying the products, upload the bill and wait for client confirmation.
+      label: 'paying_cart',
+      title: market.name,
+    },
+    {
+      // The triko starts traveling to the deliver address
+      label: 'on_my_way_to_deliver_point',
+      title: market.name,
+    },
+    {
+      label: 'paying_service',
+      title: market.name,
     },
     {
       label: 'finish_service_label',
       description: 'hi',
     },
   ];
+
+  // const steps = [
+  //   {
+  //     label: 'going_to_shopping_place',
+  //     title: market.name,
+  //     description: 'indicate_arrival',
+  //     action: {
+  //       label: 'arrive_to_market',
+  //       callback: () => {
+  //         updateRequest(request);
+  //       },
+  //     },
+  //   },
+  //   {
+  //     title: 'shopping_items',
+  //     label: 'acquiring_products',
+  //     description: 'buying_items',
+  //     action: {
+  //       label: 'make_payment',
+  //       callback: () => {},
+  //     },
+  //     noAction: openCart,
+  //   },
+  //   {
+  //     label: 'service_start_service',
+  //     title: 'Other',
+  //   },
+  //   {
+  //     label: 'finish_service_label',
+  //     description: 'hi',
+  //   },
+  // ];
 
   const viewOnMap = () => {};
 
@@ -77,6 +116,7 @@ const ShopperRequest = ({isTriko, request = {}, refreshRequest}) => {
             <ShoppingCart
               isTriko={isTriko}
               request={request}
+              onClose={toggleCart}
               refreshRequest={refreshRequest}
             />
           )}
@@ -91,6 +131,7 @@ const ShopperRequest = ({isTriko, request = {}, refreshRequest}) => {
                     icon="shopping-cart"
                     filled
                     label="view_cart"
+                    onPress={toggleCart}
                   />
                 </View>
                 <Button primary size="xxs" onPress={viewOnMap}>
