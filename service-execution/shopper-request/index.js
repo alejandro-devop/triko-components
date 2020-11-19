@@ -3,6 +3,8 @@ import {View} from 'react-native';
 import {useStyles} from 'hooks/index';
 import styles from './styles';
 import Stepper from 'shared/components/service-execution/stepper';
+import Icon from 'shared/components/base/icon';
+import ViewOnMap from '../view-on-map';
 import useExecutionStep from 'shared/hooks/use-execution-step';
 import UploadBill from './upload-bill';
 import {isEmpty} from 'shared/utils/functions';
@@ -16,8 +18,14 @@ import ShoppingCart from './shopping-cart';
 const ShopperRequest = ({isTriko, request = {}, refreshRequest}) => {
   const [classes] = useStyles(styles);
   const [openCart, setOpenCart] = useState(false);
+  const [mapLocation, setMapLocation] = useState({
+    latitude: null,
+    longitude: null,
+    title: null,
+    description: null,
+  });
   // const activeStep = useExecutionStep(request);
-  const activeStep = 2;
+  const activeStep = 0;
   const [serviceDetail = {}] = !isEmpty(request.details) ? request.details : [];
   const {products = []} = serviceDetail;
   const {loading, updateRequest} = useRequestUpdate();
@@ -73,43 +81,32 @@ const ShopperRequest = ({isTriko, request = {}, refreshRequest}) => {
       description: 'hi',
     },
   ];
-  const cashRegister = true;
-  // const steps = [
-  //   {
-  //     label: 'going_to_shopping_place',
-  //     title: market.name,
-  //     description: 'indicate_arrival',
-  //     action: {
-  //       label: 'arrive_to_market',
-  //       callback: () => {
-  //         updateRequest(request);
-  //       },
-  //     },
-  //   },
-  //   {
-  //     title: 'shopping_items',
-  //     label: 'acquiring_products',
-  //     description: 'buying_items',
-  //     action: {
-  //       label: 'make_payment',
-  //       callback: () => {},
-  //     },
-  //     noAction: openCart,
-  //   },
-  //   {
-  //     label: 'service_start_service',
-  //     title: 'Other',
-  //   },
-  //   {
-  //     label: 'finish_service_label',
-  //     description: 'hi',
-  //   },
-  // ];
+  const cashRegister = false;
 
-  const viewOnMap = () => {};
+  const viewOnMap = () => {
+    if (activeStep === 0) {
+      // if going to shopping place.
+      setMapLocation({
+        title: market.name,
+        description: market.description,
+        latitude: parseFloat(market.latitude),
+        longitude: parseFloat(market.longitude),
+      });
+    }
+  };
+
+  const closeMap = () => {
+    setMapLocation({
+      ...mapLocation,
+      latitude: null,
+      longitude: null,
+    });
+  };
+
   const isCollapsed = cashRegister || openCart;
   const hideCart = cashRegister;
   const hideMap = cashRegister;
+  const {latitude, longitude} = mapLocation;
   return (
     <>
       {loading && <LoadingCurtain />}
@@ -153,10 +150,22 @@ const ShopperRequest = ({isTriko, request = {}, refreshRequest}) => {
                   </Button>
                 )}
               </View>
+              <View style={classes.guideIconWrapper}>
+                <Icon name="chevron-down" style={classes.guideIcon} />
+              </View>
             </>
           )}
         </View>
       </View>
+      {!isEmpty(latitude) && !isEmpty(longitude) && (
+        <ViewOnMap
+          onClose={closeMap}
+          destination={mapLocation}
+          request={request}
+          isTriko={isTriko}
+          open
+        />
+      )}
     </>
   );
 };

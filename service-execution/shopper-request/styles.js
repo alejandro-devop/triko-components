@@ -25,6 +25,13 @@ export default ({palette}) => ({
   content: {
     flexGrow: 1,
   },
+  guideIcon: {
+    color: palette.blue,
+  },
+  guideIconWrapper: {
+    alignItems: 'center',
+    marginTop: 10,
+  },
   root: {
     flex: 1,
   },
