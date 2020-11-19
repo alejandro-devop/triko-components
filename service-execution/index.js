@@ -84,58 +84,20 @@ const ServiceExecution = ({isTriko}) => {
   if (appState !== 'active') {
     return null;
   }
-
   return (
     <>
       {loadingRequest && <LoadingCurtain />}
       {!isEmpty(request) && <Header isTriko={isTriko} request={request} />}
       <Wrapper>
         <ScrollView>
-          <ComponentWrapper isTriko={isTriko} request={request} />
+          <ComponentWrapper
+            isTriko={isTriko}
+            request={request}
+            refreshRequest={onRefresh}
+          />
         </ScrollView>
         {!location && (loading || loadingRequest) && <CircularLoader />}
-        {/*{location && !loading && !loadingRequest && (*/}
-        {/*  <View style={classes.content}>*/}
-        {/*    {currentStep === 0 && (*/}
-        {/*      <OnMyWay userLocation={location} request={request} />*/}
-        {/*    )}*/}
-        {/*    {currentStep === 1 && (*/}
-        {/*      <InTheLocation request={request} onNext={onNext} />*/}
-        {/*    )}*/}
-        {/*    {currentStep === 2 && (*/}
-        {/*      <OnExecution request={request} onNext={onNext} />*/}
-        {/*    )}*/}
-        {/*    {currentStep === 3 && !finished && (*/}
-        {/*      <Finished onNext={() => setFinished(true)} request={request} />*/}
-        {/*    )}*/}
-        {/*    {finished && <RateService onDone={onDone} request={request} />}*/}
-        {/*  </View>*/}
-        {/*)}*/}
-
-        {/*{!finished && currentStep < 3 && (*/}
-        {/*  <Actions*/}
-        {/*    request={selectedToExecution}*/}
-        {/*    hasMessages={messagesCount > 0}*/}
-        {/*    messages={messagesCount}*/}
-        {/*    toggleChat={toggleChat}*/}
-        {/*    currentStep={currentStep}*/}
-        {/*  />*/}
-        {/*)}*/}
-
-        {/*{currentStep < 3 && (*/}
-        {/*  <View style={classes.detailsWrapper}>*/}
-        {/*    <LinkButton primary onPress={toggleDetail}>*/}
-        {/*      {_t('service_execution_view_details')}*/}
-        {/*    </LinkButton>*/}
-        {/*  </View>*/}
-        {/*)}*/}
       </Wrapper>
-      {/*{visibleChat && (*/}
-      {/*  <ChatDialog request={request} open onClose={toggleChat} />*/}
-      {/*)}*/}
-      {/*{openDetail && (*/}
-      {/*  <RequestDetail hideControls onClose={toggleDetail} request={request} />*/}
-      {/*)}*/}
     </>
   );
 };

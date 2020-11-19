@@ -37,7 +37,7 @@ const StepItem = ({
           name="check-circle"
           style={classNames({icon: true, iconActive: active}, classes)}
         />
-        <Text style={classes.text}>{label}</Text>
+        <Text style={[classes.text, classes.label]}>{label}</Text>
         <View style={[classes.tip]} />
         {isCurrent && (
           <View style={classes.avatarWrapper}>

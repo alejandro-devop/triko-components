@@ -58,6 +58,8 @@ const MyActivityComponent = ({
   onlyCurrentDay,
   noFinished,
   noCanceled,
+  allTypes,
+  noRunning,
   onlyMyServices,
 }) => {
   const {setKey} = useSession();
@@ -67,6 +69,8 @@ const MyActivityComponent = ({
   const [accepting, setApproving] = useState(false);
   const {location, loading: loadingLocation} = useUserLocation();
   const {getPendingRequests, loading, requests = []} = useRequestList({
+    allTypes,
+    noRunning,
     onlyFavors,
     onlyPending,
     isTriko,

@@ -28,8 +28,8 @@ export default ({palette, variables: {textSmall}}) => ({
   },
   icon: {
     color: palette.grayLight,
-    fontSize: 30,
-    marginRight: 10,
+    fontSize: 18,
+    marginRight: 5,
   },
   iconActive: {
     color: palette.green,
@@ -44,6 +44,10 @@ export default ({palette, variables: {textSmall}}) => ({
   },
   flagEnd: {
     top: 12,
+  },
+  label: {
+    fontSize: 14,
+    flex: 1,
   },
   leftPanel: {
     flex: 6,

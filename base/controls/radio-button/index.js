@@ -17,6 +17,7 @@ const RadioButton = ({
   value,
   secondary,
   labelStyles,
+  fromLeft,
 }) => {
   const [classes, theme] = useStyles(styles);
   const selected = Boolean(value);
@@ -34,7 +35,10 @@ const RadioButton = ({
   return (
     <View
       style={[
-        classNames({root: true, horizontal, secondary}, classes),
+        classNames(
+          {root: true, horizontal, rootFromLeft: fromLeft, secondary},
+          classes,
+        ),
         theme.row,
       ]}>
       {label && (

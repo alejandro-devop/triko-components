@@ -27,6 +27,7 @@ import {
   STATUS_WAITING_FOR_TRIKO,
 } from 'config/request-statuses';
 import useTranslation from 'hooks/useTranslation';
+import {startedStatuses} from 'shared/hooks/use-request-status';
 
 const acceptedStatus = [
   STATUS_ACCEPTED,
@@ -110,7 +111,7 @@ const ShopperCard = ({
         )}
       </View>
       {acceptedStatus.includes(transition) && <ConfirmIcon />}
-      {isPostulated && (
+      {isPostulated && !startedStatuses.includes(workflow) && (
         <View style={classes.postulatedWrapper}>
           <Text style={classes.postulatedText}>postulated_text</Text>
         </View>

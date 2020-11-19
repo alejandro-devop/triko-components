@@ -16,6 +16,7 @@ export const GET_REQUEST = gql`
       id
       address
       duration
+      attributes
       type: servicerequesttype {
         id
         name
@@ -74,6 +75,32 @@ export const GET_REQUEST = gql`
       }
       details: servicesrequestsdetails {
         id
+        price
+        products {
+          id
+          attrs
+          image {
+            url_download_file
+          }
+          measure: measureunit {
+            id
+            name
+            shortName: shortname
+          }
+          quantity: qty
+          price
+          product {
+            id
+            name
+            attrs
+            categories {
+              category {
+                id
+                name
+              }
+            }
+          }
+        }
         service {
           id
           name
@@ -187,4 +214,3 @@ export const SAVE_RATING = gql`
     }
   }
 `;
-

@@ -27,6 +27,7 @@ export default ({palette}) => ({
   },
   labelWrapper: {
     alignItems: 'center',
+    marginRight: 10,
   },
   labelText: {
     color: palette.orange,
@@ -44,6 +45,9 @@ export default ({palette}) => ({
   },
   horizontal: {
     flexDirection: 'row-reverse',
+  },
+  rootFromLeft: {
+    flexDirection: 'row',
   },
   labelWrapperHorizontal: {
     marginLeft: 20,

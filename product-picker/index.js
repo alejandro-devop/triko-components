@@ -2,8 +2,10 @@ import React, {useState} from 'react';
 import {Platform} from 'react-native';
 import Control from './InputControl';
 import ProductsDialog from './ProductsDialog';
+import {add} from 'react-native-reanimated';
 
 const ProductPicker = ({
+  addLabel = 'add_new_product_text',
   label,
   name,
   onChange,
@@ -44,6 +46,7 @@ const ProductPicker = ({
       />
       {open && (
         <ProductsDialog
+          addLabel={addLabel}
           market={market}
           categories={categories}
           label={label}

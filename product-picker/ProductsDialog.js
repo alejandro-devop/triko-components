@@ -12,6 +12,7 @@ import {useProductsList} from 'shared/components/product-picker/hooks';
 import AddProduct from './add-product';
 
 const ProductsDialog = ({
+  addLabel,
   label,
   placeholder,
   onClose,
@@ -88,7 +89,7 @@ const ProductsDialog = ({
         <View style={classes.action}>
           {!openAdd && (
             <Button secondary onPress={toggleAddProduct}>
-              {_t('add_new_product_text')}
+              {_t(addLabel)}
             </Button>
           )}
         </View>
