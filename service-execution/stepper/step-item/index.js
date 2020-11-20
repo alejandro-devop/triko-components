@@ -68,12 +68,12 @@ const StepItem = ({
       <View style={classes.rightPanel}>
         {Boolean(isCurrent) && (
           <View style={classes.stepDescription}>
-            {title && (
+            {Boolean(title) && (
               <Text style={[classes.title, classes.descriptionText]}>
                 {title}
               </Text>
             )}
-            {description && !confirm && (
+            {Boolean(description) && !confirm && (
               <Text style={[classes.description, classes.descriptionText]}>
                 {description}
               </Text>

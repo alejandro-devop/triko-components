@@ -8,7 +8,7 @@ import {isEmpty} from 'shared/utils/functions';
 import useCurrency from 'hooks/useCurrency';
 import classNames from 'shared/utils/classnames';
 
-const ProductItem = ({onSelect, productItem = {}}) => {
+const ProductItem = ({disableEdit, onSelect, productItem = {}}) => {
   const [classes] = useStyles(styles);
   const {
     image,
@@ -26,21 +26,21 @@ const ProductItem = ({onSelect, productItem = {}}) => {
     }
   };
   const {found, notFound} = productAttrs;
-
+  const Wrapper = disableEdit ? View : TouchableOpacity;
   return (
-    <TouchableOpacity
+    <Wrapper
       style={classNames(
         {root: true, rootAdded: found, rootNotFound: notFound},
         classes,
       )}
       onPress={handleSelect}>
-      {found && <Icon name="check-circle" style={classes.icon} />}
-      <View style={classes.avatarWrapper}>
-        {isEmpty(image) && (
-          <Icon name="shopping-bag" style={classes.avatarIcon} />
-        )}
-      </View>
       <View style={classes.textWrapper}>
+        {found && <Icon name="check-circle" style={classes.icon} />}
+        <View style={classes.avatarWrapper}>
+          {isEmpty(image) && (
+            <Icon name="shopping-bag" style={classes.avatarIcon} />
+          )}
+        </View>
         <Text style={[classes.text, classes.productNameText]}>
           {product.name}
         </Text>
@@ -48,14 +48,14 @@ const ProductItem = ({onSelect, productItem = {}}) => {
         <Text style={[classes.text, classes.textUnit]}>
           {measure.shortName}
         </Text>
-        {!isEmpty(price) && (
-          <View style={classes.priceWrapper}>
-            <Text style={classes.priceText}>{format(price)}</Text>
-          </View>
-        )}
       </View>
-      {notFound && <View style={classes.notFoundLine} />}
-    </TouchableOpacity>
+      {!isEmpty(price) && (
+        <View style={classes.priceWrapper}>
+          <Text style={classes.priceText}>{format(price)}</Text>
+          {notFound && <View style={classes.notFoundLine} />}
+        </View>
+      )}
+    </Wrapper>
   );
 };
 

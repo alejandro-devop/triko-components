@@ -5,7 +5,7 @@ import styles from './styles';
 import Stepper from 'shared/components/service-execution/stepper';
 import Icon from 'shared/components/base/icon';
 import ViewOnMap from '../view-on-map';
-import useExecutionStep from 'shared/hooks/use-execution-step';
+// import useExecutionStep from 'shared/hooks/use-execution-step';
 import UploadBill from './upload-bill';
 import {isEmpty} from 'shared/utils/functions';
 import Button from 'shared/components/base/buttons/button';
@@ -13,7 +13,14 @@ import useRequestUpdate from 'shared/hooks/use-request-update';
 import {LoadingCurtain} from 'components/base/dialogs';
 import BorderedButton from 'shared/components/base/buttons/bordered-button';
 import Text from 'shared/components/base/text';
+import UploadTransferReceipt from './upload-transfer-receipt';
 import ShoppingCart from './shopping-cart';
+import {useExecutionStep} from './workflowMock';
+import {useStepDescriptor} from './hooks';
+import {
+  STATUS_PAYING_ORDER,
+  STATUS_WAITING_FOR_CLIENT,
+} from 'config/request-statuses';
 
 const ShopperRequest = ({isTriko, request = {}, refreshRequest}) => {
   const [classes] = useStyles(styles);
@@ -24,14 +31,13 @@ const ShopperRequest = ({isTriko, request = {}, refreshRequest}) => {
     title: null,
     description: null,
   });
-  // const activeStep = useExecutionStep(request);
-  const activeStep = 0;
+  const currentWorkflow = 11; // Todo: remove
+  const [activeStep, workflow] = useExecutionStep(currentWorkflow); // going to shop = 4;
+  const stepDescription = useStepDescriptor(isTriko, workflow, request);
   const [serviceDetail = {}] = !isEmpty(request.details) ? request.details : [];
   const {products = []} = serviceDetail;
   const {loading, updateRequest} = useRequestUpdate();
   const toggleCart = () => setOpenCart(!openCart);
-  const [addStep, setAddStep] = useState(0);
-  const additionalSteps = [{label: ''}];
   const requestAttrs = !isEmpty(request.attributes)
     ? JSON.parse(request.attributes)
     : {};
@@ -42,13 +48,14 @@ const ShopperRequest = ({isTriko, request = {}, refreshRequest}) => {
       // Here the triko goes to the shopping place, indicates he's acquiring the products
       label: 'going_to_shopping_place',
       title: market.name,
-      description: 'indicate_arrival',
+      description: stepDescription.description,
       action: {
         label: 'arrive_to_market',
         callback: () => {
           updateRequest(request);
         },
       },
+      noAction: !isTriko,
     },
     {
       // The triko start buying items, and then the triko ask for confirmation to pay the cart
@@ -65,16 +72,26 @@ const ShopperRequest = ({isTriko, request = {}, refreshRequest}) => {
     {
       // the triko starts paying the products, upload the bill and wait for client confirmation.
       label: 'paying_cart',
-      title: 'go_to_cash_register',
+      title: stepDescription.title,
+      description: stepDescription.description,
+      action:
+        !isTriko && workflow === STATUS_WAITING_FOR_CLIENT
+          ? {
+              label: 'view_cart',
+              dontConfirm: true,
+              callback: () => toggleCart(),
+            }
+          : {},
     },
     {
       // The triko starts traveling to the deliver address
       label: 'on_my_way_to_deliver_point',
-      title: market.name,
+      title: stepDescription.title,
+      description: stepDescription.description,
     },
     {
       label: 'paying_service',
-      title: market.name,
+      title: stepDescription.title,
     },
     {
       label: 'finish_service_label',
@@ -102,10 +119,10 @@ const ShopperRequest = ({isTriko, request = {}, refreshRequest}) => {
       longitude: null,
     });
   };
-
-  const isCollapsed = cashRegister || openCart;
+  const waitingForPayment = !isTriko && workflow === STATUS_PAYING_ORDER;
+  const isCollapsed = cashRegister || openCart || waitingForPayment;
   const hideCart = cashRegister;
-  const hideMap = cashRegister;
+  const hideMap = cashRegister || !isTriko;
   const {latitude, longitude} = mapLocation;
   return (
     <>
@@ -127,11 +144,12 @@ const ShopperRequest = ({isTriko, request = {}, refreshRequest}) => {
               refreshRequest={refreshRequest}
             />
           )}
-          {cashRegister && <UploadBill request={request} />}
+          {waitingForPayment && <UploadTransferReceipt request={request} />}
+          {cashRegister && isTriko && <UploadBill request={request} />}
           {!openCart && (
             <>
               <View style={classes.actionsWrapper}>
-                {!hideCart && (
+                {!hideCart && !waitingForPayment && (
                   <View style={classes.cartButtonWrapper}>
                     <View style={classes.countWrapper}>
                       <Text style={classes.countText}>{products.length}</Text>
@@ -150,9 +168,11 @@ const ShopperRequest = ({isTriko, request = {}, refreshRequest}) => {
                   </Button>
                 )}
               </View>
-              <View style={classes.guideIconWrapper}>
-                <Icon name="chevron-down" style={classes.guideIcon} />
-              </View>
+              {!waitingForPayment && (
+                <View style={classes.guideIconWrapper}>
+                  <Icon name="chevron-down" style={classes.guideIcon} />
+                </View>
+              )}
             </>
           )}
         </View>

@@ -12,16 +12,17 @@ export default ({palette, variables: {textMedium, textSmall}}) => ({
   },
   icon: {
     color: palette.success,
-    fontSize: 29,
+    fontSize: 20,
     marginRight: 10,
     marginLeft: 10,
   },
   notFoundLine: {
-    width: '100%',
+    width: '80%',
     height: 2,
-    left: 0,
+    right: '10%',
     backgroundColor: palette.gray,
     position: 'absolute',
+    opacity: 0.6,
   },
   priceText: {
     fontSize: textSmall,
@@ -36,20 +37,22 @@ export default ({palette, variables: {textMedium, textSmall}}) => ({
   priceWrapper: {
     width: 70,
     paddingRight: 5,
+    borderWidth: 1,
+    borderColor: palette.grayLight,
+    height: '100%',
+    borderRadius: 20,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
   },
   root: {
     alignItems: 'center',
-    borderRadius: 20,
     flexDirection: 'row',
-    backgroundColor: palette.blueLightAccent1,
     paddingHorizontal: 4,
     paddingVertical: 2,
-    borderWidth: 1,
-    borderColor: palette.grayLight,
     marginBottom: 10,
   },
   rootAdded: {
-    backgroundColor: palette.successLight,
     borderColor: palette.successDark,
   },
   rootNotFound: {
@@ -59,12 +62,18 @@ export default ({palette, variables: {textMedium, textSmall}}) => ({
     fontSize: textSmall,
   },
   textUnit: {
-    marginRight: 15,
+    marginRight: 10,
     color: palette.blueDark,
     fontWeight: '600',
   },
   textWrapper: {
+    alignItems: 'center',
     flexDirection: 'row',
+    borderRadius: 20,
+    borderWidth: 1,
+    paddingVertical: 2,
+    borderColor: palette.grayLight,
     flex: 1,
+    marginRight: 5,
   },
 });
