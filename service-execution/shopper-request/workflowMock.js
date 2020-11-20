@@ -11,7 +11,6 @@ import {
   STATUS_QUALIFY_TRIKO,
   STATUS_SHOPPING,
   STATUS_WAITING_FOR_CLIENT,
-  STATUS_WAITING_FOR_TRIKO,
 } from 'config/request-statuses';
 
 export const workflowMock = [

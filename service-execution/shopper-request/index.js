@@ -31,7 +31,7 @@ const ShopperRequest = ({isTriko, request = {}, refreshRequest}) => {
     title: null,
     description: null,
   });
-  const currentWorkflow = 15; // Todo: remove
+  const currentWorkflow = 5; // Todo: remove
   const [activeStep, workflow] = useExecutionStep(currentWorkflow); // going to shop = 4;
   const stepDescription = useStepDescriptor(isTriko, workflow, request);
   const [serviceDetail = {}] = !isEmpty(request.details) ? request.details : [];
