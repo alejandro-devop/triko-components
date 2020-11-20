@@ -132,9 +132,9 @@ const NormalRequest = ({isTriko, onUpdateRequest, request = {}, workflow}) => {
       </View>
       {visibleMap && (
         <ViewOnMap
+          isTriko={isTriko}
           open={visibleMap}
           destination={{latitude, longitude}}
-          triko={triko}
           onClose={toggleViewMap}
           request={request}
           title={request.address}
