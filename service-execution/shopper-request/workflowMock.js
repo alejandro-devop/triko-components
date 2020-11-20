@@ -30,10 +30,12 @@ export const workflowMock = [
   'ConfirmPayment',
   'QualifyServiceClient',
   'QualifyServiceTriko',
+  'Finish',
 ];
 
 export const useExecutionStep = (step = 0) => {
   const workflow = workflowMock[step];
+  console.log('workflow: ', workflow);
   const contains = (items = []) => items.includes(workflow);
   if (contains([STATUS_IN_THE_SHOP, STATUS_GOING_TO_SHOP])) {
     return [0, workflow];

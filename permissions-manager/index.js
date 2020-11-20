@@ -13,12 +13,14 @@ export const PERMISSIONS = {
   ACCESS_LOCATION: 'location',
   ACCESS_NOTIFICATIONS: 'notification',
   ACCESS_MICROPHONE: 'microphone',
+  ACCESS_DOWNLOAD: 'download',
 };
 
 export const labels = {
   camera: 'permissions_camera',
   location: 'permissions_location',
   notification: 'permissions_notify',
+  download: 'permission_download',
   microphone: 'permissions_microphone',
 };
 
@@ -28,11 +30,13 @@ export const IOS_PERMISSIONS = {
   location: RN_PERMISSSIONS.IOS.LOCATION_ALWAYS,
   photo_library: RN_PERMISSSIONS.IOS.PHOTO_LIBRARY,
   microphone: RN_PERMISSSIONS.IOS.MICROPHONE,
+  download: RN_PERMISSSIONS.IOS.PHOTO_LIBRARY,
 };
 export const ANDROID_PERMISSIONS = {
   camera: RN_PERMISSSIONS.ANDROID.CAMERA,
   location: RN_PERMISSSIONS.ANDROID.ACCESS_FINE_LOCATION,
   microphone: RN_PERMISSSIONS.ANDROID.RECORD_AUDIO,
+  download: RN_PERMISSSIONS.ANDROID.WRITE_EXTERNAL_STORAGE,
 };
 
 class PermissionsManager extends React.Component {

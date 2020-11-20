@@ -31,7 +31,7 @@ const ShopperRequest = ({isTriko, request = {}, refreshRequest}) => {
     title: null,
     description: null,
   });
-  const currentWorkflow = 11; // Todo: remove
+  const currentWorkflow = 15; // Todo: remove
   const [activeStep, workflow] = useExecutionStep(currentWorkflow); // going to shop = 4;
   const stepDescription = useStepDescriptor(isTriko, workflow, request);
   const [serviceDetail = {}] = !isEmpty(request.details) ? request.details : [];
@@ -95,7 +95,7 @@ const ShopperRequest = ({isTriko, request = {}, refreshRequest}) => {
     },
     {
       label: 'finish_service_label',
-      description: 'hi',
+      title: stepDescription.title,
     },
   ];
   const cashRegister = false;
@@ -144,7 +144,9 @@ const ShopperRequest = ({isTriko, request = {}, refreshRequest}) => {
               refreshRequest={refreshRequest}
             />
           )}
-          {waitingForPayment && <UploadTransferReceipt request={request} />}
+          {workflow === STATUS_PAYING_ORDER && !openCart && (
+            <UploadTransferReceipt toggleCart={toggleCart} request={request} />
+          )}
           {cashRegister && isTriko && <UploadBill request={request} />}
           {!openCart && (
             <>

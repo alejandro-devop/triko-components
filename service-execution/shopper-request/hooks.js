@@ -4,12 +4,16 @@ import {useMutation} from '@apollo/react-hooks';
 import {UPDATE_PRODUCT} from './queries';
 import useNotify from 'hooks/useNotification';
 import {
+  STATUS_CONFIRM_PAYMENT,
+  STATUS_FINISHED,
   STATUS_GOING_TO_SHOP,
   STATUS_IN_THE_DESTINATION,
   STATUS_IN_THE_SHOP,
   STATUS_ON_MY_WAY_DESTINATION,
   STATUS_PAYING_CART,
   STATUS_PAYING_ORDER,
+  STATUS_QUALIFY_CLIENT,
+  STATUS_QUALIFY_TRIKO,
   STATUS_WAITING_FOR_CLIENT,
 } from 'config/request-statuses';
 
@@ -77,6 +81,14 @@ export const useStepDescriptor = (isTriko, workflow, request = {}) => {
     description = address;
   } else if (workflow === STATUS_PAYING_ORDER) {
     title = 'waiting_for_client_payment';
+  } else if (workflow === STATUS_CONFIRM_PAYMENT) {
+    title = isTriko ? '' : 'waiting_for_pay_confirmation';
+  } else if (workflow === STATUS_QUALIFY_CLIENT) {
+    title = 'qualify_triko';
+  } else if (workflow === STATUS_QUALIFY_TRIKO) {
+    title = 'qualify_client';
+  } else if (workflow === STATUS_FINISHED) {
+    title = 'service_finished';
   }
   return {
     description,
