@@ -44,10 +44,12 @@ const ProductItem = ({disableEdit, onSelect, productItem = {}}) => {
         <Text style={[classes.text, classes.productNameText]}>
           {product.name}
         </Text>
-        <Text style={[classes.text, classes.textUnit]}>{quantity}</Text>
-        <Text style={[classes.text, classes.textUnit]}>
-          {measure.shortName}
-        </Text>
+        <View style={classes.unitWrapper}>
+          <Text style={[classes.text, classes.textUnit]}>{quantity}</Text>
+          <Text style={[classes.text, classes.textUnit]}>
+            {measure.shortName}
+          </Text>
+        </View>
       </View>
       {!isEmpty(price) && (
         <View style={classes.priceWrapper}>

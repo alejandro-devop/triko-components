@@ -49,7 +49,6 @@ export default ({palette, variables: {textMedium, textSmall}}) => ({
     alignItems: 'center',
     flexDirection: 'row',
     paddingHorizontal: 4,
-    paddingVertical: 2,
     marginBottom: 10,
   },
   rootAdded: {
@@ -63,7 +62,7 @@ export default ({palette, variables: {textMedium, textSmall}}) => ({
   },
   textUnit: {
     marginRight: 10,
-    color: palette.blueDark,
+    color: '#FFF',
     fontWeight: '600',
   },
   textWrapper: {
@@ -71,9 +70,16 @@ export default ({palette, variables: {textMedium, textSmall}}) => ({
     flexDirection: 'row',
     borderRadius: 20,
     borderWidth: 1,
-    paddingVertical: 2,
     borderColor: palette.grayLight,
     flex: 1,
     marginRight: 5,
+  },
+  unitWrapper: {
+    flexDirection: 'row',
+    backgroundColor: palette.blueLightAccent,
+    paddingHorizontal: 14,
+    paddingVertical: 10,
+    height: '100%',
+    borderRadius: 20,
   },
 });
