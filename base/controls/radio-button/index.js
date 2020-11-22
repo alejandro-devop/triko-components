@@ -39,7 +39,6 @@ const RadioButton = ({
           {root: true, horizontal, rootFromLeft: fromLeft, secondary},
           classes,
         ),
-        theme.row,
       ]}>
       {label && (
         <View

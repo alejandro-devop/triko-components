@@ -20,9 +20,10 @@ const AddressWizard = ({
   open,
   onClose,
   onSaved,
+  skipForm,
 }) => {
   const [classes] = useStyles(styles);
-  const [currentStep, setCurrentStep] = useState(isTriko ? 1 : 0);
+  const [currentStep, setCurrentStep] = useState(isTriko || skipForm ? 1 : 0);
   const [mode, setMode] = useState(0);
   const {loading, sendRequest} = useAddressSave({isTriko});
   const [form, setForm] = useState({

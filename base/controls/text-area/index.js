@@ -62,7 +62,7 @@ const TextArea = ({
   ..._props
 }) => {
   const [classes] = useStyles(styles);
-  const [textAreaValue, setTextAreaValue] = useState('');
+  const [textAreaValue, setTextAreaValue] = useState(value);
   const {_t} = useTranslation();
   const handleChange = (newValue) => {
     if (maxChars && newValue.length > maxChars) {
@@ -79,6 +79,7 @@ const TextArea = ({
     }
   };
   const totalChars = textAreaValue.length;
+  console.log('value: ', value);
   return (
     <View style={classes.inputRoot}>
       {label && (

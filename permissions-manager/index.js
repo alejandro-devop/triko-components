@@ -283,7 +283,7 @@ PermissionsManager.propTypes = {
   children: PropTypes.node,
   Fallback: PropTypes.oneOfType([PropTypes.any]),
   onPermission: PropTypes.func,
-  permissions: PropTypes.arrayOf([PropTypes.string]),
+  permissions: PropTypes.arrayOf(PropTypes.string),
 };
 
 export default PermissionsManager;
