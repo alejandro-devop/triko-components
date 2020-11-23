@@ -7,7 +7,9 @@ import Icon from 'shared/components/base/icon';
 import classNames from 'shared/utils/classnames';
 
 const RadioButton = ({
+  alternative,
   circle,
+  checkedIcon = 'check',
   disabled,
   horizontal,
   label,
@@ -71,14 +73,20 @@ const RadioButton = ({
               circleFillSecondary: circle && selected && secondary,
               secondaryControl: secondary,
               radioCircleDisabled: disabled,
+              radioCircleAlternative: alternative,
             },
             classes,
           )}>
           {selected && !circle && (
             <Icon
-              name="check"
+              name={checkedIcon}
               style={classNames(
-                {icon: true, iconSecondary: secondary, iconDisabled: disabled},
+                {
+                  icon: true,
+                  iconSecondary: secondary,
+                  iconDisabled: disabled,
+                  iconAlternative: alternative,
+                },
                 classes,
               )}
             />

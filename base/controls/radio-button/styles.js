@@ -3,7 +3,7 @@ export default ({palette}) => ({
     alignSelf: 'center',
     alignItems: 'center',
     paddingHorizontal: 20,
-    marginBottom: 10,
+    // marginBottom: 10,
   },
   radioCircle: {
     // marginRight: 10,
@@ -15,12 +15,18 @@ export default ({palette}) => ({
     borderWidth: 2,
     borderColor: palette.blue,
   },
+  radioCircleAlternative: {
+    borderColor: '#FFF',
+  },
   radioCircleDisabled: {
     borderColor: palette.grayLight,
   },
   icon: {
     color: palette.blue,
     fontSize: 16,
+  },
+  iconAlternative: {
+    color: '#FFF',
   },
   iconDisabled: {
     color: palette.grayLight,

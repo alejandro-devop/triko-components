@@ -26,6 +26,7 @@ import serviceIcon from 'shared/assets/icons/triko-task.png';
 import Button from 'shared/components/base/buttons/button';
 import {isEmpty} from 'shared/utils/functions';
 import Candidates from 'shared/components/requests-list/shopper-card/candidates';
+import PostulatedMessage from 'shared/components/requests-list/postulated-message';
 
 const acceptedStatus = [
   STATUS_ACCEPTED,
@@ -102,6 +103,7 @@ const TaskCard = ({
           </>
         )}
       </View>
+      <PostulatedMessage isTriko={isTriko} request={request} />
       {!isTriko && acceptedStatus.includes(workflow) && <ConfirmIcon />}
     </View>
   );
