@@ -115,7 +115,7 @@ const CourierCard = ({
           />
         </>
       )}
-      <PostulatedMessage request={request} isTriko={isTriko} />
+      {isTriko && <PostulatedMessage request={request} isTriko={isTriko} />}
     </View>
   );
 };

@@ -103,7 +103,7 @@ const TaskCard = ({
           </>
         )}
       </View>
-      <PostulatedMessage isTriko={isTriko} request={request} />
+      {isTriko && <PostulatedMessage isTriko={isTriko} request={request} />}
       {!isTriko && acceptedStatus.includes(workflow) && <ConfirmIcon />}
     </View>
   );
