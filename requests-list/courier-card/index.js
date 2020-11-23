@@ -1,7 +1,7 @@
 import React from 'react';
 import {View} from 'react-native';
 import useStyles from 'shared/hooks/use-styles';
-import cartColor from 'assets/icons/car-color.png';
+import cardIcon from 'shared/assets/icons/triko-courier.png';
 import CardIcon from '../card-icon';
 import ClientInfo from '../info-client';
 import Text from 'components/base/text';
@@ -25,6 +25,7 @@ import serviceIcon from 'shared/assets/icons/triko-courier.png';
 import FavorIcon from '../favor-icon';
 import DateRender from 'shared/components/request-commons/date-render';
 import Button from 'shared/components/base/buttons/button';
+import Candidates from 'shared/components/requests-list/shopper-card/candidates';
 
 const acceptedStatus = [
   STATUS_ACCEPTED,
@@ -48,6 +49,7 @@ const CourierCard = ({
   const [classes] = useStyles(styles);
   const transition = request.transition ? request.transition.workflow : '';
   const {_t} = useTranslation();
+
   return (
     <View style={classes.root}>
       <View style={classes.serviceWrapper}>
@@ -64,7 +66,7 @@ const CourierCard = ({
         )}
         {!isTriko && (
           <CardIcon
-            image={cartColor}
+            image={cardIcon}
             primary={_t('triko_courier_label').toUpperCase()}
           />
         )}
@@ -83,9 +85,10 @@ const CourierCard = ({
         {!isTriko && (
           <>
             <ServiceInfo request={request} isUrgent />
-            {postulates.length > 0 && (
-              <Postulates postulates={postulates} max={4} />
-            )}
+            <Candidates request={request} max={6} />
+            {/*{postulates.length > 0 && (*/}
+            {/*  <Postulates postulates={postulates} max={4} />*/}
+            {/*)}*/}
             {postulates.length === 0 && (
               <View style={classes.noTrikosLabelWrapper}>
                 <Text style={classes.noTrikosLabel}>
@@ -96,10 +99,16 @@ const CourierCard = ({
           </>
         )}
       </View>
-      {!isTriko && (
+      {!isTriko && request.trikos && (
         <>
           {acceptedStatus.includes(transition) && <ConfirmIcon />}
-          <BellCount count={postulates.length} />
+          <BellCount
+            count={
+              request.trikos && Array.isArray(request.trikos)
+                ? request.trikos.length
+                : 0
+            }
+          />
         </>
       )}
     </View>

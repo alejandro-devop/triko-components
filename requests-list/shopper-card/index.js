@@ -28,6 +28,9 @@ import {
 } from 'config/request-statuses';
 import useTranslation from 'hooks/useTranslation';
 import {startedStatuses} from 'shared/hooks/use-request-status';
+import {isEmpty} from 'shared/utils/functions';
+import {useSession} from 'hooks/index';
+import useNavigate from 'shared/hooks/use-navigate';
 
 const acceptedStatus = [
   STATUS_ACCEPTED,
@@ -47,7 +50,10 @@ const ShopperCard = ({
   workflow,
   isPaid,
 }) => {
-  const {client = {}, triko: trikos = [], details = []} = request;
+  const {attributes, client = {}, triko: trikos = [], details = []} = request;
+  const {setAll} = useSession();
+  const {navigation} = useNavigate();
+  const requestAttributes = !isEmpty(attributes) ? JSON.parse(attributes) : {};
   const [serviceDetail = {}] = details;
   const [triko = {}] = trikos;
   const {_t} = useTranslation();
@@ -59,6 +65,20 @@ const ShopperCard = ({
   const isPostulated = isTriko
     ? trikos.map((item) => item.id).includes(triko.id)
     : false;
+
+  const handleContinueShopper = () => {
+    const {shopperForm = {}} = requestAttributes;
+    setAll({
+      requestService: {
+        address: shopperForm.address,
+        services: [serviceDetail.service],
+      },
+      shopperRequest: request,
+      shopperForm,
+    });
+    navigation.navigate('shopper');
+  };
+
   return (
     <View style={classes.root}>
       <View style={classes.serviceWrapper}>
@@ -107,6 +127,16 @@ const ShopperCard = ({
               workflow !== STATUS_WAITING_FOR_TRIKO && (
                 <TrikoInfo triko={triko} />
               )}
+            {workflow === STATUS_PENDING && (
+              <View style={classes.actionsPending}>
+                <Text style={classes.textPending}>
+                  continue_making_the_cart
+                </Text>
+                <Button primary size="xxs" onPress={handleContinueShopper}>
+                  continue_text
+                </Button>
+              </View>
+            )}
           </>
         )}
       </View>
@@ -121,6 +151,10 @@ const ShopperCard = ({
 };
 
 const styles = ({palette, variables: {textSmall}}) => ({
+  actionsPending: {
+    alignItems: 'flex-end',
+    marginTop: 20,
+  },
   actionsWrapper: {
     marginTop: 10,
   },
@@ -152,6 +186,9 @@ const styles = ({palette, variables: {textSmall}}) => ({
     borderRadius: 100,
     backgroundColor: palette.orange,
     marginLeft: 5,
+  },
+  textPending: {
+    fontSize: textSmall,
   },
   productsCountWrapper: {
     flexDirection: 'row',

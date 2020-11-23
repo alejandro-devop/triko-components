@@ -5,16 +5,26 @@ import Icon from 'components/base/icon';
 import useStyles from 'shared/hooks/use-styles';
 import styles from './styles';
 
-const InfoRow = ({label = '', value, icon}) => {
+const InfoRow = ({description, label = '', subtitle, value, icon}) => {
   const [classes] = useStyles(styles);
   return (
     <View style={classes.root}>
-      <Text style={[classes.label, classes.text]}>{label}</Text>
-      {value && <Text style={[classes.text, classes.value]}>{value}</Text>}
-      {icon ? (
-        <Icon name={icon} style={classes.icon} />
-      ) : (
-        <View style={classes.iconOffset} />
+      <View style={classes.contentWrapper}>
+        <Text style={[classes.label, classes.text]}>{label}</Text>
+        {value && <Text style={[classes.text, classes.value]}>{value}</Text>}
+        {icon ? (
+          <Icon name={icon} style={classes.icon} />
+        ) : (
+          <View style={classes.iconOffset} />
+        )}
+      </View>
+      {description && (
+        <View style={classes.descriptionWrapper}>
+          {subtitle && (
+            <Text style={classes.descriptionSubtitleText}>{subtitle}</Text>
+          )}
+          <Text style={classes.descriptionText}>{description}</Text>
+        </View>
       )}
     </View>
   );

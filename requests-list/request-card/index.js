@@ -17,6 +17,7 @@ import TaskCard from '../task-card';
 import styles from './styles';
 import {PAYMENT_COMPLETED_STATUS} from 'config/order-statuses';
 import {STATUS_CANCEL} from 'config/request-statuses';
+import {isEmpty} from 'shared/utils/functions';
 
 /**
  * This component is a generic container for the service requests, it resolves which component
@@ -51,22 +52,18 @@ const RequestCard = ({
   onStart,
 }) => {
   const [classes] = useStyles(styles);
-  const {details = [], type = {}} = item;
-  const [serviceDetail] = details;
-  const service = serviceDetail.service;
-  const serviceAttrs = service.attrs ? JSON.parse(service.attrs) : {};
-  let isShopper = false;
-  let isCourier = false;
-  let isTask = false;
+  const {attributes} = item;
+  const requestAttributes = !isEmpty(attributes) ? JSON.parse(attributes) : {};
+  const {requestType} = requestAttributes;
+  let isShopper = requestType === 'shopper';
+  let isCourier = requestType === 'courier';
+  let isTask = requestType === 'task';
   let Component = NormalCard;
-  if (type.id === SERVICES_TYPES.bag) {
-    isShopper = true;
+  if (isShopper) {
     Component = ShopperCard;
-  } else if (serviceAttrs && serviceAttrs.type === REQUEST_TYPE_COURIER) {
-    isCourier = true;
+  } else if (isCourier) {
     Component = CourierCard;
-  } else if (serviceAttrs && serviceAttrs.type === REQUEST_TYPE_TASK) {
-    isTask = true;
+  } else if (isTask) {
     Component = TaskCard;
   }
   const {transition = {}, order = {}} = item;
@@ -74,6 +71,7 @@ const RequestCard = ({
     order && order.transition ? order.transition : {};
   const workflow = transition ? transition.workflow : '';
   const paid = orderWorkflow === PAYMENT_COMPLETED_STATUS;
+
   return (
     <Slide delay={delay}>
       <View

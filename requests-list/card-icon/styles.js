@@ -1,7 +1,7 @@
 export default ({palette}) => ({
   image: {
-    width: 25,
-    height: 25,
+    width: 40,
+    height: 40,
   },
   imageWrapper: {
     width: 50,

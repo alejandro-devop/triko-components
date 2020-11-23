@@ -13,6 +13,7 @@ import classNames from 'shared/utils/classnames';
 import useStyles from 'shared/hooks/use-styles';
 import palette from 'themes/styles/palette';
 import useTranslation from 'hooks/useTranslation';
+import {isEmpty} from 'shared/utils/functions';
 
 /**
  * This component allows to create a text field
@@ -65,7 +66,7 @@ const TextArea = ({
   const [textAreaValue, setTextAreaValue] = useState(value);
   const {_t} = useTranslation();
   const handleChange = (newValue) => {
-    if (maxChars && newValue.length > maxChars) {
+    if (isEmpty(newValue) && maxChars && newValue.length > maxChars) {
       return false;
     }
     setTextAreaValue(newValue);
@@ -78,8 +79,7 @@ const TextArea = ({
       });
     }
   };
-  const totalChars = textAreaValue.length;
-  console.log('value: ', value);
+  const totalChars = !isEmpty(textAreaValue) ? textAreaValue.length : 0;
   return (
     <View style={classes.inputRoot}>
       {label && (
@@ -125,7 +125,7 @@ const TextArea = ({
               returnKeyType={returnKeyType}
               onChangeText={handleChange}
               placeholder={_t(placeholder)}
-              placeholderTextColor={primary ? palette.blue3 : palette.grayLight}
+              placeholderTextColor={primary ? palette.blue : palette.grayLight}
               secureTextEntry={secureTextEntry}
               onSubmitEditing={onSubmitEditing}
               style={classNames(

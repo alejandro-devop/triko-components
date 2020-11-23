@@ -1,4 +1,30 @@
-export default ({palette}) => ({
+export default ({palette, variables: {textSmall}}) => ({
+  contentWrapper: {
+    backgroundColor: palette.grayLighter,
+    borderRadius: 30,
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  descriptionText: {
+    fontSize: textSmall,
+    color: palette.gray,
+  },
+  descriptionSubtitleText: {
+    fontSize: textSmall,
+  },
+  descriptionWrapper: {
+    backgroundColor: '#FFF',
+    borderBottomLeftRadius: 30,
+    borderBottomRightRadius: 30,
+    marginTop: -20,
+    paddingBottom: 10,
+    paddingHorizontal: 20,
+    paddingTop: 25,
+    zIndex: -1,
+  },
   label: {
     fontWeight: '600',
     color: palette.gray,
@@ -12,13 +38,6 @@ export default ({palette}) => ({
     width: 20,
   },
   root: {
-    backgroundColor: palette.grayLighter,
-    borderRadius: 30,
-    paddingHorizontal: 20,
-    paddingVertical: 10,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
     marginBottom: 10,
   },
   text: {

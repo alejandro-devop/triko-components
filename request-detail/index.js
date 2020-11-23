@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {View} from 'react-native';
 import InsidesLayout from 'main/layouts/insides-layout';
 import ShopperLayout from 'main/layouts/shopper-layout';
@@ -6,6 +6,7 @@ import Header from './request-header';
 import useSession from 'shared/hooks/use-session-triko';
 import Other from './other';
 import Shopper from './shopper';
+import Courier from './courier';
 import useStyles from 'shared/hooks/use-styles';
 import useTranslation from 'hooks/useTranslation';
 import usePayment from 'hooks/usePayment';
@@ -21,9 +22,21 @@ import {PAYMENT_COMPLETED_STATUS} from 'components/pay-service/payment-statuses'
 import useRequestUpdate from 'shared/hooks/use-request-update';
 import {isEmpty} from 'shared/utils/functions';
 
+const RateCalculator = ({triko, request, onCompleted}) => {
+  const {total} = useCalcRateClient({
+    request: {
+      ...request,
+      triko,
+    },
+    onCompleted,
+  });
+  return null;
+};
+
 const RequestDetail = () => {
   const [classes] = useStyles(styles);
   const {_t} = useTranslation();
+  const [total, setTotal] = useState(0);
   const {navigation} = useNavigate();
   const {loading: loadingPayment, initPayment} = usePayment();
   const {cancelRequest, loading} = useRequestUpdate();
@@ -39,12 +52,7 @@ const RequestDetail = () => {
   const {order = {}, triko: trikos = [], details = []} = request;
   const [triko = {}] = trikos;
   const {workflow} = request.transition || {};
-  const {total} = useCalcRateClient({
-    request: {
-      ...request,
-      triko: triko,
-    },
-  });
+
   let Layout = InsidesLayout;
   let Component = Other;
   if (isShopper) {
@@ -52,6 +60,7 @@ const RequestDetail = () => {
     Component = Shopper;
   } else if (isCourier) {
     Layout = InsidesLayout;
+    Component = Courier;
   } else if (isTask) {
     Layout = InsidesLayout;
   }
@@ -81,7 +90,7 @@ const RequestDetail = () => {
   const {workflow: orderWorkflow} =
     order && order.transition ? order.transition : {};
   const paidOut = orderWorkflow === PAYMENT_COMPLETED_STATUS;
-
+  const isFavor = isShopper || isCourier || isTask;
   return (
     <>
       <Layout
@@ -89,7 +98,9 @@ const RequestDetail = () => {
         header={
           <Header
             paidOut={paidOut}
-            hideTrikoInfo={isShopper && workflow === STATUS_WAITING_FOR_TRIKO}
+            hideTrikoInfo={
+              isShopper || (isCourier && workflow === STATUS_WAITING_FOR_TRIKO)
+            }
             request={request}
           />
         }>

@@ -96,14 +96,15 @@ const MyActivityComponent = ({
    */
   const handleSelectItem = (request) => {
     const {workflow} = request.transition;
-    const [detail] = request.details;
-    const {service} = detail;
-    const serviceAttrs = service.attrs ? JSON.parse(service.attrs) : {};
-    const {type = {}} = request;
+    const {attributes} = request;
+    const requestAttributes = !isEmpty(attributes)
+      ? JSON.parse(attributes)
+      : {};
+    const {requestType} = requestAttributes;
     const requestPayload = {
-      isShopper: type.id === SERVICES_TYPES.bag,
-      isCourier: serviceAttrs && serviceAttrs.type === REQUEST_TYPE_COURIER,
-      isTask: serviceAttrs && serviceAttrs.type === REQUEST_TYPE_TASK,
+      isShopper: requestType === 'shopper',
+      isCourier: requestType === 'courier',
+      isTask: requestType === 'task',
     };
     if (startedStatuses.includes(workflow)) {
       setKey('selectedToExecution', {
