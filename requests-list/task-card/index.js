@@ -1,7 +1,7 @@
 import React from 'react';
 import {View} from 'react-native';
 import useStyles from 'shared/hooks/use-styles';
-import cartColor from 'assets/icons/car-color.png';
+import taskIcon from 'shared/assets/icons/triko-task.png';
 import CardIcon from '../card-icon';
 import Text from 'components/base/text';
 import ServiceInfo from '../service-info';
@@ -24,6 +24,8 @@ import DateRender from 'shared/components/request-commons/date-render';
 import FavorIcon from '../favor-icon';
 import serviceIcon from 'shared/assets/icons/triko-task.png';
 import Button from 'shared/components/base/buttons/button';
+import {isEmpty} from 'shared/utils/functions';
+import Candidates from 'shared/components/requests-list/shopper-card/candidates';
 
 const acceptedStatus = [
   STATUS_ACCEPTED,
@@ -44,11 +46,8 @@ const TaskCard = ({
 }) => {
   const {client = {}} = request;
   const [classes] = useStyles(styles);
-  const {
-    transition,
-    shortDescription = 'Armar arbol de navidad',
-    application_date,
-  } = request;
+  const {attributes, transition, application_date} = request;
+  const requestAttr = !isEmpty(attributes) ? JSON.parse(attributes) : {};
   const workflow = transition ? transition.workflow : '';
   const {_t} = useTranslation();
   const date = (application_date ? moment(application_date) : moment()).format(
@@ -57,7 +56,7 @@ const TaskCard = ({
   const time = (application_date ? moment(application_date) : moment()).format(
     'h:mm a',
   );
-
+  const {instructions: shortDescription} = requestAttr;
   return (
     <View style={classes.root}>
       <View style={classes.serviceWrapper}>
@@ -75,13 +74,13 @@ const TaskCard = ({
         {!isTriko && (
           <>
             <CardIcon
-              image={cartColor}
+              image={taskIcon}
               primary={_t('task_label').toUpperCase()}
             />
             {shortDescription && (
               <Text style={classes.shortDescription}>{shortDescription}</Text>
             )}
-            {date && <Text style={classes.date}>{`${date} | ${time}`}</Text>}
+            {/*{date && <Text style={classes.date}>{`${date} | ${time}`}</Text>}*/}
           </>
         )}
       </View>
@@ -99,12 +98,7 @@ const TaskCard = ({
         {!isTriko && (
           <>
             <ServiceInfo request={request} />
-            <View style={classes.label}>
-              <Text style={classes.labelText}>
-                {_t('waiting_for_candidates')}
-              </Text>
-              <Icon name="history" style={classes.icon} />
-            </View>
+            <Candidates request={request} max={6} />
           </>
         )}
       </View>

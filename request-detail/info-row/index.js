@@ -11,7 +11,9 @@ const InfoRow = ({description, label = '', subtitle, value, icon}) => {
     <View style={classes.root}>
       <View style={classes.contentWrapper}>
         <Text style={[classes.label, classes.text]}>{label}</Text>
-        {value && <Text style={[classes.text, classes.value]}>{value}</Text>}
+        {Boolean(value) && (
+          <Text style={[classes.text, classes.value]}>{value}</Text>
+        )}
         {icon ? (
           <Icon name={icon} style={classes.icon} />
         ) : (

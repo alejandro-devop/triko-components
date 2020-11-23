@@ -7,6 +7,7 @@ import useSession from 'shared/hooks/use-session-triko';
 import Other from './other';
 import Shopper from './shopper';
 import Courier from './courier';
+import Task from './task';
 import useStyles from 'shared/hooks/use-styles';
 import useTranslation from 'hooks/useTranslation';
 import usePayment from 'hooks/usePayment';
@@ -63,6 +64,7 @@ const RequestDetail = () => {
     Component = Courier;
   } else if (isTask) {
     Layout = InsidesLayout;
+    Component = Task;
   }
 
   const handlePayment = async () => {
@@ -90,7 +92,7 @@ const RequestDetail = () => {
   const {workflow: orderWorkflow} =
     order && order.transition ? order.transition : {};
   const paidOut = orderWorkflow === PAYMENT_COMPLETED_STATUS;
-  const isFavor = isShopper || isCourier || isTask;
+
   return (
     <>
       <Layout
@@ -99,22 +101,27 @@ const RequestDetail = () => {
           <Header
             paidOut={paidOut}
             hideTrikoInfo={
-              isShopper || (isCourier && workflow === STATUS_WAITING_FOR_TRIKO)
+              isShopper ||
+              isCourier ||
+              isTask ||
+              workflow === STATUS_WAITING_FOR_TRIKO
             }
             request={request}
           />
         }>
         <View style={classes.root}>
-          <Component
-            onPay={handlePayment}
-            onCancel={handleCancel}
-            onBack={handleBack}
-            paidOut={paidOut}
-            request={request}
-            title={_t('about_the_request')}
-            workflow={workflow}
-            total={total}
-          />
+          {!isEmpty(Component) && (
+            <Component
+              onPay={handlePayment}
+              onCancel={handleCancel}
+              onBack={handleBack}
+              paidOut={paidOut}
+              request={request}
+              title={_t('about_the_request')}
+              workflow={workflow}
+              total={total}
+            />
+          )}
         </View>
       </Layout>
       {loading && <LoadingCurtain />}
