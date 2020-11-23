@@ -7,7 +7,6 @@ import ClientInfo from '../info-client';
 import Text from 'components/base/text';
 import ServiceInfo from './ServiceInfo';
 import ConfirmIcon from '../ConfirmIcon';
-import Postulates from '../Postulates';
 import {
   STATUS_ACCEPTED,
   STATUS_CONFIRM_FINISHED,
@@ -26,6 +25,7 @@ import FavorIcon from '../favor-icon';
 import DateRender from 'shared/components/request-commons/date-render';
 import Button from 'shared/components/base/buttons/button';
 import Candidates from 'shared/components/requests-list/shopper-card/candidates';
+import PostulatedMessage from 'shared/components/requests-list/postulated-message';
 
 const acceptedStatus = [
   STATUS_ACCEPTED,
@@ -43,13 +43,17 @@ const CourierCard = ({
   userLocation,
   onViewOnMap,
   onView,
+  workflow,
 }) => {
   const postulates = postulatesMock;
-  const {client = {}} = request;
+  const {client = {}, triko: trikos = []} = request;
   const [classes] = useStyles(styles);
   const transition = request.transition ? request.transition.workflow : '';
   const {_t} = useTranslation();
-
+  const [triko = {}] = trikos;
+  const isPostulated = isTriko
+    ? trikos.map((item) => item.id).includes(triko.id)
+    : false;
   return (
     <View style={classes.root}>
       <View style={classes.serviceWrapper}>
@@ -111,6 +115,7 @@ const CourierCard = ({
           />
         </>
       )}
+      <PostulatedMessage request={request} isTriko={isTriko} />
     </View>
   );
 };
