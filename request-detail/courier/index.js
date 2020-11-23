@@ -22,6 +22,7 @@ const CourierDetail = ({
   request = {},
   title,
   workflow,
+  paidOut,
 }) => {
   const [classes] = useStyles(styles);
   const {navigation} = useNavigate();
@@ -77,6 +78,7 @@ const CourierDetail = ({
         </View>
       </ScrollView>
       <ActionButtons
+        paidOut={paidOut}
         onPayment={onPay}
         onBack={onBack}
         onCancel={onCancel}

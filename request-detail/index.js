@@ -69,9 +69,9 @@ const RequestDetail = () => {
 
   const handlePayment = async () => {
     if (workflow === STATUS_ACCEPTED) {
-      await initPayment(request, {isShopper});
+      await initPayment(request, {isShopper, isCourier, isTask});
     } else {
-      setKey('selectedToPay', {...request, isShopper});
+      setKey('selectedToPay', {...request, isShopper, isCourier, isTask});
     }
     navigation.navigate('payment');
   };
@@ -92,7 +92,6 @@ const RequestDetail = () => {
   const {workflow: orderWorkflow} =
     order && order.transition ? order.transition : {};
   const paidOut = orderWorkflow === PAYMENT_COMPLETED_STATUS;
-
   return (
     <>
       <Layout

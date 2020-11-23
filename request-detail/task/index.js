@@ -21,6 +21,7 @@ const TaskDetail = ({
   request = {},
   title,
   workflow,
+  paidOut,
 }) => {
   const [classes] = useStyles(styles);
   const {navigation} = useNavigate();
@@ -93,6 +94,7 @@ const TaskDetail = ({
       </ScrollView>
       <ActionButtons
         onPayment={onPay}
+        paidOut={paidOut}
         onBack={onBack}
         onCancel={onCancel}
         workflow={workflow}

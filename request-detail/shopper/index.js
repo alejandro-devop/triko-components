@@ -15,7 +15,15 @@ import useNavigate from 'shared/hooks/use-navigate';
 import {useSession} from 'hooks/index';
 import {STATUS_WAITING_FOR_TRIKO} from 'config/request-statuses';
 
-const Shopper = ({onCancel, onBack, onPay, request = {}, title, workflow}) => {
+const Shopper = ({
+  onCancel,
+  onBack,
+  onPay,
+  paidOut,
+  request = {},
+  title,
+  workflow,
+}) => {
   const [classes] = useStyles(styles);
   const {navigation} = useNavigate();
   const {setKey} = useSession();
@@ -77,6 +85,7 @@ const Shopper = ({onCancel, onBack, onPay, request = {}, title, workflow}) => {
         </View>
       </ScrollView>
       <ActionButtons
+        paidOut={paidOut}
         onPayment={onPay}
         onBack={onBack}
         onCancel={onCancel}
