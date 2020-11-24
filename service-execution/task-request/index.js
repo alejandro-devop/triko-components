@@ -15,6 +15,8 @@ import {useStepDescriptor} from './hooks';
 import {
   STATUS_CONFIRM_FINISHED,
   STATUS_CONFIRM_START,
+  STATUS_FINISHED,
+  STATUS_ON_GOING,
   STATUS_QUALIFY_CLIENT,
   STATUS_STARTED,
 } from 'config/request-statuses';
@@ -40,14 +42,14 @@ const TaskRequest = ({
   const {history = [], attributes, transition = {}} = request;
   const {_t} = useTranslation();
   const requestAttrs = !isEmpty(attributes) ? JSON.parse(attributes) : {};
-  const {tools = []} = requestAttrs;
+  const {tools = [], instructions} = requestAttrs;
   const activeStep = useExecutionStep(request, {isTask: true});
   const {workflow} = transition;
   // const [activeStep, workflow] = useExecutionStep(currentWorkflow); // going to shop = 4;p
   const stepDescription = useStepDescriptor(isTriko, workflow, request);
   const isPendingConfirmStart = workflow === STATUS_CONFIRM_START;
   const isStarted = [STATUS_STARTED].includes(workflow);
-  const isFinished = [STATUS_CONFIRM_FINISHED].includes(workflow);
+  const isFinished = [STATUS_FINISHED].includes(workflow);
   const startedTransition = history.find(
     ({transition = {}}) => transition.workflow === STATUS_STARTED,
   );
@@ -86,6 +88,7 @@ const TaskRequest = ({
     {
       // Here the triko goes to the shopping place, indicates he's acquiring the products
       label: 'finish_service_label',
+      title: stepDescription.title,
       description: stepDescription.description,
       action: {
         label: stepDescription.label,
@@ -114,7 +117,7 @@ const TaskRequest = ({
   console.log('workflow: ', workflow);
   const {latitude, longitude} = mapLocation;
   const collapsed =
-    [STATUS_QUALIFY_CLIENT].includes(workflow) ||
+    [STATUS_QUALIFY_CLIENT, STATUS_CONFIRM_FINISHED].includes(workflow) ||
     workflow === STATUS_STARTED ||
     isFinished;
 
@@ -129,18 +132,26 @@ const TaskRequest = ({
             request={request}
             steps={steps}
           />
-          {isTriko && STATUS_QUALIFY_CLIENT && (
+          {isTriko && workflow === STATUS_QUALIFY_CLIENT && (
             <View style={classes.messageWrapper}>
               <InfoMessage text="waiting_for_client_qualification" />
             </View>
           )}
           {isStarted && (
-            <Timer
-              request={request}
-              isTriko={isTriko}
-              hideDuration
-              onPressFinish={handleFinish}
-            />
+            <>
+              <Timer
+                request={request}
+                isTriko={isTriko}
+                hideDuration
+                onPressFinish={handleFinish}
+              />
+              <View style={classes.instructionsContent}>
+                <Text style={classes.instructionsTitle}>instructions_text</Text>
+                <View style={classes.instructionsContentInner}>
+                  <Text style={[classes.instructionsText]}>{instructions}</Text>
+                </View>
+              </View>
+            </>
           )}
           {tools.length > 0 && !isFinished && (
             <View style={classes.toolsWrapper}>

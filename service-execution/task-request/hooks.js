@@ -4,6 +4,7 @@ import {useMutation} from '@apollo/react-hooks';
 import {UPDATE_PRODUCT} from './queries';
 import useNotify from 'hooks/useNotification';
 import {
+  STATUS_CONFIRM_FINISHED,
   STATUS_CONFIRM_PAYMENT,
   STATUS_FINISHED,
   STATUS_GOING_TO_SHOP,
@@ -89,6 +90,8 @@ export const useStepDescriptor = (isTriko, workflow, request = {}) => {
     title = 'qualify_triko';
   } else if (workflow === STATUS_QUALIFY_TRIKO) {
     title = 'qualify_client';
+  } else if (workflow === STATUS_CONFIRM_FINISHED) {
+    title = isTriko ? 'waiting_for_client_confirmation' : '';
   } else if (workflow === STATUS_FINISHED) {
     title = 'service_finished';
   }
