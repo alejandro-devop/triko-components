@@ -65,11 +65,13 @@ export const useStepDescriptor = (isTriko, workflow, request = {}) => {
   const {address} = request;
   if (workflow === STATUS_GOING_TO_SHOP) {
     description = isTriko ? 'indicate_arrival' : 'triko_going_to_shop';
+    label = isTriko ? 'arrive_to_market' : '';
   } else if (workflow === STATUS_IN_THE_SHOP) {
-    description = isTriko ? '' : 'in_the_shopping_place';
+    description = isTriko ? 'in_the_shopping_place' : 'in_the_shopping_place';
     title = isTriko ? 'get_products_in_list' : '';
+    label = isTriko ? 'start_shopping' : '';
   } else if (workflow === STATUS_WAITING_FOR_CLIENT) {
-    title = isTriko ? 'go_to_cash_register' : 'confirm_cart_total';
+    title = isTriko ? 'confirm_cart_total' : 'confirm_cart_total';
   } else if (workflow === STATUS_PAYING_CART) {
     title = 'making_payment';
     description = isTriko ? '' : 'wait_for_the_triko_to_pay';

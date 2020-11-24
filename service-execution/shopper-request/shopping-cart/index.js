@@ -9,8 +9,19 @@ import CartTotal from '../cart-total';
 import {isEmpty} from 'shared/utils/functions';
 import useRequestUpdate from 'shared/hooks/use-request-update';
 import {LoadingCurtain} from 'components/base/dialogs';
+import {
+  STATUS_SHOPPING,
+  STATUS_WAITING_FOR_CLIENT,
+} from 'config/request-statuses';
 
-const ShoppingCart = ({isTriko, request = {}, onClose, refreshRequest}) => {
+const ShoppingCart = ({
+  isTriko,
+  onFinished,
+  request = {},
+  onClose,
+  refreshRequest,
+  workflow,
+}) => {
   const [serviceDetail = {}] = request.details;
   const {products = []} = serviceDetail;
   const cart = !isEmpty(serviceDetail.products) ? serviceDetail.products : [];
@@ -39,8 +50,9 @@ const ShoppingCart = ({isTriko, request = {}, onClose, refreshRequest}) => {
 
   const handleFinish = async () => {
     await updateRequest(request);
-    if (refreshRequest) {
+    if (refreshRequest && onFinished) {
       refreshRequest();
+      onFinished();
     }
   };
 
@@ -57,7 +69,7 @@ const ShoppingCart = ({isTriko, request = {}, onClose, refreshRequest}) => {
         ))}
         <CartTotal request={request} />
         <View style={classes.actionsRow}>
-          {isTriko && (
+          {isTriko && workflow === STATUS_SHOPPING && (
             <Button disabled={added === 0} primary onPress={handleFinish}>
               finish_shopping
             </Button>

@@ -22,6 +22,7 @@ import {
   STATUS_FINISHED,
   STATUS_ON_MY_WAY,
   STATUS_ON_YOUR_DOOR,
+  STATUS_PAYMENT,
   STATUS_PENDING,
   STATUS_STARTED,
   STATUS_WAITING_FOR_TRIKO,
@@ -31,6 +32,7 @@ import {startedStatuses} from 'shared/hooks/use-request-status';
 import {isEmpty} from 'shared/utils/functions';
 import {useSession} from 'hooks/index';
 import useNavigate from 'shared/hooks/use-navigate';
+import PostulatedMessage from 'shared/components/requests-list/postulated-message';
 
 const acceptedStatus = [
   STATUS_ACCEPTED,
@@ -47,6 +49,7 @@ const ShopperCard = ({
   request = {},
   userLocation,
   onView,
+  onStart,
   workflow,
   isPaid,
 }) => {
@@ -78,7 +81,6 @@ const ShopperCard = ({
     });
     navigation.navigate('shopper');
   };
-
   return (
     <View style={classes.root}>
       <View style={classes.serviceWrapper}>
@@ -111,9 +113,24 @@ const ShopperCard = ({
               </View>
             </View>
             <View style={classes.actionsWrapper}>
-              <Button primary size="xs" style={classes.button} onPress={onView}>
-                {_t('view_text')}
-              </Button>
+              {![STATUS_PAYMENT, STATUS_FINISHED].includes(workflow) && (
+                <Button
+                  primary
+                  size="xs"
+                  style={classes.button}
+                  onPress={onView}>
+                  {_t('view_text')}
+                </Button>
+              )}
+              {workflow === STATUS_PAYMENT && (
+                <Button
+                  alternative
+                  size="xs"
+                  textStyle={classes.altButton}
+                  onPress={onStart}>
+                  start_text
+                </Button>
+              )}
             </View>
           </>
         )}
@@ -141,10 +158,8 @@ const ShopperCard = ({
         )}
       </View>
       {acceptedStatus.includes(transition) && <ConfirmIcon />}
-      {isPostulated && !startedStatuses.includes(workflow) && (
-        <View style={classes.postulatedWrapper}>
-          <Text style={classes.postulatedText}>postulated_text</Text>
-        </View>
+      {isTriko && workflow === STATUS_WAITING_FOR_TRIKO && (
+        <PostulatedMessage request={request} isTriko={isTriko} />
       )}
     </View>
   );
@@ -161,6 +176,9 @@ const styles = ({palette, variables: {textSmall}}) => ({
   button: {
     paddingHorizontal: 20,
     minWidth: 100,
+  },
+  altButton: {
+    color: palette.success,
   },
   countText: {
     color: '#FFF',

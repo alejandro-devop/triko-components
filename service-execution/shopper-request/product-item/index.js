@@ -7,6 +7,7 @@ import Icon from 'shared/components/base/icon';
 import {isEmpty} from 'shared/utils/functions';
 import useCurrency from 'hooks/useCurrency';
 import classNames from 'shared/utils/classnames';
+import PreImage from 'shared/components/base/pre-image';
 
 const ProductItem = ({disableEdit, onSelect, productItem = {}}) => {
   const [classes] = useStyles(styles);
@@ -39,6 +40,12 @@ const ProductItem = ({disableEdit, onSelect, productItem = {}}) => {
         <View style={classes.avatarWrapper}>
           {isEmpty(image) && (
             <Icon name="shopping-bag" style={classes.avatarIcon} />
+          )}
+          {!isEmpty(image) && (
+            <PreImage
+              source={{uri: image.url_download_file}}
+              style={classes.avatar}
+            />
           )}
         </View>
         <Text style={[classes.text, classes.productNameText]}>

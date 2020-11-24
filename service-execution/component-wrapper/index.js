@@ -17,6 +17,7 @@ import {LoadingCurtain} from 'components/base/dialogs';
 import {
   STATUS_FINISHED,
   STATUS_QUALIFY_CLIENT,
+  STATUS_QUALIFY_CLIENT_FAVOR,
   STATUS_QUALIFY_TRIKO,
 } from 'config/request-statuses';
 import ServiceResume from '../service-resume';
@@ -87,6 +88,8 @@ const ComponentWrapper = ({isTriko, request = {}, refreshRequest}) => {
     await cancelRequest(request);
     navigation.navigate('activity');
   };
+  const isFavor = isShopper || isCourier || isTask;
+
   return (
     <>
       <View style={classes.root}>
@@ -115,7 +118,7 @@ const ComponentWrapper = ({isTriko, request = {}, refreshRequest}) => {
               onRateSend={handleRequestUpdate}
             />
           )}
-          {isFinished && (
+          {isFinished && !isFavor && (
             <ServiceResume
               request={request}
               isTriko={isTriko}

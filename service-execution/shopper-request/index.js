@@ -5,7 +5,7 @@ import styles from './styles';
 import Stepper from 'shared/components/service-execution/stepper';
 import Icon from 'shared/components/base/icon';
 import ViewOnMap from '../view-on-map';
-// import useExecutionStep from 'shared/hooks/use-execution-step';
+import useExecutionStep from 'shared/hooks/use-execution-step';
 import UploadBill from './upload-bill';
 import {isEmpty} from 'shared/utils/functions';
 import Button from 'shared/components/base/buttons/button';
@@ -15,10 +15,19 @@ import BorderedButton from 'shared/components/base/buttons/bordered-button';
 import Text from 'shared/components/base/text';
 import UploadTransferReceipt from './upload-transfer-receipt';
 import ShoppingCart from './shopping-cart';
-import {useExecutionStep} from './workflowMock';
+import InfoMessage from 'shared/components/messages/InfoMessage';
+import ConfirmPayment from './confirm-payment';
+// import {useExecutionStep} from './workflowMock';
 import {useStepDescriptor} from './hooks';
 import {
+  STATUS_CONFIRM_PAYMENT,
+  STATUS_GOING_TO_SHOP,
+  STATUS_ON_MY_WAY_DESTINATION,
+  STATUS_ON_YOUR_DOOR,
+  STATUS_PAYING_CART,
   STATUS_PAYING_ORDER,
+  STATUS_QUALIFY_CLIENT,
+  STATUS_QUALIFY_TRIKO,
   STATUS_WAITING_FOR_CLIENT,
 } from 'config/request-statuses';
 
@@ -31,16 +40,23 @@ const ShopperRequest = ({isTriko, request = {}, refreshRequest}) => {
     title: null,
     description: null,
   });
-  const currentWorkflow = 5; // Todo: remove
-  const [activeStep, workflow] = useExecutionStep(currentWorkflow); // going to shop = 4;
+  const {address = {}, attributes, attrs = {}, transition = {}} = request;
+  const {latitude: desLat, longitude: desLng} = attrs;
+  const requestAttrs = !isEmpty(attributes) ? JSON.parse(attributes) : {};
+  const {requestType} = requestAttrs;
+  const executionType = {
+    isShopper: requestType === 'shopper',
+    isCourier: requestType === 'courier',
+    isTask: requestType === 'task',
+  };
+  const {workflow} = transition;
+  // const [activeStep, workflow] = useExecutionStep(currentWorkflow); // going to shop = 4;
+  const activeStep = useExecutionStep(request, executionType); // going to shop = 4;
   const stepDescription = useStepDescriptor(isTriko, workflow, request);
   const [serviceDetail = {}] = !isEmpty(request.details) ? request.details : [];
   const {products = []} = serviceDetail;
   const {loading, updateRequest} = useRequestUpdate();
   const toggleCart = () => setOpenCart(!openCart);
-  const requestAttrs = !isEmpty(request.attributes)
-    ? JSON.parse(request.attributes)
-    : {};
   const {market = {}} = requestAttrs;
 
   const steps = [
@@ -50,7 +66,7 @@ const ShopperRequest = ({isTriko, request = {}, refreshRequest}) => {
       title: market.name,
       description: stepDescription.description,
       action: {
-        label: 'arrive_to_market',
+        label: stepDescription.label,
         callback: () => {
           updateRequest(request);
         },
@@ -60,7 +76,7 @@ const ShopperRequest = ({isTriko, request = {}, refreshRequest}) => {
     {
       // The triko start buying items, and then the triko ask for confirmation to pay the cart
       label: 'making_purchase',
-      title: 'get_products_in_list',
+      title: stepDescription.title,
       action: {
         label: 'view_cart',
         dontConfirm: true,
@@ -88,6 +104,14 @@ const ShopperRequest = ({isTriko, request = {}, refreshRequest}) => {
       label: 'on_my_way_to_deliver_point',
       title: stepDescription.title,
       description: stepDescription.description,
+      action:
+        isTriko && workflow === STATUS_ON_MY_WAY_DESTINATION
+          ? {
+              label: 'arrive_to_destination',
+              dontConfirm: true,
+              callback: () => updateRequest(request),
+            }
+          : {},
     },
     {
       label: 'paying_service',
@@ -98,10 +122,10 @@ const ShopperRequest = ({isTriko, request = {}, refreshRequest}) => {
       title: stepDescription.title,
     },
   ];
-  const cashRegister = false;
+  const cashRegister = workflow === STATUS_PAYING_CART;
 
   const viewOnMap = () => {
-    if (activeStep === 0) {
+    if (workflow === STATUS_GOING_TO_SHOP) {
       // if going to shopping place.
       setMapLocation({
         title: market.name,
@@ -109,7 +133,25 @@ const ShopperRequest = ({isTriko, request = {}, refreshRequest}) => {
         latitude: parseFloat(market.latitude),
         longitude: parseFloat(market.longitude),
       });
+    } else {
+      setMapLocation({
+        title: address,
+        latitude: parseFloat(desLat),
+        longitude: parseFloat(desLng),
+      });
     }
+  };
+
+  const handleUploadReceipt = async () => {
+    await updateRequest(request);
+  };
+
+  const handlePaymentReceived = async () => {
+    await updateRequest(request);
+  };
+
+  const onFinish = () => {
+    toggleCart();
   };
 
   const closeMap = () => {
@@ -119,11 +161,22 @@ const ShopperRequest = ({isTriko, request = {}, refreshRequest}) => {
       longitude: null,
     });
   };
-  const waitingForPayment = !isTriko && workflow === STATUS_PAYING_ORDER;
-  const isCollapsed = cashRegister || openCart || waitingForPayment;
+  const waitingForPayment =
+    (!isTriko && [STATUS_PAYING_CART].includes(workflow)) ||
+    (isTriko &&
+      [
+        STATUS_ON_YOUR_DOOR,
+        STATUS_PAYING_ORDER,
+        STATUS_CONFIRM_PAYMENT,
+      ].includes(workflow));
+  const isRating = [STATUS_QUALIFY_CLIENT, STATUS_QUALIFY_TRIKO].includes(
+    workflow,
+  );
+  const isCollapsed = cashRegister || openCart || waitingForPayment || isRating;
   const hideCart = cashRegister;
-  const hideMap = cashRegister || !isTriko;
+  const hideMap = cashRegister || !isTriko || waitingForPayment || isRating;
   const {latitude, longitude} = mapLocation;
+
   return (
     <>
       {loading && <LoadingCurtain />}
@@ -142,12 +195,32 @@ const ShopperRequest = ({isTriko, request = {}, refreshRequest}) => {
               request={request}
               onClose={toggleCart}
               refreshRequest={refreshRequest}
+              onFinished={onFinish}
+              workflow={workflow}
             />
           )}
-          {workflow === STATUS_PAYING_ORDER && !openCart && (
+          {!isTriko && workflow === STATUS_PAYING_ORDER && !openCart && (
             <UploadTransferReceipt toggleCart={toggleCart} request={request} />
           )}
-          {cashRegister && isTriko && <UploadBill request={request} />}
+          {isTriko && <InfoMessage text="waiting_for_client_qualification" />}
+          {isTriko &&
+            [
+              STATUS_ON_YOUR_DOOR,
+              STATUS_PAYING_ORDER,
+              STATUS_CONFIRM_PAYMENT,
+            ].includes(workflow) && (
+              <ConfirmPayment
+                onPaymentReceived={handlePaymentReceived}
+                request={request}
+                workflow={workflow}
+              />
+            )}
+          {cashRegister && isTriko && (
+            <UploadBill
+              onUploadReceipt={handleUploadReceipt}
+              request={request}
+            />
+          )}
           {!openCart && (
             <>
               <View style={classes.actionsWrapper}>

@@ -14,7 +14,9 @@ import {
   STATUS_FINISHED,
   STATUS_ON_MY_WAY,
   STATUS_ON_YOUR_DOOR,
+  STATUS_PAYMENT,
   STATUS_STARTED,
+  STATUS_WAITING_FOR_TRIKO,
 } from 'config/request-statuses';
 import useTranslation from 'hooks/useTranslation';
 import {postulatesMock} from 'shared/components/requests-list/postulates.mock';
@@ -44,6 +46,7 @@ const CourierCard = ({
   onViewOnMap,
   onView,
   workflow,
+  onStart,
 }) => {
   const postulates = postulatesMock;
   const {client = {}, triko: trikos = []} = request;
@@ -80,9 +83,24 @@ const CourierCard = ({
           <>
             <FavorIcon iconSource={serviceIcon} name={_t('triko_courier')} />
             <View style={classes.actionsWrapper}>
-              <Button primary size="xs" style={classes.button} onPress={onView}>
-                {_t('view_text')}
-              </Button>
+              {workflow !== STATUS_PAYMENT && (
+                <Button
+                  primary
+                  size="xs"
+                  style={classes.button}
+                  onPress={onView}>
+                  {_t('view_text')}
+                </Button>
+              )}
+              {workflow === STATUS_PAYMENT && (
+                <Button
+                  alternative
+                  size="xs"
+                  textStyle={classes.altButton}
+                  onPress={onStart}>
+                  start_text
+                </Button>
+              )}
             </View>
           </>
         )}
@@ -115,12 +133,17 @@ const CourierCard = ({
           />
         </>
       )}
-      {isTriko && <PostulatedMessage request={request} isTriko={isTriko} />}
+      {isTriko && workflow === STATUS_WAITING_FOR_TRIKO && (
+        <PostulatedMessage request={request} isTriko={isTriko} />
+      )}
     </View>
   );
 };
 
 const styles = ({palette}) => ({
+  altButton: {
+    color: palette.success,
+  },
   actionsWrapper: {
     marginTop: 10,
   },

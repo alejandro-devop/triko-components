@@ -187,6 +187,7 @@ const MyActivityComponent = ({
 
   const onView = (request) => {
     const {transition = {}} = request;
+    console.log('workflow: ', transition.workflow);
     if (startedStatuses.includes(transition.workflow)) {
       setKey('selectedToExecution', request);
       navigation.navigate('execution');
@@ -194,7 +195,6 @@ const MyActivityComponent = ({
       handleSelectItem(request);
     }
   };
-
   const onStart = async (request) => {
     await updateRequest(request);
     await onRefresh();

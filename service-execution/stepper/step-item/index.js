@@ -11,6 +11,7 @@ import PreImage from 'shared/components/base/pre-image';
 import avatar from 'assets/avatars/profile-photo.jpg';
 import Button from 'shared/components/base/buttons/button';
 import ConfirmSlide from 'components/base/confirm-slide';
+import {isEmpty} from 'shared/utils/functions';
 
 const StepItem = ({
   active,
@@ -30,6 +31,7 @@ const StepItem = ({
   const [triko = {}] = trikos;
   const {user = {}} = triko;
   const {photo_url: photo} = user;
+
   return (
     <View style={classNames({root: true, rootCollapsed: collapsed}, classes)}>
       <View style={classes.leftPanel}>
@@ -39,7 +41,7 @@ const StepItem = ({
         />
         <Text style={[classes.text, classes.label]}>{label}</Text>
         <View style={[classes.tip]} />
-        {isCurrent && (
+        {Boolean(isCurrent) && (
           <View style={classes.avatarWrapper}>
             <PreImage
               style={classes.avatar}
@@ -61,7 +63,7 @@ const StepItem = ({
             source={flagStart}
           />
         )}
-        {isLast && (
+        {Boolean(isLast) && (
           <PreImage style={[classes.flag, classes.flagEnd]} source={flagEnd} />
         )}
       </View>
@@ -78,9 +80,9 @@ const StepItem = ({
                 {description}
               </Text>
             )}
-            {actionLabel && !collapsed && (
+            {Boolean(actionLabel) && !collapsed && (
               <>
-                {!confirm && !noAction && (
+                {!isEmpty(actionLabel) && !confirm && !noAction && (
                   <Button
                     size="xxs"
                     secondary

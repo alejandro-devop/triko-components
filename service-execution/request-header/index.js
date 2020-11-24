@@ -30,7 +30,9 @@ const RequestHeader = ({request = {}, isTriko}) => {
               <ServiceInfo request={request} />
             </View>
             <View style={[classes.panel, classes.right]}>
-              <Text style={[classes.text, classes.textTitle]}>{statusLabel}</Text>
+              <Text style={[classes.text, classes.textTitle]}>
+                {statusLabel}
+              </Text>
               <Text style={[classes.text]}>
                 {_t('request_execution_date', {date: dateLabel})}
               </Text>
@@ -40,7 +42,7 @@ const RequestHeader = ({request = {}, isTriko}) => {
           <View style={classes.tip} />
         </SafeAreaView>
       </Slide>
-      </>
+    </>
   );
 };
 

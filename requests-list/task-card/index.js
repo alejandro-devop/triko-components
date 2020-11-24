@@ -13,7 +13,9 @@ import {
   STATUS_FINISHED,
   STATUS_ON_MY_WAY,
   STATUS_ON_YOUR_DOOR,
+  STATUS_PAYMENT,
   STATUS_STARTED,
+  STATUS_WAITING_FOR_TRIKO,
 } from 'config/request-statuses';
 import useTranslation from 'hooks/useTranslation';
 import Icon from 'components/base/icon';
@@ -43,6 +45,7 @@ const TaskCard = ({
   onViewOnMap,
   onView,
   userLocation,
+  onStart,
   request = {},
 }) => {
   const {client = {}} = request;
@@ -90,9 +93,24 @@ const TaskCard = ({
           <>
             <FavorIcon iconSource={serviceIcon} name={_t('triko_task')} />
             <View style={classes.actionsWrapper}>
-              <Button primary size="xs" style={classes.button} onPress={onView}>
-                {_t('view_text')}
-              </Button>
+              {workflow !== STATUS_PAYMENT && (
+                <Button
+                  primary
+                  size="xs"
+                  style={classes.button}
+                  onPress={onView}>
+                  {_t('view_text')}
+                </Button>
+              )}
+              {workflow === STATUS_PAYMENT && (
+                <Button
+                  alternative
+                  size="xs"
+                  textStyle={classes.altButton}
+                  onPress={onStart}>
+                  start_text
+                </Button>
+              )}
             </View>
           </>
         )}
@@ -103,7 +121,9 @@ const TaskCard = ({
           </>
         )}
       </View>
-      {isTriko && <PostulatedMessage isTriko={isTriko} request={request} />}
+      {isTriko && workflow === STATUS_WAITING_FOR_TRIKO && (
+        <PostulatedMessage isTriko={isTriko} request={request} />
+      )}
       {!isTriko && acceptedStatus.includes(workflow) && <ConfirmIcon />}
     </View>
   );
@@ -116,6 +136,9 @@ const styles = ({palette}) => ({
   button: {
     paddingHorizontal: 20,
     minWidth: 100,
+  },
+  altButton: {
+    color: palette.success,
   },
   date: {
     fontSize: 14,

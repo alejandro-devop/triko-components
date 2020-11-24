@@ -15,7 +15,6 @@ const ViewForTriko = ({
   const {address} = request;
   const {photo_url: photo} = user;
   const {latitude, longitude} = destination;
-
   return (
     <MapRender
       open={open}

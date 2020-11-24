@@ -19,6 +19,7 @@ import LinkButton from 'shared/components/base/buttons/link-button';
 import ProductPicker from 'shared/components/product-picker';
 import {useUpdateProduct} from '../hooks';
 import {LoadingCurtain} from 'components/base/dialogs';
+import PreImage from 'shared/components/base/pre-image';
 
 const ProductEdit = ({
   open,
@@ -85,7 +86,12 @@ const ProductEdit = ({
           <View style={classes.avatarWrapper}>
             {isEmpty(image) ? (
               <Icon name="shopping-bag" style={classes.avatarIcon} />
-            ) : null}
+            ) : (
+              <PreImage
+                source={{uri: image.url_download_file}}
+                style={classes.avatar}
+              />
+            )}
           </View>
           {found && (
             <View style={[classes.productWrapper, classes.row]}>

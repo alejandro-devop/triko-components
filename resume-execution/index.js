@@ -30,6 +30,8 @@ const ResumeExecution = ({isTriko}) => {
   if (!shouldRender) {
     return null;
   }
+  console.log('workflow: ', workflow);
+  return null;
 
   return (
     <Wrapper>

@@ -9,7 +9,7 @@ import ImagePicker from 'shared/components/base/controls/image-picker';
 import Button from 'shared/components/base/buttons/button';
 import {isEmpty} from 'shared/utils/functions';
 
-const UploadBill = ({request = {}}) => {
+const UploadBill = ({request = {}, onUploadReceipt}) => {
   const [serviceDetail = {}] = request.details;
   const [file, setFile] = useState(null);
   const [classes] = useStyles(styles);
@@ -17,6 +17,12 @@ const UploadBill = ({request = {}}) => {
   const {format} = useCurrency();
   const handleImageChange = (data) => {
     setFile(data);
+  };
+
+  const handleSubmit = () => {
+    if (onUploadReceipt) {
+      onUploadReceipt();
+    }
   };
   return (
     <View style={classes.root}>
@@ -27,7 +33,7 @@ const UploadBill = ({request = {}}) => {
       <InfoMessage text="shopper_triko_must_pay" />
       <ImagePicker onChange={handleImageChange} />
       <View style={classes.actionWrapper}>
-        <Button primary disabled={isEmpty(file)}>
+        <Button primary disabled={isEmpty(file)} onPress={handleSubmit}>
           send_text
         </Button>
       </View>

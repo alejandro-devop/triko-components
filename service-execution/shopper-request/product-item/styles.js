@@ -1,4 +1,9 @@
 export default ({palette, variables: {textMedium, textSmall}}) => ({
+  avatar: {
+    width: '100%',
+    height: '100%',
+    borderRadius: 100,
+  },
   avatarIcon: {
     color: '#FFF',
   },
