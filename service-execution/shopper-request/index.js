@@ -148,6 +148,7 @@ const ShopperRequest = ({isTriko, request = {}, refreshRequest}) => {
 
   const handlePaymentReceived = async () => {
     await updateRequest(request);
+    await refreshRequest();
   };
 
   const onFinish = () => {
@@ -202,7 +203,9 @@ const ShopperRequest = ({isTriko, request = {}, refreshRequest}) => {
           {!isTriko && workflow === STATUS_PAYING_ORDER && !openCart && (
             <UploadTransferReceipt toggleCart={toggleCart} request={request} />
           )}
-          {isTriko && <InfoMessage text="waiting_for_client_qualification" />}
+          {isTriko && workflow === STATUS_QUALIFY_CLIENT && (
+            <InfoMessage text="waiting_for_client_qualification" />
+          )}
           {isTriko &&
             [
               STATUS_ON_YOUR_DOOR,

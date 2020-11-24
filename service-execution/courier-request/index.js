@@ -10,9 +10,10 @@ import useRequestUpdate from 'shared/hooks/use-request-update';
 import {LoadingCurtain} from 'components/base/dialogs';
 import InfoMessage from 'shared/components/messages/InfoMessage';
 import {useStepDescriptor} from './hooks';
-import {STATUS_QUALIFY_CLIENT} from 'config/request-statuses';
+import {STATUS_ON_GOING, STATUS_QUALIFY_CLIENT} from 'config/request-statuses';
 import useTranslation from 'hooks/useTranslation';
 import useRequestUpdateAttrs from 'shared/hooks/use-request-update-attrs';
+import Text from 'shared/components/base/text';
 
 const CourierRequest = ({isTriko, request = {}, refreshRequest}) => {
   const [classes] = useStyles(styles);
@@ -25,7 +26,7 @@ const CourierRequest = ({isTriko, request = {}, refreshRequest}) => {
   const {attributes, transition = {}} = request;
   const {_t} = useTranslation();
   const requestAttrs = !isEmpty(attributes) ? JSON.parse(attributes) : {};
-  const {stops, currentStep = 0} = requestAttrs;
+  const {stops, instructions, currentStep = 0} = requestAttrs;
   const {workflow} = transition;
   // const [activeStep, workflow] = useExecutionStep(currentWorkflow); // going to shop = 4;p
   const activeStep = currentStep;
@@ -69,7 +70,7 @@ const CourierRequest = ({isTriko, request = {}, refreshRequest}) => {
     {
       // Here the triko goes to the shopping place, indicates he's acquiring the products
       label: 'finish_service_label',
-      title: '__',
+      title: '',
       description: stepDescription.description,
       action: {
         label: stepDescription.label,
@@ -81,7 +82,14 @@ const CourierRequest = ({isTriko, request = {}, refreshRequest}) => {
     },
   ];
 
-  const viewOnMap = () => {};
+  const viewOnMap = () => {
+    const currentStop = stops[currentStep];
+    if (currentStop) {
+      const {address: addressObj = {}} = currentStop;
+      const {address, lat, lng} = addressObj;
+      setMapLocation({latitude: lat, longitude: lng, title: address});
+    }
+  };
 
   const closeMap = () => {
     setMapLocation({
@@ -105,7 +113,17 @@ const CourierRequest = ({isTriko, request = {}, refreshRequest}) => {
             request={request}
             steps={steps}
           />
-          {isTriko && <InfoMessage text="waiting_for_client_qualification" />}
+          {isTriko && workflow === STATUS_QUALIFY_CLIENT && (
+            <InfoMessage text="waiting_for_client_qualification" />
+          )}
+          {[STATUS_ON_GOING].includes(workflow) && (
+            <View style={classes.instructionsContent}>
+              <Text style={classes.instructionsTitle}>instructions_text</Text>
+              <View style={classes.instructionsContentInner}>
+                <Text style={[classes.instructionsText]}>{instructions}</Text>
+              </View>
+            </View>
+          )}
           {!collapsed && (
             <View style={classes.actionsWrapper}>
               <Button primary size="xxs" onPress={viewOnMap}>

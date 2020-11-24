@@ -62,7 +62,7 @@ const ShoppingCart = ({
         {products.map((productItem, key) => (
           <ProductItem
             onSelect={handleSelectItem}
-            disableEdit={!isTriko}
+            disableEdit={!isTriko || workflow !== STATUS_SHOPPING}
             productItem={productItem}
             key={`product-${key}`}
           />

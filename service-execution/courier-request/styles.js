@@ -1,4 +1,4 @@
-export default ({palette}) => ({
+export default ({palette, variables: {textMedium}}) => ({
   actionsWrapper: {
     marginTop: 20,
     alignItems: 'center',
@@ -21,6 +21,27 @@ export default ({palette}) => ({
     position: 'absolute',
     zIndex: 1,
     transform: [{translateY: -10}],
+  },
+  instructionsContent: {
+    marginTop: 20,
+    paddingHorizontal: 20,
+  },
+  instructionsContentInner: {
+    backgroundColor: palette.blueLightAccent,
+    padding: 20,
+    borderRadius: 20,
+  },
+  instructionsText: {
+    color: '#FFF',
+    fontWeight: '600',
+    fontSize: textMedium,
+  },
+  instructionsTitle: {
+    color: palette.blue,
+    fontWeight: '600',
+    marginLeft: 10,
+    marginBottom: 5,
+    fontSize: textMedium,
   },
   content: {
     flexGrow: 1,
