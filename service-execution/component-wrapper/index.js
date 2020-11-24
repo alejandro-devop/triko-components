@@ -12,6 +12,7 @@ import {
 } from 'config/constants';
 import ShopperRequest from '../shopper-request';
 import CourierRequest from '../courier-request';
+import TaskRequest from '../task-request';
 import NormalRequest from '../normal-request';
 import useRequestUpdate from 'shared/hooks/use-request-update';
 import {LoadingCurtain} from 'components/base/dialogs';
@@ -47,7 +48,7 @@ const ComponentWrapper = ({isTriko, request = {}, refreshRequest}) => {
     Component = CourierRequest;
   } else if (serviceAttrs && serviceAttrs.type === REQUEST_TYPE_TASK) {
     isTask = true;
-    // Component = TaskCard;
+    Component = TaskRequest;
   }
   const [classes] = useStyles(styles);
 
@@ -58,10 +59,10 @@ const ComponentWrapper = ({isTriko, request = {}, refreshRequest}) => {
   };
   const handleTerminate = async () => {
     if (isTriko) {
-      await handleRequestUpdate();
       setTimeout(() => {
         navigation.navigate('activity');
-      }, 1000);
+        handleRequestUpdate();
+      }, 800);
     } else {
       navigation.navigate('activity');
     }

@@ -9,7 +9,12 @@ import useTimer from 'hooks/useTimer';
 import useTranslation from 'hooks/useTranslation';
 import BorderedButton from 'shared/components/base/buttons/bordered-button';
 
-const ExecutionTimer = ({onPressFinish, isTriko, request = {}}) => {
+const ExecutionTimer = ({
+  onPressFinish,
+  hideDuration,
+  isTriko,
+  request = {},
+}) => {
   const [classes] = useStyles(styles);
   const {_t} = useTranslation();
   const {history, duration} = request;
@@ -33,9 +38,11 @@ const ExecutionTimer = ({onPressFinish, isTriko, request = {}}) => {
           {(time.seconds < 10 ? '0' : '') + time.seconds}
         </Text>
       </View>
-      <Text style={classes.durationText}>
-        {_t('duration_label', {time: duration})}
-      </Text>
+      {!hideDuration && (
+        <Text style={classes.durationText}>
+          {_t('duration_label', {time: duration})}
+        </Text>
+      )}
       {overPassed && <Text style={classes.overPassedLabel}>over_passed</Text>}
       {isTriko && (
         <View style={classes.actions}>

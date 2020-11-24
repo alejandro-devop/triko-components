@@ -3,39 +3,19 @@ import {View} from 'react-native';
 import {useStyles} from 'hooks/index';
 import styles from './styles';
 import Stepper from 'shared/components/service-execution/stepper';
-import Icon from 'shared/components/base/icon';
 import ViewOnMap from '../view-on-map';
-import useExecutionStep from 'shared/hooks/use-execution-step';
-import UploadBill from './upload-bill';
 import {isEmpty} from 'shared/utils/functions';
 import Button from 'shared/components/base/buttons/button';
 import useRequestUpdate from 'shared/hooks/use-request-update';
 import {LoadingCurtain} from 'components/base/dialogs';
-import BorderedButton from 'shared/components/base/buttons/bordered-button';
-import Text from 'shared/components/base/text';
-import UploadTransferReceipt from './upload-transfer-receipt';
-import ShoppingCart from './shopping-cart';
 import InfoMessage from 'shared/components/messages/InfoMessage';
-import ConfirmPayment from './confirm-payment';
-// import {useExecutionStep} from './workflowMock';
 import {useStepDescriptor} from './hooks';
-import {
-  STATUS_CONFIRM_PAYMENT,
-  STATUS_GOING_TO_SHOP,
-  STATUS_ON_MY_WAY_DESTINATION,
-  STATUS_ON_YOUR_DOOR,
-  STATUS_PAYING_CART,
-  STATUS_PAYING_ORDER,
-  STATUS_QUALIFY_CLIENT,
-  STATUS_QUALIFY_TRIKO,
-  STATUS_WAITING_FOR_CLIENT,
-} from 'config/request-statuses';
+import {STATUS_QUALIFY_CLIENT} from 'config/request-statuses';
 import useTranslation from 'hooks/useTranslation';
 import useRequestUpdateAttrs from 'shared/hooks/use-request-update-attrs';
 
 const CourierRequest = ({isTriko, request = {}, refreshRequest}) => {
   const [classes] = useStyles(styles);
-  const [openCart, setOpenCart] = useState(false);
   const [mapLocation, setMapLocation] = useState({
     latitude: null,
     longitude: null,
@@ -45,15 +25,9 @@ const CourierRequest = ({isTriko, request = {}, refreshRequest}) => {
   const {attributes, transition = {}} = request;
   const {_t} = useTranslation();
   const requestAttrs = !isEmpty(attributes) ? JSON.parse(attributes) : {};
-  const {requestType, stops, currentStep = 0} = requestAttrs;
-  const executionType = {
-    isShopper: requestType === 'shopper',
-    isCourier: requestType === 'courier',
-    isTask: requestType === 'task',
-  };
+  const {stops, currentStep = 0} = requestAttrs;
   const {workflow} = transition;
-  // const [activeStep, workflow] = useExecutionStep(currentWorkflow); // going to shop = 4;
-  const executionStep = useExecutionStep(request, executionType); // going to shop = 4;
+  // const [activeStep, workflow] = useExecutionStep(currentWorkflow); // going to shop = 4;p
   const activeStep = currentStep;
   const stepDescription = useStepDescriptor(isTriko, workflow, request);
   const {loading, updateRequest} = useRequestUpdate();
