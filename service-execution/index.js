@@ -67,7 +67,7 @@ const ServiceExecution = ({isTriko}) => {
       onRefresh();
     }
   };
-
+  // https://designblog.uniandes.edu.co/blogs/dise2619/files/2014/01/ana_collazos.jpeg
   useEffect(() => {
     const idSubscription = subscribeEvent(EVENT__SERVICE_REQUEST, onRefresh);
     const messageSubscription = subscribeEvent(EVENT__MESSAGE, () => {
