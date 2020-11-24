@@ -11,13 +11,13 @@ import {
   REQUEST_TYPE_TASK,
 } from 'config/constants';
 import ShopperRequest from '../shopper-request';
+import CourierRequest from '../courier-request';
 import NormalRequest from '../normal-request';
 import useRequestUpdate from 'shared/hooks/use-request-update';
 import {LoadingCurtain} from 'components/base/dialogs';
 import {
   STATUS_FINISHED,
   STATUS_QUALIFY_CLIENT,
-  STATUS_QUALIFY_CLIENT_FAVOR,
   STATUS_QUALIFY_TRIKO,
 } from 'config/request-statuses';
 import ServiceResume from '../service-resume';
@@ -44,7 +44,7 @@ const ComponentWrapper = ({isTriko, request = {}, refreshRequest}) => {
     Component = ShopperRequest;
   } else if (serviceAttrs && serviceAttrs.type === REQUEST_TYPE_COURIER) {
     isCourier = true;
-    // Component = CourierCard;
+    Component = CourierRequest;
   } else if (serviceAttrs && serviceAttrs.type === REQUEST_TYPE_TASK) {
     isTask = true;
     // Component = TaskCard;
@@ -70,6 +70,13 @@ const ComponentWrapper = ({isTriko, request = {}, refreshRequest}) => {
   const handleOpenChat = () => {
     setKey('selectedChat', {request});
     navigation.navigate('chat-room');
+  };
+
+  const handleRateSend = async () => {
+    await handleRequestUpdate();
+    if (isTriko && (isCourier || isTask)) {
+      navigation.navigate('activity');
+    }
   };
 
   const handleCancel = () => {
@@ -107,10 +114,7 @@ const ComponentWrapper = ({isTriko, request = {}, refreshRequest}) => {
             />
           )}
           {workflow === STATUS_QUALIFY_TRIKO && isTriko && (
-            <RateClientWrapper
-              request={request}
-              onRateSend={handleRequestUpdate}
-            />
+            <RateClientWrapper request={request} onRateSend={handleRateSend} />
           )}
           {workflow === STATUS_QUALIFY_CLIENT && !isTriko && (
             <RateTrikoService
