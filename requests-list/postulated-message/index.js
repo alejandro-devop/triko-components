@@ -13,7 +13,7 @@ const PostulatedMessage = ({request = {}, isTriko}) => {
   const isPostulated = isTriko
     ? trikos.map((item) => item.id).includes(triko.id)
     : false;
-  if (!isPostulated && startedStatuses.includes(workflow)) {
+  if (!isPostulated || startedStatuses.includes(workflow)) {
     return null;
   }
   return (
