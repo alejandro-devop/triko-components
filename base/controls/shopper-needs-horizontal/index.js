@@ -4,23 +4,27 @@ import useMock from 'hooks/useMock';
 import mock from './mocks';
 import Loader from './Loader';
 import ItemList from './ItemList';
+import Label from 'shared/components/base/label';
+import useMarketCategories from 'shared/components/base/controls/shopper-needs/hooks';
 
 const ShopperNeedsHorizontal = ({
+  label,
   maxItems,
   name,
   onChange,
+  required,
   value = [],
   valueKey,
 }) => {
-  const {loading, data = {}} = useMock(mock);
+  const {loading, categories} = useMarketCategories();
 
-  const handleItemChange = (selectedValue = 0) => {
-    const itemId = selectedValue[valueKey];
+  const handleItemChange = (selected) => {
+    const {id} = selected;
     let newSelected = [...value];
-    if (value.includes(itemId)) {
-      newSelected = value.filter((item) => item !== itemId);
+    if (value.includes(id)) {
+      newSelected = value.filter((item) => item !== id);
     } else {
-      newSelected = [...value, itemId];
+      newSelected.push(id);
     }
     if (onChange) {
       onChange({
@@ -33,10 +37,11 @@ const ShopperNeedsHorizontal = ({
   };
   return (
     <>
+      {Boolean(label) && <Label required={required}>{label}</Label>}
       {!loading && (
         <ItemList
           max={maxItems}
-          items={data.response}
+          items={categories}
           selected={value}
           handleChange={handleItemChange}
           valueKey={valueKey}

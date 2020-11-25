@@ -17,7 +17,13 @@ import Item from './Item';
  * @returns {*}
  * @constructor
  */
-const ItemList = ({handleChange, items, labelKey, selected, valueKey}) => {
+const ItemList = ({
+  handleChange,
+  items,
+  labelKey,
+  selected,
+  valueKey = 'id',
+}) => {
   const [classes] = useStyles(styles);
   const {_t} = useTranslation();
   return (

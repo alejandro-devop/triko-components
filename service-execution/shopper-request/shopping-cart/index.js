@@ -19,6 +19,7 @@ const ShoppingCart = ({
   onFinished,
   request = {},
   onClose,
+  onConfirmCart,
   refreshRequest,
   workflow,
 }) => {
@@ -72,6 +73,11 @@ const ShoppingCart = ({
           {isTriko && workflow === STATUS_SHOPPING && (
             <Button disabled={added === 0} primary onPress={handleFinish}>
               finish_shopping
+            </Button>
+          )}
+          {!isTriko && workflow === STATUS_WAITING_FOR_CLIENT && (
+            <Button primary onPress={onConfirmCart}>
+              accept_cart_total
             </Button>
           )}
           <Button secondary onPress={onClose}>

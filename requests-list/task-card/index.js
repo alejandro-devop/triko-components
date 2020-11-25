@@ -118,6 +118,13 @@ const TaskCard = ({
           <>
             <ServiceInfo request={request} />
             <Candidates request={request} max={6} />
+            {workflow === STATUS_ACCEPTED && (
+              <View style={classes.actionsPending}>
+                <Button primary size="xxs" onPress={onView}>
+                  make_payment
+                </Button>
+              </View>
+            )}
           </>
         )}
       </View>

@@ -14,6 +14,7 @@ import PermissionsManager, {
 import WizardDialog from 'shared/components/base/address-wizard/wizard-dialog';
 
 const AddressWizard = ({
+  defaultQuery = '',
   isTriko,
   useDialog,
   useWizard,
@@ -31,7 +32,7 @@ const AddressWizard = ({
     type: null,
     name: null,
     description: null,
-    city: '',
+    city: defaultQuery,
   });
   const {_t} = useTranslation();
 
@@ -125,7 +126,7 @@ const AddressWizard = ({
                 placeholder={_t('where_am_i_city_placeholder')}
                 searchPlaceholder={_t('where_am_i_city_info')}
                 onChange={onSelectCity}
-                value={city}
+                defaultValue={city}
               />
             </ScrollView>
           )}

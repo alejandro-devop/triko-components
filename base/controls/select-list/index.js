@@ -53,7 +53,7 @@ const SelectList = ({
 }) => {
   const [opened, setOpened] = useState(false);
   const toggleOpened = () => setOpened(!opened);
-  const selectedValue = options.find(item => item[valueKey] === value) || {};
+  const selectedValue = options.find((item) => item[valueKey] === value) || {};
   const handleOnChange = (selectedItem = {}) => {
     if (onChange) {
       let newValue = null;
@@ -76,8 +76,8 @@ const SelectList = ({
   const getDisplayValue = () => {
     if (multiple) {
       return options
-        .filter(item => (value || []).includes(item.value))
-        .map(item => item.label)
+        .filter((item) => (value || []).includes(item.value))
+        .map((item) => item.label)
         .join(', ');
     } else {
       return selectedValue[labelKey] || '';
@@ -123,7 +123,7 @@ const SelectList = ({
           onClose={toggleOpened}
           title={placeholder}
           onSelect={handleOnChange}
-          options={options.map(item => ({
+          options={options.map((item) => ({
             label: item[labelKey],
             value: item[valueKey],
             icon: item.icon,

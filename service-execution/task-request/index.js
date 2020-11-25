@@ -25,6 +25,7 @@ import useRequestUpdateAttrs from 'shared/hooks/use-request-update-attrs';
 import useExecutionStep from 'shared/hooks/use-execution-step';
 import moment from 'moment';
 import Timer from 'shared/components/service-execution/timer';
+import ConfirmBubble from 'shared/components/base/confirm-bubble';
 
 const TaskRequest = ({
   isTriko,
@@ -114,10 +115,17 @@ const TaskRequest = ({
     await onUpdateRequest();
   };
 
-  console.log('workflow: ', workflow);
+  const handleAccept = async () => {
+    await onUpdateRequest();
+  };
+
   const {latitude, longitude} = mapLocation;
   const collapsed =
-    [STATUS_QUALIFY_CLIENT, STATUS_CONFIRM_FINISHED].includes(workflow) ||
+    [
+      STATUS_QUALIFY_CLIENT,
+      STATUS_CONFIRM_FINISHED,
+      STATUS_CONFIRM_START,
+    ].includes(workflow) ||
     workflow === STATUS_STARTED ||
     isFinished;
 
@@ -161,12 +169,24 @@ const TaskRequest = ({
               ))}
             </View>
           )}
-          {!collapsed && (
+          {!collapsed && isTriko && (
             <View style={classes.actionsWrapper}>
               <Button primary size="xxs" onPress={viewOnMap}>
                 view_on_map
               </Button>
             </View>
+          )}
+          {!isTriko && workflow === STATUS_CONFIRM_START && (
+            <ConfirmBubble
+              message="triko_is_waiting_for_start_confirm"
+              onAccept={handleAccept}
+            />
+          )}
+          {!isTriko && workflow === STATUS_CONFIRM_FINISHED && (
+            <ConfirmBubble
+              message="triko_is_waiting_for_end_confirm"
+              onAccept={handleAccept}
+            />
           )}
         </View>
       </View>

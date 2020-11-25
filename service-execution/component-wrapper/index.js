@@ -75,7 +75,7 @@ const ComponentWrapper = ({isTriko, request = {}, refreshRequest}) => {
 
   const handleRateSend = async () => {
     await handleRequestUpdate();
-    if (isTriko && (isCourier || isTask || isShopper)) {
+    if (isCourier || isTask || isShopper) {
       navigation.navigate('activity');
     }
   };

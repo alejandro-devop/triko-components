@@ -4,7 +4,16 @@ import useToggle from 'shared/hooks/use-toggle';
 import Control from './control';
 import AddressWizard from 'shared/components/base/address-wizard';
 
-const MapPicker = ({label, name, onChange, placeholder, primary, value}) => {
+const MapPicker = ({
+  defaultQuery,
+  label,
+  required,
+  name,
+  onChange,
+  placeholder,
+  primary,
+  value,
+}) => {
   const [visible, toggleVisible] = useToggle(false);
   const handleChangeAddress = (addressData) => {
     if (onChange) {
@@ -21,6 +30,7 @@ const MapPicker = ({label, name, onChange, placeholder, primary, value}) => {
   return (
     <>
       <Control
+        required={required}
         label={label}
         placeholder={placeholder}
         primary={primary}
@@ -30,6 +40,7 @@ const MapPicker = ({label, name, onChange, placeholder, primary, value}) => {
       {visible && (
         <AddressWizard
           open={visible}
+          defaultQuery={defaultQuery}
           onClose={toggleVisible}
           onSaved={handleChangeAddress}
           skipForm

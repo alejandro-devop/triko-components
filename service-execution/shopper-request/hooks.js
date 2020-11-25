@@ -79,7 +79,7 @@ export const useStepDescriptor = (isTriko, workflow, request = {}) => {
     title = 'going_to_deliver_address';
     description = address;
   } else if (workflow === STATUS_IN_THE_DESTINATION) {
-    title = 'in_destination_point';
+    title = isTriko? 'in_destination_point' : 'make_cart_payment';
     description = address;
   } else if (workflow === STATUS_PAYING_ORDER) {
     title = 'waiting_for_client_payment';

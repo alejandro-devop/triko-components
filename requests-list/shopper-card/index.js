@@ -81,6 +81,7 @@ const ShopperCard = ({
     });
     navigation.navigate('shopper');
   };
+
   return (
     <View style={classes.root}>
       <View style={classes.serviceWrapper}>
@@ -151,6 +152,13 @@ const ShopperCard = ({
                 </Text>
                 <Button primary size="xxs" onPress={handleContinueShopper}>
                   continue_text
+                </Button>
+              </View>
+            )}
+            {workflow === STATUS_ACCEPTED && (
+              <View style={classes.actionsPending}>
+                <Button primary size="xxs" onPress={onView}>
+                  make_payment
                 </Button>
               </View>
             )}

@@ -60,6 +60,7 @@ const CourierRequest = ({isTriko, request = {}, refreshRequest}) => {
             updateStep();
           },
         },
+        noAction: !isTriko,
       };
     });
 

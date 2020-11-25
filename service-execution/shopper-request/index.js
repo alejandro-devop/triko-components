@@ -17,7 +17,6 @@ import UploadTransferReceipt from './upload-transfer-receipt';
 import ShoppingCart from './shopping-cart';
 import InfoMessage from 'shared/components/messages/InfoMessage';
 import ConfirmPayment from './confirm-payment';
-// import {useExecutionStep} from './workflowMock';
 import {useStepDescriptor} from './hooks';
 import {
   STATUS_CONFIRM_PAYMENT,
@@ -143,7 +142,15 @@ const ShopperRequest = ({isTriko, request = {}, refreshRequest}) => {
   };
 
   const handleUploadReceipt = async () => {
+    if (!isTriko) {
+      await updateRequest(request);
+    }
+    await refreshRequest();
+  };
+
+  const handleAcceptPrice = async () => {
     await updateRequest(request);
+    await refreshRequest();
   };
 
   const handlePaymentReceived = async () => {
@@ -155,6 +162,15 @@ const ShopperRequest = ({isTriko, request = {}, refreshRequest}) => {
     toggleCart();
   };
 
+  const handleCartConfirm = async () => {
+    await updateRequest(request);
+  };
+
+  const handleMarkTransferAsDone = async () => {
+    await updateRequest(request);
+    await refreshRequest();
+  };
+
   const closeMap = () => {
     setMapLocation({
       ...mapLocation,
@@ -163,7 +179,10 @@ const ShopperRequest = ({isTriko, request = {}, refreshRequest}) => {
     });
   };
   const waitingForPayment =
-    (!isTriko && [STATUS_PAYING_CART].includes(workflow)) ||
+    (!isTriko &&
+      [STATUS_PAYING_CART, STATUS_PAYING_ORDER, STATUS_ON_YOUR_DOOR].includes(
+        workflow,
+      )) ||
     (isTriko &&
       [
         STATUS_ON_YOUR_DOOR,
@@ -196,13 +215,22 @@ const ShopperRequest = ({isTriko, request = {}, refreshRequest}) => {
               request={request}
               onClose={toggleCart}
               refreshRequest={refreshRequest}
+              onConfirmCart={handleCartConfirm}
               onFinished={onFinish}
               workflow={workflow}
             />
           )}
-          {!isTriko && workflow === STATUS_PAYING_ORDER && !openCart && (
-            <UploadTransferReceipt toggleCart={toggleCart} request={request} />
-          )}
+          {!isTriko &&
+            [STATUS_PAYING_ORDER, STATUS_ON_YOUR_DOOR].includes(workflow) &&
+            !openCart && (
+              <UploadTransferReceipt
+                toggleCart={toggleCart}
+                request={request}
+                onUploadReceipt={handleUploadReceipt}
+                onMarkTransferAsDone={handleMarkTransferAsDone}
+                workflow={workflow}
+              />
+            )}
           {isTriko && workflow === STATUS_QUALIFY_CLIENT && (
             <InfoMessage text="waiting_for_client_qualification" />
           )}
@@ -218,8 +246,10 @@ const ShopperRequest = ({isTriko, request = {}, refreshRequest}) => {
                 workflow={workflow}
               />
             )}
-          {cashRegister && isTriko && (
+          {cashRegister && (
             <UploadBill
+              onAcceptPrice={handleAcceptPrice}
+              isTriko={isTriko}
               onUploadReceipt={handleUploadReceipt}
               request={request}
             />

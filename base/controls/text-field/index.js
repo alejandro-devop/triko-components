@@ -88,6 +88,7 @@ const TextField = ({
         {label && (
           <Label
             disabled={disabled}
+            required={required}
             secondary={secondary}
             style={classNames(
               {
@@ -95,7 +96,7 @@ const TextField = ({
               },
               classes,
             )}>
-            {`${required ? '* ' : ''}${label}`}
+            {label}
           </Label>
         )}
         <View style={classes.inputRow}>

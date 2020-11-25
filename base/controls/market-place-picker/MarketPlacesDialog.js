@@ -9,6 +9,7 @@ import SuggestionsList from './SuggestionsList';
 import {useMarketsList} from './hooks';
 import MarketPreview from 'shared/components/base/controls/market-place-picker/MarketPreview';
 import {CircularLoader} from 'components/base/loaders';
+import CircleButton from 'shared/components/base/buttons/circle-button';
 
 const MarketPlacesDialog = ({
   open,
@@ -16,6 +17,7 @@ const MarketPlacesDialog = ({
   categories = [],
   onChangeCategories,
   onSelect,
+  onAdd,
 }) => {
   const [classes] = useStyles(styles);
   const [query, setQuery] = useState('');
@@ -39,6 +41,7 @@ const MarketPlacesDialog = ({
   const onSelectOther = () => {
     setSelected(null);
   };
+  console.log('Market_places: ', places);
   return (
     <Dialog
       contentStyles={classes.root}
@@ -65,6 +68,9 @@ const MarketPlacesDialog = ({
             {!loading && (
               <SuggestionsList items={places} onSelect={onSelectMarket} />
             )}
+            <View style={classes.actions}>
+              <CircleButton name="plus" onAdd primary onPress={onAdd} />
+            </View>
           </>
         )}
         {selected && (
@@ -80,6 +86,9 @@ const MarketPlacesDialog = ({
 };
 
 const styles = () => ({
+  actions: {
+    marginTop: 30,
+  },
   content: {
     paddingHorizontal: 20,
   },

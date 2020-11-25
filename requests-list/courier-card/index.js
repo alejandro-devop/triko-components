@@ -57,6 +57,8 @@ const CourierCard = ({
   const isPostulated = isTriko
     ? trikos.map((item) => item.id).includes(triko.id)
     : false;
+  console.clear();
+  console.log('Workflow: ', workflow);
   return (
     <View style={classes.root}>
       <View style={classes.serviceWrapper}>
@@ -116,6 +118,13 @@ const CourierCard = ({
                 <Text style={classes.noTrikosLabel}>
                   {_t('no_trikos_postulated')}
                 </Text>
+              </View>
+            )}
+            {workflow === STATUS_ACCEPTED && (
+              <View style={classes.actionsPending}>
+                <Button primary size="xxs" onPress={onView}>
+                  make_payment
+                </Button>
               </View>
             )}
           </>

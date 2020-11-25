@@ -9,9 +9,14 @@ import ImagePicker from 'shared/components/base/controls/image-picker';
 import Button from 'shared/components/base/buttons/button';
 import {isEmpty} from 'shared/utils/functions';
 import useRequestUpdateAttrs from 'shared/hooks/use-request-update-attrs';
-import PreImage from "shared/components/base/pre-image";
+import PreImage from 'shared/components/base/pre-image';
 
-const UploadBill = ({request = {}, onUploadReceipt}) => {
+const UploadBill = ({
+  request = {},
+  isTriko,
+  onUploadReceipt,
+  onAcceptPrice,
+}) => {
   const [serviceDetail = {}] = request.details;
   const {images = []} = request;
   const [trikoImage] = images;
@@ -46,24 +51,40 @@ const UploadBill = ({request = {}, onUploadReceipt}) => {
         </View>
         {isEmpty(trikoImage) && (
           <>
-            <InfoMessage text="shopper_triko_must_pay" />
-            <ImagePicker onChange={handleImageChange} />
-            <View style={classes.actionWrapper}>
-              <Button
-                primary
-                disabled={isEmpty(file) || loading}
-                onPress={handleSubmit}>
-                send_text
-              </Button>
-            </View>
+            {isTriko && (
+              <>
+                <InfoMessage text="shopper_triko_must_pay" />
+                <ImagePicker onChange={handleImageChange} />
+                <View style={classes.actionWrapper}>
+                  <Button
+                    primary
+                    disabled={isEmpty(file) || loading}
+                    onPress={handleSubmit}>
+                    send_text
+                  </Button>
+                </View>
+              </>
+            )}
           </>
         )}
         {!isEmpty(trikoImage) && (
           <>
-            <InfoMessage text="wait_for_the_client_to_confirm_cart_price" />
+            {isTriko && (
+              <InfoMessage text="wait_for_the_client_to_confirm_cart_price" />
+            )}
             <View style={classes.uploadedWrapper}>
-              <PreImage source={{uri: trikoImage.url}} style={classes.uploadedBill} />
+              <PreImage
+                source={{uri: trikoImage.url}}
+                style={classes.uploadedBill}
+              />
             </View>
+            {!isTriko && (
+              <View style={classes.actionWrapper}>
+                <Button primary disabled={loading} onPress={onAcceptPrice}>
+                  accept_cart_value
+                </Button>
+              </View>
+            )}
           </>
         )}
       </View>

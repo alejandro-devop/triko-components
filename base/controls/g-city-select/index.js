@@ -8,6 +8,7 @@ import useCityFinder from 'shared/components/base/controls/g-city-select/useCity
 import SelectableList from 'shared/components/base/selectable-list';
 import Text from 'components/base/text';
 import styles from './styles';
+import {isEmpty} from 'shared/utils/functions';
 
 let timer = null;
 
@@ -19,10 +20,11 @@ const GCitySelect = ({
   name,
   placeholder,
   searchPlaceholder,
+  defaultValue = '',
 }) => {
   const [classes] = useStyles(styles);
   const [selected, setSelected] = useState(null);
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState(defaultValue);
   const {cities = [], findCities, loading} = useCityFinder();
   const onChangeQuery = async ({target: {value}}) => {
     setQuery(value);
@@ -31,12 +33,16 @@ const GCitySelect = ({
       findCities(value);
     }, delay);
   };
-  useEffect(
-    () => () => {
+  useEffect(() => {
+    if (!isEmpty(defaultValue)) {
+      setTimeout(() => {
+        onChangeQuery({target: {value: defaultValue}});
+      }, 500);
+    }
+    return () => {
       clearTimeout(timer);
-    },
-    [],
-  );
+    };
+  }, []);
 
   const items = cities.map((item) => ({
     value: item,
@@ -63,6 +69,7 @@ const GCitySelect = ({
         placeholder={placeholder}
         primary
         onChange={onChangeQuery}
+        value={query}
       />
       {loading && (
         <View style={classes.loaderWrapper}>
