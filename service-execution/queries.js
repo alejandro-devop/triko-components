@@ -17,6 +17,10 @@ export const GET_REQUEST = gql`
       address
       duration
       attributes
+      images {
+        id
+        url: url_download_file
+      }
       type: servicerequesttype {
         id
         name

@@ -23,4 +23,14 @@ export default ({palette, variables: {textMedium}}) => ({
     fontWeight: '600',
     color: palette.blue,
   },
+  uploadedBill: {
+    width: '100%',
+    height: '100%',
+    resizeMode: 'cover',
+    borderRadius: 20,
+  },
+  uploadedWrapper: {
+    width: '100%',
+    maxHeight: 400,
+  },
 });

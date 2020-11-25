@@ -34,7 +34,7 @@ const DayView = ({
     inputFormat,
   );
   const durationObj = moment.duration(endDate.diff(startDate));
-  const dateBlocks = [...Array(durationObj.hours()).keys()].map(key => {
+  const dateBlocks = [...Array(durationObj.hours()).keys()].map((key) => {
     startDate.add(interval, 'hour');
     return {
       hour: startDate.format('h:mm a'),
@@ -102,6 +102,7 @@ const styles = ({palette}) => ({
     flex: 1,
   },
   root: {
+    flex: 1,
     marginTop: 20,
     paddingBottom: 100,
   },

@@ -79,7 +79,7 @@ const WeekView = ({
                       hourBlocks={dateBlocks}
                       blockWidth={blockWidth * 1.5}
                       blockHeight={blockHeight}
-                      events={getEvents(dayNumber)}
+                      events={getEvents(dayNumber, events)}
                     />
                   ))}
                 </View>

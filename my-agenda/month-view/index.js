@@ -23,7 +23,7 @@ const MonthView = ({
     setBlockWidth(Math.floor(layout.width / 7));
   };
   const dayOfWeek = currentMonth.format('ddd');
-  const offsetDays = daysMap.findIndex(item => item === dayOfWeek);
+  const offsetDays = daysMap.findIndex((item) => item === dayOfWeek);
   const monthNumber = parseInt(currentMonth.format('M'), 10);
   const month = months[monthNumber - 1];
   return (
@@ -44,13 +44,13 @@ const MonthView = ({
               </View>
             ))}
           </View>
-          {_.times(offsetDays, key => (
+          {_.times(offsetDays, (key) => (
             <View
               style={[classes.dayOffset, {width: blockWidth}]}
               key={`offset-day-${key}`}
             />
           ))}
-          {_.times(daysInMonth, key => {
+          {_.times(daysInMonth, (key) => {
             const dayNumber = key + 1;
             return (
               <DayItem

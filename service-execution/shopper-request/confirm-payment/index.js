@@ -4,20 +4,31 @@ import styles from './styles';
 import {useStyles} from 'hooks/index';
 import InfoMessage from 'shared/components/messages/InfoMessage';
 import Button from 'shared/components/base/buttons/button';
-import {STATUS_CONFIRM_PAYMENT} from 'config/request-statuses';
-import PreImage from "shared/components/base/pre-image";
+import {
+  STATUS_CONFIRM_PAYMENT,
+  STATUS_PAYING_ORDER,
+} from 'config/request-statuses';
+import PreImage from 'shared/components/base/pre-image';
+import {isEmpty} from 'shared/utils/functions';
 
-const ConfirmPayment = ({onPaymentReceived, workflow, request}) => {
+const ConfirmPayment = ({onPaymentReceived, workflow, request = {}}) => {
   const [classes] = useStyles(styles);
-  const billScreenshots = 'https://designblog.uniandes.edu.co/blogs/dise2619/files/2014/01/ana_collazos.jpeg';
+  const {images = []} = request;
+  const [, clientImage] = images;
 
   return (
     <View style={classes.root}>
-      {workflow !== STATUS_CONFIRM_PAYMENT && <InfoMessage text="waiting_for_client_to_upload_file" />}
-      {workflow === STATUS_CONFIRM_PAYMENT && (
+      {isEmpty(clientImage) &&
+        [STATUS_CONFIRM_PAYMENT, STATUS_PAYING_ORDER].includes(workflow) && (
+          <InfoMessage text="waiting_for_client_to_upload_file" />
+        )}
+      {workflow === STATUS_CONFIRM_PAYMENT && !isEmpty(clientImage) && (
         <View>
           <View style={classes.billWrapper}>
-            <PreImage style={classes.billImage} source={{uri: billScreenshots}} />
+            <PreImage
+              style={classes.billImage}
+              source={{uri: clientImage.url}}
+            />
           </View>
           <View style={classes.actions}>
             <Button onPress={onPaymentReceived} primary>
