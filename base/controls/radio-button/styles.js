@@ -6,7 +6,7 @@ export default ({palette}) => ({
     // marginBottom: 10,
   },
   radioCircle: {
-    // marginRight: 10,
+    marginRight: 5,
     borderRadius: 100,
     width: 25,
     height: 25,
@@ -56,7 +56,6 @@ export default ({palette}) => ({
     flexDirection: 'row',
   },
   labelWrapperHorizontal: {
-    marginLeft: 20,
     alignItems: 'center',
     justifyContent: 'center',
   },

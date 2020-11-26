@@ -7,6 +7,7 @@ import MyAddressesWrapper from 'shared/components/base/controls/address-input/My
 import AddressWizard from 'shared/components/base/address-wizard';
 import useAddressSave from 'shared/components/base/address-wizard/useAddressSave';
 import {LoadingCurtain} from 'components/base/dialogs';
+import MapPicker from 'shared/components/base/controls/map-picker';
 
 /**
  * This component allows to manage and pick the user addresses.
@@ -115,43 +116,53 @@ const AddressInput = ({
   return (
     <>
       {loading && <LoadingCurtain />}
-      <InputControl
-        askSaveAddress={askSaveAddress}
-        disabled={disabled}
-        error={error}
-        label={label}
-        onPress={() => (logged ? toggleList() : toggleForm())}
-        onAcceptSave={saveAddedAddress}
-        onCancelSave={toggleAskSave}
-        placeholder={placeholder}
-        required={required}
-        secondary={secondary}
-        value={selectedAddress}
-      />
-      {openList && (
-        <MyAddressesWrapper
-          enableAddButton={enableAddButton || !isTriko}
-          isTriko={isTriko}
-          onAddAddress={toggleForm}
-          onSelectAddress={onSelectAddress}
-          open={openList}
-          onClose={toggleList}
-          useWizard={useWizard}
-          useWizardLabel={useWizardLabel}
-        />
-      )}
-      {openForm && (
-        <WizardWrapper
-          title={useWizard ? useWizardLabel : null}
-          onClose={onCloseForm}
-          open={openForm}>
-          <AddressWizard
-            isTriko={isTriko}
-            useWizard={useWizard}
-            useWizardLabel={useWizardLabel}
-            onSaved={onAddressSaved}
+      {logged && (
+        <>
+          <InputControl
+            askSaveAddress={askSaveAddress}
+            disabled={disabled}
+            error={error}
+            label={label}
+            onPress={() => (logged ? toggleList() : toggleForm())}
+            onAcceptSave={saveAddedAddress}
+            onCancelSave={toggleAskSave}
+            placeholder={placeholder}
+            required={required}
+            secondary={secondary}
+            value={selectedAddress}
           />
-        </WizardWrapper>
+          {openList && (
+            <MyAddressesWrapper
+              enableAddButton={enableAddButton || !isTriko}
+              isTriko={isTriko}
+              onAddAddress={toggleForm}
+              onSelectAddress={onSelectAddress}
+              open={openList}
+              onClose={toggleList}
+              useWizard={useWizard}
+              useWizardLabel={useWizardLabel}
+            />
+          )}
+          {openForm && (
+            <WizardWrapper
+              title={useWizard ? useWizardLabel : null}
+              onClose={onCloseForm}
+              open={openForm}>
+              <AddressWizard
+                isTriko={isTriko}
+                useWizard={useWizard}
+                useWizardLabel={useWizardLabel}
+                onSaved={onAddressSaved}
+              />
+            </WizardWrapper>
+          )}
+        </>
+      )}
+      {!logged && (
+        <>
+          <MapPicker onChange={onChange} name={name} value={value} primary />
+          {/*{openList && <UnAuthenticated onClose={toggleList} open={openList} />}*/}
+        </>
       )}
     </>
   );

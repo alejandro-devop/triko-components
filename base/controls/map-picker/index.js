@@ -39,9 +39,9 @@ const MapPicker = ({
       />
       {visible && (
         <AddressWizard
-          open={visible}
+          open
           defaultQuery={defaultQuery}
-          onClose={toggleVisible}
+          onClose={() => toggleVisible()}
           onSaved={handleChangeAddress}
           skipForm
           useDialog
