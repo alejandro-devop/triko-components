@@ -126,6 +126,7 @@ const TextField = ({
                 autoCorrect={autoCorrect}
                 autoFocus={autoFocus}
                 onBlur={onBlur}
+                textContentType={'oneTimeCode'}
                 onKeyPress={onKeyPress}
                 keyboardType={keyboardType}
                 editable={!disabled}
