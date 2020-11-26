@@ -33,3 +33,11 @@ export const GET_TRIKO_ADDRESSES = gql`
     }
   }
 `;
+
+export const REMOVE_CLIENT_ADDRESS = gql`
+  mutation removeAddress($id: Int) {
+    response: clientAddressDelete(client_address_id: $id) {
+      id
+    }
+  }
+`;

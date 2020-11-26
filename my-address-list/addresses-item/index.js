@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {TouchableOpacity, View} from 'react-native';
+import IconButton from 'shared/components/base/buttons/icon-button';
 import Text from 'shared/components/base/text';
 import Icon from 'shared/components/base/icon';
 import classNames from 'shared/utils/classnames';
@@ -16,11 +17,18 @@ import styles from './styles';
  * @param addressItem
  * @param disableSelect
  * @param onPress
+ * @param onRemove
  * @param selected
  * @returns {*}
  * @constructor
  */
-const AddressItem = ({addressItem = {}, disableSelect, onPress, selected}) => {
+const AddressItem = ({
+  addressItem = {},
+  disableSelect,
+  onRemove,
+  onPress,
+  selected,
+}) => {
   const {title, address} = addressItem;
   const [classes] = useStyles(styles);
   const {type = {}} = addressItem;
@@ -43,6 +51,11 @@ const AddressItem = ({addressItem = {}, disableSelect, onPress, selected}) => {
         <Text>{title}</Text>
         <Text variant="caption">{address}</Text>
       </View>
+      <IconButton
+        name="trash"
+        iconStyles={classes.removeIcon}
+        onPress={onRemove}
+      />
     </Wrapper>
   );
 };
@@ -53,6 +66,7 @@ AddressItem.propTypes = {
     title: PropTypes.string,
   }),
   onPress: PropTypes.func,
+  onRemove: PropTypes.func,
   selected: PropTypes.bool,
 };
 

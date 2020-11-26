@@ -13,6 +13,8 @@ import Text from 'shared/components/base/text';
 import useTranslation from 'hooks/useTranslation';
 import Button from 'components/base/buttons/button';
 import styles from './styles';
+import useAddressRemove from 'shared/components/my-address-list/hooks';
+import {LoadingCurtain} from 'components/base/dialogs';
 
 /**
  * This component renders the user addresses list.
@@ -49,27 +51,42 @@ const MyAddressesList = ({
     stack: {client = {}, triko = {}, locale, myAddresses = []},
     setKey,
   } = useSession();
-  const {loading} = useQuery(
+  const {removeAddress, loading: removing} = useAddressRemove();
+  const variables = isTriko
+    ? {
+        triko: triko.id,
+        locale,
+      }
+    : {
+        client: client.id,
+        locale,
+      };
+  const {loading, refetch} = useQuery(
     isTriko ? GET_TRIKO_ADDRESSES : GET_CLIENT_ADDRESSES,
     {
       fetchPolicy: 'no-cache',
       onCompleted: ({response}) => {
         setKey('myAddresses', response);
       },
-      variables: isTriko
-        ? {
-            triko: triko.id,
-            locale,
-          }
-        : {
-            client: client.id,
-            locale,
-          },
+      variables,
     },
   );
+
+  const refresh = async () => {
+    await refetch(variables);
+  };
+
+  const handleRemoveAddress = async ({id}) => {
+    await removeAddress(id);
+    await setKey(
+      'myAddresses',
+      myAddresses.filter((item) => item.id !== id),
+    );
+  };
   const addressesToList = Array.isArray(myAddresses) ? myAddresses : [];
   return (
     <View style={classes.root}>
+      {removing && <LoadingCurtain />}
       {loading && <ListLoader size="lg" />}
       {!loading && (
         <>
@@ -79,6 +96,7 @@ const MyAddressesList = ({
               key={`my-address-${key}`}
               addressItem={item}
               onPress={() => onSelectAddress(item)}
+              onRemove={() => handleRemoveAddress(item)}
             />
           ))}
           {addressesToList.length === 0 && (

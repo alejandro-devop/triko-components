@@ -20,6 +20,9 @@ export default ({palette}) => ({
     padding: 3,
     backgroundColor: '#FFF',
   },
+  removeIcon: {
+    color: palette.blue,
+  },
   root: {
     flexDirection: 'row',
     alignItems: 'center',
