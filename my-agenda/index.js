@@ -54,16 +54,16 @@ const MySchedule = ({inputFormat = 'YYYY-MM-DD HH:mm:ss', isTriko}) => {
     isTriko,
     onlyMyServices: true,
   });
+  const {events: userEvents = []} = useEventList();
   const onSelectMonthDay = () => {};
   const onChangeOption = (key) => setCurrentOption(key);
-  const events = getTransformedServices(requests);
+  const events = [...getTransformedServices(requests), ...userEvents];
 
   const getEvents = (day, eventsToProcess = []) => {
-    const pevents = eventsToProcess.filter((item) => {
+    return eventsToProcess.filter((item) => {
       const itemDate = moment(item.start, inputFormat);
       return day === parseInt(itemDate.format('D'), 10);
     });
-    return pevents;
   };
 
   useFocusEffect(
