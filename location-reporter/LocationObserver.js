@@ -54,8 +54,6 @@ const LocationObserver = ({interval = 10000, onLocationChange}) => {
       // changePosition();
     }, interval);
     return () => {
-      console.clear();
-      console.log('Clearing observer!');
       stopObserver();
       clearInterval(timer);
     };

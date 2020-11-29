@@ -97,7 +97,7 @@ const RequestDetail = ({isTriko}) => {
     order && order.transition ? order.transition : {};
   const paidOut = orderWorkflow === PAYMENT_COMPLETED_STATUS;
   const isFavor = isShopper || isCourier || isTask;
-  
+
   return (
     <>
       {!isTriko && !isFavor && (

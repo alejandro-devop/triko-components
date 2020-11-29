@@ -57,8 +57,6 @@ const CourierCard = ({
   const isPostulated = isTriko
     ? trikos.map((item) => item.id).includes(triko.id)
     : false;
-  console.clear();
-  console.log('Workflow: ', workflow);
   return (
     <View style={classes.root}>
       <View style={classes.serviceWrapper}>
