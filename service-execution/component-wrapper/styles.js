@@ -1,4 +1,7 @@
 export default ({palette, variables: {cornerRadius}}) => ({
+  clientActions: {
+    alignItems: 'center',
+  },
   content: {
     flexGrow: 1,
     backgroundColor: palette.blueLight,

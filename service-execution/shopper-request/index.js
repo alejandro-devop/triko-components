@@ -196,7 +196,6 @@ const ShopperRequest = ({isTriko, request = {}, refreshRequest}) => {
   const hideCart = cashRegister;
   const hideMap = cashRegister || !isTriko || waitingForPayment || isRating;
   const {latitude, longitude} = mapLocation;
-
   return (
     <>
       {loading && <LoadingCurtain />}
@@ -246,7 +245,7 @@ const ShopperRequest = ({isTriko, request = {}, refreshRequest}) => {
                 workflow={workflow}
               />
             )}
-          {isTriko && cashRegister && (
+          {cashRegister && (
             <UploadBill
               onAcceptPrice={handleAcceptPrice}
               isTriko={isTriko}

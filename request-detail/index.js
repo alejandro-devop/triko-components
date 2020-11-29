@@ -96,9 +96,11 @@ const RequestDetail = ({isTriko}) => {
   const {workflow: orderWorkflow} =
     order && order.transition ? order.transition : {};
   const paidOut = orderWorkflow === PAYMENT_COMPLETED_STATUS;
+  const isFavor = isShopper || isCourier || isTask;
+  
   return (
     <>
-      {!isTriko && (
+      {!isTriko && !isFavor && (
         <RateCalculator
           request={request}
           triko={triko}

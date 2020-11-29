@@ -24,6 +24,7 @@ import {
 import ServiceResume from '../service-resume';
 import useNavigate from 'shared/hooks/use-navigate';
 import ConfirmSlide from 'components/base/confirm-slide';
+import Button from 'shared/components/base/buttons/button';
 
 const ComponentWrapper = ({isTriko, request = {}, refreshRequest}) => {
   const {details = [], transition = {}} = request;
@@ -84,6 +85,10 @@ const ComponentWrapper = ({isTriko, request = {}, refreshRequest}) => {
     toggleCancel();
   };
 
+  const handleExit = () => {
+    navigation.goBack();
+  };
+
   // const handleReport = () => {};
 
   const isQualifying =
@@ -123,8 +128,9 @@ const ComponentWrapper = ({isTriko, request = {}, refreshRequest}) => {
               onRateSend={handleRequestUpdate}
             />
           )}
-          {isFinished && !isFavor && (
+          {isFinished && (
             <ServiceResume
+              isShopper={isShopper}
               request={request}
               isTriko={isTriko}
               onTerminate={handleTerminate}
