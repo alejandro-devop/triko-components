@@ -131,6 +131,8 @@ const ComponentWrapper = ({isTriko, request = {}, refreshRequest}) => {
           {isFinished && (
             <ServiceResume
               isShopper={isShopper}
+              isCourier={isCourier}
+              isTask={isTask}
               request={request}
               isTriko={isTriko}
               onTerminate={handleTerminate}

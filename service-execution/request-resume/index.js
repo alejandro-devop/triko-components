@@ -3,7 +3,7 @@ import {View} from 'react-native';
 import Text from 'components/base/text';
 import RowItem from '../commons/RowItem';
 import styles from './styles';
-import {useStyles, useSession} from 'hooks';
+import {useStyles, useSession} from 'hooks/index';
 import currency from 'currency-formatter';
 import moment from 'moment';
 

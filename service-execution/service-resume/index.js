@@ -9,6 +9,7 @@ import moment from 'moment';
 import {
   STATUS_CONFIRM_PAYMENT,
   STATUS_GOING_TO_SHOP,
+  STATUS_ON_GOING,
   STATUS_QUALIFY_CLIENT,
   STATUS_QUALIFY_TRIKO,
   STATUS_STARTED,
@@ -39,6 +40,13 @@ const ServiceResume = ({
     );
     endTransition = history.find(
       (item) => item.transition.workflow === STATUS_CONFIRM_PAYMENT,
+    );
+  } else if (isCourier) {
+    startTransition = history.find(
+      (item) => item.transition.workflow === STATUS_ON_GOING,
+    );
+    endTransition = history.find(
+      (item) => item.transition.workflow === STATUS_QUALIFY_CLIENT,
     );
   } else {
     startTransition = history.find(
