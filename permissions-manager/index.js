@@ -14,6 +14,7 @@ export const PERMISSIONS = {
   ACCESS_NOTIFICATIONS: 'notification',
   ACCESS_MICROPHONE: 'microphone',
   ACCESS_DOWNLOAD: 'download',
+  ACCESS_FILES: 'files',
 };
 
 export const labels = {
@@ -21,10 +22,12 @@ export const labels = {
   location: 'permissions_location',
   notification: 'permissions_notify',
   download: 'permission_download',
+  files: 'permission_files',
   microphone: 'permissions_microphone',
 };
 
 export const IOS_PERMISSIONS = {
+  files: RN_PERMISSSIONS.IOS.PHOTO_LIBRARY,
   calendar: RN_PERMISSSIONS.IOS.CALENDARS,
   camera: RN_PERMISSSIONS.IOS.CAMERA,
   location: RN_PERMISSSIONS.IOS.LOCATION_ALWAYS,
@@ -33,6 +36,7 @@ export const IOS_PERMISSIONS = {
   download: RN_PERMISSSIONS.IOS.PHOTO_LIBRARY,
 };
 export const ANDROID_PERMISSIONS = {
+  files: RN_PERMISSSIONS.ANDROID.READ_EXTERNAL_STORAGE,
   camera: RN_PERMISSSIONS.ANDROID.CAMERA,
   location: RN_PERMISSSIONS.ANDROID.ACCESS_FINE_LOCATION,
   microphone: RN_PERMISSSIONS.ANDROID.RECORD_AUDIO,

@@ -246,7 +246,7 @@ const ShopperRequest = ({isTriko, request = {}, refreshRequest}) => {
                 workflow={workflow}
               />
             )}
-          {cashRegister && (
+          {isTriko && cashRegister && (
             <UploadBill
               onAcceptPrice={handleAcceptPrice}
               isTriko={isTriko}

@@ -22,6 +22,7 @@ import {LoadingCurtain} from 'components/base/dialogs';
  * @author Alejandro <alejandro.devop@gmail.com>
  * @param addControl
  * @param addLabel
+ * @param disableRemove
  * @param disableSelect
  * @param emptyLabel
  * @param enableAddButton
@@ -36,6 +37,7 @@ import {LoadingCurtain} from 'components/base/dialogs';
 const MyAddressesList = ({
   addControl,
   addLabel,
+  disableRemove,
   disableSelect,
   emptyLabel,
   enableAddButton = true,
@@ -93,6 +95,7 @@ const MyAddressesList = ({
           {addressesToList.map((item, key) => (
             <AddressItem
               disableSelect={disableSelect}
+              disableRemove={disableRemove}
               key={`my-address-${key}`}
               addressItem={item}
               onPress={() => onSelectAddress(item)}

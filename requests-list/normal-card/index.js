@@ -2,7 +2,7 @@ import React from 'react';
 import {View} from 'react-native';
 import useStyles from 'shared/hooks/use-styles';
 import CardIcon from '../card-icon';
-import ServiceRate from '../ServiceRate';
+import RateForClient from '../rate-for-client';
 import TrikoInfo from '../info-triko';
 import ClientInfo from '../info-client';
 import ServiceInfo from '../service-info';
@@ -61,7 +61,7 @@ const NormalCard = ({
         />
         {!isTriko && (
           <>
-            <ServiceRate request={request} isPaid={isPaid} />
+            <RateForClient request={request} isPaid={isPaid} />
           </>
         )}
         {isTriko && (

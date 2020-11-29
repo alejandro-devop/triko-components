@@ -12,6 +12,7 @@ const PhotoButton = ({
   onTaken,
 }) => {
   const [openVisible, setOpenVisible] = useState(false);
+  const [locked, setLocked] = useState(false);
   const toggleVisible = () => setOpenVisible(!openVisible);
   const {uri: photo} = value || {};
   const {_t} = useTranslation();
@@ -21,6 +22,10 @@ const PhotoButton = ({
       : [],
   });
   const onPickImage = async () => {
+    if (locked) {
+      return false;
+    }
+    setLocked(true);
     capturePhoto({
       onCustom: (button) => {
         if (button === 'vu') {
@@ -35,12 +40,19 @@ const PhotoButton = ({
             data,
           });
         }
+        setLocked(false);
       },
     });
   };
   return (
     <>
-      <Control label={label} icon={icon} onPress={onPickImage} photo={photo} />
+      <Control
+        disabled={locked}
+        label={label}
+        icon={icon}
+        onPress={onPickImage}
+        photo={photo}
+      />
       {openVisible && <PhotoDialog onClose={toggleVisible} photo={photo} />}
     </>
   );

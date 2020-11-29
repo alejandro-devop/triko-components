@@ -9,6 +9,7 @@ import useTranslation from 'hooks/useTranslation';
  * use this wrapper to place it inside a dialog.
  * @param enableAddButton
  * @param isTriko
+ * @param disableRemove
  * @param useWizard
  * @param open
  * @param onAddAddress
@@ -20,6 +21,7 @@ import useTranslation from 'hooks/useTranslation';
 const MyAddressesWrapper = ({
   enableAddButton,
   isTriko,
+  disableRemove,
   open,
   onAddAddress,
   onSelectAddress,
@@ -35,6 +37,7 @@ const MyAddressesWrapper = ({
       onClose={onClose}
       title={_t('my_address_title')}>
       <MyAddressesList
+        disableRemove={disableRemove}
         enableAddButton={enableAddButton}
         isTriko={isTriko}
         onAddAddress={onAddAddress}

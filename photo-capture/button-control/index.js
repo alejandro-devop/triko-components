@@ -4,10 +4,19 @@ import Icon from 'components/base/icon';
 import Text from 'components/base/text';
 import PreImage from 'components/pre-image';
 import useStyles from 'shared/hooks/use-styles';
+import styles from './styles';
+import {isEmpty} from 'shared/utils/functions';
 
-const Control = ({disabled, onPress, icon, label, photo}) => {
+const ButtonControl = ({
+  disabled,
+  onPress,
+  icon = 'cloud-upload-alt',
+  label,
+  photo = {},
+}) => {
   const [classes] = useStyles(styles);
   const ComponentWrapper = disabled ? View : TouchableOpacity;
+  const photoUrl = !isEmpty(photo) ? photo.uri : null;
   if (disabled) {
     return null;
   }
@@ -27,48 +36,13 @@ const Control = ({disabled, onPress, icon, label, photo}) => {
           </View>
         </View>
       )}
-      {photo && (
+      {Boolean(photoUrl) && (
         <View style={classes.imageWrapper}>
-          <PreImage source={{uri: photo}} style={classes.previewImage} />
+          <PreImage source={{uri: photoUrl}} style={classes.previewImage} />
         </View>
       )}
     </ComponentWrapper>
   );
 };
 
-const styles = ({palette}) => ({
-  button: {
-    width: 70,
-    height: 70,
-    borderRadius: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: palette.blue,
-  },
-  buttonWrapper: {
-    flex: 2,
-  },
-  labelWrapper: {
-    flex: 6,
-  },
-  icon: {
-    color: '#FFF',
-    fontSize: 40,
-  },
-  label: {
-    color: palette.blue,
-  },
-  previewImage: {
-    width: 70,
-    height: 70,
-    borderRadius: 10,
-  },
-  root: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginTop: 20,
-    zIndex: 10,
-  },
-});
-
-export default Control;
+export default ButtonControl;

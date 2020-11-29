@@ -24,7 +24,7 @@ import useRequestUpdate from 'shared/hooks/use-request-update';
 import {isEmpty} from 'shared/utils/functions';
 
 const RateCalculator = ({triko, request, onCompleted}) => {
-  const {total} = useCalcRateClient({
+  useCalcRateClient({
     request: {
       ...request,
       triko,
@@ -34,7 +34,7 @@ const RateCalculator = ({triko, request, onCompleted}) => {
   return null;
 };
 
-const RequestDetail = () => {
+const RequestDetail = ({isTriko}) => {
   const [classes] = useStyles(styles);
   const {_t} = useTranslation();
   const [total, setTotal] = useState(0);
@@ -89,11 +89,22 @@ const RequestDetail = () => {
     return null;
   }
 
+  const handleRateCalc = (value) => {
+    setTotal(value);
+  };
+
   const {workflow: orderWorkflow} =
     order && order.transition ? order.transition : {};
   const paidOut = orderWorkflow === PAYMENT_COMPLETED_STATUS;
   return (
     <>
+      {!isTriko && (
+        <RateCalculator
+          request={request}
+          triko={triko}
+          onCompleted={handleRateCalc}
+        />
+      )}
       <Layout
         disableContent
         header={

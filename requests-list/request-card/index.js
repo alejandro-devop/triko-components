@@ -4,12 +4,6 @@ import {TouchableOpacity, View} from 'react-native';
 import Slide from 'components/anims/Slide';
 import useStyles from 'shared/hooks/use-styles';
 import classNames from 'shared/utils/classnames';
-import {
-  REQUEST_TYPE_COURIER,
-  REQUEST_TYPE_SHOPPER,
-  REQUEST_TYPE_TASK,
-  SERVICES_TYPES,
-} from 'config/constants';
 import NormalCard from '../normal-card';
 import ShopperCard from '../shopper-card';
 import CourierCard from '../courier-card';

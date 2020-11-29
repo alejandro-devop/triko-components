@@ -15,6 +15,7 @@ import MapPicker from 'shared/components/base/controls/map-picker';
  * @author Alejandro <alejandro.devop@gmail.com>
  * @param disabled
  * @param enableAddButton
+ * @param disableRemove
  * @param error
  * @param isTriko
  * @param label
@@ -31,6 +32,7 @@ import MapPicker from 'shared/components/base/controls/map-picker';
  */
 const AddressInput = ({
   disabled,
+  disableRemove,
   enableAddButton,
   error,
   isTriko,
@@ -135,6 +137,7 @@ const AddressInput = ({
             <MyAddressesWrapper
               enableAddButton={enableAddButton || !isTriko}
               isTriko={isTriko}
+              disableRemove={disableRemove}
               onAddAddress={toggleForm}
               onSelectAddress={onSelectAddress}
               open={openList}

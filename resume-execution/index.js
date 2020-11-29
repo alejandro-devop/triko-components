@@ -17,21 +17,19 @@ const ResumeExecution = ({isTriko}) => {
   if (isEmpty(request)) {
     return null;
   }
-  let shouldRender = false;
+  let shouldRender = true;
   const {attributes, transition = {}} = request;
   const {workflow} = transition;
   const requestAttrs = !isEmpty(attributes) ? JSON.parse(attributes) : {};
   const {requestType} = requestAttrs;
   const isFavor = requestType === 'shopper';
-  if (isFavor && SHOPPER_RUNNING.includes(workflow)) {
-    shouldRender = true;
-  }
+  // if (isFavor && SHOPPER_RUNNING.includes(workflow)) {
+  //   shouldRender = true;
+  // }
 
   if (!shouldRender) {
     return null;
   }
-  console.log('workflow: ', workflow);
-  return null;
 
   return (
     <Wrapper>
