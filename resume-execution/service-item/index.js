@@ -5,14 +5,14 @@ import {useSession, useStyles} from 'hooks/index';
 import PreImage from 'shared/components/base/pre-image';
 import Text from 'shared/components/base/text';
 import useTimer from 'shared/hooks/use-timer';
-import {STATUS_STARTED} from 'config/request-statuses';
+import {STATUS_GOING_TO_SHOP, STATUS_STARTED} from 'config/request-statuses';
 import Icon from 'shared/components/base/icon';
 import {getElapsedTime} from 'shared/utils/functions';
 import Button from 'shared/components/base/buttons/button';
 import RatingStars from 'components/base/rating-stars';
 import useNavigate from 'shared/hooks/use-navigate';
 
-const ServiceItem = ({isTriko, request = {}}) => {
+const ServiceItem = ({isTriko, request = {}, isShopper}) => {
   const [classes] = useStyles(styles);
   const {navigation} = useNavigate();
   const {
@@ -20,11 +20,21 @@ const ServiceItem = ({isTriko, request = {}}) => {
     stack: {},
   } = useSession();
   const {history, duration} = request;
-  const startedTransition = history.find(
-    ({transition = {}}) => transition.workflow === STATUS_STARTED,
-  );
+
+  let startedTransition = {};
+  if (isShopper) {
+    startedTransition = history.find(
+      ({transition = {}}) => transition.workflow === STATUS_GOING_TO_SHOP,
+    );
+  } else {
+    startedTransition = history.find(
+      ({transition = {}}) => transition.workflow === STATUS_STARTED,
+    );
+  }
+
   const timeInfo = getElapsedTime(startedTransition.created_at, null, true);
   const {hours = 0, minutes = 0, seconds = 0} = timeInfo;
+
   const {formattedAlt, time = {}} = useTimer({
     initialDate: startedTransition.created_at,
     hours,
@@ -32,6 +42,7 @@ const ServiceItem = ({isTriko, request = {}}) => {
     seconds,
     duration: parseInt(duration, 10),
   });
+
   const {triko: trikos = [], details = [], client = {}} = request;
   const [serviceDetail = {}] = details;
   const {service = {}} = serviceDetail;

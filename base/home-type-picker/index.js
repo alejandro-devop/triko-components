@@ -6,12 +6,11 @@ import ItemsSlider from 'shared/components/base/items-slider';
 import BuildingItem from './building-item';
 import styles from './styles';
 import useStyles from 'hooks/useStyles';
-import {useQuery} from '@apollo/react-hooks';
-import {GET_BUILDING_TYPES} from './queries';
-import {useSession} from 'hooks/index';
+import {useBuildingTypesList} from './hooks';
+import {isEmpty} from 'shared/utils/functions';
 
 /**
- * This component allows to select a home building type
+ * Component to render a slider picker to select home types.
  * @author Jorge Alejandro Quiroz Serna <jakop.box@gmail.com>
  * @version 1.0.0
  * @app Client
@@ -24,22 +23,14 @@ import {useSession} from 'hooks/index';
  */
 const HomePickerType = ({name, onChange, valueKey = 'id', label}) => {
   const [classes] = useStyles(styles);
-  const {
-    stack: {locale},
-  } = useSession();
-  const {loading, data = {}} = useQuery(GET_BUILDING_TYPES, {
-    variables: {
-      locale,
-    },
-    onCompleted: ({response}) => {
-      if (response.length > 0) {
-        const [first] = response;
-        handleSelect(first);
+  const {loading, homeTypes} = useBuildingTypesList({
+    onCompleted: (items = []) => {
+      const [firstItem] = items;
+      if (!isEmpty(firstItem)) {
+        handleSelect(firstItem);
       }
     },
   });
-
-  const homeTypes = data.response ? data.response : [];
   const handleSelect = (selectedItem) => {
     if (onChange && selectedItem) {
       onChange({
