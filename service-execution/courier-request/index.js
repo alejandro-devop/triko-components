@@ -125,7 +125,7 @@ const CourierRequest = ({isTriko, request = {}, refreshRequest}) => {
               </View>
             </View>
           )}
-          {!collapsed && (
+          {!collapsed && isTriko && (
             <View style={classes.actionsWrapper}>
               <Button primary size="xxs" onPress={viewOnMap}>
                 view_on_map
