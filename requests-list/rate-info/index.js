@@ -9,6 +9,7 @@ import {useCalcRate} from 'shared/hooks/use-rate-calc';
 import CircularLoader from 'shared/components/loaders/circular-loader';
 import StatusCard from 'shared/components/requests-list/status-card';
 import {STATUS_FINISHED} from 'config/request-statuses';
+import {isEmpty} from 'shared/utils/functions';
 
 /**
  * This component renders the duration and price for the current request
@@ -24,10 +25,15 @@ const RateInfo = ({isPaid, request, workflow}) => {
   const [classes] = useStyles(styles);
   const {format} = useCurrency();
   const {_t} = useTranslation();
-  const {duration} = request;
-  const {loading, total} = useCalcRate({
+  const {attrs = {}, attributes, duration} = request;
+  const {transport} = attrs;
+  const {calculatedTip = 0} = !isEmpty(attributes)
+    ? JSON.parse(attributes)
+    : {};
+  const {loading, total: subTotal} = useCalcRate({
     request,
   });
+  const total = subTotal + parseFloat(transport) + calculatedTip;
   const requestDuration = parseInt(duration, 10);
   return (
     <View style={classes.root}>

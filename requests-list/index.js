@@ -8,12 +8,7 @@ import useNavigate from 'shared/hooks/use-navigate';
 import NoRequestItems from './NoRequestItems';
 import Filter from './Filter';
 import useRequestList from 'shared/hooks/use-request-list';
-import {
-  REQUEST_TYPE_COURIER,
-  REQUEST_TYPE_SHOPPER,
-  REQUEST_TYPE_TASK,
-  SERVICES_TYPES,
-} from 'config/constants';
+import ViewOnMap from './view-on-map';
 import useUserLocation from 'shared/hooks/use-user-location';
 import {LoadingCurtain} from 'components/base/dialogs';
 import useRequestUpdate from 'shared/hooks/use-request-update';
@@ -65,6 +60,7 @@ const MyActivityComponent = ({
   const {setKey} = useSession();
   const [selectedRequest, setSelectedRequest] = useState(null);
   const [openConfirm, setOpenConfirm] = useState(false);
+  const [selectedLocation, setSelectedLocation] = useState(null);
   const [rejecting, setRejecting] = useState(false);
   const [accepting, setApproving] = useState(false);
   const {location, loading: loadingLocation} = useUserLocation();
@@ -130,7 +126,18 @@ const MyActivityComponent = ({
     getPendingRequests();
   }, []);
 
-  const onViewOnMap = ({}) => {};
+  const onViewOnMap = (selectedItem = {}) => {
+    const {attrs = {}} = selectedItem;
+    const {latitude, longitude} = attrs;
+    setSelectedLocation({
+      latitude,
+      longitude,
+    });
+  };
+
+  const handleCloseMap = () => {
+    setSelectedLocation(null);
+  };
 
   /**
    * Called when the user accepts the dialog box to approve the request.
@@ -187,7 +194,6 @@ const MyActivityComponent = ({
 
   const onView = (request) => {
     const {transition = {}} = request;
-    console.log('workflow: ', transition.workflow);
     if (startedStatuses.includes(transition.workflow)) {
       setKey('selectedToExecution', request);
       navigation.navigate('execution');
@@ -201,7 +207,7 @@ const MyActivityComponent = ({
     setKey('selectedToExecution', request);
     navigation.navigate('execution');
   };
-
+  console.log('view on map: ', selectedLocation);
   return (
     <>
       {isTriko && <TrikoServicesFetcher />}
@@ -246,6 +252,14 @@ const MyActivityComponent = ({
           onRejectRequest={handleCancel}
           request={selectedRequest}
           onClose={handleCloseDialog}
+        />
+      )}
+      {Boolean(selectedLocation) && (
+        <ViewOnMap
+          open
+          onClose={handleCloseMap}
+          latitude={selectedLocation.latitude}
+          longitude={selectedLocation.longitude}
         />
       )}
     </>
