@@ -48,6 +48,7 @@ const ServiceExecution = ({isTriko}) => {
   const {subscribeEvent, unSubscribeEvent} = usePusherSubscriber();
   const {location, loading} = useUserLocation();
   const {loading: loadingRequest, refetch, data = {}} = useQuery(GET_REQUEST, {
+    fetchPolicy: 'no-cache',
     pollInterval: 8000,
     variables: {
       id: selectedToExecution.id,
@@ -58,7 +59,11 @@ const ServiceExecution = ({isTriko}) => {
     data.response && Array.isArray(data.response) ? data.response : [];
 
   const onRefresh = async () => {
-    await refetch();
+    try {
+      await refetch();
+    } catch (e) {
+      //Todo: Check why it's throwing an exception when the workflow changes.
+    }
   };
 
   const onAppFocusChange = (nextAppState) => {
@@ -86,7 +91,6 @@ const ServiceExecution = ({isTriko}) => {
   }
   return (
     <>
-      {loadingRequest && <LoadingCurtain />}
       {!isEmpty(request) && <Header isTriko={isTriko} request={request} />}
       <Wrapper>
         <ScrollView>
@@ -98,6 +102,7 @@ const ServiceExecution = ({isTriko}) => {
         </ScrollView>
         {!location && (loading || loadingRequest) && <CircularLoader />}
       </Wrapper>
+      {loadingRequest && <LoadingCurtain disableModal />}
     </>
   );
 };

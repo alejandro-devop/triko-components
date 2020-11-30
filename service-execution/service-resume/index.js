@@ -17,6 +17,7 @@ import {
 import Button from 'shared/components/base/buttons/button';
 import useRequestUpdateAttrs from 'shared/hooks/use-request-update-attrs';
 import {LoadingCurtain} from 'components/base/dialogs';
+import {isEmpty} from 'shared/utils/functions';
 
 const ServiceResume = ({
   onTerminate,
@@ -57,6 +58,10 @@ const ServiceResume = ({
         ? item.transition.workflow === STATUS_QUALIFY_CLIENT
         : item.transition.workflow === STATUS_QUALIFY_TRIKO,
     );
+  }
+
+  if (isEmpty(startTransition) || isEmpty(endTransition)) {
+    return null;
   }
 
   const scheduledDate = moment(application_date, 'YYYY-MM-DD HH:mm:ss');

@@ -88,7 +88,6 @@ const RateTriko = ({onRateSend, request = {}}) => {
       aspectsToImprove.aspects.length > 0);
   return (
     <>
-      {loading && <LoadingCurtain />}
       <View style={classes.root}>
         <View style={classes.starsWrapper}>
           <RatingStars
@@ -117,6 +116,7 @@ const RateTriko = ({onRateSend, request = {}}) => {
           </Button>
         </View>
       </View>
+      {loading && <LoadingCurtain disableModal />}
     </>
   );
 };

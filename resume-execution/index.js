@@ -15,7 +15,7 @@ const SHOPPER_RUNNING = [STATUS_SHOPPING];
 const RUNNING_STATUSES = [STATUS_STARTED];
 
 const ResumeExecution = ({isTriko}) => {
-  const {requests = []} = useExecutionRequest({isTriko, isShopper: true});
+  const {requests = []} = useExecutionRequest({isTriko, isShopper: false});
   if (requests.length === 0) {
     return null;
   }
@@ -32,13 +32,13 @@ const ResumeExecution = ({isTriko}) => {
   const isFavor = isShopper;
   if (isFavor && SHOPPER_RUNNING.includes(workflow)) {
     shouldRender = true;
-  }
-  if (!isFavor && RUNNING_STATUSES.includes(workflow)) {
+  } else if (!isFavor && RUNNING_STATUSES.includes(workflow)) {
     shouldRender = true;
   }
   if (!shouldRender) {
     return null;
   }
+  // return null;
 
   return (
     <Wrapper>

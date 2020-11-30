@@ -31,7 +31,6 @@ const RateClient = ({request = {}, onRateSend}) => {
 
   return (
     <>
-      {loading && <LoadingCurtain />}
       <View style={classes.root}>
         <Label>
           {_t('qualification_client_opinion_client', {
@@ -58,6 +57,7 @@ const RateClient = ({request = {}, onRateSend}) => {
           </Button>
         </View>
       </View>
+      {loading && <LoadingCurtain disableModal />}
     </>
   );
 };

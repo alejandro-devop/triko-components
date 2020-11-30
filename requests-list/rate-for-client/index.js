@@ -33,9 +33,12 @@ const RateForClient = ({isPaid, request = {}}) => {
 RateForClient.propTypes = {
   isPaid: PropTypes.bool,
   request: PropTypes.shape({
-    triko: PropTypes.shape({
-      id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    }),
+    triko: PropTypes.oneOfType([
+      PropTypes.shape({
+        id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+      }),
+      PropTypes.array,
+    ]),
   }),
 };
 
