@@ -3,6 +3,7 @@ import ConfirmDialog from 'shared/components/dialogs/confirm-dialog';
 import useTranslation from 'hooks/useTranslation';
 import {useCalcRate} from 'shared/hooks/use-rate-calc';
 import useCurrency from 'hooks/useCurrency';
+import {isEmpty} from 'shared/utils/functions';
 
 const ConfirmMessage = ({
   accepting,
@@ -28,9 +29,13 @@ const ConfirmMessage = ({
       onClose();
     }
   };
-
-  const {loading, total} = useCalcRate({request});
-
+  const {attrs = {}, attributes} = request;
+  const {transport} = attrs;
+  const {calculatedTip = 0} = !isEmpty(attributes)
+    ? JSON.parse(attributes)
+    : {};
+  const {loading, total: subTotal} = useCalcRate({request});
+  const total = subTotal + parseFloat(transport) + calculatedTip;
   let message = 'no_message';
   let title = 'no_title';
   if (accepting) {

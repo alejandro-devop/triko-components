@@ -207,7 +207,7 @@ const MyActivityComponent = ({
     setKey('selectedToExecution', request);
     navigation.navigate('execution');
   };
-  console.log('view on map: ', selectedLocation);
+  
   return (
     <>
       {isTriko && <TrikoServicesFetcher />}
