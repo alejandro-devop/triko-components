@@ -1,5 +1,16 @@
 import gql from 'graphql-tag';
 
+export const GET_TRIKO_INFO = gql`
+  query getTrikoInfo($triko: Int, $locale: String = "en") {
+    response: trikos(id: $triko, locale: $locale) {
+      id
+      bank: bankinformation {
+        qr
+      }
+    }
+  }
+`;
+
 export const UPDATE_PRODUCT = gql`
   mutation updateProduct(
     $detail: Int

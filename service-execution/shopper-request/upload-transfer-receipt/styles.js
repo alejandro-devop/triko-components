@@ -5,6 +5,7 @@ export default ({palette, variables: {textMedium}}) => ({
   },
   imageWrapper: {
     alignItems: 'center',
+    marginTop: 20,
   },
   priceWrapper: {
     flexDirection: 'row',
@@ -38,5 +39,11 @@ export default ({palette, variables: {textMedium}}) => ({
   textPrice: {
     fontWeight: '600',
     color: palette.blue,
+  },
+  textQr: {
+    color: palette.blue,
+    textAlign: 'center',
+    paddingHorizontal: 20,
+    fontWeight: '600',
   },
 });

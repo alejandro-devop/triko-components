@@ -24,7 +24,6 @@ import {
 import ServiceResume from '../service-resume';
 import useNavigate from 'shared/hooks/use-navigate';
 import ConfirmSlide from 'components/base/confirm-slide';
-import Button from 'shared/components/base/buttons/button';
 
 const ComponentWrapper = ({isTriko, request = {}, refreshRequest}) => {
   const {details = [], transition = {}} = request;
@@ -84,12 +83,6 @@ const ComponentWrapper = ({isTriko, request = {}, refreshRequest}) => {
   const handleCancel = () => {
     toggleCancel();
   };
-
-  const handleExit = () => {
-    navigation.goBack();
-  };
-
-  // const handleReport = () => {};
 
   const isQualifying =
     [STATUS_QUALIFY_TRIKO].includes(workflow) ||

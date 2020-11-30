@@ -1,7 +1,7 @@
 import {useState} from 'react';
 import useErrorReporter from 'shared/hooks/use-error-reporter';
-import {useMutation} from '@apollo/react-hooks';
-import {UPDATE_PRODUCT} from './queries';
+import {useMutation, useQuery} from '@apollo/react-hooks';
+import {UPDATE_PRODUCT, GET_TRIKO_INFO} from './queries';
 import useNotify from 'hooks/useNotification';
 import {
   STATUS_CONFIRM_PAYMENT,
@@ -16,6 +16,26 @@ import {
   STATUS_QUALIFY_TRIKO,
   STATUS_WAITING_FOR_CLIENT,
 } from 'config/request-statuses';
+import {useSession} from 'hooks/index';
+import {isEmpty} from 'shared/utils/functions';
+
+export const useTrikoInformation = (trikoId) => {
+  const {
+    stack: {locale},
+  } = useSession();
+  const {loading, data = {}} = useQuery(GET_TRIKO_INFO, {
+    variables: {
+      triko: trikoId,
+      locale,
+    },
+  });
+  const trikoInfo = !isEmpty(data.response) ? data.response : [];
+  // const [trikoInfo = {}] = trikos;
+  return {
+    trikoInfo,
+    loading,
+  };
+};
 
 export const useUpdateProduct = (request = {}, originalProduct = {}) => {
   const [loading, setLoading] = useState(false);
@@ -79,7 +99,7 @@ export const useStepDescriptor = (isTriko, workflow, request = {}) => {
     title = 'going_to_deliver_address';
     description = address;
   } else if (workflow === STATUS_IN_THE_DESTINATION) {
-    title = isTriko? 'in_destination_point' : 'make_cart_payment';
+    title = isTriko ? 'in_destination_point' : 'make_cart_payment';
     description = address;
   } else if (workflow === STATUS_PAYING_ORDER) {
     title = 'waiting_for_client_payment';
