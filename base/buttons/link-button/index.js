@@ -72,7 +72,7 @@ const LinkButton = ({
 LinkButton.propTypes = {
   children: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
   onPress: PropTypes.func,
-  style: PropTypes.oneOfType([PropTypes.object]),
+  style: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
 };
 
 export default LinkButton;

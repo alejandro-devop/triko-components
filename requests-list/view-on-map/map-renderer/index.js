@@ -23,8 +23,8 @@ const MapRender = ({latitude, longitude}) => {
   useEffect(() => {
     setTimeout(() => {
       circleRef.current.setNativeProps({fillColor: 'rgba(105, 190, 249, 0.4)'});
-    }, 200)
-  }, []);
+    }, 200);
+  }, [circleRef]);
 
   return (
     <View style={classes.mapWrapper}>

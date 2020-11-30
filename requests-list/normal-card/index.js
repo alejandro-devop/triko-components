@@ -47,12 +47,13 @@ const NormalCard = ({
   const [detail = {}] = request.details || [];
   const {service} = detail;
   const icon = service.icon || service.type.icon;
-  const cartAlternative = withStatus && acceptedStatus.includes(workflow);
+  const cardAlternative =
+    withStatus && isPaid && acceptedStatus.includes(workflow);
   return (
     <View style={classes.root}>
       <View style={classes.serviceWrapper}>
         <CardIcon
-          alternative={cartAlternative}
+          alternative={cardAlternative}
           image={{uri: icon}}
           isPaid={isPaid}
           primary={service.name}
@@ -70,7 +71,7 @@ const NormalCard = ({
         {isTriko && (
           <>
             <ClientInfo
-              alternative={cartAlternative}
+              alternative={cardAlternative}
               isPaid={isPaid}
               client={client}
               isTriko={isTriko}
@@ -80,13 +81,13 @@ const NormalCard = ({
       </View>
       <View style={classes.avatarInfoWrapper}>
         <ServiceInfo
-          alternative={cartAlternative}
+          alternative={cardAlternative}
           acceptedStatus={acceptedStatus}
           isTriko={isTriko}
           isPaid={isPaid}
           request={request}
           showDate
-          hideDistance={cartAlternative}
+          hideDistance={cardAlternative}
           onViewMap={onViewOnMap}
           workflow={workflow}
         />
@@ -96,7 +97,7 @@ const NormalCard = ({
               <RateInfo isPaid={isPaid} request={request} workflow={workflow} />
             )}
             <CardActions
-              alternative={cartAlternative}
+              alternative={cardAlternative}
               withStatus={withStatus}
               onAccept={onAccept}
               onCancel={onCancel}
