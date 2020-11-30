@@ -13,6 +13,7 @@ import classNames from 'shared/utils/classnames';
  * This component renders the client information for the request card
  * @author Alejandro <alejandro.devop@gmail.com>
  * @version 1.0.0
+ * @param alternative
  * @param client
  * @param isPaid
  * @param isTriko
@@ -20,7 +21,7 @@ import classNames from 'shared/utils/classnames';
  * @returns {*}
  * @constructor
  */
-const ClientInfo = ({client = {}, isPaid, isTriko, isFavor}) => {
+const ClientInfo = ({alternative, client = {}, isPaid, isTriko, isFavor}) => {
   const [classes] = useStyles(styles);
   const {
     user: {photo_url},
@@ -46,7 +47,7 @@ const ClientInfo = ({client = {}, isPaid, isTriko, isFavor}) => {
         )}>
         <Text
           style={classNames(
-            {fullName: true, fullNamePaid: isPaid},
+            {fullName: true, fullNamePaid: isPaid, fullNameAlt: alternative},
             classes,
           )}>{`${firstName} ${lastName[0]}.`}</Text>
         <View

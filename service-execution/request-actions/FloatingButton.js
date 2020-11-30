@@ -1,17 +1,21 @@
 import React from 'react';
-import {TouchableOpacity} from 'react-native';
+import {TouchableOpacity, View} from 'react-native';
 import {useStyles} from 'hooks/index';
 import Icon from 'shared/components/base/icon';
 import classNames from 'shared/utils/classnames';
 
-const FloatingButton = ({onPress, primary, icon}) => {
+const FloatingButton = ({disabled, onPress, primary, icon}) => {
   const [classes] = useStyles(styles);
+  const ComponentWrapper = !disabled ? TouchableOpacity : View;
   return (
-    <TouchableOpacity
+    <ComponentWrapper
       onPress={onPress}
-      style={classNames({root: true, primary}, classes)}>
+      style={classNames(
+        {root: true, rootDisabled: disabled, primary},
+        classes,
+      )}>
       <Icon name={icon} style={classes.icon} />
-    </TouchableOpacity>
+    </ComponentWrapper>
   );
 };
 
@@ -27,6 +31,9 @@ const styles = ({palette}) => ({
     height: 40,
     backgroundColor: palette.blue,
     borderRadius: 10,
+  },
+  rootDisabled: {
+    opacity: 0.2,
   },
 });
 

@@ -9,7 +9,8 @@ export default ({palette}) => ({
     borderBottomRightRadius: 40,
   },
   priceWrapper: {
-    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'center',
     paddingVertical: 15,
   },
   priceText: {

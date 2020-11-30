@@ -8,7 +8,7 @@ export default () => ({
     textAlign: 'center',
   },
   messageContent: {
-    paddingHorizontal: 50,
+    paddingHorizontal: 30,
     flex: 1,
   },
   root: {

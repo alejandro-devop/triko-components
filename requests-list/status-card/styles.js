@@ -1,25 +1,30 @@
 export default ({palette, variables: {textExtraSmall}}) => ({
   icon: {
-    width: 30,
-    height: 30,
+    width: 50,
+    height: 50,
     marginBottom: 4,
   },
   root: {
+    marginTop: 20,
     marginBottom: 5,
     alignItems: 'center',
-  },
-  rootPaid: {
-    backgroundColor: '#FFF',
     paddingHorizontal: 5,
     paddingVertical: 10,
     borderRadius: 20,
   },
+  rootAccepted: {
+    backgroundColor: palette.orange,
+  },
+  rootPaid: {
+    backgroundColor: '#FFF',
+  },
   text: {
+    fontSize: textExtraSmall,
     color: '#FFF',
+    fontWeight: '600',
   },
   textPaid: {
     color: palette.orange,
     fontSize: textExtraSmall,
-    fontWeight: '600',
   },
 });

@@ -11,12 +11,14 @@ import ConfirmIcon from 'shared/components/requests-list/ConfirmIcon';
 import classNames from 'shared/utils/classnames';
 
 const ServiceInfo = ({
+  alternative,
   isTriko,
   onViewMap,
   request = {},
   showDate,
   acceptedStatus = [],
   workflow,
+  hideDistance,
   isPaid,
 }) => {
   const {application_date, duration} = request;
@@ -61,17 +63,24 @@ const ServiceInfo = ({
         <View style={classes.infoWrapper}>
           <View>
             {showDate && (
-              <Text style={classNames({date: true, datePaid: isPaid}, classes)}>
+              <Text
+                style={classNames(
+                  {date: true, datePaid: isPaid || alternative},
+                  classes,
+                )}>
                 {formattedDate}
               </Text>
             )}
-            <RequestLocation
-              isPaid={isPaid}
-              request={request}
-              onViewMap={onViewMap}
-            />
+            {!hideDistance && (
+              <RequestLocation
+                alternative={alternative}
+                hideMapButton={alternative}
+                isPaid={isPaid}
+                request={request}
+                onViewMap={onViewMap}
+              />
+            )}
           </View>
-          {acceptedStatus.includes(workflow) && <ConfirmIcon />}
         </View>
       )}
     </View>

@@ -22,6 +22,12 @@ export default ({palette}) => ({
     borderLeftWidth: 0,
     borderRightWidth: 0,
   },
+  contentSuccess: {
+    backgroundColor: palette.green,
+    borderTopColor: '#FFF',
+    borderLeftWidth: 0,
+    borderRightWidth: 0,
+  },
   root: {
     height: 220,
     borderBottomRightRadius: 50,
@@ -32,6 +38,9 @@ export default ({palette}) => ({
     backgroundColor: palette.blueLight,
   },
   rootPaid: {
+    backgroundColor: palette.green,
+  },
+  rootSuccess: {
     backgroundColor: palette.green,
   },
 });

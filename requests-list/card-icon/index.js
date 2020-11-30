@@ -6,6 +6,7 @@ import useStyles from 'shared/hooks/use-styles';
 import Text from 'components/base/text';
 import styles from './styles';
 import classNames from 'shared/utils/classnames';
+import {acceptedStatuses} from 'shared/hooks/use-request-status';
 
 /**
  * This component renders the icon for the request card.
@@ -28,6 +29,7 @@ const CardIcon = ({
   isTriko,
   maxChars = 16,
   isPaid,
+  alternative,
 }) => {
   const [classes] = useStyles(styles);
   const stringToDisplay =
@@ -47,7 +49,14 @@ const CardIcon = ({
         {primary && (
           <Text
             style={[
-              classNames({primary: true, primaryPaid: isPaid}, classes),
+              classNames(
+                {
+                  primary: true,
+                  primaryPaid: isPaid,
+                  textAlternative: alternative,
+                },
+                classes,
+              ),
               otherClasses.primary,
             ]}>
             {stringToDisplay}

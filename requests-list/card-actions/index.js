@@ -11,10 +11,12 @@ import {
 } from 'config/request-statuses';
 import Button from 'shared/components/base/buttons/button';
 import {startedStatuses} from 'shared/hooks/use-request-status';
+import StatusCard from '../status-card';
 
 /**
  * This component allows to render the current cart actions
  * @author Alejandro <alejandro.devop@gmail.com>
+ * @param alternative
  * @param onAccept
  * @param onView
  * @param onCancel
@@ -23,29 +25,20 @@ import {startedStatuses} from 'shared/hooks/use-request-status';
  * @returns {*}
  * @constructor
  */
-const CardActions = ({onAccept, onView, onStart, onCancel, workflow}) => {
+const CardActions = ({
+  alternative,
+  onAccept,
+  onView,
+  onStart,
+  onCancel,
+  workflow,
+  withStatus,
+  isPaid,
+}) => {
   const [classes] = useStyles(styles);
   return (
     <>
       <View style={classes.root}>
-        {workflow === STATUS_PAYMENT && (
-          <View style={classes.paidInfoWrapper}>
-            <View style={classes.paidTextWrapper}>
-              <Text style={[classes.text]}>
-                service_request_congrats_paid_message
-              </Text>
-            </View>
-            <View>
-              <Button
-                alternative
-                size="xs"
-                textStyle={classes.altButton}
-                onPress={onStart}>
-                start_text
-              </Button>
-            </View>
-          </View>
-        )}
         {startedStatuses.includes(workflow) && (
           <Button
             alternative
@@ -67,10 +60,33 @@ const CardActions = ({onAccept, onView, onStart, onCancel, workflow}) => {
             </View>
           </>
         )}
-        {workflow === STATUS_ACCEPTED && (
+        {!withStatus && workflow === STATUS_ACCEPTED && !alternative && (
           <View style={[classes.buttonWrapper, classes.buttonWrapperFirst]}>
             <BorderedButton onPress={onView} icon="eye" />
             <Text style={classes.label}>view_text</Text>
+          </View>
+        )}
+        {withStatus && (
+          <View style={classes.statusWrapper}>
+            <StatusCard isPaid={isPaid} workflow={workflow} />
+            {workflow === STATUS_PAYMENT && isPaid && (
+              <View style={classes.paidInfoWrapper}>
+                <View>
+                  <Button
+                    alternative
+                    size="xxs"
+                    textStyle={classes.altButton}
+                    onPress={onStart}>
+                    start_text
+                  </Button>
+                </View>
+                <View style={classes.paidTextWrapper}>
+                  <Text style={[classes.text]}>
+                    service_request_congrats_paid_message
+                  </Text>
+                </View>
+              </View>
+            )}
           </View>
         )}
       </View>

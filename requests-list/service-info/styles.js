@@ -11,7 +11,7 @@ export default () => ({
   title: {
     fontWeight: '600',
   },
-  titlePaid: {
+  textAlt: {
     color: '#FFF',
     fontWeight: '600',
   },

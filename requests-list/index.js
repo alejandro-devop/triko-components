@@ -38,6 +38,7 @@ const TrikoServicesFetcher = () => {
  * @param onlyMyServices
  * @param noFinished
  * @param noCanceled
+ * @param withStatus
  * @returns {*}
  * @constructor
  */
@@ -55,6 +56,7 @@ const MyActivityComponent = ({
   noCanceled,
   allTypes,
   noRunning,
+  withStatus,
   onlyMyServices,
 }) => {
   const {setKey} = useSession();
@@ -207,7 +209,7 @@ const MyActivityComponent = ({
     setKey('selectedToExecution', request);
     navigation.navigate('execution');
   };
-  
+
   return (
     <>
       {isTriko && <TrikoServicesFetcher />}
@@ -236,6 +238,7 @@ const MyActivityComponent = ({
             onAccept={() => handleSelectToApprove(item)}
             onCancel={() => handleSelectToCancel(item)}
             userLocation={location}
+            withStatus={withStatus}
             onViewOnMap={() => onViewOnMap(item)}
             onView={() => onView(item)}
             onStart={() => onStart(item)}

@@ -10,17 +10,17 @@ import RateInfo from '../rate-info';
 import CardActions from '../card-actions';
 import styles from './styles';
 import {
-  STATUS_ACCEPTED,
   STATUS_CONFIRM_FINISHED,
   STATUS_CONFIRM_START,
   STATUS_FINISHED,
   STATUS_ON_MY_WAY,
   STATUS_ON_YOUR_DOOR,
+  STATUS_PAYMENT,
   STATUS_STARTED,
 } from 'config/request-statuses';
 
 const acceptedStatus = [
-  STATUS_ACCEPTED,
+  STATUS_PAYMENT,
   STATUS_ON_MY_WAY,
   STATUS_ON_YOUR_DOOR,
   STATUS_CONFIRM_START,
@@ -39,6 +39,7 @@ const NormalCard = ({
   request = {},
   workflow,
   isPaid,
+  withStatus,
 }) => {
   const {triko: trikos = [], client = {}} = request;
   const [triko = {}] = trikos;
@@ -46,10 +47,12 @@ const NormalCard = ({
   const [detail = {}] = request.details || [];
   const {service} = detail;
   const icon = service.icon || service.type.icon;
+  const cartAlternative = withStatus && acceptedStatus.includes(workflow);
   return (
     <View style={classes.root}>
       <View style={classes.serviceWrapper}>
         <CardIcon
+          alternative={cartAlternative}
           image={{uri: icon}}
           isPaid={isPaid}
           primary={service.name}
@@ -66,24 +69,35 @@ const NormalCard = ({
         )}
         {isTriko && (
           <>
-            <ClientInfo isPaid={isPaid} client={client} isTriko={isTriko} />
+            <ClientInfo
+              alternative={cartAlternative}
+              isPaid={isPaid}
+              client={client}
+              isTriko={isTriko}
+            />
           </>
         )}
       </View>
       <View style={classes.avatarInfoWrapper}>
         <ServiceInfo
+          alternative={cartAlternative}
           acceptedStatus={acceptedStatus}
           isTriko={isTriko}
           isPaid={isPaid}
           request={request}
           showDate
+          hideDistance={cartAlternative}
           onViewMap={onViewOnMap}
           workflow={workflow}
         />
         {isTriko && (
           <>
-            <RateInfo isPaid={isPaid} request={request} workflow={workflow} />
+            {!withStatus && (
+              <RateInfo isPaid={isPaid} request={request} workflow={workflow} />
+            )}
             <CardActions
+              alternative={cartAlternative}
+              withStatus={withStatus}
               onAccept={onAccept}
               onCancel={onCancel}
               onStart={onStart}

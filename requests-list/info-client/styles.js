@@ -24,6 +24,9 @@ export default ({palette}) => ({
   fullNamePaid: {
     color: '#FFF',
   },
+  fullNameAlt: {
+    color: '#FFF',
+  },
   infoWrapperFavor: {
     alignItems: 'center',
     paddingLeft: 5,

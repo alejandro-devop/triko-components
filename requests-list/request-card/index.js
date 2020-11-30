@@ -12,6 +12,7 @@ import styles from './styles';
 import {PAYMENT_COMPLETED_STATUS} from 'config/order-statuses';
 import {STATUS_CANCEL} from 'config/request-statuses';
 import {isEmpty} from 'shared/utils/functions';
+import {acceptedStatuses} from 'shared/hooks/use-request-status';
 
 /**
  * This component is a generic container for the service requests, it resolves which component
@@ -29,6 +30,7 @@ import {isEmpty} from 'shared/utils/functions';
  * @param userLocation
  * @param onView
  * @param onStart
+ * @param withStatus
  * @returns {*}
  * @constructor
  */
@@ -44,6 +46,7 @@ const RequestCard = ({
   userLocation,
   onView,
   onStart,
+  withStatus,
 }) => {
   const [classes] = useStyles(styles);
   const {attributes} = item;
@@ -65,6 +68,7 @@ const RequestCard = ({
     order && order.transition ? order.transition : {};
   const workflow = transition ? transition.workflow : '';
   const paid = orderWorkflow === PAYMENT_COMPLETED_STATUS;
+
   return (
     <Slide delay={delay}>
       <View
@@ -76,6 +80,8 @@ const RequestCard = ({
             rootCourier: isCourier,
             rootTask: isTask,
             rootPaid: paid && workflow !== STATUS_CANCEL,
+            rootSuccess:
+              withStatus && paid && acceptedStatuses.includes(workflow),
           },
           classes,
         )}>
@@ -90,10 +96,13 @@ const RequestCard = ({
               contentWrapperCourier: isCourier,
               contentWrapperTask: isTask,
               contentWrapperPaid: paid,
+              contentSuccess:
+                withStatus && paid && acceptedStatuses.includes(workflow),
             },
             classes,
           )}>
           <Component
+            withStatus={withStatus}
             request={item}
             isTriko={isTriko}
             onAccept={onAccept}
@@ -131,6 +140,7 @@ RequestCard.propTypes = {
     longitude: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   }),
   onView: PropTypes.func,
+  withStatus: PropTypes.bool,
 };
 
 export default RequestCard;

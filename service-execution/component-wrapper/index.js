@@ -148,7 +148,11 @@ const ComponentWrapper = ({isTriko, request = {}, refreshRequest}) => {
           )}
         </View>
         {!openCancel && !isQualifying && (
-          <Actions onCancel={handleCancel} onOpenChat={handleOpenChat} />
+          <Actions
+            onCancel={handleCancel}
+            onOpenChat={handleOpenChat}
+            workflow={workflow}
+          />
         )}
       </View>
       {loading && <LoadingCurtain />}

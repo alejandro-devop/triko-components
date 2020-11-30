@@ -105,16 +105,14 @@ const ServiceResume = ({
           title="resume_duration_execution"
           description={`${diffHours}h ${diffMinutes}m`}
         />
-        {!isFavor && (
+        {!isFavor && !isTriko && (
           <View style={classes.priceWrapper}>
-            <Text style={classes.priceText}>{`Subtotal: ${currency.format(
-              total,
-              {
-                locale: region,
-                precision: 0,
-                format: '%s %v',
-              },
-            )}`}</Text>
+            <Text style={classes.priceText}>total_text</Text>
+            <Text style={classes.priceText}>{`: ${currency.format(total, {
+              locale: region,
+              precision: 0,
+              format: '%s %v',
+            })}`}</Text>
           </View>
         )}
         <View style={classes.actions}>

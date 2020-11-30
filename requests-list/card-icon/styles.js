@@ -24,4 +24,7 @@ export default ({palette}) => ({
     color: '#FFF',
   },
   root: {},
+  textAlternative: {
+    color: '#FFF',
+  },
 });

@@ -32,4 +32,7 @@ export default ({palette, variables: {textSmall, textMedium}}) => ({
     fontSize: textMedium,
     fontWeight: '600',
   },
+  statusWrapper: {
+    alignItems: 'flex-end',
+  },
 });

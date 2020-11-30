@@ -8,7 +8,14 @@ import useTranslation from 'hooks/useTranslation';
 import {SkeletonLoader} from 'components/base/loaders';
 import classNames from 'shared/utils/classnames';
 
-const RequestLocation = ({delay = 200, isPaid, onViewMap, request}) => {
+const RequestLocation = ({
+  alternative,
+  hideMapButton,
+  delay = 200,
+  isPaid,
+  onViewMap,
+  request,
+}) => {
   const [classes] = useStyles(styles);
   const {latitude, longitude} = request.attrs || {};
   const [loading, setLoading] = useState(true);
@@ -34,22 +41,28 @@ const RequestLocation = ({delay = 200, isPaid, onViewMap, request}) => {
       getLocationInfo();
     }, delay);
   }, []);
-
+  console.log('alt: ', alternative);
   return (
     <View style={classes.root}>
       {loading && <SkeletonLoader style={classes.loader} />}
       {locationInfo && (
         <>
-          <Text style={classNames({text: true, textPaid: isPaid}, classes)}>
+          <Text
+            style={classNames(
+              {text: true, textAlt: alternative || isPaid},
+              classes,
+            )}>
             {locationInfo}
           </Text>
-          <LinkButton
-            onPress={onViewMap}
-            primary
-            style={classNames({link: true, linkPaid: isPaid}, classes)}
-            styles={{root: classes.linkWrapper}}>
-            {_t('view_in_map')}
-          </LinkButton>
+          {!hideMapButton && (
+            <LinkButton
+              onPress={onViewMap}
+              primary
+              style={classNames({link: true, linkPaid: isPaid}, classes)}
+              styles={{root: classes.linkWrapper}}>
+              {_t('view_in_map')}
+            </LinkButton>
+          )}
         </>
       )}
     </View>
@@ -79,8 +92,9 @@ const styles = ({palette}) => ({
   text: {
     fontSize: 12,
   },
-  textPaid: {
+  textAlt: {
     color: '#FFF',
+    fontWeight: '600',
   },
 });
 
