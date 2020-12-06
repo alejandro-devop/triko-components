@@ -10,6 +10,7 @@ export default ({palette}) => ({
     borderWidth: 1,
     borderRadius: 100,
     borderColor: palette.gray,
+    marginRight: 10,
   },
   avatarWrapperFavor: {
     width: 65,
@@ -51,7 +52,20 @@ export default ({palette}) => ({
     fontSize: 16,
     fontWeight: '600',
   },
+  ratingTextClient: {
+    color: '#FFF',
+    fontSize: 16,
+    fontWeight: '600',
+  },
+  ratingWrapperClient: {
+    alignSelf: 'center',
+    borderRadius: 20,
+    backgroundColor: palette.orange,
+    paddingHorizontal: 10,
+    paddingVertical: 2,
+  },
   root: {
+    flexDirection: 'row',
     alignItems: 'center',
     alignSelf: 'flex-start',
     marginTop: 8,

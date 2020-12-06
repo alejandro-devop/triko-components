@@ -46,7 +46,10 @@ const MapRender = ({latitude, longitude}) => {
         <MapView.Circle
           ref={circleRef}
           key={(latitude + longitude).toString()}
-          center={{latitude, longitude}}
+          center={{
+            latitude: parseFloat(latitude),
+            longitude: parseFloat(longitude),
+          }}
           radius={80}
           strokeWidth={1}
           strokeColor={'#1a66ff'}

@@ -18,6 +18,8 @@ import {acceptedStatuses} from 'shared/hooks/use-request-status';
  * @param secondary
  * @param maxChars
  * @param isTriko
+ * @param alternative
+ * @param isPaid
  * @returns {*}
  * @constructor
  */
@@ -38,13 +40,21 @@ const CardIcon = ({
       : primary;
   return (
     <View style={[classNames({root: true}, classes), otherClasses.root]}>
-      <View
-        style={[
-          classNames({imageWrapper: true, imageWrapperTriko: isTriko}, classes),
-          otherClasses.imageWrapper,
-        ]}>
-        <PreImage style={[classes.image, otherClasses.image]} source={image} />
-      </View>
+      {!isTriko && (
+        <View
+          style={[
+            classNames(
+              {imageWrapper: true, imageWrapperTriko: isTriko},
+              classes,
+            ),
+            otherClasses.imageWrapper,
+          ]}>
+          <PreImage
+            style={[classes.image, otherClasses.image]}
+            source={image}
+          />
+        </View>
+      )}
       <View style={[classes.textWrapper, otherClasses.textWrapper]}>
         {primary && (
           <Text
@@ -54,12 +64,13 @@ const CardIcon = ({
                   primary: true,
                   primaryPaid: isPaid,
                   textAlternative: alternative,
+                  textBold: isTriko,
                 },
                 classes,
               ),
               otherClasses.primary,
             ]}>
-            {stringToDisplay}
+            {isTriko ? primary : stringToDisplay}
           </Text>
         )}
         {secondary && (

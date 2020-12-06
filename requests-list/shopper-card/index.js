@@ -28,7 +28,6 @@ import {
   STATUS_WAITING_FOR_TRIKO,
 } from 'config/request-statuses';
 import useTranslation from 'hooks/useTranslation';
-import {startedStatuses} from 'shared/hooks/use-request-status';
 import {isEmpty} from 'shared/utils/functions';
 import {useSession} from 'hooks/index';
 import useNavigate from 'shared/hooks/use-navigate';
@@ -65,9 +64,6 @@ const ShopperCard = ({
   const totalProducts = serviceDetail.products
     ? serviceDetail.products.length
     : 0;
-  const isPostulated = isTriko
-    ? trikos.map((item) => item.id).includes(triko.id)
-    : false;
 
   const handleContinueShopper = () => {
     const {shopperForm = {}} = requestAttributes;
@@ -81,7 +77,6 @@ const ShopperCard = ({
     });
     navigation.navigate('shopper');
   };
-
   return (
     <View style={classes.root}>
       <View style={classes.serviceWrapper}>
@@ -165,8 +160,8 @@ const ShopperCard = ({
           </>
         )}
       </View>
-      {acceptedStatus.includes(transition) && <ConfirmIcon />}
-      {isTriko && workflow === STATUS_WAITING_FOR_TRIKO && (
+      {acceptedStatus.includes(workflow) && <ConfirmIcon />}
+      {isTriko && [STATUS_WAITING_FOR_TRIKO].includes(workflow) && (
         <PostulatedMessage request={request} isTriko={isTriko} />
       )}
     </View>

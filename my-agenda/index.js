@@ -1,7 +1,6 @@
 import React, {useState, useEffect, useCallback} from 'react';
 import PropTypes from 'prop-types';
 import {useFocusEffect} from '@react-navigation/native';
-import eventsMock from './events.mock';
 import MonthView from './month-view';
 import WeekView from './week-view';
 import DayView from './day-view';

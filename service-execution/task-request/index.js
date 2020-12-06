@@ -17,6 +17,7 @@ import {
   STATUS_CONFIRM_START,
   STATUS_FINISHED,
   STATUS_ON_GOING,
+  STATUS_ON_MY_WAY,
   STATUS_QUALIFY_CLIENT,
   STATUS_STARTED,
 } from 'config/request-statuses';
@@ -101,7 +102,12 @@ const TaskRequest = ({
     },
   ];
 
-  const viewOnMap = () => {};
+  const viewOnMap = () => {
+    if (workflow === STATUS_ON_MY_WAY) {
+      const {latitude, longitude} = request.attrs;
+      setMapLocation({latitude, longitude, title: request.address});
+    }
+  };
 
   const closeMap = () => {
     setMapLocation({

@@ -128,6 +128,7 @@ const TaskCard = ({
           </>
         )}
       </View>
+      {acceptedStatus.includes(workflow) && <ConfirmIcon />}
       {isTriko && workflow === STATUS_WAITING_FOR_TRIKO && (
         <PostulatedMessage isTriko={isTriko} request={request} />
       )}

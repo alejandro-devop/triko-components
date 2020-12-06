@@ -27,4 +27,5 @@ export default ({palette}) => ({
   textAlternative: {
     color: '#FFF',
   },
+  textBold: {},
 });

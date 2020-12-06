@@ -140,6 +140,7 @@ const CourierCard = ({
           />
         </>
       )}
+      {acceptedStatus.includes(workflow) && <ConfirmIcon />}
       {isTriko && workflow === STATUS_WAITING_FOR_TRIKO && (
         <PostulatedMessage request={request} isTriko={isTriko} />
       )}

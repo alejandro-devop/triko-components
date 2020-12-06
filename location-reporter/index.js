@@ -24,7 +24,6 @@ const LocationReporter = ({interval = 10000}) => {
   });
   const hasPermission =
     appPermissions[APP_PERMISSIONS.ACCESS_LOCATION] === true;
-
   /**
    * This function checks if the user has permission to access location,
    * if so, it clears an interval which checks for permissions every 10 seconds by default.

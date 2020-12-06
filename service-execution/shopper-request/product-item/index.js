@@ -17,6 +17,7 @@ const ProductItem = ({disableEdit, onSelect, productItem = {}}) => {
     product,
     price = 0,
     quantity = 0,
+    description,
     attrs,
   } = productItem;
   const productAttrs = !isEmpty(attrs) ? JSON.parse(attrs) : {};
@@ -35,27 +36,32 @@ const ProductItem = ({disableEdit, onSelect, productItem = {}}) => {
         classes,
       )}
       onPress={handleSelect}>
-      <View style={classes.textWrapper}>
-        {found && <Icon name="check-circle" style={classes.icon} />}
-        <View style={classes.avatarWrapper}>
-          {isEmpty(image) && (
-            <Icon name="shopping-bag" style={classes.avatarIcon} />
-          )}
-          {!isEmpty(image) && (
-            <PreImage
-              source={{uri: image.url_download_file}}
-              style={classes.avatar}
-            />
-          )}
-        </View>
-        <Text style={[classes.text, classes.productNameText]}>
-          {product.name}
-        </Text>
-        <View style={classes.unitWrapper}>
-          <Text style={[classes.text, classes.textUnit]}>{quantity}</Text>
-          <Text style={[classes.text, classes.textUnit]}>
-            {measure.shortName}
+      <View style={classes.productInfoWrapper}>
+        <View style={classes.textWrapper}>
+          {found && <Icon name="check-circle" style={classes.icon} />}
+          <View style={classes.avatarWrapper}>
+            {isEmpty(image) && (
+              <Icon name="shopping-bag" style={classes.avatarIcon} />
+            )}
+            {!isEmpty(image) && (
+              <PreImage
+                source={{uri: image.url_download_file}}
+                style={classes.avatar}
+              />
+            )}
+          </View>
+          <Text style={[classes.text, classes.productNameText]}>
+            {product.name}
           </Text>
+          <View style={classes.unitWrapper}>
+            <Text style={[classes.text, classes.textUnit]}>{quantity}</Text>
+            <Text style={[classes.text, classes.textUnit]}>
+              {measure.shortName}
+            </Text>
+          </View>
+        </View>
+        <View style={classes.descriptionWrapper}>
+          <Text style={classes.descriptionText}>{description}</Text>
         </View>
       </View>
       {!isEmpty(price) && (

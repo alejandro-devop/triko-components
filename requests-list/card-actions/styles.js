@@ -1,4 +1,7 @@
 export default ({palette, variables: {textSmall, textMedium}}) => ({
+  actionsWrapper: {
+    justifyContent: 'flex-end',
+  },
   altButton: {
     color: palette.green,
   },

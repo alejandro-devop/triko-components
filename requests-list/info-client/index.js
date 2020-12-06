@@ -50,6 +50,11 @@ const ClientInfo = ({alternative, client = {}, isPaid, isTriko, isFavor}) => {
             {fullName: true, fullNamePaid: isPaid, fullNameAlt: alternative},
             classes,
           )}>{`${firstName} ${lastName[0]}.`}</Text>
+        {isTriko && (
+          <View style={classes.ratingWrapperClient}>
+            <Text style={classes.ratingTextClient}>{`${rating}.0`}</Text>
+          </View>
+        )}
         <View
           style={classNames(
             {ratingWrapper: true, ratingWrapperFavor: isFavor},
@@ -57,11 +62,6 @@ const ClientInfo = ({alternative, client = {}, isPaid, isTriko, isFavor}) => {
           )}>
           {!isTriko && <Text style={classes.rating}>{`${rating}.0`}</Text>}
           <RatingStars size={10} value={rating} />
-          {isFavor && (
-            <View style={classes.rateWrapper}>
-              <Text style={classes.ratingText}>{`${rating}.0`}</Text>
-            </View>
-          )}
         </View>
       </View>
     </View>

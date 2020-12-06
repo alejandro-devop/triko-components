@@ -35,7 +35,6 @@ const GetUserLocation = ({interval = 30000, onLocationChange}) => {
   const handleTimeCycle = async () => {
     await getLocation();
   };
-
   return (
     <>
       {!loading && (

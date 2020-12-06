@@ -82,6 +82,7 @@ export const GET_REQUEST = gql`
         price
         products {
           id
+          description
           attrs
           image {
             url_download_file
