@@ -1,5 +1,6 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import {Linking, Platform} from 'react-native';
+import {useFocusEffect} from '@react-navigation/native';
 import BoxControl from './box-control';
 import useHasPermissions, {
   APP_PERMISSIONS,
@@ -14,15 +15,33 @@ import useNotify from 'hooks/useNotification';
 
 const LocationPermissionChecker = () => {
   const [visible, setVisible] = useState(true);
-  const {appPermissions} = useHasPermissions({
+  const {appPermissions, reCheck} = useHasPermissions({
     permissions: [APP_PERMISSIONS.ACCESS_LOCATION],
   });
+  let timer = null;
   const {error} = useNotify();
   const reportError = useErrorReporter({
     path: 'src/shared/components/location-permission-checker/index.js',
   });
 
-  if (appPermissions[APP_PERMISSIONS.ACCESS_LOCATION]) {
+  useEffect(() => {
+    if (!appPermissions[APP_PERMISSIONS.ACCESS_LOCATION]) {
+      timer = setInterval(() => {
+        reCheck();
+      }, 5000);
+    } else {
+      clearInterval(timer);
+    }
+    if (appPermissions[APP_PERMISSIONS.ACCESS_LOCATION] && visible) {
+      setVisible(false);
+      clearInterval(timer);
+    }
+    return () => {
+      clearInterval(timer);
+    };
+  }, [appPermissions, visible]);
+
+  if (appPermissions[APP_PERMISSIONS.ACCESS_LOCATION] || !visible) {
     return null;
   }
 
@@ -33,7 +52,7 @@ const LocationPermissionChecker = () => {
           ? IOS_PERMISSIONS.location
           : ANDROID_PERMISSIONS.location;
       const response = await request(permissionName);
-      if (response === 'unavailable') {
+      if (response === 'unavailable' || response === 'blocked') {
         Linking.openSettings();
       } else if (response === 'granted') {
         setVisible(false);
@@ -43,7 +62,6 @@ const LocationPermissionChecker = () => {
       error('Error while requesting the permission');
     }
   };
-
   return visible ? (
     <BoxControl onRequestPermissions={handleRequestPermissions} />
   ) : null;

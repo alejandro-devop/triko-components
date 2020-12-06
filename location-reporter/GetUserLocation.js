@@ -12,7 +12,7 @@ import useUserLocation from 'shared/hooks/use-user-location';
  * @returns {*}
  * @constructor
  */
-const GetUserLocation = ({interval = 30000, onLocationChange}) => {
+const GetUserLocation = ({interval = 10000, onLocationChange}) => {
   const {
     stack: {currentLocation = {}},
   } = useSession();
