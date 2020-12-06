@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import PropTypes from 'prop-types';
-import {TextInput, TouchableOpacity, View} from 'react-native';
+import {Platform, TextInput, TouchableOpacity, View} from 'react-native';
 import styles from './styles';
 import Label from 'shared/components/base/label';
 import {
@@ -14,6 +14,7 @@ import useStyles from 'shared/hooks/use-styles';
 import palette from 'themes/styles/palette';
 import useTranslation from 'hooks/useTranslation';
 import {isEmpty} from 'shared/utils/functions';
+import handleChange from 'shared/components/base/commons/handle-change';
 
 /**
  * This component allows to create a text field
@@ -60,6 +61,9 @@ const TextArea = ({
   required,
   returnKeyType,
   onSubmitEditing,
+                    onBlur,
+                    onKeyPress,
+                    onFocus,
   ..._props
 }) => {
   const [classes] = useStyles(styles);
@@ -128,6 +132,10 @@ const TextArea = ({
               placeholderTextColor={primary ? palette.blue : palette.grayLight}
               secureTextEntry={secureTextEntry}
               onSubmitEditing={onSubmitEditing}
+              onBlur={onBlur}
+              textContentType={'oneTimeCode'}
+              onKeyPress={onKeyPress}
+              onFocus={onFocus}
               style={classNames(
                 {inputBase: true, textArea: true, inputPrimary: primary},
                 [classes],

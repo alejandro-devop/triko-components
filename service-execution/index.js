@@ -49,7 +49,7 @@ const ServiceExecution = ({isTriko}) => {
   const {location, loading} = useUserLocation();
   const {loading: loadingRequest, refetch, data = {}} = useQuery(GET_REQUEST, {
     fetchPolicy: 'no-cache',
-    pollInterval: 8000,
+    pollInterval: 5000,
     variables: {
       id: selectedToExecution.id,
       locale,

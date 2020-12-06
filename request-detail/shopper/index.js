@@ -65,7 +65,11 @@ const Shopper = ({
           />
           <InfoRow
             label={_t('request_detail_market_address')}
-            value={`${market.name} (${market.description})`}
+            value={
+              !isEmpty(market.name) && !isEmpty(market.description)
+                ? `${market.name} (${market.description})`
+                : 'shopping_place_any_where'
+            }
             icon="map-marker"
           />
           <InfoRow

@@ -49,14 +49,6 @@ const AddProduct = ({
         value={name}
         onChange={onChange}
       />
-      <TextArea
-        primary
-        label="product_description_label"
-        placeholder="product_description_placeholder"
-        name="description"
-        value={description}
-        onChange={onChange}
-      />
       <View style={classes.actions}>
         <Button disabled={!isValid} onPress={handleSave} primary>
           save_text

@@ -77,7 +77,7 @@ const ShoppingCart = ({
           )}
           {!isTriko && workflow === STATUS_WAITING_FOR_CLIENT && (
             <Button primary onPress={onConfirmCart}>
-              accept_cart_total
+              continue_text
             </Button>
           )}
           <Button secondary onPress={onClose}>

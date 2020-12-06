@@ -136,8 +136,8 @@ const RequestDetail = ({isTriko}) => {
           )}
         </View>
       </Layout>
-      {loading && <LoadingCurtain />}
-      {loadingPayment && <LoadingCurtain />}
+      {loading && <LoadingCurtain disableModal />}
+      {loadingPayment && <LoadingCurtain disableModal />}
     </>
   );
 };

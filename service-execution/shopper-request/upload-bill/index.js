@@ -81,7 +81,7 @@ const UploadBill = ({
             {!isTriko && (
               <View style={classes.actionWrapper}>
                 <Button primary disabled={loading} onPress={onAcceptPrice}>
-                  accept_cart_value
+                  continue_text
                 </Button>
               </View>
             )}
