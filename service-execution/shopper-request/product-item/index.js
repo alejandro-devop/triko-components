@@ -60,9 +60,11 @@ const ProductItem = ({disableEdit, onSelect, productItem = {}}) => {
             </Text>
           </View>
         </View>
-        <View style={classes.descriptionWrapper}>
-          <Text style={classes.descriptionText}>{description}</Text>
-        </View>
+        {Boolean(description) && (
+          <View style={classes.descriptionWrapper}>
+            <Text style={classes.descriptionText}>{description}</Text>
+          </View>
+        )}
       </View>
       {!isEmpty(price) && (
         <View style={classes.priceWrapper}>

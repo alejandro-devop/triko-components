@@ -9,10 +9,12 @@ import CartTotal from '../cart-total';
 import {isEmpty} from 'shared/utils/functions';
 import useRequestUpdate from 'shared/hooks/use-request-update';
 import {LoadingCurtain} from 'components/base/dialogs';
+import ConfirmDialog from 'shared/components/dialogs/confirm-dialog';
 import {
   STATUS_SHOPPING,
   STATUS_WAITING_FOR_CLIENT,
 } from 'config/request-statuses';
+import useToggle from 'shared/hooks/use-toggle';
 
 const ShoppingCart = ({
   isTriko,
@@ -25,6 +27,7 @@ const ShoppingCart = ({
 }) => {
   const [serviceDetail = {}] = request.details;
   const {products = []} = serviceDetail;
+  const [visibleConfirm, toggleConfirm] = useToggle();
   const cart = !isEmpty(serviceDetail.products) ? serviceDetail.products : [];
   const [selected, setSelected] = useState(null);
   const {updateRequest, loading} = useRequestUpdate();
@@ -50,6 +53,11 @@ const ShoppingCart = ({
   };
 
   const handleFinish = async () => {
+    toggleConfirm();
+  };
+
+  const finishCart = async () => {
+    toggleConfirm();
     await updateRequest(request);
     if (refreshRequest && onFinished) {
       refreshRequest();
@@ -95,6 +103,15 @@ const ShoppingCart = ({
         />
       )}
       {loading && <LoadingCurtain />}
+      {visibleConfirm && (
+        <ConfirmDialog
+          title="finish_shopping"
+          onAccept={finishCart}
+          onClose={() => toggleConfirm()}
+          onCancel={() => toggleConfirm()}
+          message="do_you_really_want_to_finish_shopping"
+        />
+      )}
     </>
   );
 };
