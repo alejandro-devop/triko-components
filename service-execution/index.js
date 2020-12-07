@@ -44,6 +44,7 @@ const ServiceExecution = ({isTriko}) => {
   const {
     stack: {selectedToExecution, locale},
   } = useSession();
+  const [refreshing, setRefreshing] = useState(false);
   const [appState, setAppState] = useState('active');
   const {subscribeEvent, unSubscribeEvent} = usePusherSubscriber();
   const {location, loading} = useUserLocation();
@@ -60,7 +61,9 @@ const ServiceExecution = ({isTriko}) => {
 
   const onRefresh = async () => {
     try {
+      setRefreshing(true);
       await refetch();
+      setRefreshing(false);
     } catch (e) {
       //Todo: Check why it's throwing an exception when the workflow changes.
     }
@@ -102,7 +105,7 @@ const ServiceExecution = ({isTriko}) => {
         </ScrollView>
         {!location && (loading || loadingRequest) && <CircularLoader />}
       </Wrapper>
-      {loadingRequest && <LoadingCurtain disableModal />}
+      {(loadingRequest || refreshing) && <LoadingCurtain disableModal />}
     </>
   );
 };

@@ -55,7 +55,7 @@ export const useUpdateProduct = (request = {}, originalProduct = {}) => {
         product: JSON.stringify({
           productId: product.id,
           units,
-          price,
+          price: parseFloat(price) * parseInt(units, 10),
           measureId: measure.id,
           attrs: {found, notFound: !found, oldProduct},
         }),

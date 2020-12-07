@@ -39,8 +39,8 @@ const ProductEdit = ({
   const productAttrs = !isEmpty(attrs) ? JSON.parse(attrs) : {};
   const {found: defaultFound = true} = productAttrs;
   const {_t} = useTranslation();
-  const [product, setProduct] = useState(productItem.product);
-  const [enableSelectProduct, setEnableSelectProduct] = useState(false);
+  const [product] = useState(productItem.product);
+  const [enableSelectProduct] = useState(false);
   const {minimumMoneyStep: minimumStep = 1} = useRegionConfig();
   const {updateProduct, loading} = useUpdateProduct(request, productItem);
   const {form = {}, onChange} = useForm({
