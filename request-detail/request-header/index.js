@@ -8,6 +8,7 @@ import RequestStatus from '../request-status';
 import PreImage from 'shared/components/base/pre-image';
 import styles from './styles';
 import useRequestStatus from 'shared/hooks/use-request-status';
+import {isEmpty} from 'shared/utils/functions';
 
 const RequestHeader = ({
   disableStatus,
@@ -21,6 +22,9 @@ const RequestHeader = ({
   const [triko = {}] = trikos;
   const {service = {}} = details && details.length > 0 ? details[0] : [];
   const statusText = useRequestStatus(transition.workflow, true, paidOut);
+  if (isEmpty(request) || isEmpty(request.id)) {
+    return null;
+  }
   return (
     <>
       <StatusBar barStyle="light-content" />

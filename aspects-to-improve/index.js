@@ -88,7 +88,7 @@ const AspectsToImprove = ({name, label, onChange}) => {
       </View>
       <TextArea
         onChange={handleChangeComment}
-        placeholder={'Additional comment'}
+        placeholder={'rate_additional_comment'}
       />
     </View>
   );

@@ -1,5 +1,6 @@
-import React, {useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import {View} from 'react-native';
+import {useFocusEffect} from '@react-navigation/native';
 import InsidesLayout from 'main/layouts/insides-layout';
 import ShopperLayout from 'main/layouts/shopper-layout';
 import Header from './request-header';
@@ -23,6 +24,7 @@ import {
 import {PAYMENT_COMPLETED_STATUS} from 'components/pay-service/payment-statuses';
 import useRequestUpdate from 'shared/hooks/use-request-update';
 import {isEmpty} from 'shared/utils/functions';
+import {useRequestFetcher} from 'shared/hooks/use-request-fetcher';
 
 const RateCalculator = ({triko, request, onCompleted}) => {
   useCalcRateClient({
@@ -46,12 +48,16 @@ const RequestDetail = ({isTriko}) => {
     stack: {requestDetailSelected = {}},
     setKey,
   } = useSession();
-  const {request = {}, isShopper, isCourier, isTask} = !isEmpty(
-    requestDetailSelected,
-  )
+  const {isShopper, isCourier, isTask} = !isEmpty(requestDetailSelected)
     ? requestDetailSelected
     : {};
-  const {order = {}, triko: trikos = [], details = []} = request;
+  const {request = {}, refresh} = useRequestFetcher({
+    requestId: requestDetailSelected.request.id,
+  });
+  const {order = {}, triko: trikos = [], details = []} =
+    !isEmpty(request) && !isEmpty(request.id)
+      ? request
+      : requestDetailSelected.request;
   const [triko = {}] = trikos;
   const {workflow} = request.transition || {};
 
@@ -67,6 +73,13 @@ const RequestDetail = ({isTriko}) => {
     Layout = InsidesLayout;
     Component = Task;
   }
+
+  useFocusEffect(
+    useCallback(() => {
+      refresh();
+      return () => {};
+    }, []),
+  );
 
   const handlePayment = async () => {
     if (workflow === STATUS_ACCEPTED) {
@@ -98,7 +111,7 @@ const RequestDetail = ({isTriko}) => {
     order && order.transition ? order.transition : {};
   const paidOut = orderWorkflow === PAYMENT_COMPLETED_STATUS;
   const isFavor = isShopper || isCourier || isTask;
-
+  console.log('Request: ', request);
   return (
     <>
       {!isTriko && !isFavor && (
