@@ -1,26 +1,42 @@
-import React from 'react';
+import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import Wrapper from './Wrapper';
 import Form from './Form';
+import {useSendSupportMessage} from './hooks';
+import {LoadingCurtain} from 'components/base/dialogs';
 
 /**
  * This component allows to report bugs
  * @author Jako <jakop.box@gmail.com>
  * @param {*} param0
  */
-const BugReporter = ({open, onClose, onSuccess}) => {
-  const onSubmit = () => {
-    console.log('data');
+const BugReporter = ({open, disableDialog, onClose, onSuccess}) => {
+  const [saved, setSaved] = useState(false);
+  const {loading, sendReport} = useSendSupportMessage();
+  const onSubmit = async (form) => {
+    await sendReport(form);
+    setSaved(true);
     if (onSuccess) {
       onSuccess();
     }
-    onClose();
+    if (onClose) {
+      onClose();
+    }
   };
 
+  const content = <Form onSubmit={onSubmit} saved={saved} />;
+
   return (
-    <Wrapper open={open} onClose={onClose}>
-      <Form onSubmit={onSubmit} />
-    </Wrapper>
+    <>
+      {disableDialog ? (
+        content
+      ) : (
+        <Wrapper open={open} onClose={onClose}>
+          {content}
+        </Wrapper>
+      )}
+      {loading && <LoadingCurtain />}
+    </>
   );
 };
 
