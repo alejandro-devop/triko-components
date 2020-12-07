@@ -63,7 +63,9 @@ const ServiceExecution = ({isTriko}) => {
     try {
       setRefreshing(true);
       await refetch();
-      setRefreshing(false);
+      setTimeout(() => {
+        setRefreshing(false);
+      }, 1000);
     } catch (e) {
       //Todo: Check why it's throwing an exception when the workflow changes.
     }
