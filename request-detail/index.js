@@ -17,6 +17,7 @@ import styles from './styles';
 import useNavigate from 'shared/hooks/use-navigate';
 import {
   STATUS_ACCEPTED,
+  STATUS_PENDING,
   STATUS_WAITING_FOR_TRIKO,
 } from 'config/request-statuses';
 import {PAYMENT_COMPLETED_STATUS} from 'components/pay-service/payment-statuses';
@@ -112,12 +113,9 @@ const RequestDetail = ({isTriko}) => {
         header={
           <Header
             paidOut={paidOut}
-            hideTrikoInfo={
-              isShopper ||
-              isCourier ||
-              isTask ||
-              workflow === STATUS_WAITING_FOR_TRIKO
-            }
+            hideTrikoInfo={[STATUS_WAITING_FOR_TRIKO, STATUS_PENDING].includes(
+              workflow,
+            )}
             request={request}
           />
         }>

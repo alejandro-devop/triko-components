@@ -60,7 +60,7 @@ const ErrorBoundary = ({children}) => {
   const reportError = useErrorReporter({
     path: `Navigation route: ${routeName}`,
   });
-  console.log('Navigation: ', route);
+
   return (
     <ErrorBoundaryHandler classes={classes} reportError={reportError}>
       {children}
