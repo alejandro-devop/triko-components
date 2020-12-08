@@ -58,7 +58,9 @@ const ComponentWrapper = ({isTriko, request = {}, refreshRequest}) => {
   const handleRequestUpdate = async () => {
     setLockActions(true);
     await updateRequest(request);
-    setLockActions(false);
+    setTimeout(() => {
+      setLockActions(false);
+    }, 2500);
   };
   const handleTerminate = async () => {
     if (isTriko) {
