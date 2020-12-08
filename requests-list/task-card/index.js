@@ -47,6 +47,7 @@ const TaskCard = ({
   userLocation,
   onStart,
   request = {},
+  isPaid,
 }) => {
   const {client = {}} = request;
   const [classes] = useStyles(styles);
@@ -102,7 +103,7 @@ const TaskCard = ({
                   {_t('view_text')}
                 </Button>
               )}
-              {workflow === STATUS_PAYMENT && (
+              {workflow === STATUS_PAYMENT && isPaid && (
                 <Button
                   alternative
                   size="xs"
