@@ -15,7 +15,12 @@ import useTranslation from 'hooks/useTranslation';
 import useRequestUpdateAttrs from 'shared/hooks/use-request-update-attrs';
 import Text from 'shared/components/base/text';
 
-const CourierRequest = ({isTriko, request = {}, refreshRequest}) => {
+const CourierRequest = ({
+  isTriko,
+  request = {},
+  updateRequest,
+  refreshRequest,
+}) => {
   const [classes] = useStyles(styles);
   const [mapLocation, setMapLocation] = useState({
     latitude: null,
@@ -31,7 +36,6 @@ const CourierRequest = ({isTriko, request = {}, refreshRequest}) => {
   // const [activeStep, workflow] = useExecutionStep(currentWorkflow); // going to shop = 4;p
   const activeStep = currentStep;
   const stepDescription = useStepDescriptor(isTriko, workflow, request);
-  const {loading, updateRequest} = useRequestUpdate();
   const {loading: saving, sendRequest} = useRequestUpdateAttrs(request);
 
   const updateStep = async () => {
@@ -104,7 +108,7 @@ const CourierRequest = ({isTriko, request = {}, refreshRequest}) => {
   const collapsed = [STATUS_QUALIFY_CLIENT].includes(workflow);
   return (
     <>
-      {(loading || saving) && <LoadingCurtain />}
+      {saving && <LoadingCurtain />}
       <View style={classes.root}>
         <View style={classes.content}>
           <Stepper

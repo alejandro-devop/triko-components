@@ -32,6 +32,7 @@ const TaskRequest = ({
   isTriko,
   request = {},
   refreshRequest,
+  updateRequest,
   onUpdateRequest,
 }) => {
   const [classes] = useStyles(styles);
@@ -67,7 +68,7 @@ const TaskRequest = ({
       action: {
         label: 'arrive_to_location',
         callback: () => {
-          onUpdateRequest();
+          updateRequest();
         },
       },
       noAction: !isTriko,
@@ -79,7 +80,7 @@ const TaskRequest = ({
         : 'in_the_location_description',
       action: {
         label: 'start_service',
-        callback: () => onUpdateRequest(),
+        callback: () => updateRequest(),
       },
       noAction: isPendingConfirmStart || !isTriko,
     },
@@ -95,7 +96,7 @@ const TaskRequest = ({
       action: {
         label: stepDescription.label,
         callback: () => {
-          onUpdateRequest();
+          updateRequest();
         },
       },
       noAction: !isTriko,
@@ -118,11 +119,11 @@ const TaskRequest = ({
   };
 
   const handleFinish = async () => {
-    await onUpdateRequest();
+    await updateRequest();
   };
 
   const handleAccept = async () => {
-    await onUpdateRequest();
+    await updateRequest();
   };
 
   const {latitude, longitude} = mapLocation;
