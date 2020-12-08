@@ -133,7 +133,6 @@ const TaskCard = ({
       {isTriko && workflow === STATUS_WAITING_FOR_TRIKO && (
         <PostulatedMessage isTriko={isTriko} request={request} />
       )}
-      {!isTriko && acceptedStatus.includes(workflow) && <ConfirmIcon />}
     </View>
   );
 };

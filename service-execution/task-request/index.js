@@ -135,7 +135,7 @@ const TaskRequest = ({
     ].includes(workflow) ||
     workflow === STATUS_STARTED ||
     isFinished;
-
+  console.log('Transition: ', workflow);
   return (
     <>
       <View style={classes.root}>

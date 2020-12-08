@@ -3,11 +3,12 @@ import {View} from 'react-native';
 import {useStyles} from 'hooks/index';
 import Text from 'shared/components/base/text';
 import styles from './styles';
-import {getElapsedTime} from 'shared/utils/functions';
+import {getElapsedTime, isEmpty} from 'shared/utils/functions';
 import {STATUS_STARTED} from 'config/request-statuses';
 import useTimer from 'hooks/useTimer';
 import useTranslation from 'hooks/useTranslation';
 import BorderedButton from 'shared/components/base/buttons/bordered-button';
+import moment from 'moment';
 
 const ExecutionTimer = ({
   onPressFinish,
@@ -24,7 +25,9 @@ const ExecutionTimer = ({
   const timeInfo = getElapsedTime(startedTransition.created_at, null, true);
   const {hours = 0, minutes = 0, seconds = 0} = timeInfo;
   const {formattedAlt, time = {}, overPassed} = useTimer({
-    initialDate: startedTransition.created_at,
+    initialDate: !isEmpty(startedTransition)
+      ? startedTransition.created_at
+      : moment().format('YYYY-MM-DD HH:mm:ss'),
     hours,
     minutes,
     seconds,
