@@ -34,6 +34,7 @@ const ShopperRequest = ({
   isTriko,
   lockActions,
   request = {},
+  updateRequest,
   refreshRequest,
 }) => {
   const [classes] = useStyles(styles);
@@ -59,7 +60,6 @@ const ShopperRequest = ({
   const stepDescription = useStepDescriptor(isTriko, workflow, request);
   const [serviceDetail = {}] = !isEmpty(request.details) ? request.details : [];
   const {products = []} = serviceDetail;
-  const {loading, updateRequest} = useRequestUpdate();
   const toggleCart = () => setOpenCart(!openCart);
   const {market = {}} = requestAttrs;
 
@@ -113,7 +113,7 @@ const ShopperRequest = ({
           ? {
               label: 'arrive_to_destination',
               dontConfirm: true,
-              callback: () => updateRequest(request),
+              callback: () => updateRequest(),
             }
           : {},
     },
@@ -203,7 +203,6 @@ const ShopperRequest = ({
   const {latitude, longitude} = mapLocation;
   return (
     <>
-      {loading && <LoadingCurtain />}
       <View style={classes.root}>
         <View style={classes.content}>
           <Stepper

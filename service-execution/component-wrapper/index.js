@@ -111,6 +111,7 @@ const ComponentWrapper = ({isTriko, request = {}, refreshRequest}) => {
               isCourier={isCourier}
               isTask={isTask}
               onUpdateRequest={handleRequestUpdate}
+              updateRequest={handleRequestUpdate}
               request={request}
               workflow={workflow}
               refreshRequest={refreshRequest}
