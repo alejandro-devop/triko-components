@@ -112,7 +112,6 @@ const ShopperRequest = ({
         isTriko && workflow === STATUS_ON_MY_WAY_DESTINATION
           ? {
               label: 'arrive_to_destination',
-              dontConfirm: true,
               callback: () => updateRequest(),
             }
           : {},
