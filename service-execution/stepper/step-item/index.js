@@ -18,6 +18,7 @@ const StepItem = ({
   collapsed,
   isFirst,
   isLast,
+  lockActions,
   request = {},
   step = {},
   isCurrent,
@@ -84,6 +85,7 @@ const StepItem = ({
               <>
                 {!isEmpty(actionLabel) && !confirm && !noAction && (
                   <Button
+                    disabled={lockActions}
                     size="xxs"
                     secondary
                     onPress={() =>
@@ -93,7 +95,7 @@ const StepItem = ({
                     {actionLabel}
                   </Button>
                 )}
-                {confirm && (
+                {confirm && !lockActions && (
                   <ConfirmSlide
                     labelStyles={classes.confirmLabel}
                     message="confirm_execute_action"

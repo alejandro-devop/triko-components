@@ -27,6 +27,7 @@ const ShoppingCart = ({
 }) => {
   const [serviceDetail = {}] = request.details;
   const {products = []} = serviceDetail;
+  const [pressed, setPressed] = useState();
   const [visibleConfirm, toggleConfirm] = useToggle();
   const cart = !isEmpty(serviceDetail.products) ? serviceDetail.products : [];
   const [selected, setSelected] = useState(null);
@@ -65,6 +66,11 @@ const ShoppingCart = ({
     }
   };
 
+  const handleConfirmContinue = () => {
+    setPressed(true);
+    onConfirmCart();
+  };
+
   return (
     <>
       <View style={classes.root}>
@@ -84,7 +90,7 @@ const ShoppingCart = ({
             </Button>
           )}
           {!isTriko && workflow === STATUS_WAITING_FOR_CLIENT && (
-            <Button primary onPress={onConfirmCart}>
+            <Button disabled={pressed} primary onPress={handleConfirmContinue}>
               continue_text
             </Button>
           )}

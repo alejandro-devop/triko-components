@@ -30,7 +30,12 @@ import {
   STATUS_WAITING_FOR_CLIENT,
 } from 'config/request-statuses';
 
-const ShopperRequest = ({isTriko, request = {}, refreshRequest}) => {
+const ShopperRequest = ({
+  isTriko,
+  lockActions,
+  request = {},
+  refreshRequest,
+}) => {
   const [classes] = useStyles(styles);
   const [openCart, setOpenCart] = useState(false);
   const [mapLocation, setMapLocation] = useState({
@@ -202,6 +207,7 @@ const ShopperRequest = ({isTriko, request = {}, refreshRequest}) => {
       <View style={classes.root}>
         <View style={classes.content}>
           <Stepper
+            lockActions={lockActions}
             collapsed={isCollapsed}
             activeStep={activeStep}
             isTriko={isTriko}

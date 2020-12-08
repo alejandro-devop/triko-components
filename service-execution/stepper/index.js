@@ -6,6 +6,7 @@ import {useStyles} from 'hooks/index';
 import styles from './styles';
 
 const Stepper = ({
+  lockActions,
   activeStep,
   collapsed,
   isTriko,
@@ -18,6 +19,7 @@ const Stepper = ({
       <View style={[classes.panel, classes.primary]}>
         {collapsed && (
           <StepItem
+            lockActions={lockActions}
             active
             isCurrent
             isTriko={isTriko}
@@ -29,6 +31,7 @@ const Stepper = ({
         {!collapsed &&
           steps.map((item, key) => (
             <StepItem
+              lockActions={lockActions}
               active={activeStep >= key}
               isCurrent={activeStep === key}
               isTriko={isTriko}

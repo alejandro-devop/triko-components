@@ -27,6 +27,7 @@ import ConfirmSlide from 'components/base/confirm-slide';
 
 const ComponentWrapper = ({isTriko, request = {}, refreshRequest}) => {
   const {details = [], transition = {}} = request;
+  const [lockActions, setLockActions] = useState(false);
   const [openCancel, setOpenCancel] = useState(false);
   const {workflow} = transition;
   const {navigation} = useNavigate();
@@ -55,7 +56,9 @@ const ComponentWrapper = ({isTriko, request = {}, refreshRequest}) => {
   const toggleCancel = () => setOpenCancel(!openCancel);
 
   const handleRequestUpdate = async () => {
+    setLockActions(true);
     await updateRequest(request);
+    setLockActions(false);
   };
   const handleTerminate = async () => {
     if (isTriko) {
@@ -102,6 +105,7 @@ const ComponentWrapper = ({isTriko, request = {}, refreshRequest}) => {
         <View style={classes.content}>
           {!isFinished && !isQualifying && (
             <Component
+              lockActions={lockActions}
               isTriko={isTriko}
               isShopper={isShopper}
               isCourier={isCourier}
