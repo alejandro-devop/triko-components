@@ -41,7 +41,9 @@ const Shopper = ({
     setKey('requestCandidatesView', request);
     navigation.navigate('view-candidates');
   };
-
+  const marketDescription = !isEmpty(market.description)
+    ? `(${market.description})`
+    : '';
   return (
     <>
       <ScrollView
@@ -66,8 +68,8 @@ const Shopper = ({
           <InfoRow
             label={_t('request_detail_market_address')}
             value={
-              !isEmpty(market.name) && !isEmpty(market.description)
-                ? `${market.name} (${market.description})`
+              !isEmpty(market.name)
+                ? `${market.name} ${marketDescription}`
                 : 'shopping_place_any_where'
             }
             icon="map-marker"
