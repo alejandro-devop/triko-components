@@ -31,9 +31,11 @@ const UploadTransferReceipt = ({
   const [classes] = useStyles(styles);
   const {price} = serviceDetail;
   const {format} = useCurrency();
-  const [triko] = request.triko;
+  const [triko = {}] = request.triko;
   const {loading, sendRequest} = useRequestUpdateAttrs(request);
-  const {loading: fetchingInfo, trikoInfo = {}} = useTrikoInformation(triko.id);
+  const {loading: fetchingInfo, trikoInfo = {}} = useTrikoInformation(
+    !isEmpty(triko.id) ? triko.id : 0,
+  );
   const {
     stack: {client = {}},
   } = useSession();
@@ -57,7 +59,7 @@ const UploadTransferReceipt = ({
   };
 
   const paying = workflow === STATUS_PAYING_ORDER;
-
+  console.log('Data: ', trikoInfo);
   return (
     <>
       <View style={classes.root}>
@@ -74,7 +76,7 @@ const UploadTransferReceipt = ({
           {/*  </Button>*/}
           {/*</View>*/}
           <View style={classes.imageWrapper}>
-            {!fetchingInfo && (
+            {!fetchingInfo && !isEmpty(trikoInfo.bank) && (
               <>
                 <Text style={[classes.text, classes.textQr]}>
                   triko_transfer_qr

@@ -30,6 +30,13 @@ export const useTrikoInformation = (trikoId) => {
     },
   });
   const trikoInfo = !isEmpty(data.response) ? data.response : [];
+  console.log(
+    'Variables: ',
+    JSON.stringify({
+      triko: trikoId,
+      locale,
+    }),
+  );
   // const [trikoInfo = {}] = trikos;
   return {
     trikoInfo,

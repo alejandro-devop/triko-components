@@ -51,9 +51,14 @@ const RequestDetail = ({isTriko}) => {
   const {isShopper, isCourier, isTask} = !isEmpty(requestDetailSelected)
     ? requestDetailSelected
     : {};
-  const {request = {}, refresh} = useRequestFetcher({
+  const defaultRequest = requestDetailSelected.request;
+  const {request: updatedRequest, refresh} = useRequestFetcher({
     requestId: requestDetailSelected.request.id,
   });
+  const request =
+    !isEmpty(updatedRequest) && !isEmpty(updatedRequest.id)
+      ? updatedRequest
+      : defaultRequest;
   const {order = {}, triko: trikos = [], details = []} =
     !isEmpty(request) && !isEmpty(request.id)
       ? request
@@ -111,7 +116,7 @@ const RequestDetail = ({isTriko}) => {
     order && order.transition ? order.transition : {};
   const paidOut = orderWorkflow === PAYMENT_COMPLETED_STATUS;
   const isFavor = isShopper || isCourier || isTask;
-  console.log('Request: ', request);
+
   return (
     <>
       {!isTriko && !isFavor && (

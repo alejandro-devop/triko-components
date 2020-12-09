@@ -56,9 +56,12 @@ const ServiceExecution = ({isTriko}) => {
       locale,
     },
   });
-  const [request = {}] =
+  const [updatedRequest = {}] =
     data.response && Array.isArray(data.response) ? data.response : [];
-
+  const request =
+    !isEmpty(updatedRequest) && !isEmpty(updatedRequest.id)
+      ? updatedRequest
+      : selectedToExecution;
   const onRefresh = async () => {
     try {
       setRefreshing(true);
@@ -94,6 +97,7 @@ const ServiceExecution = ({isTriko}) => {
   if (appState !== 'active') {
     return null;
   }
+
   return (
     <>
       {!isEmpty(request) && <Header isTriko={isTriko} request={request} />}
