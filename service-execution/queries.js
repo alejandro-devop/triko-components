@@ -94,6 +94,7 @@ export const GET_REQUEST = gql`
           }
           quantity: qty
           price
+          unitPrice: unitprice
           product {
             id
             name

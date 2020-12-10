@@ -1,16 +1,8 @@
 import React, {useState, useEffect} from 'react';
-// import Header from './Header';
 import Header from './request-header';
 import {AppState} from 'react-native';
 import {ScrollView} from 'shared/components/commons';
 import Wrapper from './Wrapper';
-// import OnMyWay from './on-my-way';
-// import Actions from './Actions';
-// import InTheLocation from './InTheLocation';
-// import useStyles from 'hooks/useStyles';
-// import OnExecution from './OnExecution';
-// import Finished from './Finished';
-// import RateService from './RateService';
 import useUserLocation from 'hooks/useUserLocation';
 import CircularLoader from 'components/base/loaders/CircularLoader';
 import ComponentWrapper from './component-wrapper';
@@ -18,27 +10,10 @@ import useSession from 'hooks/useSession';
 import {useQuery} from '@apollo/react-hooks';
 import {GET_REQUEST} from './queries';
 import LoadingCurtain from 'components/base/dialogs/loading-curtain';
-// import ChatDialog from 'components/service-execution/ChatDialog';
-// import {
-//   STATUS_ACCEPTED,
-//   STATUS_CONFIRM_FINISHED,
-//   STATUS_CONFIRM_START,
-//   STATUS_ON_MY_WAY,
-//   STATUS_ON_YOUR_DOOR,
-//   STATUS_QUALIFY,
-//   STATUS_STARTED,
-//   STATUS_QUALIFY_CLIENT,
-//   STATUS_QUALIFY_TRIKO,
-// } from 'config/request-statuses';
 import usePusherSubscriber from 'hooks/usePusherSubscriber';
 import {EVENT__MESSAGE, EVENT__SERVICE_REQUEST} from 'helpers/PusherClient';
-// import useTranslation from 'hooks/useTranslation';
-// import LinkButton from 'components/base/buttons/link-button';
-// import RequestDetail from 'components/request-detail';
-// import PermissionsManager, {
-//   PERMISSIONS,
-// } from 'components/base/permissions-manager';
 import {isEmpty} from 'shared/utils/functions';
+import useErrorReporter from 'shared/hooks/use-error-reporter';
 
 const ServiceExecution = ({isTriko}) => {
   const {
@@ -47,6 +22,9 @@ const ServiceExecution = ({isTriko}) => {
   const [refreshing, setRefreshing] = useState(false);
   const [appState, setAppState] = useState('active');
   const {subscribeEvent, unSubscribeEvent} = usePusherSubscriber();
+  const reportError = useErrorReporter({
+    path: 'src/shared/components/service-execution/index.js',
+  });
   const {location, loading} = useUserLocation();
   const {loading: loadingRequest, refetch, data = {}} = useQuery(GET_REQUEST, {
     fetchPolicy: 'no-cache',
@@ -70,7 +48,7 @@ const ServiceExecution = ({isTriko}) => {
         setRefreshing(false);
       }, 1000);
     } catch (e) {
-      //Todo: Check why it's throwing an exception when the workflow changes.
+      reportError(e, {code: 'TK-000005'});
     }
   };
 
@@ -97,7 +75,7 @@ const ServiceExecution = ({isTriko}) => {
   if (appState !== 'active') {
     return null;
   }
-
+  console.log('Request: ', request, selectedToExecution, data.response);
   return (
     <>
       {!isEmpty(request) && <Header isTriko={isTriko} request={request} />}

@@ -9,8 +9,6 @@ import useExecutionStep from 'shared/hooks/use-execution-step';
 import UploadBill from './upload-bill';
 import {isEmpty} from 'shared/utils/functions';
 import Button from 'shared/components/base/buttons/button';
-import useRequestUpdate from 'shared/hooks/use-request-update';
-import {LoadingCurtain} from 'components/base/dialogs';
 import BorderedButton from 'shared/components/base/buttons/bordered-button';
 import Text from 'shared/components/base/text';
 import UploadTransferReceipt from './upload-transfer-receipt';
@@ -55,8 +53,7 @@ const ShopperRequest = ({
     isTask: requestType === 'task',
   };
   const {workflow} = transition;
-  // const [activeStep, workflow] = useExecutionStep(currentWorkflow); // going to shop = 4;
-  const activeStep = useExecutionStep(request, executionType); // going to shop = 4;
+  const activeStep = useExecutionStep(request, executionType);
   const stepDescription = useStepDescriptor(isTriko, workflow, request);
   const [serviceDetail = {}] = !isEmpty(request.details) ? request.details : [];
   const {products = []} = serviceDetail;

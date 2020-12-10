@@ -15,11 +15,13 @@ import Icon from 'shared/components/base/icon';
 import MoneyPicker from 'components/base/money-picker';
 import useRegionConfig from 'shared/hooks/use-regional-config';
 import Button from 'shared/components/base/buttons/button';
-import LinkButton from 'shared/components/base/buttons/link-button';
 import ProductPicker from 'shared/components/product-picker';
 import {useUpdateProduct} from '../hooks';
 import {LoadingCurtain} from 'components/base/dialogs';
 import PreImage from 'shared/components/base/pre-image';
+import useToggle from 'shared/hooks/use-toggle';
+import ConfirmSlide from 'components/base/confirm-slide';
+import useErrorReporter from 'shared/hooks/use-error-reporter';
 
 const ProductEdit = ({
   open,
@@ -29,14 +31,13 @@ const ProductEdit = ({
   onSaved,
 }) => {
   const [classes] = useStyles(styles);
-  const {
-    image,
-    measure = {},
-    price: defaultPrice,
-    quantity = 0,
-    attrs,
-  } = productItem;
+  const [openConfirm, toggleConfirm] = useToggle(false);
+  const {image, measure = {}, unitPrice = 0, quantity = 0, attrs} = productItem;
   const productAttrs = !isEmpty(attrs) ? JSON.parse(attrs) : {};
+  const reportError = useErrorReporter({
+    path:
+      'src/shared/components/service-execution/shopper-request/product-edit/index.js',
+  });
   const {found: defaultFound = true} = productAttrs;
   const {_t} = useTranslation();
   const [product] = useState(productItem.product);
@@ -45,7 +46,7 @@ const ProductEdit = ({
   const {updateProduct, loading} = useUpdateProduct(request, productItem);
   const {form = {}, onChange} = useForm({
     found: defaultFound,
-    price: defaultPrice,
+    price: unitPrice,
     units: quantity,
   });
   const requestAttributes = !isEmpty(request.attributes)
@@ -64,17 +65,30 @@ const ProductEdit = ({
   }
 
   const handleSaveForm = async () => {
-    await updateProduct({
-      product,
-      units,
-      price: !found && !enableSelectProduct ? 0 : price,
-      found,
-      oldProduct: productItem,
-    });
-    if (onSaved) {
-      onSaved();
+    try {
+      await updateProduct({
+        product,
+        units,
+        price: !found && !enableSelectProduct ? 0 : price,
+        found,
+        oldProduct: productItem,
+      });
+      if (onSaved) {
+        onSaved();
+      }
+    } catch (e) {
+      reportError(e, {code: 'TK-000006'});
     }
   };
+
+  const handleAboutToSave = async () => {
+    if (units < quantity) {
+      toggleConfirm();
+    } else {
+      handleSaveForm();
+    }
+  };
+
   return (
     <Dialog
       disableScroll
@@ -98,13 +112,6 @@ const ProductEdit = ({
               <Text style={classes.productText}>{product.name}</Text>
             </View>
           )}
-          {/*{!found && !enableSelectProduct && (*/}
-          {/*  <View style={classes.linkButton}>*/}
-          {/*    <LinkButton primary onPress={() => setEnableSelectProduct(true)}>*/}
-          {/*      take_another_product*/}
-          {/*    </LinkButton>*/}
-          {/*  </View>*/}
-          {/*)}*/}
           {!enableSelectProduct && (
             <>
               <Label>do_you_find_the_product</Label>
@@ -167,14 +174,28 @@ const ProductEdit = ({
               </View>
             </>
           )}
-          <View style={classes.actions}>
-            <Button primary onPress={handleSaveForm} disabled={!formValid}>
-              save_text
-            </Button>
-            <Button secondary onPress={onClose}>
-              cancel_text
-            </Button>
-          </View>
+          {!openConfirm && (
+            <>
+              <View style={classes.actions}>
+                <Button
+                  primary
+                  onPress={handleAboutToSave}
+                  disabled={!formValid}>
+                  save_text
+                </Button>
+                <Button secondary onPress={onClose}>
+                  cancel_text
+                </Button>
+              </View>
+            </>
+          )}
+          {openConfirm && (
+            <ConfirmSlide
+              message="are_you_sure_you_found_less_units"
+              onAccept={handleSaveForm}
+              onCancel={toggleConfirm}
+            />
+          )}
         </View>
       </ScrollView>
       {loading && <LoadingCurtain disableModal />}

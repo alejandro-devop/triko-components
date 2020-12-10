@@ -56,8 +56,9 @@ const TaskRequest = ({
   const startedTransition = history.find(
     ({transition = {}}) => transition.workflow === STATUS_STARTED,
   );
+
   const startedDate = moment(
-    startedTransition ? startedTransition.created_at : null,
+    !isEmpty(startedTransition) ? startedTransition.created_at : null,
   ).format('h:mm a');
 
   const steps = [
