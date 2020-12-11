@@ -75,7 +75,7 @@ const ServiceExecution = ({isTriko}) => {
   if (appState !== 'active') {
     return null;
   }
-  console.log('Request: ', request, selectedToExecution, data.response);
+  console.log('Request: ', request);
   return (
     <>
       {!isEmpty(request) && <Header isTriko={isTriko} request={request} />}

@@ -23,7 +23,7 @@ const TrikoServicesFetcher = () => {
 };
 
 /**
- * This component renders the trikolaborator and clients requests list.
+ * Component for render  pending request for clients and trikos.
  * @author Alejandro <alejandro.devop@gmail.com>
  * @version 1.0.0
  * @param currentFilter
@@ -39,6 +39,8 @@ const TrikoServicesFetcher = () => {
  * @param noFinished
  * @param noCanceled
  * @param withStatus
+ * @param allTypes
+ * @param noRunning
  * @returns {*}
  * @constructor
  */
@@ -280,6 +282,11 @@ MyActivityComponent.propTypes = {
   onlyCurrentDay: PropTypes.bool, // Display only services which apply for the current day.
   onlyMyServices: PropTypes.bool, // Display only services which I apply to
   noFinished: PropTypes.bool, // Display only services which I apply to
+  filterPrimary: PropTypes.bool, // Controls  the filter button presentation.
+  noCanceled: PropTypes.bool, // If hide canceled services.
+  allTypes: PropTypes.bool, // If display all service types
+  noRunning: PropTypes.bool, // If hide the running services
+  withStatus: PropTypes.bool, // To show a status label
 };
 
 export default MyActivityComponent;
