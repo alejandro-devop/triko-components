@@ -13,6 +13,7 @@ import {STATUS_ON_GOING, STATUS_QUALIFY_CLIENT} from 'config/request-statuses';
 import useTranslation from 'hooks/useTranslation';
 import useRequestUpdateAttrs from 'shared/hooks/use-request-update-attrs';
 import Text from 'shared/components/base/text';
+import ConfirmBubble from 'shared/components/base/confirm-bubble';
 
 const CourierRequest = ({
   isTriko,
@@ -84,7 +85,7 @@ const CourierRequest = ({
       label: 'finish_service_label',
       title: '',
       description:
-        isLastStep && !lastStepConfirm
+        isTriko && isLastStep && !lastStepConfirm
           ? 'waiting_for_client_confirmation'
           : stepDescription.description,
       action: {
@@ -104,6 +105,15 @@ const CourierRequest = ({
       const {address, lat, lng} = addressObj;
       setMapLocation({latitude: lat, longitude: lng, title: address});
     }
+  };
+
+  const handleAccept = async () => {
+    await sendRequest({
+      attrs: {
+        lastStepConfirm: true,
+      },
+    });
+    await updateRequest(request);
   };
 
   const closeMap = () => {
@@ -134,6 +144,12 @@ const CourierRequest = ({
           {isTriko && workflow === STATUS_QUALIFY_CLIENT && (
             <InfoMessage text="waiting_for_client_qualification" />
           )}
+          {!isTriko && isLastStep && !lastStepConfirm && (
+            <ConfirmBubble
+              message="triko_is_waiting_for_end_confirm"
+              onAccept={handleAccept}
+            />
+          )}
           {[STATUS_ON_GOING].includes(workflow) && (
             <View style={classes.instructionsContent}>
               <Text style={classes.instructionsTitle}>instructions_text</Text>
@@ -142,6 +158,7 @@ const CourierRequest = ({
               </View>
             </View>
           )}
+
           {!collapsed && isTriko && (
             <View style={classes.actionsWrapper}>
               <Button primary size="xxs" onPress={viewOnMap}>
