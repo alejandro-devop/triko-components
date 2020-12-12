@@ -6,7 +6,6 @@ import Stepper from 'shared/components/service-execution/stepper';
 import ViewOnMap from '../view-on-map';
 import {isEmpty} from 'shared/utils/functions';
 import Button from 'shared/components/base/buttons/button';
-import useRequestUpdate from 'shared/hooks/use-request-update';
 import {LoadingCurtain} from 'components/base/dialogs';
 import InfoMessage from 'shared/components/messages/InfoMessage';
 import {useStepDescriptor} from './hooks';
@@ -31,21 +30,29 @@ const CourierRequest = ({
   const {attributes, transition = {}} = request;
   const {_t} = useTranslation();
   const requestAttrs = !isEmpty(attributes) ? JSON.parse(attributes) : {};
-  const {stops, instructions, currentStep = 0} = requestAttrs;
+  const {
+    stops,
+    instructions,
+    currentStep = 0,
+    lastStepConfirm,
+    lastStep: isLastStep,
+  } = requestAttrs;
   const {workflow} = transition;
-  // const [activeStep, workflow] = useExecutionStep(currentWorkflow); // going to shop = 4;p
   const activeStep = currentStep;
   const stepDescription = useStepDescriptor(isTriko, workflow, request);
   const {loading: saving, sendRequest} = useRequestUpdateAttrs(request);
 
   const updateStep = async () => {
     const nextStep = currentStep + 1;
+    const lastStep = nextStep >= stops.length;
     await sendRequest({
       attrs: {
         currentStep: nextStep,
+        lastStep,
       },
     });
-    if (nextStep >= stops.length) {
+
+    if (lastStep && lastStepConfirm) {
       await updateRequest(request);
     }
     await refreshRequest();
@@ -76,7 +83,10 @@ const CourierRequest = ({
       // Here the triko goes to the shopping place, indicates he's acquiring the products
       label: 'finish_service_label',
       title: '',
-      description: stepDescription.description,
+      description:
+        isLastStep && !lastStepConfirm
+          ? 'waiting_for_client_confirmation'
+          : stepDescription.description,
       action: {
         label: stepDescription.label,
         callback: () => {
@@ -105,7 +115,10 @@ const CourierRequest = ({
   };
 
   const {latitude, longitude} = mapLocation;
-  const collapsed = [STATUS_QUALIFY_CLIENT].includes(workflow);
+  const collapsed =
+    [STATUS_QUALIFY_CLIENT].includes(workflow) ||
+    (isLastStep && !lastStepConfirm);
+
   return (
     <>
       {saving && <LoadingCurtain />}
