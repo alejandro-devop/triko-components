@@ -153,7 +153,7 @@ const TaskRequest = ({
               <InfoMessage text="waiting_for_client_qualification" />
             </View>
           )}
-          {isStarted && (
+          {isStarted && !isEmpty(request) && !isEmpty(request.id) && (
             <>
               <Timer
                 request={request}

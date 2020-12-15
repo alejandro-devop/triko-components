@@ -19,9 +19,14 @@ const ExecutionTimer = ({
   const [classes] = useStyles(styles);
   const {_t} = useTranslation();
   const {history, duration} = request;
-  const startedTransition = history.find(
-    ({transition = {}}) => transition.workflow === STATUS_STARTED,
-  );
+  const startedTransition = history.find(({transition = {}, workflow = {}}) => {
+    if (typeof transition === 'object') {
+      return transition.workflow === STATUS_STARTED;
+    } else {
+      return workflow.name === STATUS_STARTED;
+    }
+  });
+
   const timeInfo = getElapsedTime(startedTransition.created_at, null, true);
   const {hours = 0, minutes = 0, seconds = 0} = timeInfo;
   const {formattedAlt, time = {}, overPassed} = useTimer({
