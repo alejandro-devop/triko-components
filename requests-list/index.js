@@ -211,7 +211,7 @@ const MyActivityComponent = ({
     setKey('selectedToExecution', request);
     navigation.navigate('execution');
   };
-
+  console.log('Loading: ', loading, requests);
   return (
     <>
       {isTriko && <TrikoServicesFetcher />}
@@ -225,7 +225,7 @@ const MyActivityComponent = ({
           options={filters}
         />
       )}
-      <Wrapper onRefresh={onRefresh} refreshing={loading}>
+      <Wrapper onRefresh={onRefresh}>
         {loading && <Loader />}
         {!loading && requests.length === 0 && <NoRequestItems />}
         {requests.map((item, key) => (

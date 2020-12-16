@@ -14,7 +14,7 @@ import styles from './styles';
  * @returns {*}
  * @constructor
  */
-const Wrapper = ({children, onRefresh, refreshing}) => {
+const Wrapper = ({children, onRefresh, refreshing = false}) => {
   const [classes] = useStyles(styles);
   return (
     <View style={classes.root}>
