@@ -211,7 +211,7 @@ const MyActivityComponent = ({
     setKey('selectedToExecution', request);
     navigation.navigate('execution');
   };
-  console.log('Loading: ', loading, requests);
+
   return (
     <>
       {isTriko && <TrikoServicesFetcher />}
