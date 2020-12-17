@@ -2,10 +2,10 @@ import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
 import useRegionConfig from 'hooks/useRegionConfig';
 import NeedUpdate from './NeedUpdate';
-import {APP_VERSION} from 'react-native-dotenv';
 import {useQuery} from '@apollo/react-hooks';
 import {GET_REGION_CONFIG} from '../../../contexts/configuration/queries';
 import {useSession} from 'hooks/index';
+import useEnvironment from 'shared/hooks/use-environment';
 
 /**
  * This component verifies if the current version matches the published version in the server, if it doesn't
@@ -18,6 +18,7 @@ import {useSession} from 'hooks/index';
  */
 const VersionChecker = ({children}) => {
   const {appVersion} = useRegionConfig();
+  const {APP_VERSION} = useEnvironment();
   const {
     stack: {regionId},
     setKey,
@@ -33,7 +34,9 @@ const VersionChecker = ({children}) => {
     },
   });
 
-  const needUpdate = appVersion !== APP_VERSION;
+  const validVersions = appVersion.split(',');
+
+  const needUpdate = !validVersions.includes(APP_VERSION);
 
   useEffect(() => {
     if (needUpdate) {
