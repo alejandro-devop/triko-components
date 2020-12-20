@@ -2,7 +2,7 @@ export default ({palette}) => ({
   root: {
     alignSelf: 'center',
     alignItems: 'center',
-    paddingHorizontal: 20,
+    paddingHorizontal: 10,
     // marginBottom: 10,
   },
   radioCircle: {
