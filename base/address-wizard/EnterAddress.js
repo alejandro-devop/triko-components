@@ -10,6 +10,7 @@ import AddressMapPicker from 'shared/components/base/address-map-picker';
 
 const EnterAddress = ({
   citySelected,
+  defaultValue,
   mode,
   onChangeMode,
   onSelectAddress,
@@ -18,7 +19,8 @@ const EnterAddress = ({
   onAccept,
 }) => {
   const {_t} = useTranslation();
-  const [selected, setSelected] = useState(null);
+  // Cl. 19 #2027
+  const [selected, setSelected] = useState(defaultValue);
   const [isSearching, setIsSearching] = useState(false);
   const [classes] = useStyles(styles);
   const handleSelect = ({target: {value}}) => {

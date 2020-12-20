@@ -21,6 +21,7 @@ import {acceptedStatuses} from 'shared/hooks/use-request-status';
  * @author Alejandro <alejandro.devop@gmail.com>
  * @param delay
  * @param even
+ * @param expired
  * @param item
  * @param isTriko
  * @param onSelect
@@ -37,6 +38,7 @@ import {acceptedStatuses} from 'shared/hooks/use-request-status';
 const RequestCard = ({
   delay = 0,
   even,
+  expired,
   item = {},
   isTriko,
   onSelect,
@@ -102,6 +104,7 @@ const RequestCard = ({
             classes,
           )}>
           <Component
+            expired={expired}
             withStatus={withStatus}
             request={item}
             isTriko={isTriko}
@@ -123,6 +126,7 @@ const RequestCard = ({
 RequestCard.propTypes = {
   delay: PropTypes.number,
   even: PropTypes.bool,
+  expired: PropTypes.bool,
   item: PropTypes.shape({
     details: PropTypes.arrayOf(
       PropTypes.shape({

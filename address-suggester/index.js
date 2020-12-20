@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {View} from 'react-native';
 import TextField from 'shared/components/base/controls/text-field';
 import useGetSuggestions from 'shared/components/address-suggester/useGetSuggestions';
@@ -30,12 +30,12 @@ const AddressSuggester = ({
   const {suggestions, loading, getSuggestions} = useGetSuggestions({
     queryPrepend,
   });
-  const onChangeQuery = async ({target: {value}}) => {
-    setAddress(value);
+  const onChangeQuery = async ({target: {value: newValue}}) => {
+    setAddress(newValue);
     if (onSearch) {
-      onSearch(!isEmpty(value) && value.length >= minChars); // If the query is empty searching is false
+      onSearch(!isEmpty(newValue) && newValue.length >= minChars); // If the query is empty searching is false
     }
-    getSuggestions(value);
+    getSuggestions(newValue);
   };
 
   const onSelectAddress = (address = {}) => {
@@ -62,6 +62,14 @@ const AddressSuggester = ({
     }
   };
 
+  useEffect(() => {
+    setTimeout(() => {
+      if (!isEmpty(value.primaryText)) {
+        onChangeQuery({target: {value: value.primaryText}});
+        setSelected(null);
+      }
+    }, 1000);
+  }, []);
   return (
     <>
       <TextField
@@ -87,16 +95,18 @@ const AddressSuggester = ({
           <Text variant="caption">{_t('select_matching_address_text')}</Text>
         </View>
       )}
-      {address.length > minChars && suggestions.length === 0 && (
-        <View style={classes.emptySetWrapper}>
-          <Text variant="caption">{_t('no_results_text')}</Text>
-          {noResultsOptionLabel && (
-            <LinkButton primary onPress={onNoResultsOption}>
-              {_t(noResultsOptionLabel)}
-            </LinkButton>
-          )}
-        </View>
-      )}
+      {Boolean(address) &&
+        address.length > minChars &&
+        suggestions.length === 0 && (
+          <View style={classes.emptySetWrapper}>
+            <Text variant="caption">{_t('no_results_text')}</Text>
+            {noResultsOptionLabel && (
+              <LinkButton primary onPress={onNoResultsOption}>
+                {_t(noResultsOptionLabel)}
+              </LinkButton>
+            )}
+          </View>
+        )}
       {!selected && (
         <SuggestionsList
           suggestions={suggestions}

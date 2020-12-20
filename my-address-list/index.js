@@ -26,8 +26,10 @@ import {LoadingCurtain} from 'components/base/dialogs';
  * @param disableSelect
  * @param emptyLabel
  * @param enableAddButton
+ * @param enableEdit
  * @param isTriko
  * @param onAddAddress
+ * @param onEdit
  * @param onSelectAddress
  * @param useWizard
  * @param useWizardLabel
@@ -40,6 +42,8 @@ const MyAddressesList = ({
   disableRemove,
   disableSelect,
   emptyLabel,
+  enableEdit,
+  onEdit,
   enableAddButton = true,
   isTriko,
   onAddAddress,
@@ -85,6 +89,13 @@ const MyAddressesList = ({
       myAddresses.filter((item) => item.id !== id),
     );
   };
+
+  const handleEditAddress = (item) => {
+    if (onEdit) {
+      onEdit(item);
+    }
+  };
+
   const addressesToList = Array.isArray(myAddresses) ? myAddresses : [];
   return (
     <View style={classes.root}>
@@ -98,8 +109,10 @@ const MyAddressesList = ({
               disableRemove={disableRemove}
               key={`my-address-${key}`}
               addressItem={item}
+              enableEdit={enableEdit}
               onPress={() => onSelectAddress(item)}
               onRemove={() => handleRemoveAddress(item)}
+              onEdit={() => handleEditAddress(item)}
             />
           ))}
           {addressesToList.length === 0 && (
@@ -148,7 +161,9 @@ MyAddressesList.propTypes = {
   disableSelect: PropTypes.bool,
   emptyLabel: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   enableAddButton: PropTypes.bool,
+  enableEdit: PropTypes.bool,
   isTriko: PropTypes.bool,
+  onEdit: PropTypes.bool,
   onAddAddress: PropTypes.func,
   onSelectAddress: PropTypes.func,
   useWizard: PropTypes.bool,

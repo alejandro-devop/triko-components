@@ -16,6 +16,7 @@ import ConfirmMessage from 'shared/components/requests-list/confirm-message';
 import {isEmpty} from 'shared/utils/functions';
 import useMyServices from 'shared/hooks/use-my-services';
 import {startedStatuses} from 'shared/hooks/use-request-status';
+import moment from 'moment';
 
 const TrikoServicesFetcher = () => {
   useMyServices();
@@ -89,6 +90,18 @@ const MyActivityComponent = ({
   } = useRequestUpdate();
 
   const totalRequests = requests.length;
+  const currentDate = moment();
+
+  /**
+   * This function allows to validate if a request has been expired.
+   * @param date
+   * @returns {boolean}
+   */
+  const isExpired = ({application_date: date}) => {
+    const requestDate = moment(date, 'YYYY-MM-DD HH:mm:ss');
+    const timeDiff = requestDate.diff(currentDate, 'minutes');
+    return timeDiff < 0;
+  };
 
   /**
    * Used to store the selected service as the service to display in the detail screen.
@@ -233,6 +246,7 @@ const MyActivityComponent = ({
             block={totalRequests > 3}
             delay={100 * key}
             even={key % 2 === 0}
+            expired={isExpired(item)}
             isTriko={isTriko}
             item={item}
             key={`request-${item.id}`}

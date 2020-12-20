@@ -4,7 +4,7 @@ export default ({palette}) => ({
     paddingHorizontal: 20,
   },
   scroll: {
-    flexGrow: 1,
+    flex: 1,
   },
   title: {
     color: palette.blue,

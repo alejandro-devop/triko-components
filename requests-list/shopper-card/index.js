@@ -32,6 +32,7 @@ import {isEmpty} from 'shared/utils/functions';
 import {useSession} from 'hooks/index';
 import useNavigate from 'shared/hooks/use-navigate';
 import PostulatedMessage from 'shared/components/requests-list/postulated-message';
+import ExpiredLabel from 'shared/components/requests-list/expired-label';
 
 const acceptedStatus = [
   STATUS_ACCEPTED,
@@ -44,6 +45,7 @@ const acceptedStatus = [
 ];
 
 const ShopperCard = ({
+  expired,
   isTriko,
   request = {},
   userLocation,
@@ -133,6 +135,12 @@ const ShopperCard = ({
         {!isTriko && (
           <>
             <ServiceInfo request={request} showDate isTriko={isTriko} />
+            {expired &&
+              [
+                STATUS_PAYMENT,
+                STATUS_PENDING,
+                STATUS_WAITING_FOR_TRIKO,
+              ].includes(workflow) && <ExpiredLabel />}
             {workflow === STATUS_WAITING_FOR_TRIKO && (
               <Candidates request={request} />
             )}

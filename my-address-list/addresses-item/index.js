@@ -17,6 +17,8 @@ import styles from './styles';
  * @param addressItem
  * @param disableSelect
  * @param disableRemove
+ * @param enableEdit
+ * @param onEdit
  * @param onPress
  * @param onRemove
  * @param selected
@@ -27,6 +29,8 @@ const AddressItem = ({
   addressItem = {},
   disableSelect,
   disableRemove,
+  enableEdit,
+  onEdit,
   onRemove,
   onPress,
   selected,
@@ -53,6 +57,13 @@ const AddressItem = ({
         <Text>{title}</Text>
         <Text variant="caption">{address}</Text>
       </View>
+      {enableEdit && (
+        <IconButton
+          name="pen"
+          iconStyles={classes.removeIcon}
+          onPress={onEdit}
+        />
+      )}
       {!disableRemove && (
         <IconButton
           name="trash"
@@ -69,7 +80,9 @@ AddressItem.propTypes = {
     address: PropTypes.any,
     title: PropTypes.string,
   }),
+  enableEdit: PropTypes.bool,
   onPress: PropTypes.func,
+  onEdit: PropTypes.func,
   onRemove: PropTypes.func,
   selected: PropTypes.bool,
 };

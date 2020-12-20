@@ -10,7 +10,7 @@ const useGetSuggestions = (options = {}) => {
   const {
     stack: {countryCode},
   } = useSession();
-  const getSuggestions = async query => {
+  const getSuggestions = async (query) => {
     if (query.length < minChars) {
       setSuggestions([]);
       return null;
@@ -25,8 +25,8 @@ const useGetSuggestions = (options = {}) => {
         },
       );
       const suggestedAddresses = matches
-        .filter(item => !isEmpty(item.primaryText))
-        .map(item => ({...item}));
+        .filter((item) => !isEmpty(item.primaryText))
+        .map((item) => ({...item}));
       setSuggestions(suggestedAddresses);
       setLoading(false);
     } catch (err) {}

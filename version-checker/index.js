@@ -3,9 +3,10 @@ import PropTypes from 'prop-types';
 import useRegionConfig from 'hooks/useRegionConfig';
 import NeedUpdate from './NeedUpdate';
 import {useQuery} from '@apollo/react-hooks';
-import {GET_REGION_CONFIG} from '../../../contexts/configuration/queries';
+
 import {useSession} from 'hooks/index';
 import useEnvironment from 'shared/hooks/use-environment';
+import {GET_REGION_CONFIG} from 'shared/hooks/use-regional-config/queries';
 
 /**
  * This component verifies if the current version matches the published version in the server, if it doesn't

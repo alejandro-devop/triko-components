@@ -24,6 +24,8 @@ const screenWidth = Dimensions.get('window').width;
  * @param itemProps
  * @param wrapperClass
  * @param guideOffset
+ * @param selectedIndex
+ * @param containerStyles
  * @param guideIcon
  * @returns {*}
  * @constructor
@@ -40,12 +42,13 @@ const ItemsSlider = ({
   wrapperClass,
   guideOffset = 30,
   containerStyles,
+  selectedIndex = 0,
   guideIcon = 'chevron-right',
 }) => {
   const [classes] = useStyles(styles);
   const scrollRef = useRef(null);
   let preScrollX = 0;
-  const [selected, setSelected] = useState(0);
+  const [selected, setSelected] = useState(selectedIndex);
   const shouldDisplayGuide = items.length >= elements;
   const [guideVisible, setGuideVisible] = useState(shouldDisplayGuide);
   const [width, setWidth] = useState(null);

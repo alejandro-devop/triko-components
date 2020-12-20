@@ -9,19 +9,28 @@ import PreImage from 'shared/components/base/pre-image';
 import styles from './styles';
 import useRequestStatus from 'shared/hooks/use-request-status';
 import {isEmpty} from 'shared/utils/functions';
+import ExpiredLabel from 'shared/components/requests-list/expired-label';
+import {
+  STATUS_PAYMENT,
+  STATUS_PENDING,
+  STATUS_WAITING_FOR_TRIKO,
+} from 'config/request-statuses';
 
 const RequestHeader = ({
   disableStatus,
   hideTrikoInfo,
   paidOut,
   isFavor,
+  isExpired,
   request = {},
 }) => {
   const [classes] = useStyles(styles);
   const {triko: trikos = [], details = [], transition = {}} = request;
   const [triko = {}] = trikos;
   const {service = {}} = details && details.length > 0 ? details[0] : [];
-  const statusText = useRequestStatus(transition.workflow, true, paidOut);
+  const workflow = transition.workflow;
+  const statusText = useRequestStatus(workflow, true, paidOut);
+
   if (isEmpty(request) || isEmpty(request.id)) {
     return null;
   }
@@ -43,6 +52,12 @@ const RequestHeader = ({
             </View>
             <View style={classes.trikoWrapper}>
               <RequestStatus paidOut={paidOut} request={request} />
+              {isExpired &&
+                [
+                  STATUS_PENDING,
+                  STATUS_PAYMENT,
+                  STATUS_WAITING_FOR_TRIKO,
+                ].includes(workflow) && <ExpiredLabel />}
               {!hideTrikoInfo && <TrikoInfo triko={triko} />}
             </View>
           </View>

@@ -25,6 +25,7 @@ import {PAYMENT_COMPLETED_STATUS} from 'components/pay-service/payment-statuses'
 import useRequestUpdate from 'shared/hooks/use-request-update';
 import {isEmpty} from 'shared/utils/functions';
 import {useRequestFetcher} from 'shared/hooks/use-request-fetcher';
+import moment from 'moment';
 
 const RateCalculator = ({triko, request, onCompleted}) => {
   useCalcRateClient({
@@ -65,6 +66,18 @@ const RequestDetail = ({isTriko}) => {
       : requestDetailSelected.request;
   const [triko = {}] = trikos;
   const {workflow} = request.transition || {};
+  const currentDate = moment();
+
+  /**
+   * This function allows to validate if a request has been expired.
+   * @param date
+   * @returns {boolean}
+   */
+  const isExpired = ({application_date: date}) => {
+    const requestDate = moment(date, 'YYYY-MM-DD HH:mm:ss');
+    const timeDiff = requestDate.diff(currentDate, 'minutes');
+    return timeDiff < 0;
+  };
 
   let Layout = InsidesLayout;
   let Component = Other;
@@ -116,7 +129,7 @@ const RequestDetail = ({isTriko}) => {
     order && order.transition ? order.transition : {};
   const paidOut = orderWorkflow === PAYMENT_COMPLETED_STATUS;
   const isFavor = isShopper || isCourier || isTask;
-
+  const requestExpired = isExpired(request);
   return (
     <>
       {!isTriko && !isFavor && (
@@ -130,6 +143,7 @@ const RequestDetail = ({isTriko}) => {
         disableContent
         header={
           <Header
+            isExpired={requestExpired}
             paidOut={paidOut}
             hideTrikoInfo={[STATUS_WAITING_FOR_TRIKO, STATUS_PENDING].includes(
               workflow,
@@ -140,6 +154,7 @@ const RequestDetail = ({isTriko}) => {
         <View style={classes.root}>
           {!isEmpty(Component) && (
             <Component
+              expired={requestExpired}
               onPay={handlePayment}
               onCancel={handleCancel}
               onBack={handleBack}

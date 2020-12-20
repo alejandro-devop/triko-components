@@ -2,6 +2,7 @@ import gql from 'graphql-tag';
 
 export const SAVE_ADDRESS_CLIENT = gql`
   mutation addAddress(
+    $id: Int
     $address: String
     $client: Int
     $buildingType: Int!
@@ -12,6 +13,7 @@ export const SAVE_ADDRESS_CLIENT = gql`
     $locale: String = "en"
   ) {
     response: clientAddress(
+      client_address_id: $id
       address: $address
       client_id: $client
       building_type_id: $buildingType
@@ -26,6 +28,11 @@ export const SAVE_ADDRESS_CLIENT = gql`
       address
       description
       buildingtype {
+        id
+        name
+        icon
+      }
+      type: buildingtype {
         id
         name
         icon

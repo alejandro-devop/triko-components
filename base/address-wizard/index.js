@@ -7,15 +7,41 @@ import EnterAddress from 'shared/components/base/address-wizard/EnterAddress';
 import FixTheAddress from 'shared/components/address-suggester/FixTheAddress';
 import AddressForm from './AddressForm';
 import LoadingCurtain from 'components/base/dialogs/loading-curtain';
-import useAddressSave from './useAddressSave';
+import {useAddressSave} from './hooks';
 import PermissionsManager, {
   PERMISSIONS,
 } from 'shared/components/permissions-manager';
 import WizardDialog from 'shared/components/base/address-wizard/wizard-dialog';
+import {isEmpty} from 'shared/utils/functions';
+
+const getDefaultValues = (defaultValues, defaultQuery) => {
+  let newValues = {
+    address: null,
+    type: null,
+    name: null,
+    description: null,
+    city: defaultQuery,
+  };
+  if (!isEmpty(defaultValues) && !isEmpty(defaultValues.address)) {
+    const [address, ...city] = defaultValues.address.split(', ');
+    newValues = {
+      address: {
+        primaryText: address,
+      },
+      city: city.join(', '),
+      name: defaultValues.title,
+      description: defaultValues.description,
+      type: defaultValues.type.id,
+    };
+  }
+  return newValues;
+};
 
 const AddressWizard = ({
   defaultQuery = '',
+  defaultValues,
   isTriko,
+  isEditing,
   useDialog,
   useWizard,
   open,
@@ -26,14 +52,14 @@ const AddressWizard = ({
   const [classes] = useStyles(styles);
   const [currentStep, setCurrentStep] = useState(isTriko || skipForm ? 1 : 0);
   const [mode, setMode] = useState(0);
-  const {loading, sendRequest} = useAddressSave({isTriko});
-  const [form, setForm] = useState({
-    address: null,
-    type: null,
-    name: null,
-    description: null,
-    city: defaultQuery,
+  const {loading, sendRequest: saveAddress} = useAddressSave({
+    isTriko,
+    isEditing,
   });
+  const [form, setForm] = useState({
+    ...getDefaultValues(defaultValues, defaultQuery),
+  });
+
   const {_t} = useTranslation();
 
   const onChangeMode = (newMode) => {
@@ -91,8 +117,15 @@ const AddressWizard = ({
   };
 
   const onSubmit = async () => {
-    await sendRequest({
-      form,
+    await saveAddress({
+      form: {
+        ...form,
+        address: {
+          ...form.address,
+          address: `${form.address.address}, ${form.city}`,
+        },
+        addressId: isEditing ? defaultValues.id : null,
+      },
       onSaved,
     });
     if (onClose) {
@@ -113,11 +146,14 @@ const AddressWizard = ({
 
   const {address, city} = form;
   const modeText = mode === 0 ? 'type' : 'my-location';
+  console.log('default values: ', defaultValues);
   const content = (
     <>
       <PermissionsManager permissions={[PERMISSIONS.ACCESS_LOCATION]}>
         <View style={classes.content}>
-          {currentStep === 0 && <AddressForm onChangeForm={onChangeForm} />}
+          {currentStep === 0 && (
+            <AddressForm onChangeForm={onChangeForm} defaultValues={form} />
+          )}
           {currentStep === 1 && (
             <ScrollView>
               <GCitySelect
@@ -133,6 +169,7 @@ const AddressWizard = ({
           {currentStep === 2 && (
             <EnterAddress
               citySelected={city}
+              defaultValue={address}
               onGoBack={onBack}
               onAccept={onAcceptAddress}
               mode={mode}

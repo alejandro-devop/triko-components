@@ -9,16 +9,15 @@ import useStyles from 'shared/hooks/use-styles';
 import useForm from 'hooks/useForm';
 import {isEmpty} from 'shared/utils/functions';
 
-const AddressForm = ({onChangeForm}) => {
+const AddressForm = ({
+  onChangeForm,
+  defaultValues = {type: null, name: null, description: null},
+}) => {
   const {_t} = useTranslation();
-  const {form, onChange} = useForm({
-    type: null,
-    name: null,
-    description: null,
-  });
+  const {form, onChange} = useForm(defaultValues);
   const [classes] = useStyles(styles);
   const {name, type, description} = form;
-  const isValid = !isEmpty(name) && !isEmpty(type) && !isEmpty(description);
+  const isValid = !isEmpty(name) && !isEmpty(type);
   const onSubmitForm = () => {
     if (onChangeForm) {
       onChangeForm({

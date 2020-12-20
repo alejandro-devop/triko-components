@@ -16,8 +16,10 @@ import {
   STATUS_ON_MY_WAY,
   STATUS_ON_YOUR_DOOR,
   STATUS_PAYMENT,
+  STATUS_PENDING,
   STATUS_STARTED,
 } from 'config/request-statuses';
+import ExpiredLabel from 'shared/components/requests-list/expired-label';
 
 const acceptedStatus = [
   STATUS_PAYMENT,
@@ -30,6 +32,7 @@ const acceptedStatus = [
 ];
 
 const NormalCard = ({
+  expired,
   isTriko,
   onAccept,
   onCancel,
@@ -110,6 +113,9 @@ const NormalCard = ({
         )}
         {!isTriko && (
           <>
+            {expired && [STATUS_PENDING, STATUS_PAYMENT].includes(workflow) && (
+              <ExpiredLabel />
+            )}
             <TrikoInfo triko={triko} />
           </>
         )}

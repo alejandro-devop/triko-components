@@ -1,5 +1,6 @@
 import React from 'react';
-import {ScrollView, View} from 'react-native';
+import {View} from 'react-native';
+import {ScrollView} from 'shared/components/commons';
 import Text from 'components/base/text';
 import ActionButtons from '../action-buttons';
 import InfoRow from '../info-row';
