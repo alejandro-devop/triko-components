@@ -60,13 +60,14 @@ const RequestDetail = ({isTriko}) => {
     !isEmpty(updatedRequest) && !isEmpty(updatedRequest.id)
       ? updatedRequest
       : defaultRequest;
-  const {order = {}, triko: trikos = [], details = []} =
+  const {order = {}, triko: trikos = []} =
     !isEmpty(request) && !isEmpty(request.id)
       ? request
       : requestDetailSelected.request;
   const [triko = {}] = trikos;
   const {workflow} = request.transition || {};
   const currentDate = moment();
+  const isFavor = isShopper || isCourier || isTask;
 
   /**
    * This function allows to validate if a request has been expired.
@@ -99,11 +100,28 @@ const RequestDetail = ({isTriko}) => {
     }, []),
   );
 
+  const getFavorTotal = () => {
+    const {favorRate = 0} = JSON.parse(request.attributes);
+    return favorRate;
+  };
+
   const handlePayment = async () => {
+    const rateTotal = isFavor ? getFavorTotal() : total;
     if (workflow === STATUS_ACCEPTED) {
-      await initPayment(request, {isShopper, isCourier, isTask});
+      await initPayment(request, {
+        isShopper,
+        isCourier,
+        isTask,
+        total: rateTotal,
+      });
     } else {
-      setKey('selectedToPay', {...request, isShopper, isCourier, isTask});
+      setKey('selectedToPay', {
+        ...request,
+        isShopper,
+        isCourier,
+        isTask,
+        total: rateTotal,
+      });
     }
     navigation.navigate('payment');
   };
@@ -128,8 +146,8 @@ const RequestDetail = ({isTriko}) => {
   const {workflow: orderWorkflow} =
     order && order.transition ? order.transition : {};
   const paidOut = orderWorkflow === PAYMENT_COMPLETED_STATUS;
-  const isFavor = isShopper || isCourier || isTask;
   const requestExpired = isExpired(request);
+
   return (
     <>
       {!isTriko && !isFavor && (

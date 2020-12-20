@@ -120,11 +120,14 @@ const CourierCard = ({
         )}
         {!isTriko && (
           <>
+            {expired &&
+              [
+                STATUS_PAYMENT,
+                STATUS_PENDING,
+                STATUS_WAITING_FOR_TRIKO,
+              ].includes(workflow) && <ExpiredLabel />}
             <ServiceInfo request={request} isUrgent />
-            <Candidates request={request} max={6} />
-            {/*{postulates.length > 0 && (*/}
-            {/*  <Postulates postulates={postulates} max={4} />*/}
-            {/*)}*/}
+            {!expired && <Candidates request={request} max={6} />}
             {postulates.length === 0 && (
               <View style={classes.noTrikosLabelWrapper}>
                 <Text style={classes.noTrikosLabel}>

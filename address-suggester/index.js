@@ -63,12 +63,12 @@ const AddressSuggester = ({
   };
 
   useEffect(() => {
-    setTimeout(() => {
-      if (!isEmpty(value.primaryText)) {
+    if (!isEmpty(value) && !isEmpty(value.primaryText)) {
+      setTimeout(() => {
         onChangeQuery({target: {value: value.primaryText}});
         setSelected(null);
-      }
-    }, 1000);
+      }, 1000);
+    }
   }, []);
   return (
     <>

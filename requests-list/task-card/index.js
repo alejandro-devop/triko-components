@@ -19,7 +19,6 @@ import {
   STATUS_WAITING_FOR_TRIKO,
 } from 'config/request-statuses';
 import useTranslation from 'hooks/useTranslation';
-import moment from 'moment';
 import ClientInfo from '../info-client';
 import DistanceRender from 'shared/components/request-commons/distance-render';
 import DateRender from 'shared/components/request-commons/date-render';
@@ -127,8 +126,14 @@ const TaskCard = ({
         )}
         {!isTriko && (
           <>
+            {expired &&
+              [
+                STATUS_PENDING,
+                STATUS_WAITING_FOR_TRIKO,
+                STATUS_PAYMENT,
+              ].includes(workflow) && <ExpiredLabel />}
             <ServiceInfo request={request} />
-            <Candidates request={request} max={6} />
+            {!expired && <Candidates request={request} max={6} />}
             {workflow === STATUS_ACCEPTED && (
               <View style={classes.actionsPending}>
                 <Button primary size="xxs" onPress={onView}>

@@ -28,22 +28,14 @@ const CourierDetail = ({
   const {navigation} = useNavigate();
   const {setKey} = useSession();
   const {_t} = useTranslation();
-  const {attributes, details = [], triko: trikos = []} = request;
+  const {attributes, triko: trikos = []} = request;
   const requestAttrs = !isEmpty(attributes) ? JSON.parse(attributes) : {};
   const {stops = [], size} = requestAttrs;
-  const [serviceDetail = {}] = details;
-  const {products = []} = serviceDetail;
-  const {bagSize, market = {}} = requestAttrs;
-  const address = {
-    title: request.address,
-  };
 
   const handleViewCandidates = () => {
     setKey('requestCandidatesView', request);
     navigation.navigate('view-candidates');
   };
-
-  console.log('Attributes: ', stops);
 
   return (
     <>
