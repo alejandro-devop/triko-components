@@ -96,19 +96,24 @@ const NormalCard = ({
         />
         {isTriko && (
           <>
+            {expired && [STATUS_PENDING, STATUS_PAYMENT].includes(workflow) && (
+              <ExpiredLabel />
+            )}
             {!withStatus && (
               <RateInfo isPaid={isPaid} request={request} workflow={workflow} />
             )}
-            <CardActions
-              alternative={cardAlternative}
-              withStatus={withStatus}
-              onAccept={onAccept}
-              onCancel={onCancel}
-              onStart={onStart}
-              onView={onView}
-              isPaid={isPaid}
-              workflow={workflow}
-            />
+            {!expired && (
+              <CardActions
+                alternative={cardAlternative}
+                withStatus={withStatus}
+                onAccept={onAccept}
+                onCancel={onCancel}
+                onStart={onStart}
+                onView={onView}
+                isPaid={isPaid}
+                workflow={workflow}
+              />
+            )}
           </>
         )}
         {!isTriko && (
