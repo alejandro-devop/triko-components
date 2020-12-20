@@ -15,6 +15,7 @@ import {
   STATUS_ON_MY_WAY,
   STATUS_ON_YOUR_DOOR,
   STATUS_PAYMENT,
+  STATUS_PENDING,
   STATUS_STARTED,
   STATUS_WAITING_FOR_TRIKO,
 } from 'config/request-statuses';
@@ -28,6 +29,8 @@ import DateRender from 'shared/components/request-commons/date-render';
 import Button from 'shared/components/base/buttons/button';
 import Candidates from 'shared/components/requests-list/shopper-card/candidates';
 import PostulatedMessage from 'shared/components/requests-list/postulated-message';
+import {useSession} from 'hooks/index';
+import ExpiredLabel from 'shared/components/requests-list/expired-label';
 
 const acceptedStatus = [
   STATUS_ACCEPTED,
@@ -40,6 +43,7 @@ const acceptedStatus = [
 ];
 
 const CourierCard = ({
+  expired,
   isTriko,
   request = {},
   userLocation,
@@ -54,9 +58,11 @@ const CourierCard = ({
   const [classes] = useStyles(styles);
   const transition = request.transition ? request.transition.workflow : '';
   const {_t} = useTranslation();
-  const [triko = {}] = trikos;
+  const {
+    stack: {triko: loggedTriko = {}},
+  } = useSession();
   const isPostulated = isTriko
-    ? trikos.map((item) => item.id).includes(triko.id)
+    ? trikos.map((item) => item.id).includes(loggedTriko.id)
     : false;
   return (
     <View style={classes.root}>
@@ -82,6 +88,13 @@ const CourierCard = ({
       <View style={classes.avatarInfoWrapper}>
         {isTriko && (
           <>
+            {!isPostulated &&
+              expired &&
+              [
+                STATUS_PAYMENT,
+                STATUS_PENDING,
+                STATUS_WAITING_FOR_TRIKO,
+              ].includes(workflow) && <ExpiredLabel />}
             <FavorIcon iconSource={serviceIcon} name={_t('triko_courier')} />
             <View style={classes.actionsWrapper}>
               {workflow !== STATUS_PAYMENT && (

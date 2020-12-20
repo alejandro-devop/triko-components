@@ -14,11 +14,11 @@ import {
   STATUS_ON_MY_WAY,
   STATUS_ON_YOUR_DOOR,
   STATUS_PAYMENT,
+  STATUS_PENDING,
   STATUS_STARTED,
   STATUS_WAITING_FOR_TRIKO,
 } from 'config/request-statuses';
 import useTranslation from 'hooks/useTranslation';
-import Icon from 'components/base/icon';
 import moment from 'moment';
 import ClientInfo from '../info-client';
 import DistanceRender from 'shared/components/request-commons/distance-render';
@@ -29,6 +29,8 @@ import Button from 'shared/components/base/buttons/button';
 import {isEmpty} from 'shared/utils/functions';
 import Candidates from 'shared/components/requests-list/shopper-card/candidates';
 import PostulatedMessage from 'shared/components/requests-list/postulated-message';
+import ExpiredLabel from 'shared/components/requests-list/expired-label';
+import {useSession} from 'hooks/index';
 
 const acceptedStatus = [
   STATUS_ACCEPTED,
@@ -42,6 +44,7 @@ const acceptedStatus = [
 
 const TaskCard = ({
   isTriko,
+  expired,
   onViewOnMap,
   onView,
   userLocation,
@@ -49,18 +52,18 @@ const TaskCard = ({
   request = {},
   isPaid,
 }) => {
-  const {client = {}} = request;
+  const {client = {}, triko: trikos} = request;
   const [classes] = useStyles(styles);
-  const {attributes, transition, application_date} = request;
+  const {
+    stack: {triko: loggedTriko = {}},
+  } = useSession();
+  const {attributes, transition} = request;
   const requestAttr = !isEmpty(attributes) ? JSON.parse(attributes) : {};
+  const isPostulated = isTriko
+    ? trikos.map((item) => item.id).includes(loggedTriko.id)
+    : false;
   const workflow = transition ? transition.workflow : '';
   const {_t} = useTranslation();
-  const date = (application_date ? moment(application_date) : moment()).format(
-    'MMM DD YYYY',
-  );
-  const time = (application_date ? moment(application_date) : moment()).format(
-    'h:mm a',
-  );
   const {instructions: shortDescription} = requestAttr;
   return (
     <View style={classes.root}>
@@ -92,6 +95,13 @@ const TaskCard = ({
       <View style={classes.avatarInfoWrapper}>
         {isTriko && (
           <>
+            {!isPostulated &&
+              expired &&
+              [
+                STATUS_PAYMENT,
+                STATUS_PENDING,
+                STATUS_WAITING_FOR_TRIKO,
+              ].includes(workflow) && <ExpiredLabel />}
             <FavorIcon iconSource={serviceIcon} name={_t('triko_task')} />
             <View style={classes.actionsWrapper}>
               {workflow !== STATUS_PAYMENT && (

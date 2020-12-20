@@ -55,7 +55,13 @@ const ShopperCard = ({
   isPaid,
 }) => {
   const {attributes, client = {}, triko: trikos = [], details = []} = request;
-  const {setAll} = useSession();
+  const {
+    setAll,
+    stack: {triko: loggedTriko = {}},
+  } = useSession();
+  const isPostulated = isTriko
+    ? trikos.map((item) => item.id).includes(loggedTriko.id)
+    : false;
   const {navigation} = useNavigate();
   const requestAttributes = !isEmpty(attributes) ? JSON.parse(attributes) : {};
   const [serviceDetail = {}] = details;
@@ -98,6 +104,13 @@ const ShopperCard = ({
       <View style={classes.avatarInfoWrapper}>
         {isTriko && (
           <>
+            {!isPostulated &&
+              expired &&
+              [
+                STATUS_PAYMENT,
+                STATUS_PENDING,
+                STATUS_WAITING_FOR_TRIKO,
+              ].includes(workflow) && <ExpiredLabel />}
             <FavorIcon iconSource={shopperIcon} name={'SHOPPER'} />
             <View style={classes.productsCountWrapper}>
               <Text style={classes.productsCountText}>
@@ -111,15 +124,16 @@ const ShopperCard = ({
               </View>
             </View>
             <View style={classes.actionsWrapper}>
-              {![STATUS_PAYMENT, STATUS_FINISHED].includes(workflow) && (
-                <Button
-                  primary
-                  size="xs"
-                  style={classes.button}
-                  onPress={onView}>
-                  {_t('view_text')}
-                </Button>
-              )}
+              {!expired &&
+                ![STATUS_PAYMENT, STATUS_FINISHED].includes(workflow) && (
+                  <Button
+                    primary
+                    size="xs"
+                    style={classes.button}
+                    onPress={onView}>
+                    {_t('view_text')}
+                  </Button>
+                )}
               {workflow === STATUS_PAYMENT && isPaid && (
                 <Button
                   alternative
