@@ -17,6 +17,7 @@ import useTranslation from 'hooks/useTranslation';
 import Timer from '../timer';
 import ConfirmBubble from 'shared/components/base/confirm-bubble';
 import ViewOnMap from '../view-on-map';
+import {isEmpty} from 'shared/utils/functions';
 
 const NormalRequest = ({isTriko, onUpdateRequest, request = {}, workflow}) => {
   const [visibleMap, setVisibleMap] = useState(false);
@@ -87,7 +88,15 @@ const NormalRequest = ({isTriko, onUpdateRequest, request = {}, workflow}) => {
   };
 
   const toggleViewMap = () => setVisibleMap(!visibleMap);
-
+  const transitionStarted = history.find(
+    ({transition = {}, workflow: wf = {}}) => {
+      if (typeof transition === 'object') {
+        return transition.workflow === STATUS_STARTED;
+      } else {
+        return wf.name === STATUS_STARTED;
+      }
+    },
+  );
   return (
     <>
       <View style={classes.root}>
@@ -99,7 +108,7 @@ const NormalRequest = ({isTriko, onUpdateRequest, request = {}, workflow}) => {
             request={request}
             steps={steps}
           />
-          {isStarted && (
+          {isStarted && !isEmpty(transitionStarted) && (
             <Timer
               request={request}
               isTriko={isTriko}

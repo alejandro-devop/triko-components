@@ -137,6 +137,14 @@ const TaskRequest = ({
     workflow === STATUS_STARTED ||
     isFinished;
 
+  const transitionStarted = history.find(({transition = {}, workflow = {}}) => {
+    if (typeof transition === 'object') {
+      return transition.workflow === STATUS_STARTED;
+    } else {
+      return workflow.name === STATUS_STARTED;
+    }
+  });
+
   return (
     <>
       <View style={classes.root}>
@@ -155,12 +163,14 @@ const TaskRequest = ({
           )}
           {isStarted && !isEmpty(request) && !isEmpty(request.id) && (
             <>
-              <Timer
-                request={request}
-                isTriko={isTriko}
-                hideDuration
-                onPressFinish={handleFinish}
-              />
+              {!isEmpty(transitionStarted) && (
+                <Timer
+                  request={request}
+                  isTriko={isTriko}
+                  hideDuration
+                  onPressFinish={handleFinish}
+                />
+              )}
               <View style={classes.instructionsContent}>
                 <Text style={classes.instructionsTitle}>instructions_text</Text>
                 <View style={classes.instructionsContentInner}>

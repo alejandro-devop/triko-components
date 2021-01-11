@@ -22,6 +22,7 @@ const TaskDetail = ({
   title,
   workflow,
   paidOut,
+  expired,
 }) => {
   const [classes] = useStyles(styles);
   const {navigation} = useNavigate();
@@ -93,6 +94,7 @@ const TaskDetail = ({
         </View>
       </ScrollView>
       <ActionButtons
+        expired={expired}
         onPayment={onPay}
         paidOut={paidOut}
         onBack={onBack}

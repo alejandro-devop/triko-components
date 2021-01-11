@@ -19,6 +19,7 @@ const ActionButtons = ({
   onPayment,
   paidOut,
   workflow,
+  expired,
 }) => {
   const [classes] = useStyles(styles);
   const [openCancel, setOpenCancel] = useState(false);
@@ -69,6 +70,7 @@ const ActionButtons = ({
         )}
         {!paidOut && paymentStatuses.includes(workflow) && (
           <BorderedButton
+            disabled={expired}
             icon={'credit-card'}
             label={_t('request_detail_payment')}
             onPress={onPayment}
