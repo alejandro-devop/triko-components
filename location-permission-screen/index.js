@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useSession} from 'hooks/index';
 import useHasPermissions, {
   APP_PERMISSIONS,
@@ -11,6 +11,7 @@ const LocationPermissionScreen = ({children, features = []}) => {
     setKey,
     setAll,
   } = useSession();
+  const [readyToCheck, setReadyToCheck] = useState(false);
   const closeDialog = (notShow) => {
     if (notShow === true) {
       setAll({
@@ -37,11 +38,13 @@ const LocationPermissionScreen = ({children, features = []}) => {
       if (!notShowAgain && !hasPermission) {
         setKey('hidePermissionsDialog', false);
       }
+      setReadyToCheck(true);
     }, 1000);
   }, []);
+
   return (
     <>
-      {!hasPermission && !hidePermissionsDialog && (
+      {readyToCheck && !hasPermission && !hidePermissionsDialog && (
         <PermissionDialog
           features={features}
           onGranted={handleGranted}
