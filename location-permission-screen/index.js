@@ -11,7 +11,7 @@ const LocationPermissionScreen = ({children, features = []}) => {
     setKey,
     setAll,
   } = useSession();
-  const [readyToCheck, setReadyToCheck] = useState(false);
+  const [open, setOpen] = useState(false);
   const closeDialog = (notShow) => {
     if (notShow === true) {
       setAll({
@@ -35,16 +35,16 @@ const LocationPermissionScreen = ({children, features = []}) => {
 
   useEffect(() => {
     setTimeout(() => {
+      setOpen(true);
       if (!notShowAgain && !hasPermission) {
         setKey('hidePermissionsDialog', false);
       }
-      setReadyToCheck(true);
-    }, 1000);
+    }, 1500);
   }, []);
 
   return (
     <>
-      {readyToCheck && !hasPermission && !hidePermissionsDialog && (
+      {!hasPermission && !hidePermissionsDialog && open && (
         <PermissionDialog
           features={features}
           onGranted={handleGranted}
