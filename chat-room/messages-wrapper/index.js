@@ -3,14 +3,12 @@ import PropTypes from 'prop-types';
 import {ScrollView, View, Keyboard} from 'react-native';
 import useStyles from 'hooks/useStyles';
 import MessageItem from '../message-item';
-import usePusherSubscriber from 'hooks/usePusherSubscriber';
+import usePusherSubscriber from 'shared/hooks/use-pusher-subscriber';
 import {EVENT__MESSAGE} from 'helpers/PusherClient';
 import EmptyIcon from '../EmptyIcon';
 import {useMessagesFetcher} from '../hooks';
 import {CircularLoader} from 'components/base/loaders';
 import styles from './styles';
-import profilePhoto from 'assets/avatars/real-profile-photo.jpg';
-import ImageIcon from 'components/ImageIcon';
 
 /**
  * This component renders the presentation for the message container, it also fetch the chat messages

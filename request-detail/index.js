@@ -11,7 +11,7 @@ import Courier from './courier';
 import Task from './task';
 import useStyles from 'shared/hooks/use-styles';
 import useTranslation from 'hooks/useTranslation';
-import usePayment from 'hooks/usePayment';
+import usePayment from 'shared/hooks/use-payment';
 import {LoadingCurtain} from 'components/base/dialogs';
 import {useCalcRateClient} from 'shared/hooks/use-rate-calc';
 import styles from './styles';

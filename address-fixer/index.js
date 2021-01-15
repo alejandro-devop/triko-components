@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {View} from 'react-native';
 import styles from './styles';
 import useStyles from 'shared/hooks/use-styles';
-import useAddressLocation from 'hooks/useAddressLocation';
+import useAddressLocation from 'shared/hooks/use-address-location';
 import MapFixer from './map-fixer';
 import LoaderScreen from 'shared/components/loaders/loader-screen';
 
