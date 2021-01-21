@@ -12,12 +12,13 @@ import useTranslation from 'hooks/useTranslation';
  * @version 1.0.0
  * @param children
  * @param classes
+ * @param replacements
  * @param style
  * @param variant type of text to be printed.
  * @returns {*}
  * @constructor
  */
-const Text = ({children, style, color, variant}) => {
+const Text = ({children, replacements, style, color, variant}) => {
   const [classes, theme] = useStyles(styles);
   const {_t} = useTranslation();
   return (
@@ -38,7 +39,7 @@ const Text = ({children, style, color, variant}) => {
         ),
         color ? {color} : null,
       ]}>
-      {_t(children)}
+      {_t(children, replacements)}
     </TextBase>
   );
 };
@@ -51,6 +52,7 @@ Text.defaultProps = {
 Text.propTypes = {
   classes: PropTypes.oneOfType([PropTypes.object]),
   children: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
+  replacements: PropTypes.oneOfType([PropTypes.object]),
   style: PropTypes.oneOfType([PropTypes.any]),
   variant: PropTypes.oneOf([
     'text',

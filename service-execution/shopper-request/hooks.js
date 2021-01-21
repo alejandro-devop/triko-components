@@ -19,25 +19,24 @@ import {
 import {useSession} from 'hooks/index';
 import {isEmpty} from 'shared/utils/functions';
 
+/**
+ * Fetch information about a triko, it fetches:
+ *
+ * @param trikoId
+ * @returns {{trikoInfo: *, loading: *}}
+ */
 export const useTrikoInformation = (trikoId) => {
   const {
     stack: {locale},
   } = useSession();
   const {loading, data = {}} = useQuery(GET_TRIKO_INFO, {
+    fetchPolicy: 'no-cache',
     variables: {
       triko: trikoId,
       locale,
     },
   });
   const trikoInfo = !isEmpty(data.response) ? data.response : [];
-  console.log(
-    'Variables: ',
-    JSON.stringify({
-      triko: trikoId,
-      locale,
-    }),
-  );
-  // const [trikoInfo = {}] = trikos;
   return {
     trikoInfo,
     loading,
