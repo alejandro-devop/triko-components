@@ -1,5 +1,5 @@
 import React from 'react';
-import {View} from 'react-native';
+import {TouchableOpacity, View} from 'react-native';
 import Slide from 'components/anims/Slide';
 import useStyles from 'shared/hooks/use-styles';
 import RequestType from './type-request';
@@ -8,6 +8,7 @@ import Avatar from './avatar';
 import NewType from './type-new';
 import classNames from 'shared/utils/classnames';
 import PostButtons from './post-buttons';
+import useNavigate from 'shared/hooks/use-navigate';
 
 const TYPE_NEW = 'new';
 const TYPE_RECOMMENDATION = 'recommendation';
@@ -28,6 +29,7 @@ const resolveComponent = (type) => {
 
 const PostItem = ({delay, post}) => {
   const [classes] = useStyles(styles);
+  const {navigation} = useNavigate();
   const {type, author, date, disableActions} = post;
   const Component = resolveComponent(type);
   const isRecommendation = type === TYPE_RECOMMENDATION;
@@ -36,6 +38,9 @@ const PostItem = ({delay, post}) => {
 
   const handleLikePost = () => {};
   const handleCommentPost = () => {};
+  const handleViewPost = () => {
+    navigation.navigate('post-view', {post});
+  };
 
   const actions = [
     {icon: 'thumbs-up', count: 2, action: () => handleLikePost(), active: true},
@@ -55,21 +60,23 @@ const PostItem = ({delay, post}) => {
         classes,
       )}
       delay={delay}>
-      <View style={classes.avatarWrapper}>
-        <Avatar
-          author={author}
-          date={date}
-          isRecommendation={isRecommendation}
-          isPost={isPost}
-          isRequest={isRequest}
-        />
-      </View>
-      <View style={classes.contentWrapper}>
-        <Component post={post} />
-        {!disableActions && (
-          <PostButtons buttons={actions} alt={isRecommendation} />
-        )}
-      </View>
+      <TouchableOpacity onPress={handleViewPost}>
+        <View style={classes.avatarWrapper}>
+          <Avatar
+            author={author}
+            date={date}
+            isRecommendation={isRecommendation}
+            isPost={isPost}
+            isRequest={isRequest}
+          />
+        </View>
+        <View style={classes.contentWrapper}>
+          <Component post={post} />
+          {!disableActions && (
+            <PostButtons buttons={actions} alt={isRecommendation} />
+          )}
+        </View>
+      </TouchableOpacity>
     </Slide>
   );
 };
