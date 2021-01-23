@@ -2,18 +2,18 @@ import React from 'react';
 import {View} from 'react-native';
 import Slide from 'components/anims/Slide';
 import useStyles from 'shared/hooks/use-styles';
-import RequestType from './RequestType';
-import RecommendationType from './RecommendationType';
-import Avatar from './Avatar';
-import NewType from './NewType';
+import RequestType from './type-request';
+import RecommendationType from './type-recommendation';
+import Avatar from './avatar';
+import NewType from './type-new';
 import classNames from 'shared/utils/classnames';
-import PostButtons from './PostButtons';
+import PostButtons from './post-buttons';
 
 const TYPE_NEW = 'new';
 const TYPE_RECOMMENDATION = 'recommendation';
 const TYPE_REQUEST = 'request';
 
-const resolveComponent = type => {
+const resolveComponent = (type) => {
   switch (type) {
     case TYPE_NEW:
       return NewType;
@@ -34,12 +34,17 @@ const PostItem = ({delay, post}) => {
   const isPost = type === TYPE_NEW;
   const isRequest = type === TYPE_REQUEST;
 
+  const handleLikePost = () => {};
+  const handleCommentPost = () => {};
+
   const actions = [
-    {icon: 'thumbs-up', count: 2, action: () => alert('Like!'), active: true},
-    {icon: 'comment', count: 2, action: () => alert('Comment'), active: true},
-    {icon: 'bookmark', action: () => alert('Book mark'), active: true},
-    {icon: 'share-square', action: () => alert('Share'), active: true},
-    {icon: 'volume-mute', action: () => alert('Mute'), active: false},
+    {icon: 'thumbs-up', count: 2, action: () => handleLikePost(), active: true},
+    {
+      icon: 'comment',
+      count: 2,
+      action: () => handleCommentPost(),
+      active: true,
+    },
   ];
 
   return (

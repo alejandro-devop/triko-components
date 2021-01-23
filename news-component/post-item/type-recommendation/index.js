@@ -1,8 +1,9 @@
-import React from 'react';
-import {View} from 'react-native';
 import useStyles from 'shared/hooks/use-styles';
-import Text from 'components/base/text';
+import {View} from 'react-native';
+import Text from 'shared/components/base/text';
 import classNames from 'shared/utils/classnames';
+import React from 'react';
+import styles from './styles';
 
 const RecommendationType = ({post = {}}) => {
   const [classes] = useStyles(styles);
@@ -22,16 +23,5 @@ const RecommendationType = ({post = {}}) => {
     </View>
   );
 };
-
-const styles = () => ({
-  root: {},
-  text: {
-    color: '#FFF',
-    fontSize: 14,
-  },
-  title: {
-    marginBottom: 10,
-  },
-});
 
 export default RecommendationType;

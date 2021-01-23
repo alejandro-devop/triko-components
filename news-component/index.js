@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {View} from 'react-native';
+import styles from './styles';
 import useStyles from 'shared/hooks/use-styles';
-import EmptyList from './EmptyList';
+import EmptyList from './empty-list';
 import useMock from 'shared/hooks/use-mock';
 import Loader from './Loader';
 import PostItem from './post-item';
@@ -33,12 +34,6 @@ const NewsComponent = ({isTriko}) => {
     </View>
   );
 };
-
-const styles = () => ({
-  root: {
-    flexGrow: 1,
-  },
-});
 
 NewsComponent.propTypes = {
   isTriko: PropTypes.bool,

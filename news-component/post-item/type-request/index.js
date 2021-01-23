@@ -1,13 +1,13 @@
-import React from 'react';
-import {View} from 'react-native';
 import useStyles from 'shared/hooks/use-styles';
-import Text from 'components/base/text';
-import avatar from 'assets/avatars/profile-photo.jpg';
+import {View} from 'react-native';
+import Text from 'shared/components/base/text';
 import PreImage from 'shared/components/base/pre-image';
-import palette from 'themes/styles/palette';
+import avatar from 'assets/avatars/profile-photo.jpg';
 import RatingStars from 'components/base/rating-stars';
+import React from 'react';
+import styles from './styles';
 
-const RequestType = ({post = {}}) => {
+const TypeRequest = ({post = {}}) => {
   const {description, request = {}} = post;
   const {
     triko: {user = {}},
@@ -39,38 +39,4 @@ const RequestType = ({post = {}}) => {
   );
 };
 
-const styles = () => ({
-  avatar: {
-    width: '100%',
-    height: '100%',
-    borderRadius: 100,
-  },
-  avatarWrapper: {
-    width: 30,
-    height: 30,
-  },
-  serviceWrapper: {
-    marginTop: 20,
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  serviceIcon: {
-    width: '100%',
-    height: '100%',
-  },
-  serviceIconWrapper: {
-    backgroundColor: palette.blueLighter,
-    marginLeft: 5,
-    borderRadius: 100,
-    width: 45,
-    height: 45,
-  },
-  actionsWrapper: {
-    marginTop: 20,
-    alignItems: 'center',
-  },
-  root: {},
-  text: {fontSize: 14},
-});
-
-export default RequestType;
+export default TypeRequest;

@@ -1,11 +1,12 @@
-import React from 'react';
+import useStyles from 'shared/hooks/use-styles';
+import {getElapsedTime} from 'shared/utils/functions';
 import {View} from 'react-native';
 import PreImage from 'shared/components/base/pre-image';
 import AvatarImage from 'assets/avatars/profile-photo.jpg';
-import useStyles from 'shared/hooks/use-styles';
-import Text from 'components/base/text';
+import Text from 'shared/components/base/text';
 import classNames from 'shared/utils/classnames';
-import {getElapsedTime} from 'shared/utils/functions';
+import React from 'react';
+import styles from './styles';
 
 const Avatar = ({author = {}, date, isRecommendation}) => {
   const {user = {}, pi = {}} = author;
@@ -43,36 +44,5 @@ const Avatar = ({author = {}, date, isRecommendation}) => {
     </View>
   );
 };
-
-const styles = ({palette}) => ({
-  text: {
-    color: palette.blue,
-    fontSize: 16,
-    fontWeight: '600',
-  },
-  textTime: {
-    fontSize: 12,
-  },
-  textWhite: {
-    color: '#FFF',
-  },
-  heading: {
-    justifyContent: 'center',
-  },
-  image: {
-    borderRadius: 100,
-    width: '100%',
-    height: '100%',
-  },
-  imageWrapper: {
-    width: 50,
-    height: 50,
-    marginRight: 20,
-  },
-  fullNameWrapper: {},
-  root: {
-    flexDirection: 'row',
-  },
-});
 
 export default Avatar;

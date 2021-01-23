@@ -1,8 +1,9 @@
-import React from 'react';
-import {View, TouchableOpacity} from 'react-native';
-import Icon from 'components/base/icon';
 import useStyles from 'shared/hooks/use-styles';
+import {TouchableOpacity, View} from 'react-native';
+import Icon from 'shared/components/base/icon';
 import classNames from 'shared/utils/classnames';
+import React from 'react';
+import styles from './styles';
 
 const PostButtons = ({buttons = [], alt}) => {
   const [classes] = useStyles(styles);
@@ -22,21 +23,5 @@ const PostButtons = ({buttons = [], alt}) => {
     </View>
   );
 };
-
-const styles = ({palette}) => ({
-  button: {
-    marginRight: 25,
-  },
-  icon: {
-    color: palette.blue,
-  },
-  iconAlt: {
-    color: '#FFF',
-  },
-  root: {
-    flexDirection: 'row',
-    marginVertical: 10,
-  },
-});
 
 export default PostButtons;

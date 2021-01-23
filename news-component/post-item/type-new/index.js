@@ -1,12 +1,13 @@
-import React from 'react';
-import {View} from 'react-native';
-import useStyles from 'shared/hooks/use-styles';
-import Text from 'components/base/text';
-import Button from 'components/base/buttons/button';
-import useTranslation from 'hooks/useTranslation';
 import useNavigate from 'shared/hooks/use-navigate';
+import useTranslation from 'shared/hooks/use-translate';
+import useStyles from 'shared/hooks/use-styles';
+import {View} from 'react-native';
+import Text from 'shared/components/base/text';
+import Button from 'shared/components/base/buttons/button';
+import React from 'react';
+import styles from './styles';
 
-const NewType = ({post = {}}) => {
+const TypeNew = ({post = {}}) => {
   const {description, cta, ctaLabel = 'Call to cation'} = post;
   const {navigation} = useNavigate();
   const {_t} = useTranslation();
@@ -26,13 +27,4 @@ const NewType = ({post = {}}) => {
   );
 };
 
-const styles = () => ({
-  actionsWrapper: {
-    marginTop: 20,
-    alignItems: 'center',
-  },
-  root: {},
-  text: {fontSize: 14},
-});
-
-export default NewType;
+export default TypeNew;
