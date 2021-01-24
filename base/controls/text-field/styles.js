@@ -38,7 +38,6 @@ export default ({palette}) => ({
     color: palette.redDark,
   },
   inputRow: {
-    // backgroundColor: 'red',
     flexDirection: 'row',
   },
   required: {

@@ -25,6 +25,11 @@ export default ({palette}) => ({
       },
     }),
   },
+  titlePrimary: {
+    color: palette.blue,
+    fontSize: 24,
+    textAlign: 'center',
+  },
   subtitle: Platform.select({
     ios: {
       fontSize: 25,

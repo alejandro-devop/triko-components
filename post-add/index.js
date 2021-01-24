@@ -1,0 +1,153 @@
+import React, {useState} from 'react';
+import {TextInput, TouchableOpacity, View} from 'react-native';
+import {useStyles} from 'hooks/index';
+import styles from './styles';
+import palette from 'themes/styles/palette';
+import Button from 'shared/components/base/buttons/button';
+import Icon from 'shared/components/base/icon';
+import Text from 'shared/components/base/text';
+import useTranslation from 'shared/hooks/use-translate';
+import Label from 'shared/components/base/label';
+import useNavigate from 'shared/hooks/use-navigate';
+import {useSavePost} from './hooks';
+import useForm from 'shared/hooks/use-form';
+import TextField from 'shared/components/base/controls/text-field';
+import RadioButton from 'shared/components/base/controls/radio-button';
+import handleChange from 'shared/components/base/commons/handle-change';
+import {LoadingCurtain} from 'components/base/dialogs';
+import usePhotoCapture from 'shared/hooks/use-photo-capture';
+import {isEmpty} from 'shared/utils/functions';
+import PreImage from 'shared/components/base/pre-image';
+import CircleButton from 'shared/components/base/buttons/circle-button';
+
+const PostAddComponent = () => {
+  const [classes] = useStyles(styles);
+  const [checked, setChecked] = useState(true);
+  const [photo, setPhoto] = useState(null);
+  const {form = {}, isValid, onChange} = useForm(
+    {
+      content: '',
+      title: '',
+    },
+    {
+      required: ['title', 'content'],
+    },
+  );
+  const capturePhoto = usePhotoCapture({});
+  const handleCapturePhoto = async () => {
+    capturePhoto({
+      onPhotoSelected: (response) => {
+        const {uri, data} = response;
+        const imageData = {
+          uri,
+          data,
+        };
+        if (uri) {
+          setPhoto(imageData);
+        }
+      },
+    });
+  };
+  const {_t} = useTranslation();
+  const {goBack} = useNavigate();
+  const [savePost, loading] = useSavePost();
+  const {navigation} = useNavigate();
+  const handlePostSave = async () => {
+    const saved = await savePost({
+      isPublic: checked,
+      content,
+      title,
+      photo: !isEmpty(photo) ? `data:image/png;base64,${photo.data}` : null,
+    });
+    if (saved) {
+      navigation.navigate('community');
+    } else {
+      // Handle error...
+    }
+  };
+  const {content, title} = form;
+  const handleRemoveImage = () => setPhoto(null);
+  return (
+    <>
+      <View style={classes.root}>
+        <Text style={classes.title}>posts_title_label</Text>
+        <View style={classes.textRow}>
+          <TextField
+            onChange={onChange}
+            name="title"
+            primary
+            placeholder={'posts_title_ph'}
+            value={title}
+          />
+        </View>
+        <Text style={classes.title}>posts_content_label</Text>
+        <View style={classes.textWrapper}>
+          <TextInput
+            name="content"
+            textContentType={'oneTimeCode'}
+            returnKeyType="done"
+            style={classes.textInput}
+            placeholder={_t('what_are_you_thinking')}
+            placeholderTextColor={palette.blue}
+            multiline
+            onChangeText={(newValue) =>
+              handleChange(newValue, {name: 'content', onChange})
+            }
+            value={content}
+          />
+        </View>
+        <View style={classes.otherActions}>
+          <Label>post_images</Label>
+          {isEmpty(photo) && (
+            <>
+              <TouchableOpacity
+                onPress={handleCapturePhoto}
+                style={classes.button}>
+                <Icon name="images" style={classes.buttonIcon} />
+              </TouchableOpacity>
+              <Text style={classes.buttonLabel}>add_image</Text>
+            </>
+          )}
+          {!isEmpty(photo) && (
+            <View style={classes.photoWrapper}>
+              <PreImage
+                // source={{uri: `data:image/png;base64,${}`}}
+                source={{uri: photo.uri}}
+                style={classes.photo}
+              />
+              <View style={classes.removePhotoButton}>
+                <CircleButton
+                  name="times"
+                  primary
+                  size="xs"
+                  onPress={handleRemoveImage}
+                />
+              </View>
+            </View>
+          )}
+        </View>
+        <Label>post_visibility_label</Label>
+        <View style={classes.row}>
+          <RadioButton value={checked} onPress={() => setChecked(!checked)} />
+          <Text style={classes.label}>public_post_label</Text>
+        </View>
+        <View style={classes.row}>
+          <RadioButton value={!checked} onPress={() => setChecked(!checked)} />
+          <Text style={classes.label}>public_post_label_friends_only</Text>
+        </View>
+
+        <View style={classes.actions}>
+          <Button onPress={handlePostSave} disabled={!isValid} primary>
+            publish_text
+          </Button>
+          <Button onPress={goBack} secondary>
+            cancel_text
+          </Button>
+        </View>
+      </View>
+      {loading && <LoadingCurtain disableModal />}
+    </>
+  );
+};
+
+export default PostAddComponent;

@@ -32,6 +32,7 @@ const Text = ({children, replacements, style, color, variant}) => {
             link: variant === 'link',
             paragraph: variant === 'text',
             title: variant === 'title',
+            titlePrimary: variant === 'title-primary',
             subtitle: variant === 'subtitle',
           },
           [classes, theme],
@@ -60,6 +61,7 @@ Text.propTypes = {
     'subtitle',
     'label',
     'caption',
+    'title-primary',
     'link',
   ]),
 };
