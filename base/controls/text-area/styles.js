@@ -1,9 +1,9 @@
 import {Platform} from 'react-native';
 
-const inputSize = 140;
+const inputSize = 100;
 export default ({palette}) => ({
   textArea: {
-    height: 300,
+    // height: 300,
   },
   counterWrapper: {
     position: 'absolute',
@@ -43,11 +43,13 @@ export default ({palette}) => ({
     color: palette.black,
     ...Platform.select({
       ios: {
-        height: 45,
+        minHeight: 100,
+        // height: 45,
         fontSize: 18,
       },
       android: {
-        height: 40,
+        minHeight: 100,
+        // height: 40,
         fontSize: 16,
       },
     }),

@@ -61,16 +61,16 @@ const TextArea = ({
   required,
   returnKeyType,
   onSubmitEditing,
-                    onBlur,
-                    onKeyPress,
-                    onFocus,
+  onBlur,
+  onKeyPress,
+  onFocus,
   ..._props
 }) => {
   const [classes] = useStyles(styles);
   const [textAreaValue, setTextAreaValue] = useState(value);
   const {_t} = useTranslation();
   const handleChange = (newValue) => {
-    if (isEmpty(newValue) && maxChars && newValue.length > maxChars) {
+    if (maxChars > 0 && newValue.length > maxChars) {
       return false;
     }
     setTextAreaValue(newValue);

@@ -13,6 +13,7 @@ export default ({palette}) => ({
   imageWrapper: {
     width: 140,
     height: 140,
+    opacity: 0.6,
   },
   root: {
     marginTop: 40,

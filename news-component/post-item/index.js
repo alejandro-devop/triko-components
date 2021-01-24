@@ -72,10 +72,10 @@ const PostItem = ({delay, post}) => {
         </View>
         <View style={classes.contentWrapper}>
           <Component post={post} />
-          {!disableActions && (
-            <PostButtons buttons={actions} alt={isRecommendation} />
-          )}
         </View>
+        {!disableActions && (
+          <PostButtons buttons={actions} alt={isRecommendation} />
+        )}
       </TouchableOpacity>
     </Slide>
   );
@@ -84,6 +84,7 @@ const PostItem = ({delay, post}) => {
 const styles = ({palette}) => ({
   contentWrapper: {
     paddingLeft: 70,
+    minHeight: 100,
   },
   fullName: {},
   fullNameRecommendation: {},
@@ -92,7 +93,6 @@ const styles = ({palette}) => ({
     paddingHorizontal: 20,
     paddingVertical: 10,
     width: '100%',
-    minHeight: 200,
     backgroundColor: palette.blueLight,
     marginBottom: 20,
     borderRadius: 30,

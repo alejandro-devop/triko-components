@@ -79,7 +79,7 @@ const CircleButton = ({
           )}
         />
       </WrapperComponent>
-      {label && <Text style={classes.labelText}>{label}</Text>}
+      {label && <Text style={[classes.labelText, styles.label]}>{label}</Text>}
     </View>
   );
   if (enableWave) {
