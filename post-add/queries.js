@@ -48,17 +48,6 @@ export const SAVE_POST = gql`
   }
 `;
 
-export const COMMENT_POST = gql`
-  mutation commentPost($post: Int, $comment: String, $locale: String = "en") {
-    response: commentpost(post_id: $post, comment: $comment, locale: $locale) {
-      id
-      text
-      created_at
-      updated_at
-    }
-  }
-`;
-
 export const GET_POSTS = gql`
   query getPosts($id: Int, $client: Int, $triko: Int, $locale: String = "en") {
     response: post(

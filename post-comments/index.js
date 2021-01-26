@@ -3,12 +3,24 @@ import {View} from 'react-native';
 import useStyles from 'shared/hooks/use-styles';
 import styles from './styles';
 import Loader from './loader';
+import CommentItem from './comment-item';
 
-const PostComments = () => {
+const PostComments = ({loading, post = {}, refreshPost}) => {
   const [classes] = useStyles(styles);
+  const {comments = [], id} = post;
   return (
     <View style={classes.root}>
-      <Loader />
+      {loading && <Loader />}
+      {!loading &&
+        comments.map((comment, key) => (
+          <CommentItem
+            onRemoved={refreshPost}
+            comment={comment}
+            delay={key * 100}
+            key={`comment-${comment.id}`}
+            postId={id}
+          />
+        ))}
     </View>
   );
 };

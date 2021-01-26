@@ -34,8 +34,15 @@ export default ({palette, shadows}) => ({
     width: 30,
     height: 30,
   },
+  xxs: {
+    width: 30,
+    height: 30,
+  },
   iconXl: {
     fontSize: 30,
+  },
+  iconXxs: {
+    fontSize: 14,
   },
   wrapper: {
     alignItems: 'center',

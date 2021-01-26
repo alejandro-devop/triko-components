@@ -9,6 +9,7 @@ import NewType from './type-new';
 import classNames from 'shared/utils/classnames';
 import PostButtons from './post-buttons';
 import useNavigate from 'shared/hooks/use-navigate';
+import PostLikeButton from 'shared/components/post-like-button';
 
 const TYPE_NEW = 'new';
 const TYPE_RECOMMENDATION = 'recommendation';
@@ -27,10 +28,18 @@ const resolveComponent = (type) => {
   }
 };
 
-const PostItem = ({delay, post}) => {
+const PostItem = ({delay, post, refreshPosts}) => {
   const [classes] = useStyles(styles);
   const {navigation} = useNavigate();
-  const {type, author, date, disableActions} = post;
+  const {
+    type,
+    author,
+    clientsLikes = [],
+    date,
+    disableActions,
+    comments = [],
+    likes = 2,
+  } = post;
   const Component = resolveComponent(type);
   const isRecommendation = type === TYPE_RECOMMENDATION;
   const isPost = type === TYPE_NEW;
@@ -41,17 +50,15 @@ const PostItem = ({delay, post}) => {
   const handleViewPost = () => {
     navigation.navigate('post-view', {post});
   };
-
+  const likeIds = clientsLikes.map((item) => item.id);
   const actions = [
-    {icon: 'thumbs-up', count: 2, action: () => handleLikePost(), active: true},
+    // {icon: 'thumbs-up', count: 2, action: () => handleLikePost(), active: true},
     {
       icon: 'comment',
-      count: 2,
-      action: () => handleCommentPost(),
+      count: comments.length,
       active: true,
     },
   ];
-
   return (
     <Slide
       direction={'right'}
@@ -74,7 +81,19 @@ const PostItem = ({delay, post}) => {
           <Component post={post} />
         </View>
         {!disableActions && (
-          <PostButtons buttons={actions} alt={isRecommendation} />
+          <PostButtons
+            pre={
+              <PostLikeButton
+                likes={likeIds}
+                onSaved={refreshPosts}
+                alt
+                count={likes}
+                postId={post.id}
+              />
+            }
+            buttons={actions}
+            alt={isRecommendation}
+          />
         )}
       </TouchableOpacity>
     </Slide>

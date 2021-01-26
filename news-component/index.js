@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {View} from 'react-native';
+import {RefreshControl, ScrollView, View} from 'react-native';
 import styles from './styles';
 import useStyles from 'shared/hooks/use-styles';
 import EmptyList from './empty-list';
@@ -19,15 +19,27 @@ import useUserPosts from 'shared/components/news-component/hooks';
  */
 const NewsComponent = ({isTriko}) => {
   const [classes] = useStyles(styles);
-  const {posts = [], loading} = useUserPosts();
+  const {posts = [], loading, refresh} = useUserPosts();
+  console.log('posts: ', posts);
   return (
-    <View style={classes.root}>
-      {!loading && posts.length === 0 && <EmptyList />}
-      {loading && <Loader />}
-      {posts.map((post, key) => (
-        <PostItem key={`post-item-${key}`} delay={key * 100} post={post} />
-      ))}
-    </View>
+    <ScrollView
+      showsVerticalScrollIndicator={false}
+      refreshControl={
+        <RefreshControl onRefresh={refresh} refreshing={loading} />
+      }>
+      <View style={classes.root}>
+        {!loading && posts.length === 0 && <EmptyList />}
+        {loading && <Loader />}
+        {posts.map((post, key) => (
+          <PostItem
+            refreshPosts={refresh}
+            key={`post-item-${key}`}
+            delay={key * 100}
+            post={post}
+          />
+        ))}
+      </View>
+    </ScrollView>
   );
 };
 

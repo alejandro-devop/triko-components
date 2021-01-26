@@ -9,19 +9,54 @@ export const GET_POSTS = gql`
       locale: $locale
     ) {
       id
+      published: created_at
+      author {
+        id
+        user {
+          id
+          photo: photo_url
+        }
+        pi: personalinformation {
+          firstName: first_name
+          lastName: last_name
+        }
+      }
       postType {
         id
         name
       }
       content
       comments {
+        id
         text
         created_at
         created_at
+        author: client {
+          id
+          user {
+            photo: photo_url
+          }
+          pi: personalinformation {
+            id
+            firstName: first_name
+            lastName: last_name
+          }
+        }
       }
       title
       likes
       trikosLikes {
+        id
+        user {
+          id
+          photo: photo_url
+        }
+        pi: personalinformation {
+          firstName: first_name
+          lastName: last_name
+        }
+      }
+      clientsLikes {
         id
         user {
           id

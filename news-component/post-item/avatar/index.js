@@ -10,8 +10,8 @@ import styles from './styles';
 
 const Avatar = ({author = {}, date, isRecommendation}) => {
   const {user = {}, pi = {}} = author;
-  const {photo_url: photoUrl} = user;
-  const {first_name: firstName, last_name: lastName} = pi;
+  const {photo} = user;
+  const {firstName, lastName} = pi;
   const fullName = `${firstName} ${lastName ? lastName.substring(0, 1) : ''}`;
   const [classes] = useStyles(styles);
   const elapsed = date ? getElapsedTime(date).split(' ')[0] : 0;
@@ -19,7 +19,7 @@ const Avatar = ({author = {}, date, isRecommendation}) => {
     <View style={classes.root}>
       <View style={classes.imageWrapper}>
         <PreImage
-          source={photoUrl ? {uri: photoUrl} : AvatarImage}
+          source={photo ? {uri: photo} : AvatarImage}
           style={classes.image}
         />
       </View>
