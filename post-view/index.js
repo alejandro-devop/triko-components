@@ -14,6 +14,7 @@ import ImageViewer from 'shared/components/post-view/image-viewer';
 import {isEmpty} from 'shared/utils/functions';
 import {useGetPost} from './hooks';
 import Loader from './loader';
+import LikesResume from 'shared/components/post-like-button/likes-resume';
 
 const PostView = ({postId}) => {
   const [classes] = useStyles(styles);
@@ -57,6 +58,7 @@ const PostView = ({postId}) => {
                 onCancel={() => toggleComment()}
               />
             )}
+            <LikesResume likes={clientsLikes} max={9} />
             <View style={classes.actions}>
               <PostLikeButton
                 postId={post.id}

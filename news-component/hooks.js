@@ -17,6 +17,7 @@ const useUserPosts = (options = {}) => {
   } = useSession();
   const {data = {}, loading, refetch} = useQuery(GET_POSTS, {
     fetchPolicy: 'no-cache',
+    pollInterval: 60000,
     variables: {
       id: id,
       client: client.id,

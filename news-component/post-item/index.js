@@ -10,6 +10,7 @@ import classNames from 'shared/utils/classnames';
 import PostButtons from './post-buttons';
 import useNavigate from 'shared/hooks/use-navigate';
 import PostLikeButton from 'shared/components/post-like-button';
+import LikesResume from 'shared/components/post-like-button/likes-resume';
 
 const TYPE_NEW = 'new';
 const TYPE_RECOMMENDATION = 'recommendation';
@@ -79,6 +80,7 @@ const PostItem = ({delay, post, refreshPosts}) => {
         </View>
         <View style={classes.contentWrapper}>
           <Component post={post} />
+          <LikesResume likes={clientsLikes} readOnly />
         </View>
         {!disableActions && (
           <PostButtons
