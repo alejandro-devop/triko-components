@@ -59,7 +59,7 @@ const UploadTransferReceipt = ({
   };
 
   const paying = workflow === STATUS_PAYING_ORDER;
-  console.log('Data: ', trikoInfo);
+
   return (
     <>
       <View style={classes.root}>

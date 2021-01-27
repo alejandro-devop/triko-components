@@ -23,7 +23,6 @@ const PostLikeButton = ({alt, count = 0, postId, likes = [], onSaved}) => {
       onSaved();
     }
   };
-  console.log('Data: ', isLiked);
   return (
     <View style={classNames({root: true, rootLiked: isLiked && alt}, classes)}>
       {loading ? (
