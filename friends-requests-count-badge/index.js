@@ -5,11 +5,15 @@ import styles from './styles';
 import Text from 'shared/components/base/text';
 import Icon from 'components/base/icon';
 import useNavigate from 'shared/hooks/use-navigate';
+import {useSession} from 'hooks/index';
 
 const FriendsRequestsCountBadge = () => {
   const [classes] = useStyles(styles);
   const {navigation} = useNavigate();
-  const count = 0;
+  const {
+    stack: {friendshipRequests = []},
+  } = useSession();
+  const count = friendshipRequests.length;
   const handleOnPress = () => navigation.navigate('friendship-requests');
 
   return (

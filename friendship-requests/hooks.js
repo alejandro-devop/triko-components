@@ -15,6 +15,7 @@ export const useFriendshipRequests = () => {
     setAll,
   } = useSession();
   const {refetch} = useQuery(GET_FRIENDSHIP_REQUESTS, {
+    pollInterval: 30000,
     fetchPolicy: 'cache-and-network',
     onCompleted: ({received = {}, send = {}}) => {
       // alert('Here!');

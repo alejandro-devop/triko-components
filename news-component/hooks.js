@@ -17,7 +17,7 @@ const useUserPosts = (options = {}) => {
   } = useSession();
   const {data = {}, loading, refetch} = useQuery(GET_POSTS, {
     fetchPolicy: 'no-cache',
-    pollInterval: 60000,
+    pollInterval: 30000,
     variables: {
       id: id,
       client: client.id,
@@ -26,6 +26,7 @@ const useUserPosts = (options = {}) => {
   });
   const posts =
     !isEmpty(data) && Array.isArray(data.response) ? data.response : [];
+
   const refresh = async () => {
     await refetch();
   };

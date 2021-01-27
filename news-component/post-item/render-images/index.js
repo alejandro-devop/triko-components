@@ -9,12 +9,8 @@ const RenderImages = ({postId = '0', images = []}) => {
   return (
     <View style={classes.root}>
       {images.map((image, key) => (
-        <View style={classes.imageWrapper}>
-          <PreImage
-            key={`image-${key}`}
-            source={{uri: image.url}}
-            style={classes.image}
-          />
+        <View style={classes.imageWrapper} key={`image-${key}-post${postId}`}>
+          <PreImage source={{uri: image.url}} style={classes.image} />
         </View>
       ))}
     </View>

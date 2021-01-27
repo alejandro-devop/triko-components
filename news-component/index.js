@@ -1,6 +1,7 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import PropTypes from 'prop-types';
 import {RefreshControl, ScrollView, View} from 'react-native';
+import {useFocusEffect} from '@react-navigation/native';
 import styles from './styles';
 import useStyles from 'shared/hooks/use-styles';
 import EmptyList from './empty-list';
@@ -20,7 +21,12 @@ import useUserPosts from 'shared/components/news-component/hooks';
 const NewsComponent = ({isTriko}) => {
   const [classes] = useStyles(styles);
   const {posts = [], loading, refresh} = useUserPosts();
-  console.log('posts: ', posts);
+  useFocusEffect(
+    useCallback(() => {
+      refresh();
+      return () => {};
+    }, []),
+  );
   return (
     <ScrollView
       showsVerticalScrollIndicator={false}
