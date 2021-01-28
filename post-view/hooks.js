@@ -5,8 +5,8 @@ import {useMutation} from '@apollo/react-hooks';
 import useErrorReporter from 'shared/hooks/use-error-reporter';
 import {useSession} from 'hooks/index';
 
-export const useGetPost = (postId) => {
-  const {loading, posts = [], refresh} = useUserPosts({id: postId});
+export const useGetPost = (postId, clientId) => {
+  const {loading, posts = [], refresh} = useUserPosts({id: postId, clientId});
   const [post] = posts;
   return {
     loading,

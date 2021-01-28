@@ -15,12 +15,16 @@ import {isEmpty} from 'shared/utils/functions';
 import {useGetPost} from './hooks';
 import Loader from './loader';
 import LikesResume from 'shared/components/post-like-button/likes-resume';
+import {useSession} from 'hooks/index';
 
 const PostView = ({postId}) => {
   const [classes] = useStyles(styles);
   const [imageToDisplay, setImageToDisplay] = useState(null);
   const [openedComment, toggleComment] = useToggle(false);
-  const {loading, post = {}, refresh} = useGetPost(postId);
+  const {
+    stack: {client = {}},
+  } = useSession();
+  const {loading, post = {}, refresh} = useGetPost(postId, client.id);
   const {
     title,
     content,

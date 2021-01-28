@@ -15,12 +15,17 @@ import useUserPosts from 'shared/components/news-component/hooks';
  * @author Alejandro <alejandro.devop@gmail.com>
  * @version 1.0.0
  * @param isTriko If the component should display triko news or client news.
+ * @param clientId
  * @returns {*}
  * @constructor
  */
-const NewsComponent = ({isTriko}) => {
+const NewsComponent = ({isTriko, onlyPublic, onlyOwned, clientId}) => {
   const [classes] = useStyles(styles);
-  const {posts = [], loading, refresh} = useUserPosts();
+  const {posts = [], loading, refresh} = useUserPosts({
+    clientId,
+    onlyOwned,
+    onlyPublic,
+  });
   useFocusEffect(
     useCallback(() => {
       refresh();
@@ -51,6 +56,7 @@ const NewsComponent = ({isTriko}) => {
 
 NewsComponent.propTypes = {
   isTriko: PropTypes.bool,
+  clientId: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 };
 
 export default NewsComponent;

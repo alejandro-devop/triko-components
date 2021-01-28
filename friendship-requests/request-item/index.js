@@ -30,7 +30,7 @@ const RequestItem = ({delay, item, onViewProfile, onRequestSend}) => {
   const {
     stack: {sendFriendshipRequestsIds = [], friendShipRequestsIds = []},
   } = useSession();
-  const {photo_url: photo} = user;
+  const {photo} = user;
   const {firstName, lastName} = pi;
   const [sendInvitation, loading] = useSendInvitation(id);
   const handleSendInvitation = async (options = {}) => {

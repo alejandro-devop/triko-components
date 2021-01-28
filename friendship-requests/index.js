@@ -6,6 +6,7 @@ import {useSession} from 'hooks/index';
 import RequestItem from './request-item';
 import Text from 'shared/components/base/text';
 import {useFriendshipRequests} from 'shared/components/friendship-requests/hooks';
+import useNavigate from 'shared/hooks/use-navigate';
 
 const FriendshipRequests = () => {
   const [classes] = useStyles(styles);
@@ -13,6 +14,10 @@ const FriendshipRequests = () => {
     stack: {friendshipRequests: requests = []},
   } = useSession();
   const {refresh} = useFriendshipRequests();
+  const {navigation} = useNavigate();
+  const handleViewProfile = ({id}) => {
+    navigation.navigate('client-profile', {clientId: id});
+  };
   return (
     <View style={classes.root}>
       {requests.length === 0 && (
@@ -27,6 +32,7 @@ const FriendshipRequests = () => {
           delay={key * 100}
           key={`request-item-${key}`}
           item={item}
+          onViewProfile={() => handleViewProfile(item)}
           onRequestSend={refresh}
         />
       ))}

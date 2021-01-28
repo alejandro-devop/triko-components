@@ -40,9 +40,9 @@ const MyFriendsList = () => {
         <View style={classes.root}>
           {myFriends.length > 0 && (
             <>
-              <View style={classes.filter}>
-                <TextField primary placeholder="filter_text" />
-              </View>
+              {/*<View style={classes.filter}>*/}
+              {/*  <TextField primary placeholder="filter_text" />*/}
+              {/*</View>*/}
               {myFriends.map((item, key) => (
                 <FriendItem
                   delay={key * 100}

@@ -11,7 +11,7 @@ import {isEmpty} from 'shared/utils/functions';
  * @returns {{refresh: Promise, loading: boolean, posts: Array}}
  */
 const useUserPosts = (options = {}) => {
-  const {id, noClient} = options;
+  const {id, noClient, onlyOwned, onlyPublic, clientId} = options;
   const {
     stack: {client = {}, locale},
   } = useSession();
@@ -20,8 +20,10 @@ const useUserPosts = (options = {}) => {
     pollInterval: 30000,
     variables: {
       id: id,
-      client: client.id,
+      client: clientId,
       locale,
+      onlyOwned,
+      onlyPublic,
     },
   });
   const posts =

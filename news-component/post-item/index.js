@@ -46,14 +46,11 @@ const PostItem = ({delay, post, refreshPosts}) => {
   const isPost = type === TYPE_NEW;
   const isRequest = type === TYPE_REQUEST;
 
-  const handleLikePost = () => {};
-  const handleCommentPost = () => {};
   const handleViewPost = () => {
     navigation.navigate('post-view', {post});
   };
   const likeIds = clientsLikes.map((item) => item.id);
   const actions = [
-    // {icon: 'thumbs-up', count: 2, action: () => handleLikePost(), active: true},
     {
       icon: 'comment',
       count: comments.length,
