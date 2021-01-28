@@ -1,8 +1,9 @@
-import React from 'react';
-import {View} from 'react-native';
+import React, {useState} from 'react';
+import {View, Switch} from 'react-native';
 import Text from 'components/base/text';
 import RowItem from '../commons/RowItem';
 import styles from './styles';
+import Label from 'shared/components/base/label';
 import {useStyles, useSession} from 'hooks/index';
 import currency from 'currency-formatter';
 import moment from 'moment';
@@ -18,6 +19,8 @@ import Button from 'shared/components/base/buttons/button';
 import useRequestUpdateAttrs from 'shared/hooks/use-request-update-attrs';
 import {LoadingCurtain} from 'components/base/dialogs';
 import {isEmpty} from 'shared/utils/functions';
+import SwitchButton from 'shared/components/status-control/switch-button';
+import palette from 'themes/styles/palette';
 
 const ServiceResume = ({
   onTerminate,
@@ -29,6 +32,7 @@ const ServiceResume = ({
 }) => {
   const [classes] = useStyles(styles);
   const {stack = {}} = useSession();
+  const [shareWithCommunity, setShareWithCommunity] = useState();
   const {sendRequest, loading} = useRequestUpdateAttrs(request);
   const {region} = stack;
   const {application_date, order = {}, history = [], duration = 0} = request;
@@ -73,7 +77,9 @@ const ServiceResume = ({
 
   const handleTerminate = async () => {
     await sendRequest({
-      attrs: isTriko ? {terminatedTriko: true} : {terminatedClient: true},
+      attrs: isTriko
+        ? {terminatedTriko: true, trikoPost: shareWithCommunity}
+        : {terminatedClient: true, clientPost: shareWithCommunity},
     });
     if (onTerminate) {
       onTerminate();
@@ -110,6 +116,16 @@ const ServiceResume = ({
           title="resume_duration_execution"
           description={`${diffHours}h ${diffMinutes}m`}
         />
+        <View style={classes.switchWrapperRow}>
+          <Label>share_with_my_community</Label>
+          <View style={classes.switchWrapper}>
+            <Switch
+              value={shareWithCommunity}
+              trackColor={{true: palette.blue}}
+              onValueChange={() => setShareWithCommunity(!shareWithCommunity)}
+            />
+          </View>
+        </View>
         {!isFavor && !isTriko && (
           <View style={classes.priceWrapper}>
             <Text style={classes.priceText}>total_text</Text>

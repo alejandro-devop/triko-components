@@ -16,4 +16,10 @@ export default ({palette}) => ({
   priceText: {
     color: palette.blue,
   },
+  switchWrapperRow: {
+    alignItems: 'center',
+  },
+  switchWrapper: {
+    width: 50,
+  },
 });

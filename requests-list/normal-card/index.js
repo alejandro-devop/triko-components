@@ -20,6 +20,7 @@ import {
   STATUS_STARTED,
 } from 'config/request-statuses';
 import ExpiredLabel from 'shared/components/requests-list/expired-label';
+import useRequestUpdate from 'shared/hooks/use-request-update';
 
 const acceptedStatus = [
   STATUS_PAYMENT,
@@ -52,6 +53,7 @@ const NormalCard = ({
   const icon = service.icon || service.type.icon;
   const cardAlternative =
     withStatus && isPaid && acceptedStatus.includes(workflow);
+  const {} = useRequestUpdate();
   return (
     <View style={classes.root}>
       <View style={classes.serviceWrapper}>
