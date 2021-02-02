@@ -16,7 +16,7 @@ import Icon from 'shared/components/base/icon';
 import {APP_PACKAGE_ANDROID, APP_PACKAGE_IOS} from 'react-native-dotenv';
 import iosUpdate1Image from 'shared/assets/guides/ios-update-1.png';
 import iosUpdate2Image from 'shared/assets/guides/ios-update-2.png';
-import useRegionConfigFetch from '../../../contexts/configuration/hooks';
+import useRegionConfigFetch from 'shared/components/configuration-provider/hooks';
 
 /**
  * Renders a view if the current application does not match the published version.
