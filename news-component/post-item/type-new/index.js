@@ -1,18 +1,20 @@
 import useStyles from 'shared/hooks/use-styles';
-import {View} from 'react-native';
+import {TouchableOpacity, View} from 'react-native';
 import Text from 'shared/components/base/text';
 import React from 'react';
 import styles from './styles';
 import RenderImages from '../render-images';
 
-const TypeNew = ({post = {}}) => {
-  const {content, images = [], cta, ctaLabel = 'Call to cation'} = post;
+const TypeNew = ({onView, post = {}}) => {
+  const {content, images = []} = post;
   const [classes] = useStyles(styles);
   return (
-    <View style={classes.root}>
+    <TouchableOpacity onPress={onView} style={classes.root}>
       {images.length > 0 && <RenderImages images={images} postId={post.id} />}
-      <Text style={classes.text}>{content}</Text>
-    </View>
+      <View style={classes.content}>
+        <Text style={classes.text}>{content}</Text>
+      </View>
+    </TouchableOpacity>
   );
 };
 

@@ -1,14 +1,9 @@
-export default () => ({
-  actionsWrapper: {
-    marginTop: 20,
-    alignItems: 'center',
+export default ({palette}) => ({
+  content: {
+    paddingHorizontal: 20,
+    paddingTop: 10,
   },
-  image: {
-    height: 200,
-    width: 200,
+  text: {
+    fontSize: 14,
   },
-  root: {
-    flex: 1,
-  },
-  text: {fontSize: 14},
 });

@@ -1,6 +1,7 @@
 import React, {useCallback} from 'react';
 import PropTypes from 'prop-types';
-import {RefreshControl, ScrollView, View} from 'react-native';
+import {RefreshControl, View} from 'react-native';
+import {ScrollView} from 'shared/components/commons';
 import {useFocusEffect} from '@react-navigation/native';
 import styles from './styles';
 import useStyles from 'shared/hooks/use-styles';
@@ -21,7 +22,7 @@ import useUserPosts from 'shared/components/news-component/hooks';
  */
 const NewsComponent = ({isTriko, onlyPublic, onlyOwned, clientId}) => {
   const [classes] = useStyles(styles);
-  const {posts = [], loading, refresh} = useUserPosts({
+  const {posts = [], loading, loaded, refresh, refreshing} = useUserPosts({
     clientId,
     onlyOwned,
     onlyPublic,
@@ -34,13 +35,13 @@ const NewsComponent = ({isTriko, onlyPublic, onlyOwned, clientId}) => {
   );
   return (
     <ScrollView
-      showsVerticalScrollIndicator={false}
+      useKeyboard
       refreshControl={
-        <RefreshControl onRefresh={refresh} refreshing={loading} />
+        <RefreshControl refreshing={refreshing} onRefresh={refresh} />
       }>
       <View style={classes.root}>
         {!loading && posts.length === 0 && <EmptyList />}
-        {loading && <Loader />}
+        {loading && !loaded && <Loader />}
         {posts.map((post, key) => (
           <PostItem
             refreshPosts={refresh}

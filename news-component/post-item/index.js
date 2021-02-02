@@ -1,5 +1,5 @@
 import React from 'react';
-import {TouchableOpacity, View} from 'react-native';
+import {View} from 'react-native';
 import Slide from 'components/anims/Slide';
 import useStyles from 'shared/hooks/use-styles';
 import RequestType from './type-request';
@@ -11,6 +11,9 @@ import PostButtons from './post-buttons';
 import useNavigate from 'shared/hooks/use-navigate';
 import PostLikeButton from 'shared/components/post-like-button';
 import LikesResume from 'shared/components/post-like-button/likes-resume';
+import styles from './styles';
+import useToggle from 'shared/hooks/use-toggle';
+import PostComment from 'shared/components/post-view/comment-post';
 
 const TYPE_NEW = 'new';
 const TYPE_RECOMMENDATION = 'recommendation';
@@ -29,7 +32,7 @@ const resolveComponent = (type) => {
   }
 };
 
-const PostItem = ({delay, post, refreshPosts}) => {
+const PostItem = ({delay, onView, post, refreshPosts}) => {
   const [classes] = useStyles(styles);
   const {navigation} = useNavigate();
   const {
@@ -41,6 +44,7 @@ const PostItem = ({delay, post, refreshPosts}) => {
     comments = [],
     likes = 2,
   } = post;
+  const [openedComment, toggleComment] = useToggle(false);
   const Component = resolveComponent(type);
   const isRecommendation = type === TYPE_RECOMMENDATION;
   const isPost = type === TYPE_NEW;
@@ -49,14 +53,20 @@ const PostItem = ({delay, post, refreshPosts}) => {
   const handleViewPost = () => {
     navigation.navigate('post-view', {post});
   };
+
   const likeIds = clientsLikes.map((item) => item.id);
   const actions = [
     {
       icon: 'comment',
       count: comments.length,
+      action: toggleComment,
       active: true,
     },
   ];
+  const handleSaved = () => {
+    toggleComment();
+    refreshPosts();
+  };
   return (
     <Slide
       direction={'right'}
@@ -65,20 +75,19 @@ const PostItem = ({delay, post, refreshPosts}) => {
         classes,
       )}
       delay={delay}>
-      <TouchableOpacity onPress={handleViewPost}>
-        <View style={classes.avatarWrapper}>
-          <Avatar
-            author={author}
-            date={date}
-            isRecommendation={isRecommendation}
-            isPost={isPost}
-            isRequest={isRequest}
-          />
-        </View>
-        <View style={classes.contentWrapper}>
-          <Component post={post} />
-          <LikesResume likes={clientsLikes} readOnly />
-        </View>
+      <View style={classes.avatarWrapper}>
+        <Avatar
+          author={author}
+          date={date}
+          title={post.title}
+          isRecommendation={isRecommendation}
+          isPost={isPost}
+          isRequest={isRequest}
+        />
+      </View>
+      <View style={classes.contentWrapper}>
+        <Component post={post} onView={handleViewPost} />
+        <LikesResume likes={clientsLikes} readOnly />
         {!disableActions && (
           <PostButtons
             pre={
@@ -94,30 +103,19 @@ const PostItem = ({delay, post, refreshPosts}) => {
             alt={isRecommendation}
           />
         )}
-      </TouchableOpacity>
+        {openedComment && (
+          <View style={classes.commentWrapper}>
+            <PostComment
+              secondary
+              post={post}
+              onSaved={handleSaved}
+              onCancel={() => toggleComment()}
+            />
+          </View>
+        )}
+      </View>
     </Slide>
   );
 };
-
-const styles = ({palette}) => ({
-  contentWrapper: {
-    paddingLeft: 70,
-    minHeight: 100,
-  },
-  fullName: {},
-  fullNameRecommendation: {},
-  heading: {},
-  root: {
-    paddingHorizontal: 20,
-    paddingVertical: 10,
-    width: '100%',
-    backgroundColor: palette.blueLight,
-    marginBottom: 20,
-    borderRadius: 30,
-  },
-  rootRecommendation: {
-    backgroundColor: palette.orange,
-  },
-});
 
 export default PostItem;

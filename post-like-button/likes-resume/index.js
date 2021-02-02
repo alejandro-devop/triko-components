@@ -9,12 +9,15 @@ import Text from 'shared/components/base/text';
 
 const LikesResume = ({likes = [], readOnly, max = 5}) => {
   const [classes] = useStyles(styles);
-  const likestoRender = likes.slice(0, max);
+  const likesToRender = likes.slice(0, max);
   const Wrapper = readOnly ? View : TouchableOpacity;
   const rest = likes.slice(max).length;
+  if (likes.length === 0) {
+    return null;
+  }
   return (
     <Wrapper style={classes.root}>
-      {likestoRender.map((item, key) => {
+      {likesToRender.map((item, key) => {
         const {user = {}} = item;
         const {photo} = user;
         return (

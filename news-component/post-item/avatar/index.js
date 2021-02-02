@@ -8,7 +8,7 @@ import classNames from 'shared/utils/classnames';
 import React from 'react';
 import styles from './styles';
 
-const Avatar = ({author = {}, date, isRecommendation}) => {
+const Avatar = ({author = {}, date, isRecommendation, title}) => {
   const {user = {}, pi = {}} = author;
   const {photo} = user;
   const {firstName, lastName} = pi;
@@ -30,6 +30,9 @@ const Avatar = ({author = {}, date, isRecommendation}) => {
             classes,
           )}>
           {fullName}
+        </Text>
+        <Text style={classNames({text: true, textTitle: true}, classes)}>
+          {title}
         </Text>
         {date && (
           <Text

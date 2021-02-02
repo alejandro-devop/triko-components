@@ -17,6 +17,8 @@ export default ({palette}) => ({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  content: {
+  },
   icon: {
     color: palette.blue,
   },
@@ -25,7 +27,8 @@ export default ({palette}) => ({
   },
   root: {
     flexDirection: 'row',
-    marginVertical: 10,
-    paddingHorizontal: 60,
+    marginTop: 10,
+    paddingHorizontal: 20,
+    paddingBottom: 10,
   },
 });

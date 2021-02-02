@@ -1,5 +1,11 @@
 import React from 'react';
-import {Linking, Platform, SafeAreaView, View} from 'react-native';
+import {
+  Linking,
+  Platform,
+  SafeAreaView,
+  RefreshControl,
+  View,
+} from 'react-native';
 import {ScrollView} from 'shared/components/commons';
 import useStyles from 'hooks/useStyles';
 import Logo from 'assets/logos/logo-triko-1.png';
@@ -10,9 +16,19 @@ import Icon from 'shared/components/base/icon';
 import {APP_PACKAGE_ANDROID, APP_PACKAGE_IOS} from 'react-native-dotenv';
 import iosUpdate1Image from 'shared/assets/guides/ios-update-1.png';
 import iosUpdate2Image from 'shared/assets/guides/ios-update-2.png';
+import useRegionConfigFetch from '../../../contexts/configuration/hooks';
 
+/**
+ * Renders a view if the current application does not match the published version.
+ * @author Alejandro <alejandro.devop@gmail.com>
+ * @version 1.0.0
+ * @returns {*}
+ * @constructor
+ */
 const NeedUpdate = () => {
   const [classes] = useStyles(styles);
+  const {refresh, loading: refreshing} = useRegionConfigFetch();
+
   const goToStore = () => {
     if (Platform.OS === 'android') {
       Linking.openURL(`market://details?id=${APP_PACKAGE_ANDROID}`);
@@ -22,12 +38,21 @@ const NeedUpdate = () => {
       );
     }
   };
+
+  const handleRefresh = () => {
+    refresh();
+  };
+
   const iosSteps = [
     {image: iosUpdate1Image, text: 'ios_update_step_1'},
     {image: iosUpdate2Image, text: 'ios_update_step_2'},
   ];
+
   return (
-    <ScrollView>
+    <ScrollView
+      refreshControl={
+        <RefreshControl onRefresh={handleRefresh} refreshing={refreshing} />
+      }>
       <SafeAreaView style={classes.root}>
         <View style={classes.header}>
           <PreImage source={Logo} style={classes.logo} />

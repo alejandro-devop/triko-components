@@ -1,3 +1,4 @@
+import {useState} from 'react';
 import {useQuery} from '@apollo/react-hooks';
 import {GET_POSTS} from './queries';
 import {useSession} from 'hooks/index';
@@ -11,9 +12,11 @@ import {isEmpty} from 'shared/utils/functions';
  * @returns {{refresh: Promise, loading: boolean, posts: Array}}
  */
 const useUserPosts = (options = {}) => {
-  const {id, noClient, onlyOwned, onlyPublic, clientId} = options;
+  const {id, onlyOwned, onlyPublic, clientId} = options;
+  const [refreshing, setRefreshing] = useState(false);
+  const [loaded, setLoaded] = useState(false);
   const {
-    stack: {client = {}, locale},
+    stack: {locale},
   } = useSession();
   const {data = {}, loading, refetch} = useQuery(GET_POSTS, {
     fetchPolicy: 'no-cache',
@@ -25,17 +28,25 @@ const useUserPosts = (options = {}) => {
       onlyOwned,
       onlyPublic,
     },
+    onCompleted: () => {
+      setLoaded(true);
+    },
   });
   const posts =
     !isEmpty(data) && Array.isArray(data.response) ? data.response : [];
 
   const refresh = async () => {
+    setRefreshing(true);
     await refetch();
+    setRefreshing(false);
   };
+
   return {
     loading,
     posts,
     refresh,
+    refreshing,
+    loaded,
   };
 };
 

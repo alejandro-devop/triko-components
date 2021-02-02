@@ -11,14 +11,16 @@ import {useStyles} from 'hooks/index';
  * @version 1.0.0
  * @param children
  * @param disableScroll
+ * @param refreshControl
  * @returns {*}
  * @constructor
  */
-const ScrollView = ({children, useKeyboard, style}) => {
+const ScrollView = ({children, useKeyboard, refreshControl, style}) => {
   const [classes] = useStyles(styles);
   if (useKeyboard) {
     return (
       <KeyboardAwareScrollView
+        refreshControl={refreshControl}
         showsVerticalScrollIndicator={false}
         style={[classes.root, style]}
         contentContainerStyle={classes.scroll}>
@@ -28,6 +30,7 @@ const ScrollView = ({children, useKeyboard, style}) => {
   }
   return (
     <ScrollViewBase
+      refreshControl={refreshControl}
       showsVerticalScrollIndicator={false}
       style={[classes.root, style]}
       contentContainerStyle={classes.scroll}>

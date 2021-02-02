@@ -15,7 +15,7 @@ const PostButtons = ({buttons = [], comments, alt, pre}) => {
         const {icon, action, count} = item;
         const Wrapper = action ? TouchableOpacity : View;
         return (
-          <Wrapper key={`item-${key}`} style={classes.button}>
+          <Wrapper key={`item-${key}`} style={classes.button} onPress={action}>
             <Icon
               name={icon}
               style={classNames({icon: true, iconAlt: alt}, classes)}

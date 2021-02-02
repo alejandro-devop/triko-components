@@ -8,7 +8,7 @@ import {isEmpty} from 'shared/utils/functions';
 import {useSaveComment} from 'shared/components/post-view/hooks';
 import {LoadingCurtain} from 'components/base/dialogs';
 
-const PostComment = ({onCancel, onSaved, post = {}}) => {
+const PostComment = ({onCancel, onSaved, secondary, post = {}}) => {
   const [comment, setComment] = useState('');
   const {id} = post;
   const [savePost, loading] = useSaveComment(id);
@@ -30,7 +30,7 @@ const PostComment = ({onCancel, onSaved, post = {}}) => {
       <TextArea
         maxChars={200}
         onChange={({target: {value}}) => setComment(value)}
-        primary
+        primary={!secondary}
         placeholder="type_a_comment"
         value={comment}
       />

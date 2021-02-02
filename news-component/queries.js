@@ -1,12 +1,21 @@
 import gql from 'graphql-tag';
 
 export const GET_POSTS = gql`
-  query getPosts($id: Int, $client: Int, $triko: Int, $locale: String = "en") {
+  query getPosts(
+    $id: Int
+    $client: Int
+    $onlyOwned: Boolean
+    $onlyPublic: Boolean
+    $triko: Int
+    $locale: String = "en"
+  ) {
     response: post(
       id: $id
       client_id: $client
       triko_id: $triko
       locale: $locale
+      onlyOwned: $onlyOwned
+      onlyPublic: $onlyPublic
     ) {
       id
       published: created_at
@@ -63,6 +72,7 @@ export const GET_POSTS = gql`
           photo: photo_url
         }
         pi: personalinformation {
+          id
           firstName: first_name
           lastName: last_name
         }
