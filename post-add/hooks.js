@@ -4,10 +4,11 @@ import {useMutation} from '@apollo/react-hooks';
 import useErrorReporter from 'shared/hooks/use-error-reporter';
 import {useSession} from 'hooks/index';
 
-export const useSavePost = () => {
+export const useSavePost = (options = {}) => {
+  const {isTriko} = options;
   const [callMutation] = useMutation(SAVE_POST);
   const {
-    stack: {client = {}, locale},
+    stack: {client = {}, triko = [], locale},
   } = useSession();
   const [loading, setLoading] = useState();
   const reportError = useErrorReporter({
@@ -19,12 +20,12 @@ export const useSavePost = () => {
       setLoading(true);
       await callMutation({
         variables: {
-          client: client.id,
           isPublic,
           content,
           title,
           locale,
           photo,
+          ...(isTriko ? {triko: triko.id} : {client: client.id}),
         },
       });
       setLoading(false);

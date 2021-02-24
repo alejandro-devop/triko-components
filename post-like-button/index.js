@@ -10,13 +10,20 @@ import CircularLoader from 'shared/components/loaders/circular-loader';
 import {useSession} from 'hooks/index';
 import classNames from 'shared/utils/classnames';
 
-const PostLikeButton = ({alt, count = 0, postId, likes = [], onSaved}) => {
+const PostLikeButton = ({
+  alt,
+  count = 0,
+  isTriko,
+  postId,
+  likes = [],
+  onSaved,
+}) => {
   const [classes] = useStyles(styles);
-  const [sendLike, loading] = useSendLike(postId);
+  const [sendLike, loading] = useSendLike(postId, isTriko);
   const {
-    stack: {client = {}},
+    stack: {client = {}, triko = {}},
   } = useSession();
-  const isLiked = likes.includes(client.id);
+  const isLiked = likes.includes(isTriko ? triko.id : client.id);
   const handleLike = async () => {
     await sendLike(isLiked);
     if (onSaved) {

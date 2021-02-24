@@ -32,13 +32,14 @@ const resolveComponent = (type) => {
   }
 };
 
-const PostItem = ({delay, onView, post, refreshPosts}) => {
+const PostItem = ({delay, isTriko, post, refreshPosts}) => {
   const [classes] = useStyles(styles);
   const {navigation} = useNavigate();
   const {
     type,
     author,
     clientsLikes = [],
+    trikosLikes = [],
     date,
     disableActions,
     comments = [],
@@ -54,7 +55,7 @@ const PostItem = ({delay, onView, post, refreshPosts}) => {
     navigation.navigate('post-view', {post});
   };
 
-  const likeIds = clientsLikes.map((item) => item.id);
+  const likeIds = (isTriko ? trikosLikes : clientsLikes).map((item) => item.id);
   const actions = [
     {
       icon: 'comment',
@@ -87,12 +88,13 @@ const PostItem = ({delay, onView, post, refreshPosts}) => {
       </View>
       <View style={classes.contentWrapper}>
         <Component post={post} onView={handleViewPost} />
-        <LikesResume likes={clientsLikes} readOnly />
+        <LikesResume likes={isTriko ? trikosLikes : clientsLikes} readOnly />
         {!disableActions && (
           <PostButtons
             pre={
               <PostLikeButton
                 likes={likeIds}
+                isTriko={isTriko}
                 onSaved={refreshPosts}
                 alt
                 count={likes}

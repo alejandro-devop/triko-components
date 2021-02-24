@@ -18,6 +18,7 @@ const CommentItem = ({
   delay,
   format = 'YYYY-MM-DD HH:mm:ss',
   onRemoved,
+  isTriko,
   postId,
 }) => {
   const [classes] = useStyles(styles);

@@ -20,10 +20,12 @@ import useUserPosts from 'shared/components/news-component/hooks';
  * @returns {*}
  * @constructor
  */
-const NewsComponent = ({isTriko, onlyPublic, onlyOwned, clientId}) => {
+const NewsComponent = ({isTriko, onlyPublic, onlyOwned, clientId, trikoId}) => {
   const [classes] = useStyles(styles);
   const {posts = [], loading, loaded, refresh, refreshing} = useUserPosts({
     clientId,
+    trikoId,
+    isTriko,
     onlyOwned,
     onlyPublic,
   });
@@ -44,6 +46,7 @@ const NewsComponent = ({isTriko, onlyPublic, onlyOwned, clientId}) => {
         {loading && !loaded && <Loader />}
         {posts.map((post, key) => (
           <PostItem
+            isTriko={isTriko}
             refreshPosts={refresh}
             key={`post-item-${key}`}
             delay={key * 100}

@@ -5,7 +5,7 @@ import styles from './styles';
 import Loader from './loader';
 import CommentItem from './comment-item';
 
-const PostComments = ({loading, post = {}, refreshPost}) => {
+const PostComments = ({loading, isTriko, post = {}, refreshPost}) => {
   const [classes] = useStyles(styles);
   const {comments = [], id} = post;
   return (
@@ -15,6 +15,7 @@ const PostComments = ({loading, post = {}, refreshPost}) => {
         comments.map((comment, key) => (
           <CommentItem
             onRemoved={refreshPost}
+            isTriko={isTriko}
             comment={comment}
             delay={key * 100}
             key={`comment-${comment.id}`}

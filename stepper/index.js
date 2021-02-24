@@ -43,7 +43,7 @@ const Stepper = ({current = 0, secondary, steps = 0, title}) => {
             setAvailableWidth(layout.width);
           }}
         />
-        {_.times(steps, index => (
+        {_.times(steps, (index) => (
           <View
             key={`step-index-${index}`}
             style={classNames(

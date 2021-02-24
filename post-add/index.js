@@ -1,12 +1,13 @@
 import React, {useState} from 'react';
+import PropTypes from 'prop-types';
 import {TextInput, TouchableOpacity, View} from 'react-native';
+import {ScrollView} from 'shared/components/commons';
 import {useStyles} from 'hooks/index';
 import styles from './styles';
 import palette from 'themes/styles/palette';
 import Button from 'shared/components/base/buttons/button';
 import Icon from 'shared/components/base/icon';
 import Text from 'shared/components/base/text';
-import useTranslation from 'shared/hooks/use-translate';
 import Label from 'shared/components/base/label';
 import useNavigate from 'shared/hooks/use-navigate';
 import {useSavePost} from './hooks';
@@ -19,8 +20,17 @@ import usePhotoCapture from 'shared/hooks/use-photo-capture';
 import {isEmpty} from 'shared/utils/functions';
 import PreImage from 'shared/components/base/pre-image';
 import CircleButton from 'shared/components/base/buttons/circle-button';
+import useTranslation from 'hooks/useTranslation';
 
-const PostAddComponent = () => {
+/**
+ * Component to publish posts by the user.
+ * @version 1.0.0
+ * @author Alejandro <alejandro.devop@gmail.com>
+ * @param isTriko
+ * @returns {*}
+ * @constructor
+ */
+const PostAddComponent = ({isTriko}) => {
   const [classes] = useStyles(styles);
   const [checked, setChecked] = useState(true);
   const [photo, setPhoto] = useState(null);
@@ -50,7 +60,7 @@ const PostAddComponent = () => {
   };
   const {_t} = useTranslation();
   const {goBack} = useNavigate();
-  const [savePost, loading] = useSavePost();
+  const [savePost, loading] = useSavePost({isTriko});
   const {navigation} = useNavigate();
   const handlePostSave = async () => {
     const saved = await savePost({
@@ -68,7 +78,7 @@ const PostAddComponent = () => {
   const {content, title} = form;
   const handleRemoveImage = () => setPhoto(null);
   return (
-    <>
+    <ScrollView useKeyboard>
       <View style={classes.root}>
         <Text style={classes.title}>posts_title_label</Text>
         <View style={classes.textRow}>
@@ -146,8 +156,15 @@ const PostAddComponent = () => {
         </View>
       </View>
       {loading && <LoadingCurtain disableModal />}
-    </>
+    </ScrollView>
   );
+};
+
+PostAddComponent.propTypes = {
+  /**
+   * If should save the post for triko or client.
+   */
+  isTriko: PropTypes.bool,
 };
 
 export default PostAddComponent;

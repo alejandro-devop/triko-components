@@ -8,10 +8,10 @@ import {isEmpty} from 'shared/utils/functions';
 import {useSaveComment} from 'shared/components/post-view/hooks';
 import {LoadingCurtain} from 'components/base/dialogs';
 
-const PostComment = ({onCancel, onSaved, secondary, post = {}}) => {
+const PostComment = ({onCancel, onSaved, secondary, post = {}, isTriko}) => {
   const [comment, setComment] = useState('');
   const {id} = post;
-  const [savePost, loading] = useSaveComment(id);
+  const [savePost, loading] = useSaveComment(id, isTriko);
   const [classes] = useStyles(styles);
   const handleCancel = () => {
     setComment('');

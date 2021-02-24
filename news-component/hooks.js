@@ -1,6 +1,6 @@
 import {useState} from 'react';
 import {useQuery} from '@apollo/react-hooks';
-import {GET_POSTS} from './queries';
+import {GET_POSTS_TRIKO, GET_POSTS_CLIENT} from './queries';
 import {useSession} from 'hooks/index';
 import {isEmpty} from 'shared/utils/functions';
 
@@ -12,26 +12,30 @@ import {isEmpty} from 'shared/utils/functions';
  * @returns {{refresh: Promise, loading: boolean, posts: Array}}
  */
 const useUserPosts = (options = {}) => {
-  const {id, onlyOwned, onlyPublic, clientId} = options;
+  const {id, onlyOwned, onlyPublic, clientId, isTriko, trikoId} = options;
   const [refreshing, setRefreshing] = useState(false);
   const [loaded, setLoaded] = useState(false);
   const {
     stack: {locale},
   } = useSession();
-  const {data = {}, loading, refetch} = useQuery(GET_POSTS, {
-    fetchPolicy: 'no-cache',
-    pollInterval: 30000,
-    variables: {
-      id: id,
-      client: clientId,
-      locale,
-      onlyOwned,
-      onlyPublic,
+  const {data = {}, loading, refetch} = useQuery(
+    isTriko ? GET_POSTS_TRIKO : GET_POSTS_CLIENT,
+    {
+      fetchPolicy: 'no-cache',
+      pollInterval: 30000,
+      variables: {
+        id: id,
+        locale,
+        onlyOwned: Boolean(onlyOwned),
+        onlyPublic: Boolean(onlyPublic),
+        ...(isTriko ? {triko: trikoId} : {client: clientId}),
+      },
+      onCompleted: () => {
+        setLoaded(true);
+      },
     },
-    onCompleted: () => {
-      setLoaded(true);
-    },
-  });
+  );
+
   const posts =
     !isEmpty(data) && Array.isArray(data.response) ? data.response : [];
 

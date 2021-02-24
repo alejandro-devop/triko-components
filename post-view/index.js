@@ -17,20 +17,26 @@ import Loader from './loader';
 import LikesResume from 'shared/components/post-like-button/likes-resume';
 import {useSession} from 'hooks/index';
 
-const PostView = ({postId}) => {
+const PostView = ({postId, isTriko}) => {
   const [classes] = useStyles(styles);
   const [imageToDisplay, setImageToDisplay] = useState(null);
   const [openedComment, toggleComment] = useToggle(false);
   const {
-    stack: {client = {}},
+    stack: {client = {}, triko = {}},
   } = useSession();
-  const {loading, post = {}, refresh} = useGetPost(postId, client.id);
+  const {loading, post = {}, refresh} = useGetPost(
+    postId,
+    client.id,
+    triko.id,
+    isTriko,
+  );
   const {
     title,
     content,
     images = [],
     likes,
     clientsLikes = [],
+    trikosLikes = [],
     comments = [],
     author,
     published,
@@ -40,7 +46,8 @@ const PostView = ({postId}) => {
     toggleComment();
     await refresh();
   };
-  const likeIds = clientsLikes.map((item) => item.id);
+  console.log('Data: ', post);
+  const likeIds = (isTriko ? trikosLikes : clientsLikes).map((item) => item.id);
   return (
     <>
       <View style={classes.root}>
@@ -58,6 +65,7 @@ const PostView = ({postId}) => {
             {openedComment && (
               <CommentPost
                 post={post}
+                isTriko={isTriko}
                 onSaved={handleCommentSaved}
                 onCancel={() => toggleComment()}
               />
@@ -66,6 +74,7 @@ const PostView = ({postId}) => {
             <View style={classes.actions}>
               <PostLikeButton
                 postId={post.id}
+                isTriko={isTriko}
                 count={likes}
                 likes={likeIds}
                 onSaved={refresh}
@@ -84,7 +93,12 @@ const PostView = ({postId}) => {
             </View>
           </>
         )}
-        <PostComments refreshPost={refresh} post={post} loading={loading} />
+        <PostComments
+          isTriko={isTriko}
+          refreshPost={refresh}
+          post={post}
+          loading={loading}
+        />
       </View>
       {!isEmpty(imageToDisplay) && (
         <ImageViewer

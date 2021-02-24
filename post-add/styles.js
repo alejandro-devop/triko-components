@@ -30,6 +30,7 @@ export default ({palette}) => ({
   },
   root: {
     paddingHorizontal: 20,
+    paddingBottom: 40,
   },
   label: {
     fontSize: 15,

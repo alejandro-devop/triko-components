@@ -4,6 +4,7 @@ export const SAVE_COMMENT = gql`
   mutation commentPost(
     $id: Int
     $client: Int
+    $triko: Int
     $post: Int
     $comment: String
     $locale: String = "en"
@@ -15,6 +16,7 @@ export const SAVE_COMMENT = gql`
       comment: $comment
       locale: $locale
       client_id: $client
+      triko_id: $triko
       remove: $remove
     ) {
       id

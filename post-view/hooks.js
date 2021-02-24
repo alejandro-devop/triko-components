@@ -5,8 +5,13 @@ import {useMutation} from '@apollo/react-hooks';
 import useErrorReporter from 'shared/hooks/use-error-reporter';
 import {useSession} from 'hooks/index';
 
-export const useGetPost = (postId, clientId) => {
-  const {loading, posts = [], refresh} = useUserPosts({id: postId, clientId});
+export const useGetPost = (postId, clientId, trikoId, isTriko) => {
+  const {loading, posts = [], refresh} = useUserPosts({
+    id: postId,
+    clientId,
+    trikoId,
+    isTriko,
+  });
   const [post] = posts;
   return {
     loading,
@@ -15,11 +20,11 @@ export const useGetPost = (postId, clientId) => {
   };
 };
 
-export const useSaveComment = (postId) => {
+export const useSaveComment = (postId, isTriko) => {
   const [loading, setLoading] = useState(false);
   const [callMutation] = useMutation(SAVE_COMMENT);
   const {
-    stack: {client = {}},
+    stack: {client = {}, triko = {}},
   } = useSession();
   const reportError = useErrorReporter({
     path: 'src/shared/components/post-view/hooks.js',
@@ -28,15 +33,14 @@ export const useSaveComment = (postId) => {
     const {comment} = payload;
     setLoading(true);
     try {
-      const response = await callMutation({
+      await callMutation({
         variables: {
-          client: client.id,
           post: postId,
           comment,
+          ...(isTriko ? {triko: triko.id} : {client: client.id}),
         },
       });
       setLoading(false);
-      console.log('Response: ', response);
     } catch (e) {
       reportError(e, {
         message: 'Error while commenting the post',
