@@ -48,6 +48,7 @@ export default ({palette}) => ({
   },
   root: {
     alignItems: 'center',
+    backgroundColor: palette.blueLight,
   },
   logoutButton: {
     marginTop: 20,

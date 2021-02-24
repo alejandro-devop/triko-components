@@ -27,7 +27,9 @@ const PostLikeButton = ({
   const handleLike = async () => {
     await sendLike(isLiked);
     if (onSaved) {
-      onSaved();
+      setTimeout(() => {
+        onSaved();
+      }, 100);
     }
   };
   return (

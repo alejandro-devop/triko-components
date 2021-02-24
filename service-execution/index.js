@@ -14,6 +14,7 @@ import usePusherSubscriber from 'shared/hooks/use-pusher-subscriber';
 import {EVENT__MESSAGE, EVENT__SERVICE_REQUEST} from 'helpers/PusherClient';
 import {isEmpty} from 'shared/utils/functions';
 import useErrorReporter from 'shared/hooks/use-error-reporter';
+import useRegionConfig from 'shared/hooks/use-regional-config';
 
 const ServiceExecution = ({isTriko}) => {
   const {
@@ -25,10 +26,11 @@ const ServiceExecution = ({isTriko}) => {
   const reportError = useErrorReporter({
     path: 'src/shared/components/service-execution/index.js',
   });
+  const {requestFetchInterval} = useRegionConfig();
   const {location, loading} = useUserLocation();
   const {loading: loadingRequest, refetch, data = {}} = useQuery(GET_REQUEST, {
     fetchPolicy: 'no-cache',
-    pollInterval: 5000,
+    pollInterval: requestFetchInterval,
     variables: {
       id: selectedToExecution.id,
       locale,
