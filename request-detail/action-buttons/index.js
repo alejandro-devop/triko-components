@@ -29,6 +29,7 @@ const ActionButtons = ({
     onCancel();
   };
   const {_t} = useTranslation();
+  console.log('Expired: ', expired);
   return (
     <ActionsWrapper expanded={openCancel}>
       {openCancel && (
@@ -68,7 +69,7 @@ const ActionButtons = ({
             )}
           </>
         )}
-        {!paidOut && paymentStatuses.includes(workflow) && (
+        {!paidOut && !expired && paymentStatuses.includes(workflow) && (
           <BorderedButton
             disabled={expired}
             icon={'credit-card'}

@@ -20,6 +20,7 @@ const Other = ({
   request = {},
   title,
   total = 0,
+  expired,
 }) => {
   const [classes] = useStyles(styles);
   const {_t} = useTranslation();
@@ -64,6 +65,7 @@ const Other = ({
       <ActionButtons
         onPayment={onPay}
         workflow={workflow}
+        expired={expired}
         onEdit={onEdit}
         onCancel={onCancel}
         onBack={onBack}

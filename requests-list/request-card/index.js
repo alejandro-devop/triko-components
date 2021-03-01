@@ -70,7 +70,6 @@ const RequestCard = ({
     order && order.transition ? order.transition : {};
   const workflow = transition ? transition.workflow : '';
   const paid = orderWorkflow === PAYMENT_COMPLETED_STATUS;
-
   return (
     <Slide delay={delay}>
       <View

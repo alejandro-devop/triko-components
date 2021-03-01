@@ -122,9 +122,10 @@ const NormalCard = ({
         )}
         {!isTriko && (
           <>
-            {expired && [STATUS_PENDING, STATUS_PAYMENT].includes(workflow) && (
-              <ExpiredLabel />
-            )}
+            {expired &&
+              [STATUS_PENDING, STATUS_ACCEPTED, STATUS_PAYMENT].includes(
+                workflow,
+              ) && <ExpiredLabel />}
             <TrikoInfo triko={triko} />
           </>
         )}

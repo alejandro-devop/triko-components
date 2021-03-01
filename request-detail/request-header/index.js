@@ -11,6 +11,7 @@ import useRequestStatus from 'shared/hooks/use-request-status';
 import {isEmpty} from 'shared/utils/functions';
 import ExpiredLabel from 'shared/components/requests-list/expired-label';
 import {
+  STATUS_ACCEPTED,
   STATUS_PAYMENT,
   STATUS_PENDING,
   STATUS_WAITING_FOR_TRIKO,
@@ -20,7 +21,6 @@ const RequestHeader = ({
   disableStatus,
   hideTrikoInfo,
   paidOut,
-  isFavor,
   isExpired,
   request = {},
 }) => {
@@ -55,6 +55,7 @@ const RequestHeader = ({
               {isExpired &&
                 [
                   STATUS_PENDING,
+                  STATUS_ACCEPTED,
                   STATUS_PAYMENT,
                   STATUS_WAITING_FOR_TRIKO,
                 ].includes(workflow) && <ExpiredLabel />}
