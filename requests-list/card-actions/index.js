@@ -39,17 +39,6 @@ const CardActions = ({
   return (
     <>
       <View style={classes.root}>
-        {/*{startedStatuses.includes(workflow) && (*/}
-        {/*  <View style={classes.actionsWrapper}>*/}
-        {/*    <Button*/}
-        {/*      alternative*/}
-        {/*      size="xs"*/}
-        {/*      textStyle={classes.altButton}*/}
-        {/*      onPress={onView}>*/}
-        {/*      view_text*/}
-        {/*    </Button>*/}
-        {/*  </View>*/}
-        {/*)}*/}
         {workflow === STATUS_PENDING && (
           <>
             <View style={[classes.buttonWrapper, classes.buttonWrapperFirst]}>
@@ -70,7 +59,7 @@ const CardActions = ({
         )}
         {withStatus && (
           <View style={classes.statusWrapper}>
-            <StatusCard isPaid={isPaid} workflow={workflow} />
+            {/*<StatusCard isPaid={isPaid} workflow={workflow} />*/}
             {workflow === STATUS_PAYMENT && isPaid && (
               <View style={classes.paidInfoWrapper}>
                 <View>

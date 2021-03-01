@@ -1,7 +1,7 @@
 export default ({palette, variables: {textExtraSmall}}) => ({
   icon: {
-    width: 50,
-    height: 50,
+    width: 30,
+    height: 30,
     marginBottom: 4,
   },
   root: {
@@ -19,12 +19,12 @@ export default ({palette, variables: {textExtraSmall}}) => ({
     backgroundColor: '#FFF',
   },
   text: {
-    fontSize: textExtraSmall,
+    fontSize: 10,
     color: '#FFF',
     fontWeight: '600',
   },
   textPaid: {
     color: palette.orange,
-    fontSize: textExtraSmall,
+    fontSize: 10,
   },
 });
