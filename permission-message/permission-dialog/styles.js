@@ -22,10 +22,6 @@ export default ({palette}) => ({
     fontSize: 18,
     textAlign: 'center',
   },
-  featureText: {
-    color: palette.black,
-    fontSize: 15,
-  },
   featureWrapper: {
     flexDirection: 'row',
     alignItems: 'flex-start',
@@ -40,19 +36,9 @@ export default ({palette}) => ({
     marginTop: 10,
   },
   noteInfoText: {
-    fontSize: 15,
     textAlign: 'center',
   },
   root: {
     minHeight: '70%',
-  },
-  wrapper: {
-    flexGrow: 1,
-    backgroundColor: '#FFF',
-  },
-  wrapperWide: {
-    paddingVertical: 40,
-    borderTopStartRadius: 40,
-    borderTopEndRadius: 40,
   },
 });

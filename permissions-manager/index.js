@@ -253,7 +253,7 @@ class PermissionsManager extends React.Component {
   };
 
   render() {
-    const {children, permissions = [], message} = this.props;
+    const {children, permissions = [], helpText = [], message} = this.props;
     const {hasPermission, grantedPermissions, checking, reRequest} = this.state;
     let component = null;
     let loader = false;
@@ -263,6 +263,7 @@ class PermissionsManager extends React.Component {
           message={message}
           granted={grantedPermissions}
           labels={labels}
+          helpText={helpText}
           onRequest={this.onRequestIOs}
           requested={permissions}
         />

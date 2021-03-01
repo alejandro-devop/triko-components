@@ -5,18 +5,7 @@ import useHasPermissions, {
 } from 'shared/hooks/use-has-permissions';
 import PermissionDialog from './permission-dialog';
 
-const LocationPermissionScreen = ({
-  children,
-  disableDialog,
-  hide,
-  hideAskAgain,
-  features = [
-    'permissions_feature_1',
-    'permissions_feature_2',
-    'permissions_feature_3',
-    'permissions_feature_4',
-  ],
-}) => {
+const LocationPermissionScreen = ({children, features = []}) => {
   const {
     stack: {hidePermissionsDialog, notShowAgain},
     setKey,
@@ -53,26 +42,17 @@ const LocationPermissionScreen = ({
     }, 1500);
   }, []);
 
-  const getContent = () => {
-    if (hide && !hasPermission) {
-      return null;
-    }
-    return children;
-  };
-
   return (
     <>
       {!hasPermission && !hidePermissionsDialog && open && (
         <PermissionDialog
-          disableDialog={disableDialog}
-          hideAskAgain={hideAskAgain}
           features={features}
           onGranted={handleGranted}
           open
           onClose={closeDialog}
         />
       )}
-      {getContent()}
+      {children}
     </>
   );
 };

@@ -13,16 +13,8 @@ import {request} from 'react-native-permissions';
 import useNotify from 'hooks/useNotification';
 import useErrorReporter from 'shared/hooks/use-error-reporter';
 import CheckboxField from 'shared/components/base/controls/checkbox-field';
-import classNames from 'shared/utils/classnames';
 
-const PermissionDialog = ({
-  disableDialog,
-  features = [],
-  hideAskAgain,
-  onGranted,
-  open,
-  onClose,
-}) => {
+const PermissionDialog = ({features = [], onGranted, open, onClose}) => {
   const [classes] = useStyles(styles);
   const {error} = useNotify();
   const reportError = useErrorReporter({
@@ -51,9 +43,12 @@ const PermissionDialog = ({
     }
   };
 
-  const content = (
-    <View
-      style={classNames({wrapper: true, wrapperWide: disableDialog}, classes)}>
+  return (
+    <Dialog
+      title="why_we_need_location_permissions_title"
+      open={open}
+      onClose={onClose}
+      contentStyles={classes.root}>
       <View style={classes.descriptionContainer}>
         <Text style={classes.descriptionText}>
           why_we_need_location_permissions
@@ -63,7 +58,7 @@ const PermissionDialog = ({
         {features.map((feature, key) => (
           <View key={`feature-${key}`} style={classes.featureWrapper}>
             <View style={classes.caret} />
-            <Text style={classes.featureText}>{feature}</Text>
+            <Text>{feature}</Text>
           </View>
         ))}
       </View>
@@ -71,34 +66,18 @@ const PermissionDialog = ({
         <Text style={classes.noteInfoText}>note_text_location</Text>
       </View>
       <View style={classes.actions}>
-        {!hideAskAgain && (
-          <View style={classes.checkboxWrapper}>
-            <CheckboxField
-              onChange={() => setNotShowAgain(!notShowAgain)}
-              label="not_show_again_this_message"
-              value={notShowAgain}
-            />
-          </View>
-        )}
+        <View style={classes.checkboxWrapper}>
+          <CheckboxField
+            onChange={() => setNotShowAgain(!notShowAgain)}
+            label="not_show_again_this_message"
+            value={notShowAgain}
+          />
+        </View>
         <Button onPress={handleRequestPermissions} primary>
           allow_location_access_text
         </Button>
         <Button onPress={handleClose}>close_text</Button>
       </View>
-    </View>
-  );
-
-  if (disableDialog) {
-    return content;
-  }
-
-  return (
-    <Dialog
-      title="why_we_need_location_permissions_title"
-      open={open}
-      onClose={onClose}
-      contentStyles={classes.root}>
-      {content}
     </Dialog>
   );
 };

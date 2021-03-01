@@ -7,11 +7,11 @@ import {useStyles} from 'hooks';
 
 const styles = () => ({
   icon: {
-    flex: 2,
+    marginRight: 10,
   },
   label: {
-    flex: 10,
-    marginRight: 15,
+    flex: 1,
+    fontSize: 16,
   },
   root: {
     alignItems: 'center',
@@ -26,8 +26,8 @@ const HasPermissionLabel = ({label}) => {
   const [classes] = useStyles(styles);
   return (
     <View style={classes.root}>
-      <Text style={classes.label}>{label}</Text>
       <Icon style={classes.icon} name="check-circle" />
+      <Text style={classes.label}>{label}</Text>
     </View>
   );
 };

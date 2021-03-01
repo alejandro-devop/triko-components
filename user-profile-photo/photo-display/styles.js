@@ -50,6 +50,9 @@ export default ({palette}) => ({
     alignItems: 'center',
     backgroundColor: palette.blueLight,
   },
+  rootTriko: {
+    backgroundColor: palette.orangeLighter,
+  },
   logoutButton: {
     marginTop: 20,
   },

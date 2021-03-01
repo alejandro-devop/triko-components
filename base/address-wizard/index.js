@@ -40,6 +40,7 @@ const getDefaultValues = (defaultValues, defaultQuery) => {
 const AddressWizard = ({
   defaultQuery = '',
   defaultValues,
+  forceSave,
   isTriko,
   isEditing,
   useDialog,
@@ -146,7 +147,6 @@ const AddressWizard = ({
 
   const {address, city} = form;
   const modeText = mode === 0 ? 'type' : 'my-location';
-  console.log('default values: ', defaultValues);
   const content = (
     <>
       <PermissionsManager permissions={[PERMISSIONS.ACCESS_LOCATION]}>
@@ -185,7 +185,9 @@ const AddressWizard = ({
               city={city}
               onChangeForm={onChangeAddress}
               onBack={onBack}
-              onSubmitAddress={useWizard ? onSubmitNoSave : onSubmit}
+              onSubmitAddress={
+                useWizard && !forceSave ? onSubmitNoSave : onSubmit
+              }
             />
           )}
         </View>

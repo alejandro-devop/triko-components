@@ -41,7 +41,7 @@ const RequestLocation = ({
       getLocationInfo();
     }, delay);
   }, []);
-  console.log('alt: ', alternative);
+
   return (
     <View style={classes.root}>
       {loading && <SkeletonLoader style={classes.loader} />}

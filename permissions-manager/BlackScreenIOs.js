@@ -8,14 +8,14 @@ import {LinkButton} from 'components/base/buttons';
 import HasPermissionLabel from './HasPermissionLabel';
 import useStyles from 'hooks/useStyles';
 import useTranslation from 'hooks/useTranslation';
-import trikoLogo from 'assets/logos/triko_logo.png';
-import ShowIcon from 'components/base/show-icon';
+import HelpTextRender from 'shared/components/permissions-manager/help-text-render';
 
 const BlackScreenIOs = ({
   granted = [],
   onRequest,
   requested = [],
   labels = {},
+  helpText = [],
   message = 'permissions_request_message_1', // Txt: We need some permission to continue
 }) => {
   const [classes] = useStyles(styles);
@@ -23,9 +23,9 @@ const BlackScreenIOs = ({
   return (
     <Card style={classes.root}>
       <View style={classes.textWrapper}>
-        <ShowIcon disableShadow source={trikoLogo} />
         <Text style={classes.text}>{_t(message)}</Text>
       </View>
+      <HelpTextRender helpText={helpText} />
       <View style={classes.buttonWrapper}>
         {requested.map((permission, key) => {
           const itemKey = `permission-${key}`;
@@ -40,6 +40,7 @@ const BlackScreenIOs = ({
           return (
             <LinkButton
               style={classes.button}
+              styles={{root: classes.buttonRoot}}
               key={itemKey}
               onPress={() => (onRequest ? onRequest(permission) : null)}>
               {_t(labels[permission] || permission)}

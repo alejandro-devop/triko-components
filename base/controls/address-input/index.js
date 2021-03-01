@@ -24,6 +24,7 @@ import MapPicker from 'shared/components/base/controls/map-picker';
  * @param placeholder
  * @param required
  * @param secondary
+ * @param forceSave
  * @param useWizard
  * @param useWizardLabel
  * @param value
@@ -42,8 +43,10 @@ const AddressInput = ({
   placeholder,
   required,
   secondary,
+  forceSave,
   useWizard,
   useWizardLabel = 'other_address_text',
+  onSaved,
   value,
 }) => {
   const {
@@ -85,6 +88,9 @@ const AddressInput = ({
       setTimeout(() => {
         setOpenList(true);
       }, 800);
+    }
+    if (onSaved) {
+      onSaved(address);
     }
   };
 
@@ -156,6 +162,7 @@ const AddressInput = ({
                 useWizard={useWizard}
                 useWizardLabel={useWizardLabel}
                 onSaved={onAddressSaved}
+                forceSave={forceSave}
               />
             </WizardWrapper>
           )}

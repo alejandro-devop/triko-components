@@ -39,7 +39,7 @@ const PhotoDisplay = ({
   const {photo_url} = user;
   const {first_name: firstName, last_name: lastName} = pi;
   return (
-    <View style={classes.root}>
+    <View style={classNames({root: true, rootTriko: isTriko}, classes)}>
       <View
         style={classNames(
           {
