@@ -9,6 +9,7 @@ import moment from 'moment';
 import {useEventList} from './hooks';
 import useRequestList from 'shared/hooks/use-request-list';
 import {LoadingCurtain} from 'components/base/dialogs';
+import RequestsList from "shared/components/requests-list";
 
 const currentMonth = moment().startOf('month');
 const currentWeek = moment().startOf('isoWeek');
@@ -49,9 +50,12 @@ const MySchedule = ({inputFormat = 'YYYY-MM-DD HH:mm:ss', isTriko}) => {
   const [currentOption, setCurrentOption] = useState(0);
   const currentDay = parseInt(moment().format('D'), 10);
   const {loading, getPendingRequests, requests = []} = useRequestList({
+    onlyMyServices: true,
     allTypes: true,
     isTriko,
-    onlyMyServices: true,
+    onlyOwned: true,
+    noFinished: true,
+    noCanceled: true,
   });
   const {events: userEvents = []} = useEventList();
   const onSelectMonthDay = () => {};

@@ -10,6 +10,7 @@ import RateInfo from '../rate-info';
 import CardActions from '../card-actions';
 import styles from './styles';
 import {
+  STATUS_ACCEPTED,
   STATUS_CONFIRM_FINISHED,
   STATUS_CONFIRM_START,
   STATUS_FINISHED,
@@ -98,9 +99,10 @@ const NormalCard = ({
         />
         {isTriko && (
           <>
-            {expired && [STATUS_PENDING, STATUS_PAYMENT].includes(workflow) && (
-              <ExpiredLabel />
-            )}
+            {expired &&
+              [STATUS_PENDING, STATUS_ACCEPTED, STATUS_PAYMENT].includes(
+                workflow,
+              ) && <ExpiredLabel />}
             {!withStatus && (
               <RateInfo isPaid={isPaid} request={request} workflow={workflow} />
             )}
