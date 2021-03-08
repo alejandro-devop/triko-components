@@ -1,0 +1,13 @@
+{
+  "entry": "index.js",
+  "type": "Component",
+  "tags": ["address", "map", "address-wizard"],
+  "name": "AddressFixer",
+  "description": "This component renders a map component to allow the user fix the address location.",
+  "children": [
+    {
+      "entry": "map-fixer/index.js",
+      "name": "MapFixer"
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "entry": "index.js",
+  "type": "Component",
+  "tags": ["address", "map", "address-wizard"],
+  "name": "MapFixer",
+  "description": "This component presents a map tool to fix the location for a given  address, it also allows to edit the given address.",
+  "children": [
+  ]
+}
