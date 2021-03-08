@@ -26,6 +26,7 @@ import MapPicker from 'shared/components/base/controls/map-picker';
  * @param secondary
  * @param forceSave
  * @param useWizard
+ * @param onSaved
  * @param useWizardLabel
  * @param value
  * @returns {*}
@@ -171,7 +172,6 @@ const AddressInput = ({
       {!logged && (
         <>
           <MapPicker onChange={onChange} name={name} value={value} primary />
-          {/*{openList && <UnAuthenticated onClose={toggleList} open={openList} />}*/}
         </>
       )}
     </>
@@ -186,6 +186,7 @@ AddressInput.propTypes = {
   label: PropTypes.string,
   name: PropTypes.string,
   onChange: PropTypes.func,
+  onSaved: PropTypes.func,
   placeholder: PropTypes.string,
   required: PropTypes.bool,
   secondary: PropTypes.bool,

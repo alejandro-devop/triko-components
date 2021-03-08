@@ -6,7 +6,7 @@ import useStyles from 'shared/hooks/use-styles';
 import MapView, {PROVIDER_GOOGLE} from 'react-native-maps';
 import MapMarker from 'shared/components/base/map-marker';
 import classNames from 'shared/utils/classnames';
-import useTranslation from 'hooks/useTranslation';
+import useTranslation from 'shared/hooks/use-translate';
 import Button from 'components/base/buttons/button';
 
 /**

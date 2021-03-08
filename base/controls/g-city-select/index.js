@@ -26,6 +26,7 @@ const GCitySelect = ({
   const [selected, setSelected] = useState(null);
   const [query, setQuery] = useState(defaultValue);
   const {cities = [], findCities, loading} = useCityFinder();
+
   const onChangeQuery = async ({target: {value}}) => {
     setQuery(value);
     clearTimeout(timer);
@@ -33,6 +34,7 @@ const GCitySelect = ({
       findCities(value);
     }, delay);
   };
+
   useEffect(() => {
     if (!isEmpty(defaultValue)) {
       setTimeout(() => {
@@ -78,6 +80,13 @@ const GCitySelect = ({
       )}
       {cities.length > 0 && (
         <SelectableList items={items} onSelect={onSelect} value={selected} />
+      )}
+      {!isEmpty(query) && cities.length === 0 && !loading && (
+        <View style={[classes.caption]}>
+          <Text style={classes.captionText} replacements={{query}}>
+            no_cities_found
+          </Text>
+        </View>
       )}
       {query.length === 0 && (
         <View style={classes.caption}>

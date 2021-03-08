@@ -4,7 +4,7 @@ import {View} from 'react-native';
 import styles from './styles';
 import Button from 'components/base/buttons/button';
 import {useStyles} from 'hooks/index';
-import useTranslation from 'hooks/useTranslation';
+import useTranslation from 'shared/hooks/use-translate';
 
 /**
  * This component allows to render the filters for requests.

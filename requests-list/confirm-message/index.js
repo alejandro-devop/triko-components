@@ -1,8 +1,8 @@
 import React from 'react';
 import ConfirmDialog from 'shared/components/dialogs/confirm-dialog';
-import useTranslation from 'hooks/useTranslation';
+import useTranslation from 'shared/hooks/use-translate';
 import {useCalcRate} from 'shared/hooks/use-rate-calc';
-import useCurrency from 'hooks/useCurrency';
+import useCurrency from 'shared/hooks/use-currency';
 import {isEmpty} from 'shared/utils/functions';
 
 const ConfirmMessage = ({

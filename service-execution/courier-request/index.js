@@ -10,7 +10,7 @@ import {LoadingCurtain} from 'components/base/dialogs';
 import InfoMessage from 'shared/components/messages/InfoMessage';
 import {useStepDescriptor} from './hooks';
 import {STATUS_ON_GOING, STATUS_QUALIFY_CLIENT} from 'config/request-statuses';
-import useTranslation from 'hooks/useTranslation';
+import useTranslation from 'shared/hooks/use-translate';
 import useRequestUpdateAttrs from 'shared/hooks/use-request-update-attrs';
 import Text from 'shared/components/base/text';
 import ConfirmBubble from 'shared/components/base/confirm-bubble';

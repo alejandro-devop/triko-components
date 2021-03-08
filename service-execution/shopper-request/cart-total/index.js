@@ -3,7 +3,7 @@ import {View} from 'react-native';
 import styles from './styles';
 import {useStyles} from 'hooks/index';
 import Text from 'shared/components/base/text';
-import useCurrency from 'hooks/useCurrency';
+import useCurrency from 'shared/hooks/use-currency';
 
 const ProductTotal = ({request = {}}) => {
   const [classes] = useStyles(styles);

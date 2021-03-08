@@ -10,15 +10,17 @@ import {
   IOS_PERMISSIONS,
 } from 'shared/components/permissions-manager';
 import {request} from 'react-native-permissions';
-import useNotify from 'hooks/useNotification';
+import useNotify from 'shared/hooks/use-notification';
 import useErrorReporter from 'shared/hooks/use-error-reporter';
 import CheckboxField from 'shared/components/base/controls/checkbox-field';
 import classNames from 'shared/utils/classnames';
+import {LoadingCurtain} from 'components/base/dialogs';
 
 const PermissionDialog = ({
   disableDialog,
   features = [],
   hideAskAgain,
+  loading,
   onGranted,
   open,
   onClose,
@@ -85,6 +87,7 @@ const PermissionDialog = ({
         </Button>
         <Button onPress={handleClose}>close_text</Button>
       </View>
+      {loading && <LoadingCurtain disableModal />}
     </View>
   );
 

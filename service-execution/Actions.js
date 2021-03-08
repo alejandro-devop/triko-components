@@ -3,7 +3,6 @@ import {Linking, View} from 'react-native';
 import {CircleButton} from '../base/buttons';
 import useStyles from 'hooks/useStyles';
 import {countries} from 'countries-list';
-import CircleWave from 'components/anims/CircleWave';
 
 const Actions = ({currentStep, messages = 0, request = {}, toggleChat}) => {
   const [classes] = useStyles(styles);

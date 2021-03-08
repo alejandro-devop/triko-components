@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {View, ScrollView} from 'react-native';
-import useTranslation from 'hooks/useTranslation';
+import useTranslation from 'shared/hooks/use-translate';
 import useStyles from 'shared/hooks/use-styles';
 import GCitySelect from 'shared/components/base/controls/g-city-select';
 import EnterAddress from 'shared/components/base/address-wizard/EnterAddress';

@@ -4,7 +4,7 @@ import Text from 'components/base/text';
 import useStyles from 'shared/hooks/use-styles';
 import moment from 'moment';
 import useRequestStatus from 'shared/hooks/use-request-status';
-import useTranslation from 'hooks/useTranslation';
+import useTranslation from 'shared/hooks/use-translate';
 
 const ServiceInfo = ({request = {}, showDate}) => {
   const {application_date} = request;

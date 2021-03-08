@@ -2,8 +2,8 @@ import {useState} from 'react';
 import {useMutation} from '@apollo/react-hooks';
 import {SAVE_ADDRESS_CLIENT, SAVE_ADDRESS_TRIKO} from './queries';
 import {useSession} from 'hooks/index';
-import useTranslation from 'hooks/useTranslation';
-import useNotify from 'hooks/useNotification';
+import useTranslation from 'shared/hooks/use-translate';
+import useNotify from 'shared/hooks/use-notification';
 
 const useAddressSave = (options = {}) => {
   const {isTriko} = options;

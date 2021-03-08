@@ -4,7 +4,7 @@ import Text from 'components/base/text';
 import useStyles from 'hooks/useStyles';
 import Stepper from 'components/base/stepper';
 import ClientProfile from './client-profile';
-import useTranslation from 'hooks/useTranslation';
+import useTranslation from 'shared/hooks/use-translate';
 
 const Header = ({statusLabel, currentStep = 0, steps = 2, request = {}}) => {
   const [classes] = useStyles(styles);

@@ -2,7 +2,7 @@ import {useState} from 'react';
 import useErrorReporter from 'shared/hooks/use-error-reporter';
 import {useMutation} from '@apollo/react-hooks';
 import {SAVE_EVENT} from '../queries';
-import useNotify from 'hooks/useNotification';
+import useNotify from 'shared/hooks/use-notification';
 import moment from 'moment';
 import useRegionConfig from 'shared/hooks/use-regional-config';
 import {useSession} from 'hooks/index';

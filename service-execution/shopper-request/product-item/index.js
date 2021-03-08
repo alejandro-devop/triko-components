@@ -5,7 +5,7 @@ import {useStyles} from 'hooks/index';
 import Text from 'shared/components/base/text';
 import Icon from 'shared/components/base/icon';
 import {isEmpty} from 'shared/utils/functions';
-import useCurrency from 'hooks/useCurrency';
+import useCurrency from 'shared/hooks/use-currency';
 import classNames from 'shared/utils/classnames';
 import PreImage from 'shared/components/base/pre-image';
 

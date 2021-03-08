@@ -3,11 +3,11 @@ import {View} from 'react-native';
 import Label from 'components/base/label';
 import useStyles from 'hooks/useStyles';
 import Button from 'components/base/buttons/button';
-import Slide from 'components/anims/Slide';
+import Slide from 'shared/components/anims/Slide';
 import InfoRow from 'components/base/info-row';
 import moment from 'moment';
 import {getElapsedTime} from 'utils/functions';
-import useTranslation from 'hooks/useTranslation';
+import useTranslation from 'shared/hooks/use-translate';
 import {
   STATUS_QUALIFY_CLIENT,
   STATUS_QUALIFY_TRIKO,
@@ -20,10 +20,10 @@ const Finished = ({request = {}, onNext}) => {
   const {history = [], transition = {}, client = {}} = request;
   const {first_name: firstName} = client.pi || {};
   const qualifyTransition = history.find(
-    item => item.transition.workflow === STATUS_QUALIFY_CLIENT,
+    (item) => item.transition.workflow === STATUS_QUALIFY_CLIENT,
   );
   const startedTransition = history.find(
-    item => item.transition.workflow === STATUS_STARTED,
+    (item) => item.transition.workflow === STATUS_STARTED,
   );
   const {_t} = useTranslation();
   const {created_at: startedDate} = startedTransition;

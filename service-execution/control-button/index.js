@@ -1,12 +1,12 @@
 import React from 'react';
 import {TouchableOpacity, View} from 'react-native';
-import {useStyles} from 'hooks';
+import {useStyles} from 'hooks/index';
 import {AnimatedCircularProgress} from 'react-native-circular-progress';
 import Icon from 'components/base/icon';
 import styles from './styles';
 import palette from 'themes/styles/palette';
 import Text from 'components/base/text';
-import Guide from 'components/anims/AnimatedArrowRight';
+import Guide from 'shared/components/anims/AnimatedArrowRight';
 
 const ControlButton = ({
   children,

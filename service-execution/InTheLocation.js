@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import ControlButton from './control-button';
 import {View} from 'react-native';
 import {useMutation} from '@apollo/react-hooks';
-import useNotify from 'hooks/useNotification';
+import useNotify from 'shared/hooks/use-notification';
 import LoadingCurtain from 'components/base/dialogs/loading-curtain';
 import {
   STATUS_CONFIRM_START,
@@ -12,7 +12,7 @@ import Label from 'components/base/label';
 import useStyles from 'hooks/useStyles';
 import {UPDATE_REQUEST} from 'components/pending-services-/queries';
 import useSession from 'hooks/useSession';
-import useTranslation from 'hooks/useTranslation';
+import useTranslation from 'shared/hooks/use-translate';
 
 const InTheLocation = ({request = {}}) => {
   const [classes] = useStyles(styles);

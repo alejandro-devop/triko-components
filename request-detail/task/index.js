@@ -4,7 +4,7 @@ import {ScrollView} from 'shared/components/commons';
 import Text from 'components/base/text';
 import useStyles from 'shared/hooks/use-styles';
 import InfoRow from '../info-row';
-import useTranslation from 'hooks/useTranslation';
+import useTranslation from 'shared/hooks/use-translate';
 import ActionButtons from '../action-buttons';
 import {isEmpty} from 'shared/utils/functions';
 import Candidates from 'shared/components/requests-list/shopper-card/candidates';

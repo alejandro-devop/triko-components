@@ -46,7 +46,6 @@ const PostView = ({postId, isTriko}) => {
     toggleComment();
     await refresh();
   };
-  console.log('Data: ', post);
   const likeIds = (isTriko ? trikosLikes : clientsLikes).map((item) => item.id);
   return (
     <>

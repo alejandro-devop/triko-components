@@ -2,11 +2,11 @@ import React from 'react';
 import {View} from 'react-native';
 import {ScrollView} from 'shared/components/commons';
 import HomePickerType from 'shared/components/base/home-type-picker';
-import useTranslation from 'hooks/useTranslation';
+import useTranslation from 'shared/hooks/use-translate';
 import TextField from 'shared/components/base/controls/text-field';
 import Button from 'shared/components/base/buttons/button';
 import useStyles from 'shared/hooks/use-styles';
-import useForm from 'hooks/useForm';
+import useForm from 'shared/hooks/use-form';
 import {isEmpty} from 'shared/utils/functions';
 
 const AddressForm = ({

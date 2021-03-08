@@ -1,0 +1,13 @@
+{
+  "entry": "index.js",
+  "type": "Component",
+  "tags": ["permissions"],
+  "name": "LocationPermissionScreen",
+  "description": "Component that displays a message to allow the location permissions",
+  "children": [
+    {
+      "entry": "permission-dialog/index.js",
+      "name": "PermissionDialog"
+    }
+  ]
+}

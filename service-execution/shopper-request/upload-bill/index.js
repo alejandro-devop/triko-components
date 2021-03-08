@@ -3,7 +3,7 @@ import {View} from 'react-native';
 import styles from './styles';
 import {useSession, useStyles} from 'hooks/index';
 import Text from 'shared/components/base/text';
-import useCurrency from 'hooks/useCurrency';
+import useCurrency from 'shared/hooks/use-currency';
 import InfoMessage from 'shared/components/messages/InfoMessage';
 import ImagePicker from 'shared/components/base/controls/image-picker';
 import Button from 'shared/components/base/buttons/button';

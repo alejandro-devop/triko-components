@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import useMock from 'hooks/useMock';
+import useMock from 'shared/hooks/use-mock';
 import mock from './mocks';
 import Loader from './Loader';
 import ItemList from './ItemList';

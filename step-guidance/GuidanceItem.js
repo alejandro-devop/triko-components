@@ -1,13 +1,13 @@
 import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import {View} from 'react-native';
-import Slide from 'components/anims/Slide';
+import Slide from 'shared/components/anims/Slide';
 import styles from './styles/guidance-item.style';
 import useStyles from 'hooks/useStyles';
 import PreImage from 'components/pre-image';
 import CircleButton from 'components/base/buttons/circle-button';
 import StepInfo from './StepInfo';
-import avatar from 'assets/avatars/triko-avatar.png';
+import avatar from 'shared/assets/avatars/triko-avatar.png';
 import StepCount from './StepCount';
 import GestureRecognizer from 'react-native-swipe-gestures';
 

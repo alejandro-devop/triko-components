@@ -4,7 +4,7 @@ import {View} from 'react-native';
 import Button from './Button';
 import useStyles from 'shared/hooks/use-styles';
 import Label from 'shared/components/base/label';
-import useTranslation from 'hooks/useTranslation';
+import useTranslation from 'shared/hooks/use-translate';
 
 /**
  * This component allows to render switch button

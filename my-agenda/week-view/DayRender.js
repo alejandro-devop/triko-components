@@ -4,7 +4,7 @@ import useStyles from 'shared/hooks/use-styles';
 import classNames from 'shared/utils/classnames';
 import Text from 'components/base/text';
 import {getBlockInfo} from '../commons';
-import useTranslation from 'hooks/useTranslation';
+import useTranslation from 'shared/hooks/use-translate';
 
 const DayRender = ({
   blockWidth,

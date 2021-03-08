@@ -2,7 +2,7 @@ import React from 'react';
 import {View} from 'react-native';
 import useStyles from 'shared/hooks/use-styles';
 import SwitchButton from 'shared/components/base/controls/switch-button';
-import useTranslation from 'hooks/useTranslation';
+import useTranslation from 'shared/hooks/use-translate';
 
 const Options = ({value, onChange}) => {
   const [classes] = useStyles(styles);

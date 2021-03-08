@@ -2,7 +2,7 @@ import React from 'react';
 import {View} from 'react-native';
 import {useStyles} from 'hooks/index';
 import Text from 'components/base/text';
-import useTranslation from 'hooks/useTranslation';
+import useTranslation from 'shared/hooks/use-translate';
 
 /**
  * This component renders the empty text when there are no items.

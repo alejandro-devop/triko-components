@@ -6,7 +6,7 @@ import TextField from 'components/base/controls/text-field';
 import CircleButton from 'components/base/buttons/circle-button';
 import classNames from 'utils/classnames';
 import {isEmpty} from 'utils/functions';
-import useTranslation from 'hooks/useTranslation';
+import useTranslation from 'shared/hooks/use-translate';
 import styles from './styles';
 
 /**

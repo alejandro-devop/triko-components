@@ -2,7 +2,7 @@ import React, {useMemo} from 'react';
 import SelectList from 'shared/components/base/controls/select-list';
 import {useQuery} from 'react-apollo';
 import SkeletonLoader from 'shared/components/loaders/skeleton';
-import useTranslation from 'hooks/useTranslation';
+import useTranslation from 'shared/hooks/use-translate';
 import {GET_CITIES} from './queries';
 
 const CitySelect = ({

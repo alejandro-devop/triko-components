@@ -4,7 +4,7 @@ import Dialog from 'shared/components/dialogs/dialog';
 import TextField from 'components/base/controls/text-field';
 import useStyles from 'shared/hooks/use-styles';
 import Button from 'components/base/buttons/button';
-import useTranslation from 'hooks/useTranslation';
+import useTranslation from 'shared/hooks/use-translate';
 import ListLoader from 'shared/components/loaders/list-loader';
 import ProductItem from './ProductItem';
 import Text from 'components/base/text';

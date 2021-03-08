@@ -11,11 +11,11 @@ import palette from 'themes/styles/palette';
 import {CircleButton} from 'components/base/buttons';
 import Label from 'components/base/label';
 import {useMutation} from '@apollo/react-hooks';
-import useNotify from 'hooks/useNotification';
+import useNotify from 'shared/hooks/use-notification';
 import LoadingCurtain from 'components/base/dialogs/loading-curtain';
 import {STATUS_ACCEPTED} from 'config/request-statuses';
 import {UPDATE_REQUEST} from 'components/pending-services-/queries';
-import useTranslation from 'hooks/useTranslation';
+import useTranslation from 'shared/hooks/use-translate';
 import DestinationMarker from 'components/base/destination-marker';
 import useSession from 'hooks/useSession';
 
