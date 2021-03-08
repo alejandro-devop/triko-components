@@ -1,0 +1,25 @@
+{
+  "entry": "index.js",
+  "type": "Component",
+  "tags": ["address", "address-wizard"],
+  "name": "AddressWizard",
+  "description": "This component allows to handle the user's addresses, whether is client or triko.",
+  "children": [
+    {
+      "entry": "address-form/index.js",
+      "name": "AddressForm"
+    },
+    {
+      "entry": "enter-address/index.js",
+      "name": "EnterAddress"
+    },
+    {
+      "entry": "options/index.js",
+      "name": "Options"
+    },
+    {
+      "entry": "wizard-dialog/index.js",
+      "name": "WizardDialog"
+    }
+  ]
+}

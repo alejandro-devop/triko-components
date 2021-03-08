@@ -1,5 +1,6 @@
 import React from 'react';
 import {View} from 'react-native';
+import PropTypes from 'prop-types';
 import {ScrollView} from 'shared/components/commons';
 import HomePickerType from 'shared/components/base/home-type-picker';
 import useTranslation from 'shared/hooks/use-translate';
@@ -8,11 +9,18 @@ import Button from 'shared/components/base/buttons/button';
 import useStyles from 'shared/hooks/use-styles';
 import useForm from 'shared/hooks/use-form';
 import {isEmpty} from 'shared/utils/functions';
+import styles from './styles';
 
-const AddressForm = ({
-  onChangeForm,
-  defaultValues = {type: null, name: null, description: null},
-}) => {
+/**
+ * Component to render and handle the address form.
+ * @author Alejandro <alejandro.devop@gmail.com>
+ * @version 1.0.0
+ * @param defaultValues
+ * @param onChangeForm
+ * @returns {*}
+ * @constructor
+ */
+const AddressForm = ({defaultValues, onChangeForm}) => {
   const {_t} = useTranslation();
   const {form, onChange} = useForm(defaultValues);
   const [classes] = useStyles(styles);
@@ -61,10 +69,16 @@ const AddressForm = ({
   );
 };
 
-const styles = () => ({
-  buttonRow: {
-    marginTop: 20,
-  },
-});
+AddressForm.defaultProps = {
+  defaultValues: {type: null, name: null, description: null},
+};
+
+AddressForm.propTypes = {
+  defaultValues: PropTypes.shape({
+    type: PropTypes.oneOfType([PropTypes.string, PropTypes.number]), // Type of address selected
+    name: PropTypes.string, // The address given name
+    description: PropTypes.string, // The description given by the user.
+  }),
+};
 
 export default AddressForm;

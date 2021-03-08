@@ -1,0 +1,9 @@
+{
+  "entry": "index.js",
+  "type": "Component",
+  "tags": ["address"],
+  "name": "EnterAddress",
+  "description": "This component allows the user to type his current location",
+  "children": [
+  ]
+}

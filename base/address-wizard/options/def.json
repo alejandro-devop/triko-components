@@ -1,0 +1,9 @@
+{
+  "entry": "index.js",
+  "type": "Component",
+  "tags": ["address", "address-wizard"],
+  "name": "Options",
+  "description": "Component to display the options available for the user when adding an address",
+  "children": [
+  ]
+}

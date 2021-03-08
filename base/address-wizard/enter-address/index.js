@@ -1,25 +1,41 @@
 import React, {useState} from 'react';
 import {View} from 'react-native';
+import PropTypes from 'prop-types';
+import styles from './styles';
 import AddressSuggester from 'shared/components/address-suggester';
 import useTranslation from 'shared/hooks/use-translate';
 import Button from 'components/base/buttons/button';
-import Options from './Options';
+import Options from '../options';
 import {useStyles} from 'hooks/index';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import AddressMapPicker from 'shared/components/base/address-map-picker';
 
+/**
+ * This component allows the user to type his current location
+ * @author Alejandro <alejandro.devop@gmail.com>
+ * @version 1.0.0
+ * @param citySelected
+ * @param defaultValue
+ * @param mode
+ * @param onAccept
+ * @param onChangeMode
+ * @param onChangePosition
+ * @param onGoBack
+ * @param onSelectAddress
+ * @returns {*}
+ * @constructor
+ */
 const EnterAddress = ({
   citySelected,
   defaultValue,
   mode,
+  onAccept,
   onChangeMode,
-  onSelectAddress,
   onChangePosition,
   onGoBack,
-  onAccept,
+  onSelectAddress,
 }) => {
   const {_t} = useTranslation();
-  // Cl. 19 #2027
   const [selected, setSelected] = useState(defaultValue);
   const [isSearching, setIsSearching] = useState(false);
   const [classes] = useStyles(styles);
@@ -69,18 +85,27 @@ const EnterAddress = ({
   );
 };
 
-const styles = () => ({
-  actions: {
-    alignItems: 'center',
-    marginTop: 30,
-  },
-  root: {
-    paddingBottom: 200,
-  },
-});
-
 EnterAddress.defaultProps = {
   mode: 0,
+};
+
+EnterAddress.propTypes = {
+  citySelected: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.string,
+    PropTypes.number,
+  ]),
+  defaultValue: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.string,
+    PropTypes.number,
+  ]),
+  mode: PropTypes.oneOfType([PropTypes.number, PropTypes.string]), // Whether the user selects to type the address (0) or select from map (1)
+  onAccept: PropTypes.func, // Function triggered when the user accepts the selected address
+  onChangeMode: PropTypes.func, // Function triggered when the mode has been changed
+  onChangePosition: PropTypes.func, // Function triggered when the user changes the map marker location
+  onGoBack: PropTypes.func, // Function triggered when the user press the back or cancel button.
+  onSelectAddress: PropTypes.func, // Function triggered when the user select an address from the suggestions.
 };
 
 export default EnterAddress;

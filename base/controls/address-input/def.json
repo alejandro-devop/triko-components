@@ -1,0 +1,9 @@
+{
+  "entry": "index.js",
+  "type": "Component",
+  "tags": ["controls", "address", "input"],
+  "name": "AddressInput",
+  "description": "This component allows to manage and pick the user addresses.",
+  "children": [
+  ]
+}

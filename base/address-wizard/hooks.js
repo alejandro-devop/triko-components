@@ -5,8 +5,6 @@ import useNotify from 'shared/hooks/use-notification';
 import {useMutation} from '@apollo/react-hooks';
 import {SAVE_ADDRESS_CLIENT, SAVE_ADDRESS_TRIKO} from './queries';
 
-export const useAddressUpdate = () => {};
-
 export const useAddressSave = (options = {}) => {
   const {isTriko, isEditing} = options;
   const [loading, setLoading] = useState(false);

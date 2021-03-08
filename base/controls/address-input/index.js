@@ -5,14 +5,14 @@ import useSession from 'shared/hooks/use-session-triko';
 import WizardWrapper from 'shared/components/base/controls/address-input/WizardWrapper';
 import MyAddressesWrapper from 'shared/components/base/controls/address-input/MyAddressesWrapper';
 import AddressWizard from 'shared/components/base/address-wizard';
-import useAddressSave from 'shared/components/base/address-wizard/useAddressSave';
+import {useAddressSave} from 'shared/components/base/address-wizard/hooks';
 import {LoadingCurtain} from 'components/base/dialogs';
 import MapPicker from 'shared/components/base/controls/map-picker';
 
 /**
  * This component allows to manage and pick the user addresses.
- * @version 1.0.0
  * @author Alejandro <alejandro.devop@gmail.com>
+ * @version 1.0.0
  * @param disabled
  * @param enableAddButton
  * @param disableRemove
