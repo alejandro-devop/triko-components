@@ -1,0 +1,7 @@
+{
+  "entry": "index.js",
+  "type": "Component",
+  "tags": ["location-permissions", "permissions"],
+  "name": "PermissionDialog",
+  "description": "Renders the dialog for the application permissions message",
+}
