@@ -12,6 +12,7 @@ import Label from 'shared/components/base/label';
 import Text from 'shared/components/base/text';
 import useTranslation from 'hooks/useTranslation';
 import Button from 'components/base/buttons/button';
+import Dialog from 'shared/components/dialogs/dialog';
 import styles from './styles';
 import useAddressRemove from 'shared/components/my-address-list/hooks';
 import {LoadingCurtain} from 'components/base/dialogs';
@@ -33,6 +34,9 @@ import {LoadingCurtain} from 'components/base/dialogs';
  * @param onSelectAddress
  * @param useWizard
  * @param useWizardLabel
+ * @param useDialog
+ * @param open
+ * @param onClose
  * @returns {*}
  * @constructor
  */
@@ -46,10 +50,13 @@ const MyAddressesList = ({
   onEdit,
   enableAddButton = true,
   isTriko,
+  open,
+  onClose,
   onAddAddress,
   onSelectAddress,
   useWizard,
   useWizardLabel,
+  useDialog,
 }) => {
   const [classes] = useStyles(styles);
   const {_t} = useTranslation();
@@ -97,7 +104,7 @@ const MyAddressesList = ({
   };
 
   const addressesToList = Array.isArray(myAddresses) ? myAddresses : [];
-  return (
+  const content = (
     <View style={classes.root}>
       {removing && <LoadingCurtain />}
       {loading && <ListLoader size="lg" />}
@@ -144,6 +151,14 @@ const MyAddressesList = ({
       )}
     </View>
   );
+  if (useDialog) {
+    return (
+      <Dialog open={open} onClose={onClose} contentStyles={classes.dialog}>
+        {content}
+      </Dialog>
+    );
+  }
+  return content;
 };
 
 MyAddressesList.defaultProps = {

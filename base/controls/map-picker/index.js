@@ -13,6 +13,7 @@ const MapPicker = ({
   placeholder,
   primary,
   value,
+  disableControl,
 }) => {
   const [visible, toggleVisible] = useToggle(false);
   const handleChangeAddress = (addressData) => {
