@@ -30,6 +30,7 @@ import Candidates from 'shared/components/requests-list/shopper-card/candidates'
 import PostulatedMessage from 'shared/components/requests-list/postulated-message';
 import ExpiredLabel from 'shared/components/requests-list/expired-label';
 import {useSession} from 'hooks/index';
+import classNames from 'shared/utils/classnames';
 
 const acceptedStatus = [
   STATUS_ACCEPTED,
@@ -82,10 +83,17 @@ const TaskCard = ({
           <>
             <CardIcon
               image={taskIcon}
+              isPaid={isPaid}
               primary={_t('task_label').toUpperCase()}
             />
             {shortDescription && (
-              <Text style={classes.shortDescription}>{shortDescription}</Text>
+              <Text
+                style={classNames(
+                  {shortDescription: true, shortDescriptionPaid: isPaid},
+                  classes,
+                )}>
+                {shortDescription}
+              </Text>
             )}
             {/*{date && <Text style={classes.date}>{`${date} | ${time}`}</Text>}*/}
           </>
@@ -132,7 +140,7 @@ const TaskCard = ({
                 STATUS_WAITING_FOR_TRIKO,
                 STATUS_PAYMENT,
               ].includes(workflow) && <ExpiredLabel />}
-            <ServiceInfo request={request} />
+            <ServiceInfo isPaid={isPaid} request={request} />
             {!expired && <Candidates request={request} max={6} />}
             {workflow === STATUS_ACCEPTED && (
               <View style={classes.actionsPending}>
@@ -200,6 +208,9 @@ const styles = ({palette}) => ({
   shortDescription: {
     fontSize: 14,
     color: palette.gray,
+  },
+  shortDescriptionPaid: {
+    color: '#FFF',
   },
 });
 
