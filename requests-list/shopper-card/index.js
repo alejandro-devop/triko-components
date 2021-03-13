@@ -154,7 +154,12 @@ const ShopperCard = ({
                 STATUS_PENDING,
                 STATUS_WAITING_FOR_TRIKO,
               ].includes(workflow) && <ExpiredLabel />}
-            <ServiceInfo request={request} showDate isTriko={isTriko} />
+            <ServiceInfo
+              isPaid={isPaid}
+              request={request}
+              showDate
+              isTriko={isTriko}
+            />
             {!expired && workflow === STATUS_WAITING_FOR_TRIKO && (
               <Candidates request={request} />
             )}

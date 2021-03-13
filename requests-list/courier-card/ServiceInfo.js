@@ -6,11 +6,11 @@ import moment from 'moment';
 import useRequestStatus from 'shared/hooks/use-request-status';
 import useTranslation from 'shared/hooks/use-translate';
 
-const ServiceInfo = ({request = {}, showDate}) => {
+const ServiceInfo = ({request = {}, isPaid, showDate}) => {
   const {application_date} = request;
   const {_t} = useTranslation();
   const transition = request.transition ? request.transition.workflow : '';
-  const status = useRequestStatus(transition);
+  const status = useRequestStatus(transition, false, isPaid);
   const isUrgent = true;
 
   const date = (application_date ? moment(application_date) : moment()).format(

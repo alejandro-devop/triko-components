@@ -80,6 +80,7 @@ const CourierCard = ({
         )}
         {!isTriko && (
           <CardIcon
+            isPaid={isPaid}
             image={cardIcon}
             primary={_t('triko_courier_label').toUpperCase()}
           />
@@ -126,7 +127,7 @@ const CourierCard = ({
                 STATUS_PENDING,
                 STATUS_WAITING_FOR_TRIKO,
               ].includes(workflow) && <ExpiredLabel />}
-            <ServiceInfo request={request} isUrgent />
+            <ServiceInfo isPaid={isPaid} request={request} isUrgent />
             {!expired && <Candidates request={request} max={6} />}
             {postulates.length === 0 && (
               <View style={classes.noTrikosLabelWrapper}>
