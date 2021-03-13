@@ -10,6 +10,9 @@ import Button from 'shared/components/base/buttons/button';
 import {isEmpty} from 'shared/utils/functions';
 import useRequestUpdateAttrs from 'shared/hooks/use-request-update-attrs';
 import PreImage from 'shared/components/base/pre-image';
+import PermissionsManager, {
+  PERMISSIONS,
+} from 'shared/components/permissions-manager';
 
 const UploadBill = ({
   request = {},
@@ -43,7 +46,12 @@ const UploadBill = ({
     }
   };
   return (
-    <>
+    <PermissionsManager
+      permissions={[PERMISSIONS.ACCESS_CAMERA, PERMISSIONS.ACCESS_FILES]}
+      helpText={[
+        'upload_cart_bill_permission_1',
+        'upload_cart_bill_permission_2',
+      ]}>
       <View style={classes.root}>
         <View style={classes.priceWrapper}>
           <Text style={[classes.text, classes.textTotal]}>total_text</Text>
@@ -88,7 +96,7 @@ const UploadBill = ({
           </>
         )}
       </View>
-    </>
+    </PermissionsManager>
   );
 };
 
