@@ -4,7 +4,7 @@ import Icon from 'shared/components/base/icon';
 import TextField from 'shared/components/base/controls/text-field';
 import PrependControl from './PrependControl';
 import CountriesList from 'shared/components/base/countries-list';
-import useRegionConfig from 'hooks/useRegionConfig';
+import useRegionConfig from 'shared/hooks/use-regional-config';
 
 /**
  * This component allows to render a input which displays a country list,

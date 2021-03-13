@@ -3,7 +3,7 @@ import {ScrollView, View} from 'react-native';
 import Text from 'components/base/text';
 import useStyles from 'shared/hooks/use-styles';
 import SuggestionItem from './SuggestionItem';
-import useTranslation from 'hooks/useTranslation';
+import useTranslation from 'shared/hooks/use-translate';
 
 const SuggestionsList = ({items = [], onSelect}) => {
   const [classes] = useStyles(styles);

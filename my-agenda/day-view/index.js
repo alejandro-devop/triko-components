@@ -5,7 +5,7 @@ import useStyles from 'shared/hooks/use-styles';
 import HourBlock from './HourBlock';
 import Text from 'components/base/text';
 import {getBlockInfo} from '../commons';
-import useLocales from 'hooks/useLocales';
+import useLocales from 'shared/hooks/use-locales';
 
 const DayView = ({
   beginHour = '04:00:00',

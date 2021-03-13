@@ -11,7 +11,7 @@ import {
 } from 'shared/components/permissions-manager';
 import {request} from 'react-native-permissions';
 import useErrorReporter from 'shared/hooks/use-error-reporter';
-import useNotify from 'hooks/useNotification';
+import useNotify from 'shared/hooks/use-notification';
 
 const LocationPermissionChecker = () => {
   const [visible, setVisible] = useState(true);

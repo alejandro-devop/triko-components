@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {ScrollView, View} from 'react-native';
 import AddressSuggester from 'shared/components/address-suggester';
 import Button from 'components/base/buttons/button';
-import useTranslation from 'hooks/useTranslation';
+import useTranslation from 'shared/hooks/use-translate';
 import useStyles from 'hooks/useStyles';
 import Dialog from 'components/base/dialogs/dialog';
 import styles from './styles';

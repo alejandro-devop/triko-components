@@ -6,7 +6,7 @@ import Dialog from 'shared/components/dialogs/dialog';
 import classNames from 'shared/utils/classnames';
 import Button from 'components/base/buttons/button';
 import TrikoMarker from 'components/base/triko-marker';
-import useTranslation from 'hooks/useTranslation';
+import useTranslation from 'shared/hooks/use-translate';
 import styles from './styles';
 
 const MapViewer = ({open, onClose, position = {}, title}) => {

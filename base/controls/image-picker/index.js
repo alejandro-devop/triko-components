@@ -4,7 +4,7 @@ import Icon from 'components/base/icon';
 import Text from 'components/base/text';
 import useStyles from 'shared/hooks/use-styles';
 import classNames from 'shared/utils/classnames';
-import useTranslation from 'hooks/useTranslation';
+import useTranslation from 'shared/hooks/use-translate';
 import usePhotoCapture from 'shared/hooks/use-photo-capture';
 import {isEmpty} from 'shared/utils/functions';
 import PreImage from 'shared/components/base/pre-image';

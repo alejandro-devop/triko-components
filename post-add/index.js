@@ -20,7 +20,7 @@ import usePhotoCapture from 'shared/hooks/use-photo-capture';
 import {isEmpty} from 'shared/utils/functions';
 import PreImage from 'shared/components/base/pre-image';
 import CircleButton from 'shared/components/base/buttons/circle-button';
-import useTranslation from 'hooks/useTranslation';
+import useTranslation from 'shared/hooks/use-translate';
 
 /**
  * Component to publish posts by the user.

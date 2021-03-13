@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import {View} from 'react-native';
-import Slide from 'components/anims/Slide';
+import Slide from 'shared/components/anims/Slide';
 import styles from './styles/guidance-item.style';
 import useStyles from 'hooks/useStyles';
 import PreImage from 'components/pre-image';

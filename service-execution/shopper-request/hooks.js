@@ -2,7 +2,7 @@ import {useState} from 'react';
 import useErrorReporter from 'shared/hooks/use-error-reporter';
 import {useMutation, useQuery} from '@apollo/react-hooks';
 import {UPDATE_PRODUCT, GET_TRIKO_INFO} from './queries';
-import useNotify from 'hooks/useNotification';
+import useNotify from 'shared/hooks/use-notification';
 import {
   STATUS_CONFIRM_PAYMENT,
   STATUS_FINISHED,

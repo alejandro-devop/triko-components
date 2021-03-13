@@ -10,7 +10,7 @@ import useStyles from 'shared/hooks/use-styles';
 import CircleButton from 'shared/components/base/buttons/circle-button';
 import Label from 'shared/components/base/label';
 import Text from 'shared/components/base/text';
-import useTranslation from 'hooks/useTranslation';
+import useTranslation from 'shared/hooks/use-translate';
 import Button from 'components/base/buttons/button';
 import Dialog from 'shared/components/dialogs/dialog';
 import styles from './styles';

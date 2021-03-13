@@ -6,7 +6,7 @@ import Icon from 'components/base/icon';
 import styles from './styles';
 import palette from 'themes/styles/palette';
 import Text from 'components/base/text';
-import Guide from 'components/anims/AnimatedArrowRight';
+import Guide from 'shared/components/anims/AnimatedArrowRight';
 
 const ControlButton = ({
   children,

@@ -3,7 +3,7 @@ import {GET_PRODUCTS, SAVE_PRODUCT} from './queries';
 import {useMutation, useQuery} from '@apollo/react-hooks';
 import {useSession} from 'hooks/index';
 import useErrorReporter from 'shared/hooks/use-error-reporter';
-import useNotify from 'hooks/useNotification';
+import useNotify from 'shared/hooks/use-notification';
 
 export const useProductsList = (options = {}) => {
   const {query, categories = []} = options;

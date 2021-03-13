@@ -1,7 +1,7 @@
 import React from 'react';
 import {View} from 'react-native';
 import Text from 'components/base/text';
-import useTranslation from 'hooks/useTranslation';
+import useTranslation from 'shared/hooks/use-translate';
 import useStyles from 'shared/hooks/use-styles';
 
 const Guide = () => {

@@ -3,7 +3,7 @@ import {View} from 'react-native';
 import {useStyles} from 'hooks/index';
 import PreImage from 'shared/components/base/pre-image';
 import Text from 'components/base/text';
-import useTranslation from 'hooks/useTranslation';
+import useTranslation from 'shared/hooks/use-translate';
 import styles from './styles';
 
 /**

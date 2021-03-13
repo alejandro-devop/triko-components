@@ -5,7 +5,7 @@ import Text from 'components/base/text';
 import {useStyles} from 'hooks/index';
 import Icon from 'components/base/icon';
 import styles from './styles';
-import useTranslation from 'hooks/useTranslation';
+import useTranslation from 'shared/hooks/use-translate';
 import LinkButton from 'components/base/buttons/link-button';
 import {getDistance, formatDistance} from 'utils/functions';
 import classNames from 'shared/utils/classnames';

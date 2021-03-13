@@ -6,7 +6,7 @@ import Text from 'components/base/text';
 import Label from 'components/base/label';
 import Button from 'components/base/buttons/button';
 import useStyles from 'shared/hooks/use-styles';
-import useTranslation from 'hooks/useTranslation';
+import useTranslation from 'shared/hooks/use-translate';
 import LoadingCurtain from 'components/base/dialogs/loading-curtain';
 
 const FixFromMap = ({position, confirmAddress, onSubmit}) => {

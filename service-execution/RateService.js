@@ -8,10 +8,10 @@ import Button from 'components/base/buttons/button';
 import LoadingCurtain from 'components/base/dialogs/loading-curtain';
 import {useMutation} from '@apollo/react-hooks';
 import {SAVE_RATING} from 'components/service-execution/queries';
-import useNotify from 'hooks/useNotification';
+import useNotify from 'shared/hooks/use-notification';
 import useNavigate from 'hooks/useNavigate';
 import useRequestUpdater from 'hooks/useRequestUpdater';
-import useTranslation from 'hooks/useTranslation';
+import useTranslation from 'shared/hooks/use-translate';
 import useSession from 'hooks/useSession';
 
 const RateService = ({request = {}}) => {

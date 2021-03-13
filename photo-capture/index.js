@@ -9,7 +9,7 @@ import Dialog from 'shared/components/dialogs/dialog';
 import Button from 'shared/components/base/buttons/button';
 import {useStyles} from 'hooks/index';
 import ImagePicker from 'react-native-image-picker';
-import useTranslation from 'hooks/useTranslation';
+import useTranslation from 'shared/hooks/use-translate';
 
 const PhotoCapture = ({
   control,

@@ -1,6 +1,6 @@
 import React from 'react';
 import {View} from 'react-native';
-import Slide from 'components/anims/Slide';
+import Slide from 'shared/components/anims/Slide';
 import useStyles from 'shared/hooks/use-styles';
 import RequestType from './type-request';
 import RecommendationType from './type-recommendation';

@@ -6,7 +6,7 @@ import RatingStars from 'components/base/rating-stars';
 import TextArea from 'components/base/controls/text-area';
 import Button from 'shared/components/base/buttons/button';
 import useStyles from 'shared/hooks/use-styles';
-import useTranslation from 'hooks/useTranslation';
+import useTranslation from 'shared/hooks/use-translate';
 import useRateClient from 'shared/hooks/use-rate-client';
 import styles from './styles';
 

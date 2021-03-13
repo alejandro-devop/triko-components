@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {View} from 'react-native';
 import useStyles from 'hooks/useStyles';
 import TabIcon from './TabIcon';
-import useTranslation from 'hooks/useTranslation';
+import useTranslation from 'shared/hooks/use-translate';
 import useSession from 'hooks/useSession';
 import options from 'config/tab-options';
 import tabIcons from './tab-icons';

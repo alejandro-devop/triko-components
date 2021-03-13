@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
-import { View} from 'react-native';
+import {View} from 'react-native';
 import {WebView} from 'react-native-webview';
 import Button from 'components/base/buttons/button';
 import useStyles from 'hooks/useStyles';
-import AnimatedArrowDown from 'components/anims/AnimatedArrowDown';
+import AnimatedArrowDown from 'shared/components/anims/AnimatedArrowDown';
 import LoadingCurtain from 'components/base/dialogs/loading-curtain';
 
 const ContentWrapper = ({source, onAccept, onCancel, _t}) => {

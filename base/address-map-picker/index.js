@@ -5,7 +5,7 @@ import MapView, {PROVIDER_GOOGLE} from 'react-native-maps';
 import classNames from 'shared/utils/classnames';
 import MapMarker from 'shared/components/base/map-marker';
 import Text from 'components/base/text';
-import useTranslation from 'hooks/useTranslation';
+import useTranslation from 'shared/hooks/use-translate';
 import useCurrentLocation from 'shared/hooks/use-current-location';
 import LoaderScreen from 'shared/components/loaders/loader-screen';
 import {isEmpty} from 'shared/utils/functions';

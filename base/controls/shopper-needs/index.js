@@ -1,8 +1,6 @@
 import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import Wrapper from './Wrapper';
-import useMock from 'hooks/useMock';
-import mock from './mocks';
 import Loader from './Loader';
 import Label from 'components/base/label';
 import ItemList from './ItemList';

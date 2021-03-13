@@ -6,7 +6,7 @@ import useStyles from 'shared/hooks/use-styles';
 import InfoRow from '../info-row';
 import Icon from 'components/base/icon';
 import ShoppingItem from './ShoppingItem';
-import useTranslation from 'hooks/useTranslation';
+import useTranslation from 'shared/hooks/use-translate';
 import ActionButtons from '../action-buttons';
 import {isEmpty} from 'shared/utils/functions';
 import Candidates from 'shared/components/requests-list/shopper-card/candidates';

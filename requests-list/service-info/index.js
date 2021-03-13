@@ -5,7 +5,7 @@ import RequestLocation from './RequestLocation';
 import useStyles from 'shared/hooks/use-styles';
 import moment from 'moment';
 import useRequestStatus from 'shared/hooks/use-request-status';
-import useTranslation from 'hooks/useTranslation';
+import useTranslation from 'shared/hooks/use-translate';
 import styles from './styles';
 import ConfirmIcon from 'shared/components/requests-list/ConfirmIcon';
 import classNames from 'shared/utils/classnames';

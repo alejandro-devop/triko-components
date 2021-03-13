@@ -3,11 +3,11 @@ import {View} from 'react-native';
 import Label from 'components/base/label';
 import useStyles from 'hooks/useStyles';
 import Button from 'components/base/buttons/button';
-import Slide from 'components/anims/Slide';
+import Slide from 'shared/components/anims/Slide';
 import InfoRow from 'components/base/info-row';
 import moment from 'moment';
 import {getElapsedTime} from 'utils/functions';
-import useTranslation from 'hooks/useTranslation';
+import useTranslation from 'shared/hooks/use-translate';
 import {
   STATUS_QUALIFY_CLIENT,
   STATUS_QUALIFY_TRIKO,

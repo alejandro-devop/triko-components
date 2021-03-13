@@ -1,6 +1,6 @@
 import React from 'react';
 import Dialog from 'shared/components/dialogs/dialog';
-import useTranslation from 'hooks/useTranslation';
+import useTranslation from 'shared/hooks/use-translate';
 import useStyles from 'shared/hooks/use-styles';
 import PermissionsManager from 'shared/components/permissions-manager';
 

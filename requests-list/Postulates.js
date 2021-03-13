@@ -5,7 +5,7 @@ import PreImage from 'shared/components/base/pre-image';
 import Text from 'components/base/text';
 import LinkButton from 'components/base/buttons/link-button';
 import profilePhoto from 'assets/avatars/profile-photo.jpg';
-import useTranslation from 'hooks/useTranslation';
+import useTranslation from 'shared/hooks/use-translate';
 
 const Postulates = ({postulates = [], max = 4}) => {
   const [classes] = useStyles(styles);

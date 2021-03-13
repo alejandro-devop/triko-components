@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {View} from 'react-native';
 import AddressSuggester from 'shared/components/address-suggester';
-import useTranslation from 'hooks/useTranslation';
+import useTranslation from 'shared/hooks/use-translate';
 import Button from 'components/base/buttons/button';
 import Options from './Options';
 import {useStyles} from 'hooks/index';

@@ -8,7 +8,7 @@ import useStyles from 'shared/hooks/use-styles';
 import Text from 'shared/components/base/text';
 import Label from 'shared/components/base/label';
 import classNames from 'shared/utils/classnames';
-import useTranslation from 'hooks/useTranslation';
+import useTranslation from 'shared/hooks/use-translate';
 import styles from './styles';
 
 /**

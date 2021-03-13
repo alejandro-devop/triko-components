@@ -14,7 +14,7 @@ import handleChange from 'shared/components/base/commons/handle-change';
 import useStyles from 'shared/hooks/use-styles';
 import InputHelp from 'shared/components/base/controls/input-help';
 import IconButton from 'shared/components/base/buttons/icon-button';
-import useTranslation from 'hooks/useTranslation';
+import useTranslation from 'shared/hooks/use-translate';
 import palette from 'themes/styles/palette';
 
 /**

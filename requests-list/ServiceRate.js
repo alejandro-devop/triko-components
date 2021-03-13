@@ -2,8 +2,8 @@ import React from 'react';
 import {View} from 'react-native';
 import Text from 'components/base/text';
 import useStyles from 'shared/hooks/use-styles';
-import useTranslation from 'hooks/useTranslation';
-import useCurrency from 'hooks/useCurrency';
+import useTranslation from 'shared/hooks/use-translate';
+import useCurrency from 'shared/hooks/use-currency';
 import {useCalcRateClient} from 'shared/hooks/use-rate-calc';
 import classNames from 'shared/utils/classnames';
 

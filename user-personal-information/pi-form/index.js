@@ -7,7 +7,7 @@ import NationalitySelect from 'main/components/base/controls/nationality-select'
 import CitySelect from 'main/components/base/controls/city-select';
 import IDTypesSelect from 'main/components/base/controls/id-types-select';
 import GendersSelect from 'main/components/base/controls/genders-select';
-import useTranslation from 'hooks/useTranslation';
+import useTranslation from 'shared/hooks/use-translate';
 import RequiredLabel from 'components/base/commons/RequiredLabel';
 import Button from 'components/base/buttons/button';
 import styles from './styles';

@@ -2,17 +2,17 @@ import React, {useState} from 'react';
 import {View} from 'react-native';
 import Text from 'components/base/text';
 import ControlButton from './control-button';
-import useTimer from 'hooks/useTimer';
+import useTimer from 'shared/hooks/use-timer';
 import Button from 'components/base/buttons/button';
 import useStyles from 'hooks/useStyles';
 import {useMutation} from '@apollo/react-hooks';
-import useNotify from 'hooks/useNotification';
+import useNotify from 'shared/hooks/use-notification';
 import LoadingCurtain from 'components/base/dialogs/loading-curtain';
 import {STATUS_CONFIRM_FINISHED, STATUS_STARTED} from 'config/request-statuses';
 import {getElapsedTime} from 'utils/functions';
 import {UPDATE_REQUEST} from 'components/pending-services-/queries';
 import useSession from 'hooks/useSession';
-import useTranslation from 'hooks/useTranslation';
+import useTranslation from 'shared/hooks/use-translate';
 import InfoMessage from 'components/base/messages/InfoMessage';
 
 const OnExecution = ({request = {}}) => {
