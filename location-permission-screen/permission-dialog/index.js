@@ -17,11 +17,13 @@ import classNames from 'shared/utils/classnames';
 
 const PermissionDialog = ({
   disableDialog,
+  disableCancel,
   features = [],
   hideAskAgain,
   onGranted,
   open,
   onClose,
+  styles: customStyles = {},
 }) => {
   const [classes] = useStyles(styles);
   const {error} = useNotify();
@@ -53,7 +55,10 @@ const PermissionDialog = ({
 
   const content = (
     <View
-      style={classNames({wrapper: true, wrapperWide: disableDialog}, classes)}>
+      style={[
+        classNames({wrapper: true, wrapperWide: disableDialog}, classes),
+        customStyles.root,
+      ]}>
       <View style={classes.descriptionContainer}>
         <Text style={classes.descriptionText}>
           why_we_need_location_permissions
@@ -83,7 +88,7 @@ const PermissionDialog = ({
         <Button onPress={handleRequestPermissions} primary>
           allow_location_access_text
         </Button>
-        <Button onPress={handleClose}>close_text</Button>
+        {!disableCancel && <Button onPress={handleClose}>close_text</Button>}
       </View>
     </View>
   );

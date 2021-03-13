@@ -10,12 +10,14 @@ const LocationPermissionScreen = ({
   disableDialog,
   hide,
   hideAskAgain,
+  disableCancel,
   features = [
     'permissions_feature_1',
     'permissions_feature_2',
     'permissions_feature_3',
     'permissions_feature_4',
   ],
+  styles = {},
 }) => {
   const {
     stack: {hidePermissionsDialog, notShowAgain},
@@ -65,11 +67,13 @@ const LocationPermissionScreen = ({
       {!hasPermission && !hidePermissionsDialog && open && (
         <PermissionDialog
           disableDialog={disableDialog}
+          disableCancel={disableCancel}
           hideAskAgain={hideAskAgain}
           features={features}
           onGranted={handleGranted}
           open
           onClose={closeDialog}
+          styles={styles}
         />
       )}
       {getContent()}
