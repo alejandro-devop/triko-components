@@ -7,7 +7,7 @@ import PreImage from 'shared/components/base/pre-image';
 import Slide from 'shared/components/anims/Slide';
 import logo from 'assets/logos/app_logo_text.png';
 import Button from 'shared/components/base/buttons/button';
-import useTranslation from 'shared/hooks/use-translate';
+import useTranslation from 'hooks/useTranslation';
 import styles from './styles';
 import classNames from 'shared/utils/classnames';
 import TypeText from '../type-text';

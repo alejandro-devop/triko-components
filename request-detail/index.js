@@ -10,7 +10,7 @@ import Shopper from './shopper';
 import Courier from './courier';
 import Task from './task';
 import useStyles from 'shared/hooks/use-styles';
-import useTranslation from 'shared/hooks/use-translate';
+import useTranslation from 'hooks/useTranslation';
 import usePayment from 'shared/hooks/use-payment';
 import {LoadingCurtain} from 'components/base/dialogs';
 import {useCalcRateClient} from 'shared/hooks/use-rate-calc';

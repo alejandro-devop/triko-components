@@ -13,7 +13,7 @@ import {
   STATUS_STARTED,
 } from 'config/request-statuses';
 import moment from 'moment';
-import useTranslation from 'shared/hooks/use-translate';
+import useTranslation from 'hooks/useTranslation';
 import Timer from '../timer';
 import ConfirmBubble from 'shared/components/base/confirm-bubble';
 import ViewOnMap from '../view-on-map';

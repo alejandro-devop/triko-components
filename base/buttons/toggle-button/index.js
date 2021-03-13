@@ -4,7 +4,7 @@ import textStyles from 'shared/components/base/text/styles';
 import palette from 'themes/styles/palette';
 import Icon from 'shared/components/base/icon';
 import useStyles from 'shared/hooks/use-styles';
-import useTranslation from 'shared/hooks/use-translate';
+import useTranslation from 'hooks/useTranslation';
 import styles from './styles';
 
 const ToggleButton = ({

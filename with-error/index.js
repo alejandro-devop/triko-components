@@ -3,7 +3,7 @@ import {View} from 'react-native';
 import Text from 'shared/components/base/text';
 import useStyles from 'shared/hooks/use-styles';
 import PrettyIcon from 'shared/components/pretty-icon';
-import useTranslation from 'shared/hooks/use-translate';
+import useTranslation from 'hooks/useTranslation';
 import Button from 'shared/components/base/buttons/button';
 import BugReporter from 'shared/components/bug-reporter';
 

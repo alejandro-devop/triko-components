@@ -63,6 +63,7 @@ const MyActivityComponent = ({
   withStatus,
   nearest,
   onlyOwned,
+  onlyFutureEvents,
   onlyMyServices,
 }) => {
   const {setKey} = useSession();
@@ -80,6 +81,7 @@ const MyActivityComponent = ({
     isTriko,
     onlyOwned,
     onlyCurrentDay,
+    onlyFutureEvents,
     onlyAccepted,
     nearest,
     onlyMyServices,

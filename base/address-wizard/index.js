@@ -1,41 +1,44 @@
 import React, {useState} from 'react';
-import PropTypes from 'prop-types';
 import {View, ScrollView} from 'react-native';
-import useTranslation from 'shared/hooks/use-translate';
+import useTranslation from 'hooks/useTranslation';
 import useStyles from 'shared/hooks/use-styles';
 import GCitySelect from 'shared/components/base/controls/g-city-select';
-import EnterAddress from './enter-address';
+import EnterAddress from 'shared/components/base/address-wizard/EnterAddress';
 import FixTheAddress from 'shared/components/address-suggester/FixTheAddress';
-import AddressForm from './address-form';
+import AddressForm from './AddressForm';
 import LoadingCurtain from 'components/base/dialogs/loading-curtain';
 import {useAddressSave} from './hooks';
 import PermissionsManager, {
   PERMISSIONS,
 } from 'shared/components/permissions-manager';
 import WizardDialog from 'shared/components/base/address-wizard/wizard-dialog';
-import {getDefaultValues} from './functions';
-import styles from './styles';
+import {isEmpty} from 'shared/utils/functions';
 
-/**
- * This component allows to handle the user's addresses, whether is client or triko.
- * @author Alejandro <alejandro.devop@gmail.com>
- * @version 1.0.0
- * @param defaultQuery
- * @param defaultValues
- * @param forceSave
- * @param isTriko
- * @param isEditing
- * @param useDialog
- * @param useWizard
- * @param open
- * @param onClose
- * @param onSaved
- * @param skipForm
- * @returns {*}
- * @constructor
- */
+const getDefaultValues = (defaultValues, defaultQuery) => {
+  let newValues = {
+    address: null,
+    type: null,
+    name: null,
+    description: null,
+    city: defaultQuery,
+  };
+  if (!isEmpty(defaultValues) && !isEmpty(defaultValues.address)) {
+    const [address, ...city] = defaultValues.address.split(', ');
+    newValues = {
+      address: {
+        primaryText: address,
+      },
+      city: city.join(', '),
+      name: defaultValues.title,
+      description: defaultValues.description,
+      type: defaultValues.type.id,
+    };
+  }
+  return newValues;
+};
+
 const AddressWizard = ({
-  defaultQuery,
+  defaultQuery = '',
   defaultValues,
   forceSave,
   isTriko,
@@ -204,30 +207,11 @@ const AddressWizard = ({
   return content;
 };
 
-AddressWizard.defaultProps = {
-  defaultQuery: '',
-};
-
-AddressWizard.propTypes = {
-  defaultQuery: PropTypes.string,
-  defaultValues: PropTypes.shape({
-    address: PropTypes.shape({
-      primaryText: PropTypes.string,
-    }),
-    city: PropTypes.string,
-    name: PropTypes.string,
-    description: PropTypes.string,
-    type: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  }),
-  forceSave: PropTypes.bool,
-  isTriko: PropTypes.bool,
-  isEditing: PropTypes.bool,
-  useDialog: PropTypes.bool,
-  useWizard: PropTypes.bool,
-  open: PropTypes.bool,
-  onClose: PropTypes.func,
-  onSaved: PropTypes.func,
-  skipForm: PropTypes.bool,
-};
+const styles = () => ({
+  content: {
+    flex: 1,
+    paddingHorizontal: 20,
+  },
+});
 
 export default AddressWizard;

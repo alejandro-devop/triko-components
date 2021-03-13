@@ -4,7 +4,7 @@ import styles from './styles';
 import {Text as TextBase} from 'react-native';
 import classNames from 'shared/utils/classnames';
 import useStyles from 'shared/hooks/use-styles';
-import useTranslation from 'shared/hooks/use-translate';
+import useTranslation from 'hooks/useTranslation';
 
 /**
  * This component allows to render a simple text, it injects the common styling

@@ -5,7 +5,7 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import Dialog from 'shared/components/dialogs/dialog';
 import Button from 'shared/components/base/buttons/button';
 import styles from './styles';
-import useTranslation from 'shared/hooks/use-translate';
+import useTranslation from 'hooks/useTranslation';
 
 /**
  * This component allows to render a the select list items

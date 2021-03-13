@@ -8,7 +8,7 @@ import Slide from 'shared/components/anims/Slide';
 import Text from 'shared/components/base/text';
 import moment from 'moment';
 import useRequestStatus from 'shared/hooks/use-request-status';
-import useTranslation from 'shared/hooks/use-translate';
+import useTranslation from 'hooks/useTranslation';
 
 const RequestHeader = ({request = {}, isTriko}) => {
   const [classes] = useStyles(styles);

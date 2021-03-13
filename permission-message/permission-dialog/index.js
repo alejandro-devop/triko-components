@@ -10,7 +10,7 @@ import {
   IOS_PERMISSIONS,
 } from 'shared/components/permissions-manager';
 import {request} from 'react-native-permissions';
-import useNotify from 'shared/hooks/use-notification';
+import useNotify from 'hooks/useNotification';
 import useErrorReporter from 'shared/hooks/use-error-reporter';
 import CheckboxField from 'shared/components/base/controls/checkbox-field';
 

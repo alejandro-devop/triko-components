@@ -3,7 +3,7 @@ import {View} from 'react-native';
 import Icon from 'components/base/icon';
 import useStyles from 'hooks/useStyles';
 import Text from 'components/base/text';
-import useTranslation from 'shared/hooks/use-translate';
+import useTranslation from 'hooks/useTranslation';
 
 /**
  * This component only renders a temporary icon when there are not messages.

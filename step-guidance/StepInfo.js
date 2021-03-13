@@ -4,7 +4,7 @@ import {View} from 'react-native';
 import Text from 'components/base/text';
 import useStyles from 'hooks/useStyles';
 import styles from './styles/step-info.style';
-import useTranslation from 'shared/hooks/use-translate';
+import useTranslation from 'hooks/useTranslation';
 
 /**
  * This component displays the title and description for each step.

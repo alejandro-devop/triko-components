@@ -3,7 +3,7 @@ import {View} from 'react-native';
 import useStyles from 'shared/hooks/use-styles';
 import Text from 'components/base/text';
 import Button from 'components/base/buttons/button';
-import useTranslation from 'shared/hooks/use-translate';
+import useTranslation from 'hooks/useTranslation';
 import useNavigate from 'shared/hooks/use-navigate';
 
 const NewType = ({post = {}}) => {

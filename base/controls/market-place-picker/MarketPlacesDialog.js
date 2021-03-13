@@ -3,7 +3,7 @@ import {ScrollView, View} from 'react-native';
 import Dialog from 'shared/components/dialogs/dialog';
 import TextField from 'components/base/controls/text-field';
 import useStyles from 'shared/hooks/use-styles';
-import useTranslation from 'shared/hooks/use-translate';
+import useTranslation from 'hooks/useTranslation';
 import ShopperNeedsHorizontal from 'shared/components/base/controls/shopper-needs-horizontal';
 import SuggestionsList from './SuggestionsList';
 import {useMarketsList} from './hooks';

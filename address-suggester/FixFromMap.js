@@ -5,7 +5,7 @@ import Text from 'components/base/text';
 import IconButton from 'components/base/buttons/icon-button';
 import AddressFixer from 'shared/components/address-fixer';
 import useStyles from 'shared/hooks/use-styles';
-import useTranslation from 'shared/hooks/use-translate';
+import useTranslation from 'hooks/useTranslation';
 
 const FixFromMap = ({addressObj, onChangeForm, city}) => {
   const [classes] = useStyles(styles);

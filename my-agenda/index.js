@@ -9,7 +9,7 @@ import moment from 'moment';
 import {useEventList} from './hooks';
 import useRequestList from 'shared/hooks/use-request-list';
 import {LoadingCurtain} from 'components/base/dialogs';
-import RequestsList from "shared/components/requests-list";
+import RequestsList from 'shared/components/requests-list';
 
 const currentMonth = moment().startOf('month');
 const currentWeek = moment().startOf('isoWeek');
@@ -54,6 +54,7 @@ const MySchedule = ({inputFormat = 'YYYY-MM-DD HH:mm:ss', isTriko}) => {
     allTypes: true,
     isTriko,
     onlyOwned: true,
+    onlyFutureEvents: true,
     noFinished: true,
     noCanceled: true,
   });

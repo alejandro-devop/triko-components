@@ -17,7 +17,7 @@ import {
   STATUS_QUALIFY_TRIKO,
   STATUS_CANCEL,
 } from 'config/request-statuses';
-import useTranslation from 'shared/hooks/use-translate';
+import useTranslation from 'hooks/useTranslation';
 
 const getStatus = workflow => {
   switch (workflow) {

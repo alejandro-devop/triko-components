@@ -5,7 +5,7 @@ import styles from './styles';
 import {useStyles} from 'hooks/index';
 import ShopperNeedsHorizontal from 'shared/components/base/controls/shopper-needs-horizontal';
 import NationalitySelect from 'shared/components/base/controls/nationality-select';
-import useForm from 'shared/hooks/use-form';
+import useForm from 'hooks/useForm';
 import {isEmpty} from 'shared/utils/functions';
 import CitySelect from 'shared/components/base/controls/city-select';
 import TextField from 'shared/components/base/controls/text-field';

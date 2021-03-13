@@ -2,9 +2,9 @@ import {useMutation, useQuery} from '@apollo/react-hooks';
 import {GET_CONVEYANCES} from 'shared/components/base/controls/conveyance-picker/queries';
 import {useSession} from 'hooks/index';
 import {SAVE_PERSONAL_INFORMATION} from 'config/data/triko';
-import useNotify from 'shared/hooks/use-notification';
+import useNotify from 'hooks/useNotification';
 import useErrorReporter from 'shared/hooks/use-error-reporter';
-import useTranslation from 'shared/hooks/use-translate';
+import useTranslation from 'hooks/useTranslation';
 
 /**
  * This hook list the transport available for trikos.

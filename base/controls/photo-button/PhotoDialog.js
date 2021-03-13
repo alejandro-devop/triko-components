@@ -1,6 +1,6 @@
 import React from 'react';
 import Dialog from 'shared/components/dialogs/dialog';
-import useTranslation from 'shared/hooks/use-translate';
+import useTranslation from 'hooks/useTranslation';
 import classNames from 'shared/utils/classnames';
 import PreImage from 'shared/components/base/pre-image';
 import useStyles from 'shared/hooks/use-styles';

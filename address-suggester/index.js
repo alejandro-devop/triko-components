@@ -6,7 +6,7 @@ import CircularLoader from 'components/base/loaders/CircularLoader';
 import useStyles from 'shared/hooks/use-styles';
 import SuggestionsList from './SuggestionsList';
 import Text from 'components/base/text';
-import useTranslation from 'shared/hooks/use-translate';
+import useTranslation from 'hooks/useTranslation';
 import LinkButton from 'shared/components/base/buttons/link-button';
 import {isEmpty} from 'shared/utils/functions';
 

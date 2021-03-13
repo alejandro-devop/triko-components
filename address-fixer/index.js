@@ -7,17 +7,7 @@ import useAddressLocation from 'shared/hooks/use-address-location';
 import MapFixer from './map-fixer';
 import LoaderScreen from 'shared/components/loaders/loader-screen';
 
-/**
- * This component renders a map component to allow the user fix the address location.
- * @author Alejandro <alejandro.devop@gmail.com>
- * @version 1.0.l0
- * @param addressObj
- * @param onPositionChange
- * @param city
- * @returns {*}
- * @constructor
- */
-const AddressFixer = ({addressObj, onPositionChange, city}) => {
+const AddressFixer = ({addressObj = {}, onPositionChange, city}) => {
   const [classes] = useStyles(styles);
   const [position, setPosition] = useState(null);
   const {getCurrentPosition, notFound, loading} = useAddressLocation();
@@ -47,20 +37,14 @@ const AddressFixer = ({addressObj, onPositionChange, city}) => {
   );
 };
 
-AddressFixer.defaultProps = {
-  addressObj: {},
-};
-
 AddressFixer.propTypes = {
-  // Object containing the address text information
   address: PropTypes.shape({
-    primary: PropTypes.string, // A text given by google for the address as main result.
-    secondary: PropTypes.string, // A secondary result text given by google for the address.
+    primary: PropTypes.string,
+    secondary: PropTypes.string,
   }),
-  city: PropTypes.string, // The name of the typed city by the user.
-  onToggleEditing: PropTypes.func, // Function to be triggered by the user to edit the address.
-  onSave: PropTypes.func, // Function triggered when the address is saved.
-  onCancel: PropTypes.func, // Function triggered when the user press the cancel button.
+  onToggleEditing: PropTypes.func,
+  onSave: PropTypes.func,
+  onCancel: PropTypes.func,
 };
 
 export default AddressFixer;

@@ -1,7 +1,7 @@
 import {useState} from 'react';
 import useErrorReporter from 'shared/hooks/use-error-reporter';
 import {REMOVE_CLIENT_ADDRESS} from './queries';
-import useNotify from 'shared/hooks/use-notification';
+import useNotify from 'hooks/useNotification';
 import {useMutation} from '@apollo/react-hooks';
 const useAddressRemove = () => {
   const [loading, setLoading] = useState(false);

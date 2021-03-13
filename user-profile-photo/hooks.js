@@ -2,7 +2,7 @@ import {useState} from 'react';
 import {useMutation} from '@apollo/react-hooks';
 import {UPDATE_PROFILE_PHOTO} from 'config/queries/user-queries';
 import useErrorReporter from 'shared/hooks/use-error-reporter';
-import useNotify from 'shared/hooks/use-notification';
+import useNotify from 'hooks/useNotification';
 import {useSession} from 'hooks/index';
 
 /**

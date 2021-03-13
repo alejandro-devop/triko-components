@@ -1,7 +1,7 @@
 import {useState, useMemo} from 'react';
 import {useMutation, useQuery} from '@apollo/react-hooks';
 import {GET_MESSAGES, SEND_MESSAGE, GET_TRIKO_REQUESTS} from './queries';
-import useNotify from 'shared/hooks/use-notification';
+import useNotify from 'hooks/useNotification';
 import {useSession} from 'hooks/index';
 
 /**

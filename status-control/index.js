@@ -4,8 +4,8 @@ import styles from './styles';
 import {useStyles} from 'hooks/index';
 import SwitchButton from './switch-button';
 import useUpdateTriko from 'shared/hooks/use-update-triko';
-import useTranslation from 'shared/hooks/use-translate';
-import useNotify from 'shared/hooks/use-notification';
+import useTranslation from 'hooks/useTranslation';
+import useNotify from 'hooks/useNotification';
 
 /**
  * This component allows to control the user status

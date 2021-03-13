@@ -21,7 +21,7 @@ import {
   STATUS_QUALIFY_CLIENT,
   STATUS_STARTED,
 } from 'config/request-statuses';
-import useTranslation from 'shared/hooks/use-translate';
+import useTranslation from 'hooks/useTranslation';
 import useRequestUpdateAttrs from 'shared/hooks/use-request-update-attrs';
 import useExecutionStep from 'shared/hooks/use-execution-step';
 import moment from 'moment';

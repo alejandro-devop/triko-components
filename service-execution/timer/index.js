@@ -5,8 +5,8 @@ import Text from 'shared/components/base/text';
 import styles from './styles';
 import {getElapsedTime, isEmpty} from 'shared/utils/functions';
 import {STATUS_STARTED} from 'config/request-statuses';
-import useTimer from 'shared/hooks/use-timer';
-import useTranslation from 'shared/hooks/use-translate';
+import useTimer from 'hooks/useTimer';
+import useTranslation from 'hooks/useTranslation';
 import BorderedButton from 'shared/components/base/buttons/bordered-button';
 import moment from 'moment';
 

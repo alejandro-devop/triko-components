@@ -5,9 +5,9 @@ import Text from 'components/base/text';
 import ActionButtons from '../action-buttons';
 import InfoRow from '../info-row';
 import useStyles from 'shared/hooks/use-styles';
-import useTranslation from 'shared/hooks/use-translate';
+import useTranslation from 'hooks/useTranslation';
 import moment from 'moment';
-import useCurrency from 'shared/hooks/use-currency';
+import useCurrency from 'hooks/useCurrency';
 import styles from './styles';
 
 const Other = ({

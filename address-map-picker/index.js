@@ -6,7 +6,7 @@ import styles from './styles';
 import useStyles from 'shared/hooks/use-styles';
 import MapView, {PROVIDER_GOOGLE} from 'react-native-maps';
 import MapMarker from 'shared/components/base/map-marker';
-import useNotify from 'shared/hooks/use-notification';
+import useNotify from 'hooks/useNotification';
 import useAddressFinder from 'hooks/useAddressFinder';
 import {TextField} from 'shared/components/base/controls';
 import {CircleButton} from 'shared/components/base/buttons';

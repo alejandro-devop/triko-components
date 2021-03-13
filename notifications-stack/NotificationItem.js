@@ -6,7 +6,7 @@ import useStyles from 'hooks/useStyles';
 import Icon from 'components/base/icon';
 import IconButton from 'components/base/buttons/icon-button';
 import {getElapsedTime} from 'utils/functions';
-import Slide from 'shared/components/anims/Slide';
+import Slide from 'components/anims/Slide';
 import ImageIcon from 'components/ImageIcon';
 
 /**

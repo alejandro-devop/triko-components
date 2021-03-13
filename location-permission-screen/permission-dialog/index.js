@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import PropTypes from 'prop-types';
 import {Linking, Platform, View} from 'react-native';
 import Text from 'components/base/text';
 import Dialog from 'shared/components/dialogs/dialog';
@@ -11,31 +10,15 @@ import {
   IOS_PERMISSIONS,
 } from 'shared/components/permissions-manager';
 import {request} from 'react-native-permissions';
-import useNotify from 'shared/hooks/use-notification';
+import useNotify from 'hooks/useNotification';
 import useErrorReporter from 'shared/hooks/use-error-reporter';
 import CheckboxField from 'shared/components/base/controls/checkbox-field';
 import classNames from 'shared/utils/classnames';
-import {LoadingCurtain} from 'components/base/dialogs';
 
-/**
- * Renders the dialog for the application permissions message
- * @author Alejandro <alejandro.devop@gmail.com>
- * @version 1.0.0
- * @param disableDialog
- * @param features
- * @param hideAskAgain
- * @param loading
- * @param onGranted
- * @param open
- * @param onClose
- * @returns {*}
- * @constructor
- */
 const PermissionDialog = ({
   disableDialog,
   features = [],
   hideAskAgain,
-  loading,
   onGranted,
   open,
   onClose,
@@ -102,7 +85,6 @@ const PermissionDialog = ({
         </Button>
         <Button onPress={handleClose}>close_text</Button>
       </View>
-      {loading && <LoadingCurtain disableModal />}
     </View>
   );
 
@@ -119,20 +101,6 @@ const PermissionDialog = ({
       {content}
     </Dialog>
   );
-};
-
-PermissionDialog.defaultProps = {
-  features: [],
-};
-
-PermissionDialog.propTypes = {
-  disableDialog: PropTypes.bool, // Whether displays the content inside a dialog or not.
-  features: PropTypes.arrayOf(PropTypes.string), // Features description for this permission (It'll be translated)
-  hideAskAgain: PropTypes.bool, // If should hide the button "Don't ask again"
-  loading: PropTypes.bool, // If the permissions are loading or being requested
-  onGranted: PropTypes.func, // Function which will be triggered if the permission is granted.
-  open: PropTypes.bool, // Flag to indicate the dialog is open (Only works when disable dialog is false)
-  onClose: PropTypes.func, // Function to be executed when the user try to close the dialog.
 };
 
 export default PermissionDialog;

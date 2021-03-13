@@ -5,7 +5,7 @@ import moment from 'moment';
 import {TouchableOpacity, View} from 'react-native';
 import Text from 'shared/components/base/text';
 import DayItem from '../day-item';
-import useLocales from 'shared/hooks/use-locales';
+import useLocales from 'hooks/useLocales';
 import useStyles from 'shared/hooks/use-styles';
 import IconButton from 'shared/components/base/buttons/icon-button';
 import YearPicker from '../year-picker';

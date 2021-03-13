@@ -1,7 +1,7 @@
 import React, {useMemo} from 'react';
 import PropTypes from 'prop-types';
 import {View} from 'react-native';
-import useTranslation from 'shared/hooks/use-translate';
+import useTranslation from 'hooks/useTranslation';
 import Text from 'shared/components/base/text';
 import useStyles from 'shared/hooks/use-styles';
 import LinkButton from 'shared/components/base/buttons/link-button';

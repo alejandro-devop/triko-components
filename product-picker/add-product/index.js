@@ -5,7 +5,7 @@ import styles from './styles';
 import TextField from 'shared/components/base/controls/text-field';
 import TextArea from 'shared/components/base/controls/text-area';
 import Button from 'shared/components/base/buttons/button';
-import useForm from 'shared/hooks/use-form';
+import useForm from 'hooks/useForm';
 import {LoadingCurtain} from 'components/base/dialogs';
 import {useSaveProduct} from '../hooks';
 

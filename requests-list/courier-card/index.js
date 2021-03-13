@@ -19,7 +19,7 @@ import {
   STATUS_STARTED,
   STATUS_WAITING_FOR_TRIKO,
 } from 'config/request-statuses';
-import useTranslation from 'shared/hooks/use-translate';
+import useTranslation from 'hooks/useTranslation';
 import {postulatesMock} from 'shared/components/requests-list/postulates.mock';
 import BellCount from './BellCount';
 import DistanceRender from 'shared/components/request-commons/distance-render';

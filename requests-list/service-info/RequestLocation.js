@@ -4,7 +4,7 @@ import Text from 'components/base/text';
 import {useStyles} from 'hooks/index';
 import LinkButton from 'components/base/buttons/link-button';
 import Geocoding from 'react-native-geocoding';
-import useTranslation from 'shared/hooks/use-translate';
+import useTranslation from 'hooks/useTranslation';
 import {SkeletonLoader} from 'components/base/loaders';
 import classNames from 'shared/utils/classnames';
 

@@ -6,7 +6,7 @@ import PreImage from 'shared/components/base/pre-image';
 import Text from 'components/base/text';
 import {getElapsedTime} from 'shared/utils/functions';
 import classNames from 'shared/utils/classnames';
-import useTranslation from 'shared/hooks/use-translate';
+import useTranslation from 'hooks/useTranslation';
 import Slide from 'shared/components/anims/Slide';
 import styles from './styles';
 

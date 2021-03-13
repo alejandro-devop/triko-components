@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import BorderedButton from 'shared/components/base/buttons/bordered-button';
 import ActionsWrapper from '../actions-wrapper';
-import useTranslation from 'shared/hooks/use-translate';
+import useTranslation from 'hooks/useTranslation';
 import {useStyles} from 'hooks/index';
 import {
   STATUS_ACCEPTED,

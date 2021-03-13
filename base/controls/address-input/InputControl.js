@@ -5,7 +5,7 @@ import {TextField} from 'shared/components/base/controls';
 import IconButton from 'shared/components/base/buttons/icon-button';
 import useStyles from 'shared/hooks/use-styles';
 import ConfirmSlide from 'components/base/confirm-slide';
-import useTranslation from 'shared/hooks/use-translate';
+import useTranslation from 'hooks/useTranslation';
 
 /**
  * This component displays teh selected address by the user.

@@ -2,7 +2,7 @@ import React from 'react';
 import {TouchableOpacity, View} from 'react-native';
 import Text from 'components/base/text';
 import {useStyles} from 'hooks/index';
-import useTranslation from 'shared/hooks/use-translate';
+import useTranslation from 'hooks/useTranslation';
 import classNames from 'shared/utils/classnames';
 
 const Controls = ({currentOption = 0, onChangeOption}) => {

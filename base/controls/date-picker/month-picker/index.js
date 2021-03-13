@@ -6,8 +6,8 @@ import useStyles from 'shared/hooks/use-styles';
 import Text from 'shared/components/base/text';
 import Label from 'shared/components/base/label';
 import classNames from 'shared/utils/classnames';
-import useLocales from 'shared/hooks/use-locales';
-import useTranslation from 'shared/hooks/use-translate';
+import useLocales from 'hooks/useLocales';
+import useTranslation from 'hooks/useTranslation';
 import styles from './styles';
 
 const MonthPicker = ({open, onClose, onSelect, month}) => {

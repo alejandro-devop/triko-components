@@ -44,8 +44,7 @@ export default ({palette}) => ({
     textAlign: 'center',
   },
   root: {
-    maxHeight: '95%',
-    minHeight: 550,
+    minHeight: '70%',
   },
   wrapper: {
     flexGrow: 1,

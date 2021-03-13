@@ -10,7 +10,7 @@ import useStyles from 'shared/hooks/use-styles';
 import CircleButton from 'shared/components/base/buttons/circle-button';
 import Label from 'shared/components/base/label';
 import Text from 'shared/components/base/text';
-import useTranslation from 'shared/hooks/use-translate';
+import useTranslation from 'hooks/useTranslation';
 import Button from 'components/base/buttons/button';
 import styles from './styles';
 import useAddressRemove from 'shared/components/my-address-list/hooks';

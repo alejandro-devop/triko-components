@@ -4,7 +4,7 @@ import Dialog from 'shared/components/dialogs/dialog';
 import Text from 'shared/components/base/text';
 import useStyles from 'shared/hooks/use-styles';
 import styles from './styles';
-import useTranslation from 'shared/hooks/use-translate';
+import useTranslation from 'hooks/useTranslation';
 import Button from 'shared/components/base/buttons/button';
 
 const InputHelp = ({open, onClose, title, content}) => {

@@ -12,7 +12,7 @@ import Text from 'shared/components/base/text';
 import classNames from 'shared/utils/classnames';
 import useStyles from 'shared/hooks/use-styles';
 import palette from 'themes/styles/palette';
-import useTranslation from 'shared/hooks/use-translate';
+import useTranslation from 'hooks/useTranslation';
 import {isEmpty} from 'shared/utils/functions';
 import handleChange from 'shared/components/base/commons/handle-change';
 

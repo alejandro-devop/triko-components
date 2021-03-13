@@ -7,7 +7,7 @@ import Card from 'components/base/card';
 import {LinkButton} from 'components/base/buttons';
 import HasPermissionLabel from './HasPermissionLabel';
 import useStyles from 'hooks/useStyles';
-import useTranslation from 'shared/hooks/use-translate';
+import useTranslation from 'hooks/useTranslation';
 import HelpTextRender from 'shared/components/permissions-manager/help-text-render';
 
 const BlackScreenIOs = ({

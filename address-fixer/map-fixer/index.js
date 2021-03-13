@@ -1,17 +1,18 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {View} from 'react-native';
-import PropTypes from 'prop-types';
 import Text from 'components/base/text';
 import styles from './styles';
 import useStyles from 'shared/hooks/use-styles';
 import MapView, {PROVIDER_GOOGLE} from 'react-native-maps';
 import MapMarker from 'shared/components/base/map-marker';
 import classNames from 'shared/utils/classnames';
-import useTranslation from 'shared/hooks/use-translate';
+import useTranslation from 'hooks/useTranslation';
+import Button from 'components/base/buttons/button';
 
 /**
- * This component presents a map tool to fix the location for a given  address, it also allows to edit the given address.
- * @author Alejandro <alejandro.devop@gmail.com>
+ * This component presents a map tool to fix the location for a given  address, it
+ * also allows to edit the given address.
+ * @author Jako <jakop.box@gmail.com>
  * @version 1.0.1
  * @app Client
  * @param location
@@ -19,7 +20,7 @@ import useTranslation from 'shared/hooks/use-translate';
  * @returns {*}
  * @constructor
  */
-const MapFixer = ({location, updateAddress}) => {
+const MapFixer = ({location = {}, updateAddress}) => {
   const {lat: latitude, lng: longitude} = location || {};
   const {_t} = useTranslation();
   const [classes] = useStyles(styles);
@@ -61,16 +62,7 @@ const MapFixer = ({location, updateAddress}) => {
     </View>
   );
 };
-MapFixer.defaultProps = {
-  location: {},
-};
-MapFixer.propTypes = {
-  // The current location to be fixed
-  location: PropTypes.shape({
-    lat: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    lng: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  }),
-  updateAddress: PropTypes.func, // A function which will be triggered when the user moves the map marker.
-};
+
+MapFixer.propTypes = {};
 
 export default MapFixer;

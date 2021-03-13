@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
-import useRegionConfig from 'shared/hooks/use-regional-config';
+import useRegionConfig from 'hooks/useRegionConfig';
 import NeedUpdate from './NeedUpdate';
 import {useQuery} from '@apollo/react-hooks';
 

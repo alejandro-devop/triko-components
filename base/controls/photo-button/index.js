@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import Control from './Control';
 import PhotoDialog from './PhotoDialog';
-import useTranslation from 'shared/hooks/use-translate';
+import useTranslation from 'hooks/useTranslation';
 import {isEmpty} from 'shared/utils/functions';
 import usePhotoCapture from 'components/shopper-request/shopper-cart/use-photo-capture';
 

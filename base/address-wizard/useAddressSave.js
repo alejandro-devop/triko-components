@@ -1,14 +1,12 @@
 import {useState} from 'react';
+import {useMutation} from '@apollo/react-hooks';
+import {SAVE_ADDRESS_CLIENT, SAVE_ADDRESS_TRIKO} from './queries';
 import {useSession} from 'hooks/index';
 import useTranslation from 'hooks/useTranslation';
 import useNotify from 'hooks/useNotification';
-import {useMutation} from '@apollo/react-hooks';
-import {SAVE_ADDRESS_CLIENT, SAVE_ADDRESS_TRIKO} from './queries';
 
-export const useAddressUpdate = () => {};
-
-export const useAddressSave = (options = {}) => {
-  const {isTriko, isEditing} = options;
+const useAddressSave = (options = {}) => {
+  const {isTriko} = options;
   const [loading, setLoading] = useState(false);
   const {
     stack: {triko = {}, myAddresses, client = {}, locale},
@@ -21,13 +19,12 @@ export const useAddressSave = (options = {}) => {
   );
 
   const sendRequest = async ({onSaved, form}) => {
-    const {address: addressObj = {}, name, type, addressId} = form;
+    const {address: addressObj = {}, name, type} = form;
     const {address, position = {}} = addressObj;
     setLoading(true);
     try {
       const {data} = await saveAddress({
         variables: {
-          id: isEditing ? addressId : null,
           address,
           isMain: 1,
           lat: position.lat,
@@ -39,19 +36,7 @@ export const useAddressSave = (options = {}) => {
         },
       });
       if (data.response) {
-        if (!isEditing) {
-          setKey('myAddresses', [...myAddresses, data.response]);
-        } else {
-          setKey(
-            'myAddresses',
-            myAddresses.map((item) => {
-              if (item.id === addressId) {
-                item = data.response;
-              }
-              return item;
-            }),
-          );
-        }
+        setKey('myAddresses', [...myAddresses, data.response]);
         setLoading(false);
         success(_t('address_saved_message'));
         if (onSaved) {
@@ -75,3 +60,5 @@ export const useAddressSave = (options = {}) => {
     sendRequest,
   };
 };
+
+export default useAddressSave;

@@ -5,7 +5,7 @@ import MapPreview from './MapPreview';
 import Icon from 'components/base/icon';
 import Button from 'components/base/buttons/button';
 import useStyles from 'shared/hooks/use-styles';
-import useTranslation from 'shared/hooks/use-translate';
+import useTranslation from 'hooks/useTranslation';
 
 const MarketPreview = ({market = {}, onSelectMarket, onClearSelection}) => {
   const {name, description, latitude, longitude} = market;

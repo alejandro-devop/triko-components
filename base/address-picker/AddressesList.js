@@ -11,7 +11,7 @@ import CircleButton from 'shared/components/base/buttons/circle-button';
 import ListLoader from 'shared/components/loaders/list-loader';
 import {GET_ADDRESSES} from 'shared/components/base/address-picker/queries';
 import useSession from 'hooks/useSession';
-import useTranslation from 'shared/hooks/use-translate';
+import useTranslation from 'hooks/useTranslation';
 import {useQuery} from '@apollo/react-hooks';
 
 const screenHeight = Dimensions.get('window').height;

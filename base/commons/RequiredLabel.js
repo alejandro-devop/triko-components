@@ -2,7 +2,7 @@ import React from 'react';
 import {View} from 'react-native';
 import Text from 'shared/components/base/text';
 import useStyles from 'shared/hooks/use-styles';
-import useTranslation from 'shared/hooks/use-translate';
+import useTranslation from 'hooks/useTranslation';
 
 const RequiredLabel = () => {
   const [classes] = useStyles(styles);

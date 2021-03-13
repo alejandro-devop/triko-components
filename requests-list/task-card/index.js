@@ -18,7 +18,7 @@ import {
   STATUS_STARTED,
   STATUS_WAITING_FOR_TRIKO,
 } from 'config/request-statuses';
-import useTranslation from 'shared/hooks/use-translate';
+import useTranslation from 'hooks/useTranslation';
 import ClientInfo from '../info-client';
 import DistanceRender from 'shared/components/request-commons/distance-render';
 import DateRender from 'shared/components/request-commons/date-render';

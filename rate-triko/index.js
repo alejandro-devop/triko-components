@@ -13,9 +13,9 @@ import {
   SAVE_QUALIFICATION,
   SAVE_RATING,
 } from './queries';
-import useNotify from 'shared/hooks/use-notification';
+import useNotify from 'hooks/useNotification';
 import useSession from 'hooks/useSession';
-import useTranslation from 'shared/hooks/use-translate';
+import useTranslation from 'hooks/useTranslation';
 
 /**
  * This component allows to save a rate for a triko after finish a service execution

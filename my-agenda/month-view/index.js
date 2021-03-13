@@ -4,7 +4,7 @@ import useStyles from 'shared/hooks/use-styles';
 import DayItem from './DayItem';
 import Text from 'components/base/text';
 import _ from 'lodash';
-import useLocales from 'shared/hooks/use-locales';
+import useLocales from 'hooks/useLocales';
 
 const MonthView = ({
   currentMonth,

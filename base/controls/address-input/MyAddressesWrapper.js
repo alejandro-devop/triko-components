@@ -2,7 +2,7 @@ import React from 'react';
 import Dialog from 'shared/components/dialogs/dialog';
 import MyAddressesList from 'shared/components/my-address-list';
 import useStyles from 'shared/hooks/use-styles';
-import useTranslation from 'shared/hooks/use-translate';
+import useTranslation from 'hooks/useTranslation';
 
 /**
  * My AddressesList Component is isolated and it has not dialog, so we

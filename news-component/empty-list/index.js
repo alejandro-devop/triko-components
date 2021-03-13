@@ -4,7 +4,7 @@ import PreImage from 'shared/components/base/pre-image';
 import Text from 'shared/components/base/text';
 import noNewsIcon from 'shared/assets/icons/news-icon.png';
 import useStyles from 'shared/hooks/use-styles';
-import useTranslation from 'shared/hooks/use-translate';
+import useTranslation from 'hooks/useTranslation';
 import styles from './styles';
 
 const EmptyList = () => {

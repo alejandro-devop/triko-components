@@ -27,7 +27,7 @@ import {
   STATUS_STARTED,
   STATUS_WAITING_FOR_TRIKO,
 } from 'config/request-statuses';
-import useTranslation from 'shared/hooks/use-translate';
+import useTranslation from 'hooks/useTranslation';
 import {isEmpty} from 'shared/utils/functions';
 import {useSession} from 'hooks/index';
 import useNavigate from 'shared/hooks/use-navigate';
