@@ -15,7 +15,7 @@ const CountryPicker = ({
   const [selectedCountry, setSelectedCountry] = useState(value);
   const [openList, setOpenList] = useState(false);
   const toggleList = () => setOpenList(!openList);
-  const handleSelect = country => {
+  const handleSelect = (country) => {
     const {key} = country;
     setSelectedCountry(key);
     toggleList();

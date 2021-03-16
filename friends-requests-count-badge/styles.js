@@ -1,4 +1,4 @@
-const size = 35;
+const size = 28;
 export default ({palette}) => ({
   icon: {
     color: '#FFF',

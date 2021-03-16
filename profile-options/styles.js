@@ -6,7 +6,7 @@ export default ({variables: {cornerRadius}}) => ({
     marginTop: 20,
     paddingHorizontal: 20,
     paddingVertical: 20,
-    paddingBottom: 200,
+    paddingBottom: 400,
     borderTopLeftRadius: cornerRadius,
     borderTopRightRadius: cornerRadius,
   },

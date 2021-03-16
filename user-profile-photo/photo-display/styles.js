@@ -13,8 +13,8 @@ export default ({palette}) => ({
     height: '100%',
   },
   imageWrapper: {
-    width: 90,
-    height: 90,
+    width: 70,
+    height: 70,
     padding: 5,
     borderRadius: 200,
     backgroundColor: palette.blue2,
@@ -52,8 +52,5 @@ export default ({palette}) => ({
   },
   rootTriko: {
     backgroundColor: palette.orangeLighter,
-  },
-  logoutButton: {
-    marginTop: 20,
   },
 });
