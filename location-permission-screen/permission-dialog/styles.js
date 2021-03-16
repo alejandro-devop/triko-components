@@ -44,10 +44,13 @@ export default ({palette}) => ({
     textAlign: 'center',
   },
   root: {
-    minHeight: '70%',
+    height: '75%',
+    minHeight: 500,
+    maxHeight: '95%',
   },
   wrapper: {
     flexGrow: 1,
+    marginBottom: 50,
     backgroundColor: '#FFF',
   },
   wrapperWide: {

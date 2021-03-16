@@ -9,6 +9,7 @@ import {
   ANDROID_PERMISSIONS,
   IOS_PERMISSIONS,
 } from 'shared/components/permissions-manager';
+import ScrollView from 'shared/components/commons/scrollview';
 import {request} from 'react-native-permissions';
 import useNotify from 'shared/hooks/use-notification';
 import useErrorReporter from 'shared/hooks/use-error-reporter';
@@ -102,8 +103,11 @@ const PermissionDialog = ({
       title="why_we_need_location_permissions_title"
       open={open}
       onClose={onClose}
+      disableScroll
       contentStyles={classes.root}>
-      {content}
+      <ScrollView>
+        {content}
+      </ScrollView>
     </Dialog>
   );
 };
