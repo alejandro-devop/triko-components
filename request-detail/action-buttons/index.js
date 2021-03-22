@@ -29,7 +29,7 @@ const ActionButtons = ({
     onCancel();
   };
   const {_t} = useTranslation();
-  console.log('Expired: ', expired);
+
   return (
     <ActionsWrapper expanded={openCancel}>
       {openCancel && (

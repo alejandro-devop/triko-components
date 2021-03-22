@@ -21,6 +21,7 @@ import {isEmpty} from 'shared/utils/functions';
 import PreImage from 'shared/components/base/pre-image';
 import CircleButton from 'shared/components/base/buttons/circle-button';
 import useTranslation from 'shared/hooks/use-translate';
+import ImagePicker from 'shared/components/base/controls/image-picker';
 
 /**
  * Component to publish posts by the user.
@@ -44,19 +45,8 @@ const PostAddComponent = ({isTriko}) => {
     },
   );
   const capturePhoto = usePhotoCapture({});
-  const handleCapturePhoto = async () => {
-    capturePhoto({
-      onPhotoSelected: (response) => {
-        const {uri, data} = response;
-        const imageData = {
-          uri,
-          data,
-        };
-        if (uri) {
-          setPhoto(imageData);
-        }
-      },
-    });
+  const handleCapturePhoto = async (imageData) => {
+    setPhoto(imageData);
   };
   const {_t} = useTranslation();
   const {goBack} = useNavigate();
@@ -108,41 +98,15 @@ const PostAddComponent = ({isTriko}) => {
         </View>
         <View style={classes.otherActions}>
           <Label>post_images</Label>
-          {isEmpty(photo) && (
-            <>
-              <TouchableOpacity
-                onPress={handleCapturePhoto}
-                style={classes.button}>
-                <Icon name="images" style={classes.buttonIcon} />
-              </TouchableOpacity>
-              <Text style={classes.buttonLabel}>add_image</Text>
-            </>
-          )}
-          {!isEmpty(photo) && (
-            <View style={classes.photoWrapper}>
-              <PreImage
-                // source={{uri: `data:image/png;base64,${}`}}
-                source={{uri: photo.uri}}
-                style={classes.photo}
-              />
-              <View style={classes.removePhotoButton}>
-                <CircleButton
-                  name="times"
-                  primary
-                  size="xs"
-                  onPress={handleRemoveImage}
-                />
-              </View>
-            </View>
-          )}
+          <ImagePicker onChange={handleCapturePhoto} />
         </View>
         <Label>post_visibility_label</Label>
         <View style={classes.row}>
-          <RadioButton value={checked} onPress={() => setChecked(!checked)} />
+          <RadioButton value={checked} onChange={() => setChecked(true)} />
           <Text style={classes.label}>public_post_label</Text>
         </View>
         <View style={classes.row}>
-          <RadioButton value={!checked} onPress={() => setChecked(!checked)} />
+          <RadioButton value={!checked} onChange={() => setChecked(false)} />
           <Text style={classes.label}>public_post_label_friends_only</Text>
         </View>
 

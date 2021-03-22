@@ -61,7 +61,6 @@ const LocationPermissionScreen = ({
     }
     return children;
   };
-
   return (
     <>
       {!hasPermission && !hidePermissionsDialog && open && (

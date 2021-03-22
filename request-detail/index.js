@@ -47,7 +47,7 @@ const RequestDetail = ({isTriko}) => {
   const {cancelRequest, loading} = useRequestUpdate();
   const {
     stack: {requestDetailSelected = {}},
-    setKey,
+    setAll,
   } = useSession();
   const {isShopper, isCourier, isTask} = !isEmpty(requestDetailSelected)
     ? requestDetailSelected
@@ -113,17 +113,24 @@ const RequestDetail = ({isTriko}) => {
         isCourier,
         isTask,
         total: rateTotal,
+        isFavor,
       });
     } else {
-      setKey('selectedToPay', {
-        ...request,
-        isShopper,
-        isCourier,
-        isTask,
-        total: rateTotal,
+      setAll({
+        selectedToPay: {
+          ...request,
+          isShopper,
+          isCourier,
+          isTask,
+          total: rateTotal,
+          isFavor,
+        },
+        orderInProgress: request.order,
       });
     }
-    navigation.navigate('payment');
+    setTimeout(() => {
+      navigation.navigate('payment');
+    }, 1000);
   };
 
   const handleBack = () => {

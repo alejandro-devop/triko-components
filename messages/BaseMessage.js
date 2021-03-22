@@ -14,16 +14,20 @@ import Icon from 'shared/components/base/icon';
  * @param wrapperClass
  * @param textClass
  * @param text
+ * @param replacements
  * @returns {*}
  * @constructor
  */
-const BaseMessage = ({icon, textClass, text, wrapperClass}) => {
+const BaseMessage = ({icon, textClass, text, wrapperClass, replacements}) => {
   const [classes] = useStyles(styles);
   return (
     <View style={[classes.root, wrapperClass]}>
       {icon && <Icon name={icon} style={[classes.icon, textClass]} />}
       <View style={classes.textWrapper}>
-        <Text style={[classes.text, textClass]} variant="caption">
+        <Text
+          style={[classes.text, textClass]}
+          variant="caption"
+          replacements={replacements}>
           {text}
         </Text>
       </View>
@@ -56,6 +60,7 @@ const styles = {
 BaseMessage.propTypes = {
   delay: PropTypes.number,
   icon: PropTypes.string,
+  replacements: PropTypes.oneOfType([PropTypes.object]),
   textClass: PropTypes.any,
   text: PropTypes.string,
   wrapperClass: PropTypes.any,
