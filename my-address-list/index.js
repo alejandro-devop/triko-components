@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {View} from 'react-native';
+import ScrollView from 'shared/components/commons/scrollview';
 import {useQuery} from '@apollo/react-hooks';
 import {GET_CLIENT_ADDRESSES, GET_TRIKO_ADDRESSES} from './queries';
 import {useSession} from 'hooks/index';
@@ -153,8 +154,12 @@ const MyAddressesList = ({
   );
   if (useDialog) {
     return (
-      <Dialog open={open} onClose={onClose} contentStyles={classes.dialog}>
-        {content}
+      <Dialog
+        open={open}
+        disableScroll
+        onClose={onClose}
+        contentStyles={classes.dialog}>
+        <ScrollView>{content}</ScrollView>
       </Dialog>
     );
   }

@@ -21,7 +21,7 @@ const useUserPosts = (options = {}) => {
   const {data = {}, loading, refetch} = useQuery(
     isTriko ? GET_POSTS_TRIKO : GET_POSTS_CLIENT,
     {
-      fetchPolicy: 'no-cache',
+      fetchPolicy: 'cache-and-network',
       pollInterval: 30000,
       variables: {
         id: id,

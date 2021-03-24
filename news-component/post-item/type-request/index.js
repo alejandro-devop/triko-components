@@ -6,20 +6,27 @@ import avatar from 'assets/avatars/profile-photo.jpg';
 import RatingStars from 'components/base/rating-stars';
 import React from 'react';
 import styles from './styles';
+import {isEmpty} from 'shared/utils/functions';
 
-const TypeRequest = ({post = {}}) => {
-  const {description, request = {}} = post;
-  const {
-    triko: {user = {}},
-    rating = 1,
-    details = [],
-  } = request;
-  const {photo_url: photoUrl} = user;
-  const service = details[0].service;
+const TypeRequest = ({post = {}, isTriko}) => {
+  const {content, request = {}} = post;
+  const {attrs = {}, triko: trikos = [], details = [], client = {}} = request;
+  const [triko = {}] = trikos;
   const [classes] = useStyles(styles);
+  const {rating: requestRating} = attrs;
+  const requestRatingVal = parseInt(
+    isTriko ? requestRating.client : requestRating.triko,
+  );
+  const [firstDetail = {}] = details || [];
+  const {service = {}} = firstDetail;
+  const serviceIcon = !isEmpty(service.icon) ? service.icon : service.type.icon;
+  const {user = {}} = isTriko ? client : triko;
+  const {photo_url: photoUrl} = user;
   return (
     <View style={classes.root}>
-      <Text style={classes.text}>{description}</Text>
+      <View style={classes.content}>
+        <Text style={classes.text}>{content}</Text>
+      </View>
       <View style={classes.serviceWrapper}>
         <View style={classes.avatarWrapper}>
           <PreImage
@@ -28,12 +35,9 @@ const TypeRequest = ({post = {}}) => {
           />
         </View>
         <View style={classes.serviceIconWrapper}>
-          <PreImage
-            style={classes.serviceIcon}
-            source={{uri: service.icon || service.type.icon}}
-          />
+          <PreImage style={classes.serviceIcon} source={{uri: serviceIcon}} />
         </View>
-        <RatingStars size={14} value={rating} />
+        <RatingStars size={20} value={requestRatingVal} readOnly />
       </View>
     </View>
   );

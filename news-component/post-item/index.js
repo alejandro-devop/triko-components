@@ -14,6 +14,7 @@ import LikesResume from 'shared/components/post-like-button/likes-resume';
 import styles from './styles';
 import useToggle from 'shared/hooks/use-toggle';
 import PostComment from 'shared/components/post-view/comment-post';
+import {POST_TYPE_POST, POST_TYPE_REQUEST} from '../consts';
 
 const TYPE_NEW = 'new';
 const TYPE_RECOMMENDATION = 'recommendation';
@@ -21,11 +22,11 @@ const TYPE_REQUEST = 'request';
 
 const resolveComponent = (type) => {
   switch (type) {
-    case TYPE_NEW:
+    case POST_TYPE_POST:
       return NewType;
     case TYPE_RECOMMENDATION:
       return RecommendationType;
-    case TYPE_REQUEST:
+    case POST_TYPE_REQUEST:
       return RequestType;
     default:
       return NewType;
@@ -37,6 +38,7 @@ const PostItem = ({delay, isTriko, post, refreshPosts}) => {
   const {navigation} = useNavigate();
   const {
     type,
+    postType,
     author,
     clientsLikes = [],
     trikosLikes = [],
@@ -46,7 +48,7 @@ const PostItem = ({delay, isTriko, post, refreshPosts}) => {
     likes = 2,
   } = post;
   const [openedComment, toggleComment] = useToggle(false);
-  const Component = resolveComponent(type);
+  const Component = resolveComponent(postType.id);
   const isRecommendation = type === TYPE_RECOMMENDATION;
   const isPost = type === TYPE_NEW;
   const isRequest = type === TYPE_REQUEST;
@@ -87,7 +89,7 @@ const PostItem = ({delay, isTriko, post, refreshPosts}) => {
         />
       </View>
       <View style={classes.contentWrapper}>
-        <Component post={post} onView={handleViewPost} />
+        <Component post={post} isTriko={isTriko} onView={handleViewPost} />
         <LikesResume likes={isTriko ? trikosLikes : clientsLikes} readOnly />
         {!disableActions && (
           <PostButtons

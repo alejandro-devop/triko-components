@@ -100,7 +100,6 @@ const ComponentWrapper = ({isTriko, request = {}, refreshRequest}) => {
     await cancelRequest(request);
     navigation.navigate('activity');
   };
-  const isFavor = isShopper || isCourier || isTask;
 
   return (
     <>

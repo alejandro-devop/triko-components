@@ -34,6 +34,50 @@ export const GET_POSTS_TRIKO = gql`
         id
         name
       }
+      request: serviceRequest {
+        id
+        attrs {
+          rating {
+            triko
+            client
+          }
+        }
+        details: servicesrequestsdetails {
+          service {
+            icon
+            id
+            name
+            type: servicetype {
+              id
+              icon
+            }
+          }
+        }
+        triko {
+          id
+          user {
+            id
+            photo: photo_url
+          }
+          pi: personalinformation {
+            id
+            firstName: first_name
+            lastName: last_name
+          }
+        }
+        client {
+          id
+          user {
+            id
+            photo: photo_url
+          }
+          pi: personalinformation {
+            id
+            firstName: first_name
+            lastName: last_name
+          }
+        }
+      }
       content
       comments {
         id
@@ -104,6 +148,50 @@ export const GET_POSTS_CLIENT = gql`
     ) {
       id
       published: created_at
+      request: serviceRequest {
+        id
+        attrs {
+          rating {
+            triko
+            client
+          }
+        }
+        details: servicesrequestsdetails {
+          service {
+            icon
+            id
+            name
+            type: servicetype {
+              id
+              icon
+            }
+          }
+        }
+        triko {
+          id
+          user {
+            id
+            photo: photo_url
+          }
+          pi: personalinformation {
+            id
+            firstName: first_name
+            lastName: last_name
+          }
+        }
+        client {
+          id
+          user {
+            id
+            photo: photo_url
+          }
+          pi: personalinformation {
+            id
+            firstName: first_name
+            lastName: last_name
+          }
+        }
+      }
       author {
         id
         user {

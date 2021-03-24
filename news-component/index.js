@@ -35,6 +35,7 @@ const NewsComponent = ({isTriko, onlyPublic, onlyOwned, clientId, trikoId}) => {
       return () => {};
     }, []),
   );
+
   return (
     <ScrollView
       useKeyboard
@@ -48,7 +49,7 @@ const NewsComponent = ({isTriko, onlyPublic, onlyOwned, clientId, trikoId}) => {
           <PostItem
             isTriko={isTriko}
             refreshPosts={refresh}
-            key={`post-item-${key}`}
+            key={`post-item-${post.id}`}
             delay={key * 100}
             post={post}
           />
