@@ -1,4 +1,4 @@
-import {ACTIVE_STATE} from 'config/user-statuses';
+import {ACTIVATING_STATE, ACTIVE_STATE} from 'config/user-statuses';
 import NotificationPermissionsBox from './notification-permissions-box';
 import NotificationsProvider from './NotificationsContenxtProvider';
 import React from 'react';
@@ -8,10 +8,9 @@ const NotificationsWrapper = ({children}) => {
   const {
     stack: {logged, user = {}, hasNotifyPermissions},
   } = useSession();
-  if (!logged || user.workflow !== ACTIVE_STATE) {
+  if (!logged || ![ACTIVE_STATE, ACTIVATING_STATE].includes(user.workflow)) {
     return children;
   }
-
   return hasNotifyPermissions ? (
     <NotificationsProvider>{children}</NotificationsProvider>
   ) : (
