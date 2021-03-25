@@ -6,7 +6,7 @@ import useErrorReporter from 'shared/hooks/use-error-reporter';
 import {useSession} from 'hooks/index';
 
 export const useGetPost = (postId, clientId, trikoId, isTriko) => {
-  const {loading, posts = [], refresh} = useUserPosts({
+  const {loading, loaded, posts = [], refresh} = useUserPosts({
     id: postId,
     clientId,
     trikoId,
@@ -15,6 +15,7 @@ export const useGetPost = (postId, clientId, trikoId, isTriko) => {
   const [post] = posts;
   return {
     loading,
+    loaded,
     post,
     refresh,
   };

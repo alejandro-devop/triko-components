@@ -1,5 +1,5 @@
 import React from 'react';
-import {View} from 'react-native';
+import {View, TouchableOpacity} from 'react-native';
 import Slide from 'shared/components/anims/Slide';
 import useStyles from 'shared/hooks/use-styles';
 import RequestType from './type-request';
@@ -78,46 +78,48 @@ const PostItem = ({delay, isTriko, post, refreshPosts}) => {
         classes,
       )}
       delay={delay}>
-      <View style={classes.avatarWrapper}>
-        <Avatar
-          author={author}
-          date={date}
-          title={post.title}
-          isRecommendation={isRecommendation}
-          isPost={isPost}
-          isRequest={isRequest}
-        />
-      </View>
-      <View style={classes.contentWrapper}>
-        <Component post={post} isTriko={isTriko} onView={handleViewPost} />
-        <LikesResume likes={isTriko ? trikosLikes : clientsLikes} readOnly />
-        {!disableActions && (
-          <PostButtons
-            pre={
-              <PostLikeButton
-                likes={likeIds}
-                isTriko={isTriko}
-                onSaved={refreshPosts}
-                alt
-                count={likes}
-                postId={post.id}
-              />
-            }
-            buttons={actions}
-            alt={isRecommendation}
+      <TouchableOpacity onPress={handleViewPost}>
+        <View style={classes.avatarWrapper}>
+          <Avatar
+            author={author}
+            date={date}
+            title={post.title}
+            isRecommendation={isRecommendation}
+            isPost={isPost}
+            isRequest={isRequest}
           />
-        )}
-        {openedComment && (
-          <View style={classes.commentWrapper}>
-            <PostComment
-              secondary
-              post={post}
-              onSaved={handleSaved}
-              onCancel={() => toggleComment()}
+        </View>
+        <View style={classes.contentWrapper}>
+          <Component post={post} isTriko={isTriko} onView={handleViewPost} />
+          <LikesResume likes={isTriko ? trikosLikes : clientsLikes} readOnly />
+          {!disableActions && (
+            <PostButtons
+              pre={
+                <PostLikeButton
+                  likes={likeIds}
+                  isTriko={isTriko}
+                  onSaved={refreshPosts}
+                  alt
+                  count={likes}
+                  postId={post.id}
+                />
+              }
+              buttons={actions}
+              alt={isRecommendation}
             />
-          </View>
-        )}
-      </View>
+          )}
+          {openedComment && (
+            <View style={classes.commentWrapper}>
+              <PostComment
+                secondary
+                post={post}
+                onSaved={handleSaved}
+                onCancel={() => toggleComment()}
+              />
+            </View>
+          )}
+        </View>
+      </TouchableOpacity>
     </Slide>
   );
 };

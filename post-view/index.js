@@ -16,6 +16,8 @@ import {useGetPost} from './hooks';
 import Loader from './loader';
 import LikesResume from 'shared/components/post-like-button/likes-resume';
 import {useSession} from 'hooks/index';
+import {POST_TYPE_REQUEST} from 'shared/components/news-component/consts';
+import RequestInfo from './request-info';
 
 const PostView = ({postId, isTriko}) => {
   const [classes] = useStyles(styles);
@@ -24,7 +26,7 @@ const PostView = ({postId, isTriko}) => {
   const {
     stack: {client = {}, triko = {}},
   } = useSession();
-  const {loading, post = {}, refresh} = useGetPost(
+  const {loading, loaded, post = {}, refresh} = useGetPost(
     postId,
     client.id,
     triko.id,
@@ -40,19 +42,19 @@ const PostView = ({postId, isTriko}) => {
     comments = [],
     author,
     published,
+    postType = {},
   } = !isEmpty(post) && !loading ? post : {};
   const handleImageView = (image) => setImageToDisplay(image);
   const handleCommentSaved = async () => {
     toggleComment();
     await refresh();
   };
-  console.log('Data: ', post);
   const likeIds = (isTriko ? trikosLikes : clientsLikes).map((item) => item.id);
   return (
     <>
       <View style={classes.root}>
-        {loading && <Loader />}
-        {!loading && (
+        {loading && !loaded && <Loader />}
+        {(!loading || loaded) && (
           <>
             <Text variant="title">{title}</Text>
             <Author author={author} published={published} />
@@ -62,6 +64,9 @@ const PostView = ({postId, isTriko}) => {
             <View style={classes.contentWrapper}>
               <Text style={classes.textContent}>{content}</Text>
             </View>
+            {postType.id === POST_TYPE_REQUEST && (
+              <RequestInfo isTriko={isTriko} post={post} />
+            )}
             {openedComment && (
               <CommentPost
                 post={post}

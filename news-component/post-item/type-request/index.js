@@ -1,5 +1,5 @@
 import useStyles from 'shared/hooks/use-styles';
-import {View} from 'react-native';
+import {TouchableOpacity, View} from 'react-native';
 import Text from 'shared/components/base/text';
 import PreImage from 'shared/components/base/pre-image';
 import avatar from 'assets/avatars/profile-photo.jpg';
@@ -8,7 +8,7 @@ import React from 'react';
 import styles from './styles';
 import {isEmpty} from 'shared/utils/functions';
 
-const TypeRequest = ({post = {}, isTriko}) => {
+const TypeRequest = ({post = {}, onView, isTriko}) => {
   const {content, request = {}} = post;
   const {attrs = {}, triko: trikos = [], details = [], client = {}} = request;
   const [triko = {}] = trikos;
@@ -23,7 +23,7 @@ const TypeRequest = ({post = {}, isTriko}) => {
   const {user = {}} = isTriko ? client : triko;
   const {photo: photoUrl} = user;
   return (
-    <View style={classes.root}>
+    <TouchableOpacity onPress={onView} style={classes.root}>
       <View style={classes.content}>
         <Text style={classes.text}>{content}</Text>
       </View>
@@ -39,7 +39,7 @@ const TypeRequest = ({post = {}, isTriko}) => {
         </View>
         <RatingStars size={20} value={requestRatingVal} readOnly />
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 
