@@ -21,7 +21,7 @@ const TypeRequest = ({post = {}, isTriko}) => {
   const {service = {}} = firstDetail;
   const serviceIcon = !isEmpty(service.icon) ? service.icon : service.type.icon;
   const {user = {}} = isTriko ? client : triko;
-  const {photo_url: photoUrl} = user;
+  const {photo: photoUrl} = user;
   return (
     <View style={classes.root}>
       <View style={classes.content}>
