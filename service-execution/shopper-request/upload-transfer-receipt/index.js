@@ -112,7 +112,11 @@ const UploadTransferReceipt = ({
               <Label>upload_transfer_receipt</Label>
               <ImagePicker onChange={handleImageChange} />
               <View style={classes.actionWrapper}>
-                <Button primary disabled={isEmpty(file)} delayAction onPress={handleSubmit}>
+                <Button
+                  primary
+                  disabled={isEmpty(file)}
+                  delayAction
+                  onPress={handleSubmit}>
                   send_text
                 </Button>
               </View>
