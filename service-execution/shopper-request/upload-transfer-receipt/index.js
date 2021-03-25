@@ -40,6 +40,7 @@ const UploadTransferReceipt = ({
     stack: {client = {}},
   } = useSession();
   const handleImageChange = (data) => {
+    console.log('Image: ', data);
     setFile(data);
   };
 
@@ -59,7 +60,7 @@ const UploadTransferReceipt = ({
   };
 
   const paying = workflow === STATUS_PAYING_ORDER;
-
+  console.log('File: ', file);
   return (
     <>
       <View style={classes.root}>

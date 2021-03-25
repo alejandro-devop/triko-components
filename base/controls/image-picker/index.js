@@ -5,12 +5,9 @@ import Text from 'components/base/text';
 import useStyles from 'shared/hooks/use-styles';
 import classNames from 'shared/utils/classnames';
 import useTranslation from 'shared/hooks/use-translate';
-import usePhotoCapture from 'shared/hooks/use-photo-capture';
-import {isEmpty} from 'shared/utils/functions';
 import PreImage from 'shared/components/base/pre-image';
-import Dialog from 'shared/components/dialogs/dialog';
 import useToggle from 'shared/hooks/use-toggle';
-import Button from 'shared/components/base/buttons/button';
+import ImagePickerDialog from './ImagePickerDialog';
 import styles from './styles';
 
 const ImagePicker = ({
@@ -23,41 +20,11 @@ const ImagePicker = ({
   const [openDialog, toggleDialog] = useToggle();
   const [photo, setPhoto] = useState(null);
   const {_t} = useTranslation();
-  const {fromGallery, fromCamera} = usePhotoCapture({
-    customButtons: !isEmpty(photo)
-      ? [{name: 'vu', title: _t('image_picker_view_photo')}]
-      : [],
-  });
-
-  const handleOpenLibrary = async () => {
-    const response = await fromGallery();
-    const {uri, data} = response;
-    const imageData = {
-      uri,
-      data,
-    };
-    if (uri) {
-      setPhoto(imageData);
-      if (onChange) {
-        onChange(imageData);
-      }
+  const handleChange = (imageData) => {
+    setPhoto(imageData);
+    if (onChange) {
+      onChange(imageData);
     }
-    toggleDialog();
-  };
-  const handleOpenCamera = async () => {
-    const response = await fromCamera();
-    const {uri, data} = response;
-    const imageData = {
-      uri,
-      data,
-    };
-    if (uri) {
-      setPhoto(imageData);
-      if (onChange) {
-        onChange(imageData);
-      }
-    }
-    toggleDialog();
   };
   return (
     <>
@@ -83,19 +50,11 @@ const ImagePicker = ({
           </View>
         </TouchableOpacity>
       </View>
-      <Dialog
+      <ImagePickerDialog
         open={openDialog}
         onClose={() => toggleDialog()}
-        contentStyles={classes.dialog}>
-        <View style={classes.dialogContent}>
-          <Button primary onPress={handleOpenLibrary}>
-            select_from_your_library
-          </Button>
-          <Button secondary onPress={handleOpenCamera}>
-            take_a_photo
-          </Button>
-        </View>
-      </Dialog>
+        onChange={handleChange}
+      />
     </>
   );
 };

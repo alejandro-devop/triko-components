@@ -7,6 +7,7 @@ import PreImage from 'shared/components/base/pre-image';
 import Text from 'shared/components/base/text';
 import {isEmpty} from 'shared/utils/functions';
 import RatingStars from 'components/base/rating-stars';
+import useNavigate from 'shared/hooks/use-navigate';
 
 const RequestInfo = ({post = {}, isTriko}) => {
   const {request = {}} = post;
@@ -20,9 +21,15 @@ const RequestInfo = ({post = {}, isTriko}) => {
   const {photo} = user;
   const {rating = {}} = attrs;
   const {client: ratingClient, triko: ratingTriko} = rating;
+  const {navigation} = useNavigate();
+
   const handleViewProfile = () => {
     if (isTriko) {
     } else {
+      navigation.navigate('triko-profile-public', {
+        triko,
+        hideHireButton: true,
+      });
     }
   };
   return (

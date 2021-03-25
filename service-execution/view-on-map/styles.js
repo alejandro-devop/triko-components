@@ -12,7 +12,7 @@ export default () => ({
     width: '100%',
   },
   root: {
-    height: 550,
+    height: 600,
     maxHeight: '95%',
   },
 });
