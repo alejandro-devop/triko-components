@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View} from 'react-native';
+import {Platform, View} from 'react-native';
 import {useStyles} from 'hooks/index';
 import styles from './styles';
 import Stepper from 'shared/components/service-execution/stepper';
@@ -34,6 +34,8 @@ const ShopperRequest = ({
   request = {},
   updateRequest,
   refreshRequest,
+  setTempImage,
+  tempImage,
 }) => {
   const [classes] = useStyles(styles);
   const [openCart, setOpenCart] = useState(false);
@@ -225,6 +227,8 @@ const ShopperRequest = ({
             !openCart && (
               <UploadTransferReceipt
                 toggleCart={toggleCart}
+                setTempImage={setTempImage}
+                tempImage={tempImage}
                 request={request}
                 onUploadReceipt={handleUploadReceipt}
                 onMarkTransferAsDone={handleMarkTransferAsDone}

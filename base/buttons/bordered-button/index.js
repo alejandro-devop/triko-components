@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {TouchableOpacity, View} from 'react-native';
 import Text from 'shared/components/base/text';
 import Icon from 'shared/components/base/icon';
@@ -10,6 +10,8 @@ const BorderedButton = ({
   disabled,
   icon = '',
   label,
+  delayAction,
+  delayActionTimeout = 2000,
   filled,
   onPress,
   success,
@@ -20,11 +22,24 @@ const BorderedButton = ({
   classes: otherClasses = {},
 }) => {
   const [classes] = useStyles(styles);
+  const [disabledAction, setDisabled] = useState(false);
   const WrapperComponent = disabled ? View : TouchableOpacity;
+  const handlePress = () => {
+    if (onPress && delayAction) {
+      setDisabled(true);
+      onPress();
+      setTimeout(() => {
+        setDisabled(false);
+      }, delayActionTimeout);
+    } else if (onPress) {
+      onPress();
+    }
+  };
   return (
     <View style={[classes.root, otherClasses.root]}>
       <WrapperComponent
-        onPress={() => (!disabled && onPress ? onPress() : null)}
+        // onPress={() => (!disabled && onPress ? onPress() : null)}
+        onPress={() => (disabled || disabledAction ? null : handlePress())}P
         style={classNames(
           {
             buttonWrapper: true,

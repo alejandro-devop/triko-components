@@ -22,7 +22,9 @@ const LocationProvider = ({children}) => {
 
   const handleSelectCountry = async (regionalConfig) => {
     await setAll(regionalConfig);
-    setDefinedRegion(true);
+    setTimeout(() => {
+      setDefinedRegion(true);
+    }, 500);
   };
 
   useEffect(() => {

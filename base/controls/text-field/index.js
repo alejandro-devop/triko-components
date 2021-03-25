@@ -123,7 +123,9 @@ const TextField = ({
                   ios: autoCompleteType,
                   android: null,
                 })}
-                autoCorrect={autoCorrect}
+                autoCorrect={
+                  Platform.OS === 'android' ? Boolean(autoCorrect) : autoCorrect
+                }
                 autoFocus={autoFocus}
                 onBlur={onBlur}
                 textContentType={'oneTimeCode'}

@@ -20,7 +20,7 @@ export default ({palette}) => ({
     position: 'absolute',
     top: 0,
     width: '100%',
-    zIndex: 1000,
+    zIndex: 100000,
   },
   text: {
     fontSize: 14,

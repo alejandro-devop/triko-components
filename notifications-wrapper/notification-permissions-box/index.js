@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {SafeAreaView, View} from 'react-native';
 import styles from './styles';
 import {useSession, useStyles} from 'hooks/index';
@@ -14,6 +14,7 @@ const NotificationPermissionsBox = () => {
   const [hasPermission, checkPermission] = useHasNotifyPermission();
   const [requestPermission, openSettings] = useRequestNotificationPermission();
   let timer = null;
+  const [shouldRender, setShouldRender] = useState(false);
   const {
     stack: {blockNotificationPermissionsBox},
     setKey,
@@ -32,6 +33,7 @@ const NotificationPermissionsBox = () => {
   useEffect(() => {
     if (!hasPermission && !timer) {
       timer = setInterval(() => {
+        setShouldRender(true);
         checkPermission();
       }, 2000);
     } else {
@@ -47,7 +49,7 @@ const NotificationPermissionsBox = () => {
     clearInterval(timer);
   };
 
-  if (blockNotificationPermissionsBox || hasPermission) {
+  if (blockNotificationPermissionsBox || hasPermission || !shouldRender) {
     return null;
   }
 

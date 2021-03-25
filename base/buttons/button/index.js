@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import {TouchableOpacity, View} from 'react-native';
 import Text from 'shared/components/base/text';
@@ -25,6 +25,8 @@ const Button = ({
   alternative,
   children,
   disabled,
+  delayAction,
+  delayActionTimeout = 2000,
   onPress,
   primary,
   secondary,
@@ -34,6 +36,7 @@ const Button = ({
   textStyle,
 }) => {
   const [classes] = useStyles(styles);
+  const [delayedDisable, setDelayedDisable] = useState(false);
   const content = children && (
     <Text
       style={[
@@ -71,9 +74,20 @@ const Button = ({
     style,
   );
   const WrapperComponent = disabled ? View : TouchableOpacity;
+  const handlePress = () => {
+    if (delayAction && onPress) {
+      setDelayedDisable(true);
+      onPress();
+      setTimeout(() => {
+        setDelayedDisable(false);
+      }, delayActionTimeout);
+    } else if (onPress) {
+      onPress();
+    }
+  };
   return (
     <WrapperComponent
-      onPress={() => (disabled || !onPress ? null : onPress())}
+      onPress={() => (disabled || delayedDisable ? null : handlePress())}
       style={rootClasses}>
       {content}
       {icon && (

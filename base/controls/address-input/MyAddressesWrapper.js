@@ -1,5 +1,6 @@
 import React from 'react';
 import Dialog from 'shared/components/dialogs/dialog';
+import ScrollView from 'shared/components/commons/scrollview';
 import MyAddressesList from 'shared/components/my-address-list';
 import useStyles from 'shared/hooks/use-styles';
 import useTranslation from 'shared/hooks/use-translate';
@@ -33,17 +34,20 @@ const MyAddressesWrapper = ({
   return (
     <Dialog
       contentStyles={classes.root}
+      disableScroll
       open={open}
       onClose={onClose}
       title={_t('my_address_title')}>
-      <MyAddressesList
-        disableRemove={disableRemove}
-        enableAddButton={enableAddButton}
-        isTriko={isTriko}
-        onAddAddress={onAddAddress}
-        onSelectAddress={onSelectAddress}
-        useWizard={useWizard}
-      />
+      <ScrollView>
+        <MyAddressesList
+          disableRemove={disableRemove}
+          enableAddButton={enableAddButton}
+          isTriko={isTriko}
+          onAddAddress={onAddAddress}
+          onSelectAddress={onSelectAddress}
+          useWizard={useWizard}
+        />
+      </ScrollView>
     </Dialog>
   );
 };

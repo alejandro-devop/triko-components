@@ -18,6 +18,7 @@ const NotificationsContextProvider = ({children}) => {
   const {updateUser} = useUserUpdate();
   const {setAll} = useSession();
   const [fbToken, setFbToken] = useState(null);
+
   const initializeFirebase = async () => {
     try {
       const settings = await messaging().requestPermission();
@@ -31,7 +32,7 @@ const NotificationsContextProvider = ({children}) => {
         });
         setAll({
           fbToken: token,
-          hasNotifyPermissions: true,
+          hasFirebasePermissions: true,
         });
         setHasPermissions(true);
         setFbToken({
@@ -42,6 +43,7 @@ const NotificationsContextProvider = ({children}) => {
       console.log('Firebase error: ', e);
     }
   };
+
   useEffect(() => {
     initializeFirebase();
   }, []);

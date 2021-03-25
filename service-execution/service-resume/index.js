@@ -137,7 +137,7 @@ const ServiceResume = ({
           </View>
         )}
         <View style={classes.actions}>
-          <Button primary onPress={handleTerminate}>
+          <Button primary onPress={handleTerminate} delayAction>
             terminate_text
           </Button>
         </View>

@@ -29,7 +29,12 @@ const MarketPreview = ({market = {}, onSelectMarket, onClearSelection}) => {
           <Text style={classes.addressText}>{description}</Text>
         </View>
       )}
-      <MapPreview location={{latitude, longitude}} />
+      <MapPreview
+        location={{
+          latitude: parseFloat(latitude),
+          longitude: parseFloat(longitude),
+        }}
+      />
       <View style={classes.actions}>
         <Button secondary onPress={onSelectMarket}>
           {_t('select_this_market')}

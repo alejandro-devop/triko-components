@@ -2,8 +2,11 @@ import React, {useCallback} from 'react';
 import PropTypes from 'prop-types';
 import {useFocusEffect} from '@react-navigation/native';
 import Button from './button';
+import {View} from 'react-native';
 import useNavigate from 'shared/hooks/use-navigate';
 import useUserNotifications from 'shared/hooks/use-user-notifications';
+import styles from './styles';
+import {useStyles} from 'hooks/index';
 
 /**
  * This component renders the notifications button only, it displays
@@ -15,6 +18,7 @@ import useUserNotifications from 'shared/hooks/use-user-notifications';
  */
 const UserNotificationButton = ({isTriko}) => {
   const {navigation} = useNavigate();
+  const [classes] = useStyles(styles);
   const {refresh, total = 0} = useUserNotifications();
   const onViewNotifications = () => {
     navigation.navigate('notifications-panel');
@@ -30,7 +34,7 @@ const UserNotificationButton = ({isTriko}) => {
     }, []),
   );
   if (total === 0) {
-    return null;
+    return <View style={classes.offset} />;
   }
   return (
     <Button count={total} isTriko={isTriko} onPress={onViewNotifications} />

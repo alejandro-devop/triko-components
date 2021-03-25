@@ -25,7 +25,13 @@ import ServiceResume from '../service-resume';
 import useNavigate from 'shared/hooks/use-navigate';
 import ConfirmSlide from 'components/base/confirm-slide';
 
-const ComponentWrapper = ({isTriko, request = {}, refreshRequest}) => {
+const ComponentWrapper = ({
+  isTriko,
+  request = {},
+  tempImage,
+  setTempImage,
+  refreshRequest,
+}) => {
   const {details = [], transition = {}} = request;
   const [lockActions, setLockActions] = useState(false);
   const [openCancel, setOpenCancel] = useState(false);
@@ -115,6 +121,8 @@ const ComponentWrapper = ({isTriko, request = {}, refreshRequest}) => {
               onUpdateRequest={handleRequestUpdate}
               updateRequest={handleRequestUpdate}
               request={request}
+              tempImage={tempImage}
+              setTempImage={setTempImage}
               workflow={workflow}
               refreshRequest={refreshRequest}
             />

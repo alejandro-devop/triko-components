@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {View} from 'react-native';
 import {useStyles} from 'hooks/index';
 import Text from 'shared/components/base/text';
@@ -18,6 +18,15 @@ const ConfirmBubble = ({
   message,
 }) => {
   const [classes] = useStyles(styles);
+  const [enable, setEnable] = useState(true);
+
+  const handleClick = () => {
+    setEnable(false);
+    onAccept();
+    setTimeout(() => {
+      setEnable(true);
+    }, 2000);
+  };
   return (
     <Slide direction="left" style={classes.root}>
       <View style={classes.imageWrapper}>
@@ -32,9 +41,10 @@ const ConfirmBubble = ({
             icon={acceptIcon}
             filled
             success
+            disabled={!enable}
             label={acceptLabel}
             classes={{root: classes.buttonRoot, label: classes.label}}
-            onPress={onAccept}
+            onPress={handleClick}
           />
         )}
         {onCancel && (

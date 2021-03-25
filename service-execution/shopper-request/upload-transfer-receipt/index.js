@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View} from 'react-native';
+import {Platform, View} from 'react-native';
 import styles from './styles';
 import {useSession, useStyles} from 'hooks/index';
 import Text from 'shared/components/base/text';
@@ -24,10 +24,14 @@ const UploadTransferReceipt = ({
   onMarkTransferAsDone,
   onUploadReceipt,
   workflow,
+  setTempImage,
+  tempImage,
 }) => {
   const [serviceDetail = {}] = request.details;
   const {downloadFile} = useFileDownload();
-  const [file, setFile] = useState(null);
+  const [file, setFile] = useState(
+    Platform.OS === 'android' ? tempImage : null,
+  );
   const [classes] = useStyles(styles);
   const {price} = serviceDetail;
   const {format} = useCurrency();
@@ -40,7 +44,9 @@ const UploadTransferReceipt = ({
     stack: {client = {}},
   } = useSession();
   const handleImageChange = (data) => {
-    console.log('Image: ', data);
+    if (Platform.OS === 'android') {
+      setTempImage(data);
+    }
     setFile(data);
   };
 
@@ -60,7 +66,6 @@ const UploadTransferReceipt = ({
   };
 
   const paying = workflow === STATUS_PAYING_ORDER;
-  console.log('File: ', file);
   return (
     <>
       <View style={classes.root}>
@@ -97,7 +102,7 @@ const UploadTransferReceipt = ({
           <InfoMessage text="transfer_receipt_message" />
           {!paying && (
             <View style={classes.actionWrapper}>
-              <Button primary onPress={onMarkTransferAsDone}>
+              <Button delayAction primary onPress={onMarkTransferAsDone}>
                 i_already_done_the_transfer
               </Button>
             </View>
@@ -107,7 +112,7 @@ const UploadTransferReceipt = ({
               <Label>upload_transfer_receipt</Label>
               <ImagePicker onChange={handleImageChange} />
               <View style={classes.actionWrapper}>
-                <Button primary disabled={isEmpty(file)} onPress={handleSubmit}>
+                <Button primary disabled={isEmpty(file)} delayAction onPress={handleSubmit}>
                   send_text
                 </Button>
               </View>

@@ -111,7 +111,11 @@ const RateTriko = ({onRateSend, request = {}}) => {
           />
         )}
         <View style={classes.actionWrapper}>
-          <Button onPress={sendQualification} primary disabled={!canSend}>
+          <Button
+            onPress={sendQualification}
+            primary
+            disabled={!canSend}
+            delayAction>
             {_t('send_text')}
           </Button>
         </View>

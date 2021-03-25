@@ -72,6 +72,7 @@ const ActionButtons = ({
         {!paidOut && !expired && paymentStatuses.includes(workflow) && (
           <BorderedButton
             disabled={expired}
+            delayAction
             icon={'credit-card'}
             label={_t('request_detail_payment')}
             onPress={onPayment}

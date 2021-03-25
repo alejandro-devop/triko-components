@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import Header from './request-header';
-import {AppState} from 'react-native';
+import {AppState, Platform} from 'react-native';
 import {ScrollView} from 'shared/components/commons';
 import Wrapper from './Wrapper';
 import useUserLocation from 'shared/hooks/use-user-location';
@@ -22,6 +22,7 @@ const ServiceExecution = ({isTriko}) => {
   } = useSession();
   const [refreshing, setRefreshing] = useState(false);
   const [appState, setAppState] = useState('active');
+  const [tempImage, setTempImage] = useState();
   const {subscribeEvent, unSubscribeEvent} = usePusherSubscriber();
   const reportError = useErrorReporter({
     path: 'src/shared/components/service-execution/index.js',
@@ -56,7 +57,7 @@ const ServiceExecution = ({isTriko}) => {
 
   const onAppFocusChange = (nextAppState) => {
     setAppState(nextAppState);
-    if (nextAppState === 'active') {
+    if (nextAppState === 'active' && Platform.OS !== 'android') {
       onRefresh();
     }
   };
@@ -74,7 +75,7 @@ const ServiceExecution = ({isTriko}) => {
     };
   });
 
-  if (appState !== 'active') {
+  if (appState !== 'active' && Platform.OS !== 'android') {
     return null;
   }
 
@@ -86,6 +87,8 @@ const ServiceExecution = ({isTriko}) => {
           <ComponentWrapper
             isTriko={isTriko}
             request={request}
+            setTempImage={setTempImage}
+            tempImage={tempImage}
             refreshRequest={onRefresh}
           />
         </ScrollView>
