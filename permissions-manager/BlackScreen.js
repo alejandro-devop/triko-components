@@ -1,30 +1,30 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {View} from 'react-native';
-import Text from 'app/src/main/components/base/text';
+import Text from 'shared/components/base/text';
+import Button from 'shared/components/base/buttons/button';
 import styles from './styles';
-import Card from 'app/src/main/components/base/card';
-import {Button} from 'app/src/main/components/base/buttons';
-import securityIcon from 'app/src/assets/icons/security-icon.png';
-import {useStyles} from 'hooks';
-import ShowIcon from 'components/base/show-icon';
+import {useStyles} from 'hooks/index';
+import HelpTextRender from 'shared/components/permissions-manager/help-text-render';
 
-const BlackScreen = ({onRequest, reRequest}) => {
+const BlackScreen = ({onRequest, reRequest, helpText}) => {
   const [classes] = useStyles(styles);
   return (
-    <Card style={classes.root}>
+    <View style={classes.root}>
       <View style={classes.textWrapper}>
-        <ShowIcon disableShadow source={securityIcon} />
         <Text style={classes.text}>
-          Antes de continuar necesitas conseder privilegios a esta aplicación.
+          before_to_continue_we_need_some_permissions
         </Text>
+      </View>
+      <View style={classes.permissionsList}>
+        <HelpTextRender helpText={helpText} />
       </View>
       <View style={classes.buttonWrapper}>
         <Button onPress={onRequest} primary>
-          {reRequest ? 'Actualizar' : 'Permitir'}
+          {reRequest ? 'update_text' : 'allow_text'}
         </Button>
       </View>
-    </Card>
+    </View>
   );
 };
 

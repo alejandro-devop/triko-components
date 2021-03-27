@@ -16,7 +16,7 @@ const NotificationsWrapper = ({children}) => {
   if (!logged || ![ACTIVE_STATE, ACTIVATING_STATE].includes(user.workflow)) {
     return children;
   }
-
+  console.log('hasNotification permissions: ', hasNotifyPermissions);
   return hasNotifyPermissions ? (
     <NotificationsProvider>{children}</NotificationsProvider>
   ) : (

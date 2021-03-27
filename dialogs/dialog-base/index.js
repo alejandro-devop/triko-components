@@ -13,7 +13,7 @@ import LoaderScreen from 'shared/components/loaders/loader-screen';
  * @author Jorge Alejandro Quiroz Serna <jakop.box@gmail.com>
  * @param {*} props
  */
-const DialogBase = props => {
+const DialogBase = (props) => {
   const {
     animationType = 'fade',
     backdropStyles,

@@ -84,6 +84,6 @@ export const dialogStyles = ({palette, shadows}) => ({
     width: '100%',
     height: '100%',
     backgroundColor: 'rgba(255,255,255,0.6)',
-    zIndex: 100,
+    zIndex: 10000,
   },
 });

@@ -50,7 +50,7 @@ class PermissionsManager extends React.Component {
     super(props);
     this.state = {
       blockedPermissions: [],
-      checking: true,
+      checking: false,
       grantedPermissions: [],
       hasPermission: false,
       reRequest: false,
@@ -62,7 +62,7 @@ class PermissionsManager extends React.Component {
     if (Platform.OS === 'ios') {
       this.checkPermissionsIOs();
     } else {
-      this.checkPermissions(true);
+      this.checkPermissions(false);
     }
   }
 
@@ -271,7 +271,11 @@ class PermissionsManager extends React.Component {
     } else if (!hasPermission && Platform.OS === 'android') {
       loader = true;
       component = (
-        <BlackScreen reRequest={reRequest} onRequest={this.onRequestAgain} />
+        <BlackScreen
+          reRequest={reRequest}
+          onRequest={this.onRequestAgain}
+          helpText={helpText}
+        />
       );
     } else {
       component = children;

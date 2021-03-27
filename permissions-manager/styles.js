@@ -10,8 +10,12 @@ export default ({palette}) => ({
   buttonWrapper: {
     alignItems: 'center',
   },
+  permissionsList: {
+    paddingHorizontal: 40,
+  },
   root: {
     flex: 1,
+    paddingTop: 40,
   },
   text: {
     textAlign: 'center',
