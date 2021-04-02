@@ -58,4 +58,7 @@ export default ({palette}) => ({
     borderTopStartRadius: 40,
     borderTopEndRadius: 40,
   },
+  wrapperAndroid: {
+    paddingHorizontal: 20,
+  },
 });

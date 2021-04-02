@@ -57,7 +57,14 @@ const PermissionDialog = ({
   const content = (
     <View
       style={[
-        classNames({wrapper: true, wrapperWide: disableDialog}, classes),
+        classNames(
+          {
+            wrapper: true,
+            wrapperWide: disableDialog,
+            wrapperAndroid: Platform.OS === 'android',
+          },
+          classes,
+        ),
         customStyles.root,
       ]}>
       <View style={classes.descriptionContainer}>
@@ -95,7 +102,11 @@ const PermissionDialog = ({
   );
 
   if (disableDialog) {
-    return content;
+    return Platform.OS === 'android' ? (
+      <ScrollView>{content}</ScrollView>
+    ) : (
+      content
+    );
   }
 
   return (
@@ -105,9 +116,7 @@ const PermissionDialog = ({
       onClose={onClose}
       disableScroll
       contentStyles={classes.root}>
-      <ScrollView>
-        {content}
-      </ScrollView>
+      <ScrollView>{content}</ScrollView>
     </Dialog>
   );
 };

@@ -79,6 +79,7 @@ export const GET_TRIKO_REQUESTS = gql`
       client_id: $client
       triko_id: $triko
       locale: $locale
+      onlyOwned: true
     ) {
       id
       attrs {
