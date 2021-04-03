@@ -4,6 +4,7 @@ import useHasPermissions, {
   APP_PERMISSIONS,
 } from 'shared/hooks/use-has-permissions';
 import PermissionDialog from './permission-dialog';
+import GPSMessage from 'shared/components/location-permission-screen/gps-message';
 
 const LocationPermissionScreen = ({
   children,
@@ -11,6 +12,7 @@ const LocationPermissionScreen = ({
   hide,
   hideAskAgain,
   disableCancel,
+  fallBack,
   features = [
     'permissions_feature_1',
     'permissions_feature_2',
@@ -20,7 +22,7 @@ const LocationPermissionScreen = ({
   styles = {},
 }) => {
   const {
-    stack: {hidePermissionsDialog, notShowAgain},
+    stack: {hidePermissionsDialog, notShowAgain, gpsEnabled},
     setKey,
     setAll,
   } = useSession();
@@ -59,10 +61,14 @@ const LocationPermissionScreen = ({
     if (hide && !hasPermission) {
       return null;
     }
+    if (hasPermission && !gpsEnabled) {
+      return <GPSMessage />;
+    }
     return children;
   };
   return (
     <>
+      {!hasPermission && fallBack && fallBack()}
       {!hasPermission && !hidePermissionsDialog && open && (
         <PermissionDialog
           disableDialog={disableDialog}

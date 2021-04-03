@@ -7,7 +7,7 @@ import LoaderScreen from 'components/base/loaders/LoaderScreen';
 
 const LocationProvider = ({children}) => {
   const {
-    stack: {appRegion},
+    stack: {appRegion, countryCode},
     setAll,
   } = useSession();
   const [definedRegion, setDefinedRegion] = useState(false);
@@ -28,7 +28,7 @@ const LocationProvider = ({children}) => {
   };
 
   useEffect(() => {
-    if (!appRegion) {
+    if (!appRegion || !countryCode) {
       setLoading(false);
     } else {
       setDefinedRegion(true);
