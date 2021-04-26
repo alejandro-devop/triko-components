@@ -48,7 +48,6 @@ export default ({palette}) => ({
   },
   root: {
     alignItems: 'center',
-    backgroundColor: palette.blueLight,
   },
   rootTriko: {
     backgroundColor: palette.orangeLighter,

@@ -76,11 +76,6 @@ const UploadTransferReceipt = ({
               {format(price)}
             </Text>
           </View>
-          {/*<View style={classes.actionWrapper}>*/}
-          {/*  <Button secondary size="xxs" onPress={toggleCart}>*/}
-          {/*    view_cart*/}
-          {/*  </Button>*/}
-          {/*</View>*/}
           <View style={classes.imageWrapper}>
             {!fetchingInfo && !isEmpty(trikoInfo.bank) && (
               <>

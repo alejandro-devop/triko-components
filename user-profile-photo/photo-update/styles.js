@@ -3,6 +3,7 @@ export default () => ({
     paddingHorizontal: 40,
   },
   root: {
-    height: 360,
+    minHeight: 360,
+    height: 440,
   },
 });
