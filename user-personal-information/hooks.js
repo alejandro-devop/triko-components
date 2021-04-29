@@ -42,6 +42,19 @@ const usePISave = ({isTriko, updateWorkflow}) => {
         city,
         identification,
       } = form;
+      console.log(';Formm to persists: ', {
+        piID,
+        idNumber: identification,
+        city,
+        idType,
+        gender,
+        firstName,
+        lastName,
+        birthDate: formattedDate,
+        client: client.id,
+        triko: triko.id,
+        locale,
+      });
       const formattedDate = moment(birthDate, 'DD-MM-YYYY').format(
         'YYYY-MM-DD',
       );

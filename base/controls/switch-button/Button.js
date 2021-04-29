@@ -17,10 +17,11 @@ import Text from 'shared/components/base/text';
  */
 const Button = ({active, children, onPress, secondary}) => {
   const [classes] = useStyles(styles);
+  const ComponentWrapper = active ? View : TouchableOpacity;
   return (
     <View style={classes.root}>
-      <TouchableOpacity
-        onPress={onPress}
+      <ComponentWrapper
+        onPress={() => (!active ? onPress() : null)}
         style={classNames(
           {
             button: true,
@@ -34,7 +35,7 @@ const Button = ({active, children, onPress, secondary}) => {
           style={classNames({text: true, textSecondary: secondary}, classes)}>
           {children}
         </Text>
-      </TouchableOpacity>
+      </ComponentWrapper>
     </View>
   );
 };
