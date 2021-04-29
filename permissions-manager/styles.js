@@ -16,6 +16,9 @@ export default ({palette}) => ({
   root: {
     flex: 1,
     paddingTop: 40,
+    backgroundColor: '#FFF',
+    borderTopLeftRadius: 40,
+    borderTopRightRadius: 40,
   },
   text: {
     textAlign: 'center',

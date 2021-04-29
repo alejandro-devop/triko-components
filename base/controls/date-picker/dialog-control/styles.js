@@ -5,7 +5,7 @@ export default () => ({
     alignItems: 'center',
   },
   label: {
-    fontSize: Platform.select({android: 20, ios: 22}),
+    fontSize: Platform.select({android: 17, ios: 22}),
   },
   root: {
     height: Platform.select({

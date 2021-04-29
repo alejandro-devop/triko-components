@@ -11,6 +11,7 @@ import {LoadingCurtain} from 'components/base/dialogs';
 import ImagePickerDialog from 'shared/components/base/controls/image-picker/ImagePickerDialog';
 import useToggle from 'shared/hooks/use-toggle';
 import useErrorReporter from 'shared/hooks/use-error-reporter';
+import FacePhotoUploader from 'components/required-documents/document-handlers/profile-photo/FacePhotoUploader';
 
 /**
  * This component controls the avatar update dialog
@@ -21,16 +22,23 @@ import useErrorReporter from 'shared/hooks/use-error-reporter';
  * @returns {*}
  * @constructor
  */
-const PhotoUpdate = ({onClose, open}) => {
+const PhotoUpdate = ({onClose, isTriko, open}) => {
   const [classes] = useStyles(styles);
   const {loading, updatePhoto} = useAvatarUpdate();
   const [openUpdate, toggleUpdate] = useToggle();
   const reportError = useErrorReporter({
     path: 'src/shared/components/user-profile-photo/photo-update/index.js',
   });
-  const handleCapturePhoto = async ({data}) => {
+  const handleCapturePhoto = async (imageInfo) => {
     try {
-      await updatePhoto({fileData: data});
+      if (isTriko) {
+        toggleUpdate();
+        const data = imageInfo.replace(/data:image\/png;base64,/g, '');
+        await updatePhoto({fileData: data});
+      } else {
+        const {data} = imageInfo;
+        await updatePhoto({fileData: data});
+      }
     } catch (e) {
       reportError(e, {
         message: 'Error while updating the profile photo',
@@ -52,11 +60,18 @@ const PhotoUpdate = ({onClose, open}) => {
         </View>
         {loading && <LoadingCurtain disableModal />}
       </Dialog>
-      {openUpdate && (
+      {openUpdate && !isTriko && (
         <ImagePickerDialog
           open={openUpdate}
           onClose={() => toggleUpdate()}
           onChange={handleCapturePhoto}
+        />
+      )}
+      {openUpdate && isTriko && (
+        <FacePhotoUploader
+          open
+          onClose={() => toggleUpdate()}
+          onPhotoTaken={handleCapturePhoto}
         />
       )}
     </>

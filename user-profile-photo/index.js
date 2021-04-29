@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import PhotoDisplay from './photo-display';
 import PhotoUpdate from './photo-update';
+import FacePhotoUploader from 'components/required-documents/document-handlers/profile-photo/FacePhotoUploader';
 
 /**
  * This component renders the user profile photo and allows to update it
@@ -28,7 +29,9 @@ const UserProfilePhoto = ({disableEdit, hideRate, isTriko, onlyView, size}) => {
         toggleUpdate={toggleUpdate}
         size={size}
       />
-      {open && <PhotoUpdate open={open} onClose={toggleUpdate} />}
+      {open && (
+        <PhotoUpdate isTriko={isTriko} open={open} onClose={toggleUpdate} />
+      )}
     </>
   );
 };

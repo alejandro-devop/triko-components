@@ -11,10 +11,11 @@ import Text from 'shared/components/base/text';
  * @param active
  * @param children
  * @param onPress
+ * @param secondary
  * @returns {*}
  * @constructor
  */
-const Button = ({active, children, onPress}) => {
+const Button = ({active, children, onPress, secondary}) => {
   const [classes] = useStyles(styles);
   return (
     <View style={classes.root}>
@@ -23,11 +24,16 @@ const Button = ({active, children, onPress}) => {
         style={classNames(
           {
             button: true,
+            buttonSecondary: secondary,
             buttonActive: active,
+            buttonActiveSecondary: secondary && active,
           },
           classes,
         )}>
-        <Text style={classes.text}>{children}</Text>
+        <Text
+          style={classNames({text: true, textSecondary: secondary}, classes)}>
+          {children}
+        </Text>
       </TouchableOpacity>
     </View>
   );
@@ -44,12 +50,21 @@ const styles = ({palette}) => ({
   buttonActive: {
     backgroundColor: palette.blueAccent,
   },
+  buttonSecondary: {
+    backgroundColor: palette.orangeAlt,
+  },
+  buttonActiveSecondary: {
+    backgroundColor: palette.orange,
+  },
   root: {
     width: '50%',
     paddingHorizontal: 5,
   },
   text: {
     color: '#FFF',
+  },
+  textSecondary: {
+    fontWeight: '400',
   },
 });
 

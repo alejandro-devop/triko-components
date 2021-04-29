@@ -37,7 +37,7 @@ const PhotoDisplay = ({
   } = useSession();
   const pi = isTriko ? triko.pi : client.pi;
   const {photo_url} = user;
-  const {first_name: firstName, last_name: lastName} = pi;
+  const {first_name: firstName, last_name: lastName} = pi || {};
   return (
     <View style={classNames({root: true, rootTriko: isTriko}, classes)}>
       <View

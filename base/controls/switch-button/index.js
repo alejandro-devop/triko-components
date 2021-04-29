@@ -14,10 +14,11 @@ import useTranslation from 'shared/hooks/use-translate';
  * @param name
  * @param onChange
  * @param value
+ * @param secondary
  * @returns {*}
  * @constructor
  */
-const SwitchButton = ({buttons, label, name, onChange, value}) => {
+const SwitchButton = ({buttons, label, name, onChange, secondary, value}) => {
   const [classes] = useStyles(styles);
   const {_t} = useTranslation();
   const handleChange = (index) => {
@@ -38,7 +39,8 @@ const SwitchButton = ({buttons, label, name, onChange, value}) => {
           <Button
             active={value === key}
             key={`switch-button-${key}`}
-            onPress={() => handleChange(key)}>
+            onPress={() => handleChange(key)}
+            secondary={secondary}>
             {_t(buttonText)}
           </Button>
         ))}

@@ -56,7 +56,7 @@ const Calendar = ({
   const currentDate = moment();
   const date = moment(`${year}-${month}-1`, 'YYYY-M-D');
   const dayOfWeek = date.format('ddd');
-  const offsetDays = daysMap.findIndex(item => item === dayOfWeek);
+  const offsetDays = daysMap.findIndex((item) => item === dayOfWeek);
   const [classes] = useStyles(styles);
   const monthName = months[month - 1];
   const onLayout = ({nativeEvent}) => {
@@ -66,7 +66,7 @@ const Calendar = ({
   const toggleYearEdit = () => setVisibleYearEdit(!visibleYearEdit);
   const toggleMonthEdit = () => setVisibleMonthEdit(!visibleMonthEdit);
 
-  const onSelectYear = selectedYear => {
+  const onSelectYear = (selectedYear) => {
     if (onChangeYear) {
       onChangeYear(selectedYear);
     }
@@ -101,17 +101,19 @@ const Calendar = ({
           <IconButton name="chevron-right" onPress={onChangeMonth} />
         </View>
         <View style={classes.dayWrapper}>
-          {dayNames.map(dayName => (
+          {dayNames.map((dayName) => (
             <View style={[classes.day, {width: blockWidth}]} key={dayName}>
-              <Text variant="caption">{dayName.substring(0, 2)}</Text>
+              <Text variant="caption" style={classes.dayText}>
+                {dayName.substring(0, 2)}
+              </Text>
             </View>
           ))}
         </View>
         <View onLayout={onLayout} style={classes.daysWrapper}>
-          {_.times(offsetDays, key => (
+          {_.times(offsetDays, (key) => (
             <View style={[{width: blockWidth}]} key={`offset-day-${key}`} />
           ))}
-          {_.times(days, key => {
+          {_.times(days, (key) => {
             const currDay = key + 1;
             return (
               <DayItem
@@ -146,7 +148,7 @@ const Calendar = ({
         <MonthPicker
           open={visibleMonthEdit}
           onClose={toggleMonthEdit}
-          onSelect={selectedMonth => {
+          onSelect={(selectedMonth) => {
             onSelectMonth(selectedMonth);
             toggleMonthEdit();
           }}

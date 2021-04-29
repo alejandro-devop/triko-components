@@ -108,7 +108,6 @@ class PermissionsManager extends React.Component {
       );
       const granted = [];
       const blocked = [];
-
       response.forEach((hasPermission, key) => {
         if (hasPermission === true) {
           granted.push(permissions[key]);
@@ -150,27 +149,33 @@ class PermissionsManager extends React.Component {
       );
       const granted = [];
       const blocked = [];
+      let hasAnyBlocked = false;
       permissions.forEach((permission) => {
         const permissionKey = ANDROID_PERMISSIONS[permission];
         const pAndroid = response[permissionKey] || false;
         if (pAndroid && pAndroid === 'granted') {
           granted.push(permission);
         } else if (pAndroid && pAndroid === 'never_ask_again') {
-          blocked.push(permission);
+          hasAnyBlocked = true;
+          // blocked.push(permission);
         }
       });
-      this.setState(
-        {
-          grantedPermissions: granted,
-          blockedPermissions: blocked,
-          hasPermission: permissions.length === granted.length,
-        },
-        () => {
-          if (this.state.hasPermission && onPermission) {
-            onPermission();
-          }
-        },
-      );
+      if (hasAnyBlocked) {
+        this.onRequestAgain();
+      } else {
+        this.setState(
+          {
+            grantedPermissions: granted,
+            blockedPermissions: blocked,
+            hasPermission: permissions.length === granted.length,
+          },
+          () => {
+            if (this.state.hasPermission && onPermission) {
+              onPermission();
+            }
+          },
+        );
+      }
     } catch (err) {
       console.log('err', err);
     }
@@ -251,7 +256,6 @@ class PermissionsManager extends React.Component {
       console.log(err);
     }
   };
-
   render() {
     const {children, permissions = [], helpText = [], message} = this.props;
     const {hasPermission, grantedPermissions, checking, reRequest} = this.state;
@@ -272,15 +276,15 @@ class PermissionsManager extends React.Component {
       loader = true;
       component = (
         <BlackScreen
+          message={message}
           reRequest={reRequest}
-          onRequest={this.onRequestAgain}
+          onRequest={this.requestPermissions}
           helpText={helpText}
         />
       );
     } else {
       component = children;
     }
-
     return (
       <>
         {component}

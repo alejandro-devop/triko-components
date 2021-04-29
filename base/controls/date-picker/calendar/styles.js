@@ -34,11 +34,14 @@ export default ({palette}) => ({
     color: palette.gray,
     textAlign: 'center',
   },
+  dayText: {
+    fontSize: 12,
+  },
   yearText: {
     color: '#FFF',
     textAlign: 'center',
     fontWeight: '600',
-    fontSize: Platform.select({ios: 20, android: 18}),
+    fontSize: Platform.select({ios: 20, android: 16}),
   },
   yearWrapper: {
     paddingHorizontal: 20,

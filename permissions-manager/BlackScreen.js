@@ -7,14 +7,17 @@ import styles from './styles';
 import {useStyles} from 'hooks/index';
 import HelpTextRender from 'shared/components/permissions-manager/help-text-render';
 
-const BlackScreen = ({onRequest, reRequest, helpText}) => {
+const BlackScreen = ({
+  onRequest,
+  reRequest,
+  message = 'before_to_continue_we_need_some_permissions',
+  helpText,
+}) => {
   const [classes] = useStyles(styles);
   return (
     <View style={classes.root}>
       <View style={classes.textWrapper}>
-        <Text style={classes.text}>
-          before_to_continue_we_need_some_permissions
-        </Text>
+        <Text style={classes.text}>{message}</Text>
       </View>
       <View style={classes.permissionsList}>
         <HelpTextRender helpText={helpText} />

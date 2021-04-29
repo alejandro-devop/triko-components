@@ -41,8 +41,8 @@ export default ({palette}) => ({
   buttonText: {
     color: palette.blue,
     textAlign: 'center',
-    fontWeight: '600',
-    fontSize: Platform.select({ios: 20}),
+    fontWeight: '400',
+    fontSize: Platform.select({ios: 16}),
   },
   smButton: {
     paddingVertical: 2,
