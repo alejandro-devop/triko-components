@@ -37,7 +37,8 @@ const TermsAndConditions = ({
     },
     fetchPolicy: 'no-cache',
     onCompleted: ({response}) => {
-      setKey('regionalConfig', response);
+      console.log('The config response: ', response);
+      // setKey('regionalConfig', response);
     },
   });
   const config = useRegionConfig();
