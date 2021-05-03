@@ -22,6 +22,7 @@ export const LIKE_POST = gql`
       }
       content
       comments {
+        id
         text
         created_at
         created_at
@@ -35,12 +36,14 @@ export const LIKE_POST = gql`
           photo: photo_url
         }
         pi: personalinformation {
+          id
           firstName: first_name
           lastName: last_name
         }
       }
       is_public
       images {
+        id
         url: url_download_file
       }
     }

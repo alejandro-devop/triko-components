@@ -7,6 +7,7 @@ import {GET_CITIES} from './queries';
 
 const CitySelect = ({
   country,
+  state,
   error,
   label,
   name,
@@ -19,6 +20,7 @@ const CitySelect = ({
   const {data = {}, loading} = useQuery(GET_CITIES, {
     variables: {
       countryId: country,
+      stateId: state,
       size: 20000,
       page: 1,
     },

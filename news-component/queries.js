@@ -26,6 +26,7 @@ export const GET_POSTS_TRIKO = gql`
           photo: photo_url
         }
         pi: personalinformation {
+          id
           firstName: first_name
           lastName: last_name
         }
@@ -87,6 +88,7 @@ export const GET_POSTS_TRIKO = gql`
         author: triko {
           id
           user {
+            id
             photo: photo_url
           }
           pi: personalinformation {
@@ -105,6 +107,7 @@ export const GET_POSTS_TRIKO = gql`
           photo: photo_url
         }
         pi: personalinformation {
+          id
           firstName: first_name
           lastName: last_name
         }
@@ -123,6 +126,7 @@ export const GET_POSTS_TRIKO = gql`
       }
       is_public
       images {
+        id
         url: url_download_file
       }
     }
@@ -199,6 +203,7 @@ export const GET_POSTS_CLIENT = gql`
           photo: photo_url
         }
         pi: personalinformation {
+          id
           firstName: first_name
           lastName: last_name
         }
@@ -216,6 +221,7 @@ export const GET_POSTS_CLIENT = gql`
         author: client {
           id
           user {
+            id
             photo: photo_url
           }
           pi: personalinformation {
@@ -234,6 +240,7 @@ export const GET_POSTS_CLIENT = gql`
           photo: photo_url
         }
         pi: personalinformation {
+          id
           firstName: first_name
           lastName: last_name
         }
@@ -252,6 +259,7 @@ export const GET_POSTS_CLIENT = gql`
       }
       is_public
       images {
+          id
         url: url_download_file
       }
     }

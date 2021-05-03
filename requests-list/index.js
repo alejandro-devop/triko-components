@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 import useSession from 'hooks/useSession';
 import Wrapper from './wrapper';
@@ -17,6 +17,7 @@ import {isEmpty} from 'shared/utils/functions';
 import useMyServices from 'shared/hooks/use-my-services';
 import {startedStatuses} from 'shared/hooks/use-request-status';
 import moment from 'moment';
+import {useFocusEffect} from '@react-navigation/native';
 
 const TrikoServicesFetcher = () => {
   useMyServices();
@@ -69,6 +70,7 @@ const MyActivityComponent = ({
   const {setKey} = useSession();
   const [selectedRequest, setSelectedRequest] = useState(null);
   const [openConfirm, setOpenConfirm] = useState(false);
+  const [openDetail, setOpenDetail] = useState(false);
   const [selectedLocation, setSelectedLocation] = useState(null);
   const [rejecting, setRejecting] = useState(false);
   const [accepting, setApproving] = useState(false);
@@ -116,6 +118,7 @@ const MyActivityComponent = ({
    * @param request
    */
   const handleSelectItem = (request) => {
+    setOpenDetail(true);
     const {workflow} = request.transition;
     const {attributes} = request;
     const requestAttributes = !isEmpty(attributes)
@@ -232,6 +235,16 @@ const MyActivityComponent = ({
     setKey('selectedToExecution', request);
     navigation.navigate('execution');
   };
+
+  useFocusEffect(
+    useCallback(() => {
+      if (openDetail) {
+        onRefresh();
+        setOpenDetail(false);
+      }
+      return () => {};
+    }, [openDetail]),
+  );
 
   return (
     <>
