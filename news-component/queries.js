@@ -259,7 +259,7 @@ export const GET_POSTS_CLIENT = gql`
       }
       is_public
       images {
-          id
+        id
         url: url_download_file
       }
     }
