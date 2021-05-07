@@ -23,7 +23,7 @@ const CommentItem = ({
 }) => {
   const [classes] = useStyles(styles);
   const {
-    stack: {client = {}},
+    stack: {client = {}, triko = {}},
   } = useSession();
   const [removed, setRemoved] = useState(false);
   const {created_at, text, author = {}, id} = comment;
@@ -37,7 +37,7 @@ const CommentItem = ({
   const {photo} = user;
   const {firstName, lastName} = pi;
   const elapsedTime = getElapsedTime(postedDate, currentTime);
-  const isMe = client.id === author.id;
+  const isMe = (isTriko? triko : client).id === author.id;
   const handleRemove = async () => {
     await removeComment();
     setRemoved(true);

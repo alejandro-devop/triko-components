@@ -112,6 +112,7 @@ const PostItem = ({delay, isTriko, post, refreshPosts}) => {
             <View style={classes.commentWrapper}>
               <PostComment
                 secondary
+                isTriko={isTriko}
                 post={post}
                 onSaved={handleSaved}
                 onCancel={() => toggleComment()}

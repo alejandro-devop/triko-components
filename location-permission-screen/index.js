@@ -5,6 +5,7 @@ import useHasPermissions, {
 } from 'shared/hooks/use-has-permissions';
 import PermissionDialog from './permission-dialog';
 import GPSMessage from 'shared/components/location-permission-screen/gps-message';
+import NoTrackingPermission from './no-tracking-permission';
 
 const LocationPermissionScreen = ({
   children,
@@ -22,7 +23,12 @@ const LocationPermissionScreen = ({
   styles = {},
 }) => {
   const {
-    stack: {hidePermissionsDialog, notShowAgain, gpsEnabled},
+    stack: {
+      hidePermissionsDialog,
+      notShowAgain,
+      gpsEnabled,
+      trackingPermissions,
+    },
     setKey,
     setAll,
   } = useSession();
@@ -56,6 +62,10 @@ const LocationPermissionScreen = ({
       }
     }, 1500);
   }, []);
+
+  if (!trackingPermissions) {
+    return <NoTrackingPermission />;
+  }
 
   const getContent = () => {
     if (hide && !hasPermission) {

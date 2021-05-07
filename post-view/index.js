@@ -32,6 +32,7 @@ const PostView = ({postId, isTriko}) => {
     triko.id,
     isTriko,
   );
+  console.log('Posts:', post);
   const {
     title,
     content,
