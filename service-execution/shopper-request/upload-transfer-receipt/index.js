@@ -9,6 +9,7 @@ import Button from 'shared/components/base/buttons/button';
 import {isEmpty} from 'shared/utils/functions';
 import Label from 'shared/components/base/label';
 import PreImage from 'shared/components/base/pre-image';
+import IconButton from 'shared/components/base/buttons/icon-button';
 import PermissionsManager, {
   PERMISSIONS,
 } from 'shared/components/permissions-manager';
@@ -18,6 +19,9 @@ import {STATUS_PAYING_ORDER} from 'config/request-statuses';
 import useRequestUpdateAttrs from 'shared/hooks/use-request-update-attrs';
 import LoadingCurtain from 'components/base/dialogs/loading-curtain';
 import {useTrikoInformation} from 'shared/components/service-execution/shopper-request/hooks';
+import Clipboard from '@react-native-community/clipboard';
+import useNotify from 'shared/hooks/use-notification';
+import useTranslation from 'shared/hooks/use-translate';
 
 const UploadTransferReceipt = ({
   request = {},
@@ -29,6 +33,8 @@ const UploadTransferReceipt = ({
 }) => {
   const [serviceDetail = {}] = request.details;
   const {downloadFile} = useFileDownload();
+  const {success} = useNotify();
+  const {_t} = useTranslation();
   const [file, setFile] = useState(
     Platform.OS === 'android' ? tempImage : null,
   );
@@ -65,6 +71,11 @@ const UploadTransferReceipt = ({
     }
   };
 
+  const handleCopyCode = (accountNumber) => {
+    Clipboard.setString(accountNumber);
+    success(_t('account_number_copied'));
+  };
+
   const paying = workflow === STATUS_PAYING_ORDER;
   return (
     <>
@@ -79,18 +90,107 @@ const UploadTransferReceipt = ({
           <View style={classes.imageWrapper}>
             {!fetchingInfo && !isEmpty(trikoInfo.bank) && (
               <>
-                <Text style={[classes.text, classes.textQr]}>
-                  triko_transfer_qr
-                </Text>
-                <View style={classes.qrWrapper}>
-                  <PreImage
-                    style={classes.qrImage}
-                    source={{uri: trikoInfo.bank.qr}}
-                  />
-                </View>
-                <Button secondary size="xs" onPress={handleDownload}>
-                  download_qr
-                </Button>
+                {!isEmpty(trikoInfo.bank.qr) ? (
+                  <>
+                    <Text style={[classes.text, classes.textQr]}>
+                      triko_transfer_qr
+                    </Text>
+                    <View style={classes.qrWrapper}>
+                      <PreImage
+                        style={classes.qrImage}
+                        source={{uri: trikoInfo.bank.qr}}
+                      />
+                    </View>
+                    <Button secondary size="xs" onPress={handleDownload}>
+                      download_qr
+                    </Button>
+                  </>
+                ) : (
+                  <>
+                    {!isEmpty(trikoInfo.bank.nequi) && (
+                      <View style={[classes.fullWrap]}>
+                        <Text style={[classes.transferOptionTitle]}>
+                          triko_transfer_nequi_option
+                        </Text>
+                        <View
+                          style={[
+                            classes.infoWrap,
+                            classes.infoWrapContentCopy,
+                          ]}>
+                          <Text
+                            style={[classes.bankInfoText, classes.textTitle]}>
+                            triko_transfer_nequi
+                          </Text>
+                          <Text
+                            style={[classes.bankInfoText, classes.textInfo]}>
+                            {trikoInfo.bank.nequi}
+                          </Text>
+                          <IconButton
+                            name="clipboard"
+                            onPress={() => handleCopyCode(trikoInfo.bank.nequi)}
+                            size={18}
+                            style={classes.buttonRoot}
+                            iconStyles={classes.iconStyles}
+                          />
+                        </View>
+                      </View>
+                    )}
+                    {!isEmpty(trikoInfo.bank.accountNumber) && (
+                      <View style={[classes.fullWrap]}>
+                        <Text style={[classes.transferOptionTitle]}>
+                          {!isEmpty(trikoInfo.bank.nequi)
+                            ? 'triko_transfer_account_option_or'
+                            : 'triko_transfer_account_option'}
+                        </Text>
+                        <View
+                          style={[classes.infoWrap, classes.infoWrapContent]}>
+                          <Text
+                            style={[classes.bankInfoText, classes.textTitle]}>
+                            triko_transfer_bank
+                          </Text>
+                          <Text
+                            style={[classes.bankInfoText, classes.textInfo]}>
+                            {trikoInfo.bank.bank}
+                          </Text>
+                        </View>
+                        <View
+                          style={[classes.infoWrap, classes.infoWrapContent]}>
+                          <Text
+                            style={[classes.bankInfoText, classes.textTitle]}>
+                            triko_transfer_account_type
+                          </Text>
+                          <Text
+                            style={[classes.bankInfoText, classes.textInfo]}>
+                            {`account_type_${trikoInfo.bank.type}`}
+                          </Text>
+                        </View>
+                        <View
+                          style={[
+                            classes.infoWrap,
+                            classes.infoWrapContentCopy,
+                          ]}>
+                          <Text
+                            style={[classes.bankInfoText, classes.textTitle]}>
+                            triko_transfer_account
+                          </Text>
+                          <Text
+                            style={[classes.bankInfoText, classes.textInfo]}>
+                            {trikoInfo.bank.accountNumber}
+                          </Text>
+                          <IconButton
+                            name="clipboard"
+                            onPress={() =>
+                              handleCopyCode(trikoInfo.bank.accountNumber)
+                            }
+                            size={18}
+                            style={classes.buttonRoot}
+                            iconStyles={classes.iconStyles}
+                          />
+                        </View>
+                      </View>
+                    )}
+                  </>
+                )}
               </>
             )}
           </View>

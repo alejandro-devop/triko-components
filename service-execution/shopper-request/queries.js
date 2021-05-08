@@ -36,6 +36,10 @@ export const GET_TRIKO_INFO = gql`
         last_name
       }
       bank: bankinformation {
+        bank
+        type
+        nequi
+        accountNumber
         qr
       }
     }

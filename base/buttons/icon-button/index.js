@@ -23,6 +23,7 @@ const defaultSize = Platform.select({ios: 20, android: 18});
  */
 const IconButton = ({
   disabled,
+  classes: otherClasses = {},
   iconType,
   iconStyles,
   name,

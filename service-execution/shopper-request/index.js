@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Platform, View} from 'react-native';
+import {View} from 'react-native';
 import {useStyles} from 'hooks/index';
 import styles from './styles';
 import Stepper from 'shared/components/service-execution/stepper';

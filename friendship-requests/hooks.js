@@ -16,9 +16,8 @@ export const useFriendshipRequests = () => {
   } = useSession();
   const {refetch} = useQuery(GET_FRIENDSHIP_REQUESTS, {
     pollInterval: 30000,
-    fetchPolicy: 'cache-and-network',
+    fetchPolicy: 'no-cache',
     onCompleted: ({received = {}, send = {}}) => {
-      // alert('Here!');
       const {friends: friendsCount = 0, friendship = {}} = received;
       const {byMe} = send;
       const {requests = [], friends = []} = !isEmpty(friendship)
