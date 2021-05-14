@@ -53,32 +53,11 @@ const NoTrackingPermission = () => {
           <Text variant="caption" style={classes.descriptionText}>
             why_do_we_need_tracking_permissions
           </Text>
-          <View style={classes.permissionItem}>
-            <View style={classes.caret} />
-            <Text style={classes.permissionDescription} variant="caption">
-              suggest_you_services_near_to_your_location
-            </Text>
-          </View>
-          <View style={classes.permissionItem}>
-            <View style={classes.caret} />
-            <Text style={classes.permissionDescription} variant="caption">
-              display_to_your_clients_your_distance_and_estimated_arrive_time
-            </Text>
-          </View>
-          <View style={classes.permissionItem}>
-            <View style={classes.caret} />
-            <Text style={classes.permissionDescription} variant="caption">
-              display_to_you_the_services_distance_and_estimated_arrive_time
-            </Text>
-          </View>
           <Text variant="" style={classes.descriptionText}>
             ask_to_allow_access
           </Text>
         </View>
         <View style={classes.actionsButtons}>
-          <View style={classes.imageWrapper}>
-            <PreImage source={images[locale]} style={classes.image} />
-          </View>
           <Button primary onPress={checkStatus}>
             allow_text
           </Button>

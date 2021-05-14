@@ -23,6 +23,7 @@ export default ({palette}) => ({
   },
   actionsButtons: {
     alignItems: 'center',
+    paddingBottom: 200,
   },
   descriptionText: {
     textAlign: 'center',

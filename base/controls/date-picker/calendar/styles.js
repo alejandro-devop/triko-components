@@ -3,7 +3,7 @@ import {Platform} from 'react-native';
 export default ({palette}) => ({
   root: {
     backgroundColor: palette.white,
-    marginBottom: 20,
+    marginBottom: 350,
   },
   day: {
     height: 30,

@@ -9,6 +9,7 @@ import useStyles from 'shared/hooks/use-styles';
 import Calendar from '../calendar';
 import {formatNumber} from '../commons';
 import styles from './styles';
+import ScrollView from 'shared/components/commons/scrollview';
 
 /**
  * This component renders the control input to select date.
@@ -46,7 +47,7 @@ const DialogControl = ({
 
   const onNextMonth = () => {};
 
-  const onSelectDay = selectedDay => {
+  const onSelectDay = (selectedDay) => {
     setSelectedDate({...displayDate, day: selectedDay});
   };
 
@@ -57,17 +58,17 @@ const DialogControl = ({
     setMonthDays(tmpDate.daysInMonth());
   };
 
-  const onChangeYear = selectedYear => {
+  const onChangeYear = (selectedYear) => {
     const newPayload = {...displayDate, year: selectedYear};
     updateDays(newPayload);
     setDisplayDate(newPayload);
   };
 
-  const onChangeMonth = substract => {
+  const onChangeMonth = (substract) => {
     onSelectMonth(displayDate.month + (substract ? -1 : 1));
   };
 
-  const onSelectMonth = selectedMonth => {
+  const onSelectMonth = (selectedMonth) => {
     let month = selectedMonth;
     let year = displayDate.year;
     let day = displayDate.day;
@@ -95,23 +96,29 @@ const DialogControl = ({
   const {month, year} = displayDate;
   const {day} = selectedDate;
   return (
-    <Dialog contentStyles={classes.root} open={open} onClose={onClose}>
-      <Label style={classes.label}>{placeholder}</Label>
-      <Calendar
-        day={day}
-        year={year}
-        month={month}
-        currentMonth={selectedDate.month}
-        currentYear={selectedDate.year}
-        today={parseInt(currentDate.format('D'), 10)}
-        days={monthDays}
-        disablePast={disablePast}
-        onChangeYear={onChangeYear}
-        onChangeMonth={onChangeMonth}
-        onSelectMonth={onSelectMonth}
-        onNextMonth={onNextMonth}
-        onSelectDay={onSelectDay}
-      />
+    <Dialog
+      disableScroll
+      contentStyles={classes.root}
+      open={open}
+      onClose={onClose}>
+      <ScrollView>
+        <Label style={classes.label}>{placeholder}</Label>
+        <Calendar
+          day={day}
+          year={year}
+          month={month}
+          currentMonth={selectedDate.month}
+          currentYear={selectedDate.year}
+          today={parseInt(currentDate.format('D'), 10)}
+          days={monthDays}
+          disablePast={disablePast}
+          onChangeYear={onChangeYear}
+          onChangeMonth={onChangeMonth}
+          onSelectMonth={onSelectMonth}
+          onNextMonth={onNextMonth}
+          onSelectDay={onSelectDay}
+        />
+      </ScrollView>
       <View style={classes.actionWrapper}>
         <CircleButton name="check" primary size="lg" onPress={onAccept} />
       </View>

@@ -46,11 +46,9 @@ const DatePicker = ({
     setVisible(!visible);
   };
 
-  const handleDateChange = newDate => {
+  const handleDateChange = (newDate) => {
     if (onChange) {
-      const strDate = moment(newDate)
-        .format(format)
-        .toString();
+      const strDate = moment(newDate).format(format).toString();
       onChange({target: {name, value: strDate}});
     }
   };
