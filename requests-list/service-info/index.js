@@ -2,7 +2,7 @@ import React from 'react';
 import {View} from 'react-native';
 import Text from 'components/base/text';
 import RequestLocation from './RequestLocation';
-import useStyles from 'shared/hooks/use-styles';
+import {useStyles} from '@triko-app/hooks';
 import moment from 'moment';
 import useRequestStatus from 'shared/hooks/use-request-status';
 import useTranslation from 'shared/hooks/use-translate';

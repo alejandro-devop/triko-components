@@ -3,7 +3,7 @@ import {View} from 'react-native';
 import TextField from 'shared/components/base/controls/text-field';
 import useGetSuggestions from 'shared/components/address-suggester/useGetSuggestions';
 import CircularLoader from 'components/base/loaders/CircularLoader';
-import useStyles from 'shared/hooks/use-styles';
+import {useStyles} from '@triko-app/hooks';
 import SuggestionsList from './SuggestionsList';
 import Text from 'components/base/text';
 import useTranslation from 'shared/hooks/use-translate';

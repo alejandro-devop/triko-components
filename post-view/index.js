@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {View} from 'react-native';
 import Author from './author';
 import Text from 'shared/components/base/text';
-import useStyles from 'shared/hooks/use-styles';
+import {useStyles} from '@triko-app/hooks';
 import styles from './styles';
 import PostComments from 'shared/components/post-comments';
 import CircleButton from 'shared/components/base/buttons/circle-button';
@@ -26,12 +26,12 @@ const PostView = ({postId, isTriko}) => {
   const {
     stack: {client = {}, triko = {}},
   } = useSession();
-  const {loading, loaded, post = {}, refresh} = useGetPost(
-    postId,
-    client.id,
-    triko.id,
-    isTriko,
-  );
+  const {
+    loading,
+    loaded,
+    post = {},
+    refresh,
+  } = useGetPost(postId, client.id, triko.id, isTriko);
   console.log('Posts:', post);
   const {
     title,

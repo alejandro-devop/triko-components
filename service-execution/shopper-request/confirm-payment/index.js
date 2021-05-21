@@ -1,7 +1,7 @@
 import React from 'react';
 import {View} from 'react-native';
 import styles from './styles';
-import {useStyles} from 'hooks/index';
+import {useStyles} from '@triko-app/hooks';
 import InfoMessage from 'shared/components/messages/InfoMessage';
 import Button from 'shared/components/base/buttons/button';
 import {

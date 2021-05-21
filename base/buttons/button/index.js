@@ -5,7 +5,7 @@ import Text from 'shared/components/base/text';
 import Icon from 'shared/components/base/icon';
 import styles from './styles';
 import classNames from 'shared/utils/classnames';
-import useStyles from 'shared/hooks/use-styles';
+import {useStyles} from '@triko-app/hooks';
 
 /**
  * This component allows to render a button.

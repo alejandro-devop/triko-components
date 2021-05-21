@@ -2,7 +2,7 @@ import React from 'react';
 import Dialog from 'shared/components/dialogs/dialog';
 import ScrollView from 'shared/components/commons/scrollview';
 import MyAddressesList from 'shared/components/my-address-list';
-import useStyles from 'shared/hooks/use-styles';
+import {useStyles} from '@triko-app/hooks';
 import useTranslation from 'shared/hooks/use-translate';
 
 /**

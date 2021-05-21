@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {View} from 'react-native';
 import {WebView} from 'react-native-webview';
 import Button from 'components/base/buttons/button';
-import useStyles from 'hooks/useStyles';
+import {useStyles} from '@triko-app/hooks';
 import AnimatedArrowDown from 'shared/components/anims/AnimatedArrowDown';
 import LoadingCurtain from 'components/base/dialogs/loading-curtain';
 

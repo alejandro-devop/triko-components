@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {View} from 'react-native';
 import Icon from 'app/src/main/components/base/icon';
 import Text from 'app/src/main/components/base/text';
-import {useStyles} from 'hooks';
+import {useStyles} from '@triko-app/hooks';
 
 const styles = () => ({
   icon: {

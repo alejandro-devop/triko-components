@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styles from './styles';
 import {Text as TextBase} from 'react-native';
 import classNames from 'shared/utils/classnames';
-import useStyles from 'shared/hooks/use-styles';
+import {useStyles} from '@triko-app/hooks';
 import useTranslation from 'shared/hooks/use-translate';
 
 /**

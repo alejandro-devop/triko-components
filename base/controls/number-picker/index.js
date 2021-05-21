@@ -1,6 +1,6 @@
 import React from 'react';
 import {View} from 'react-native';
-import useStyles from 'shared/hooks/use-styles';
+import {useStyles} from '@triko-app/hooks';
 import styles from './styles';
 import TextField from 'shared/components/base/controls/text-field';
 import IconButton from 'shared/components/base/buttons/icon-button';
@@ -19,7 +19,7 @@ const NumberPicker = ({
   primary,
 }) => {
   const [classes] = useStyles(styles);
-  const handleChange = toIncrease => {
+  const handleChange = (toIncrease) => {
     const nextValue = value + toIncrease;
     if (nextValue > max || nextValue < min) {
       return false;

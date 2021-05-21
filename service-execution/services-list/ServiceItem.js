@@ -2,7 +2,7 @@ import React from 'react';
 import {View} from 'react-native';
 import Text from 'components/base/text';
 import ImageIcon from 'main/components/ImageIcon';
-import {useStyles} from 'hooks';
+import {useStyles} from '@triko-app/hooks';
 import currency from 'currency-formatter';
 
 const ServiceItem = ({item, locale = 'en-US'}) => {

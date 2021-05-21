@@ -3,7 +3,7 @@ import {View, Animated, Image} from 'react-native';
 import trikoUserLogo from 'shared/assets/trikouser_logo.png';
 import trikoWorkLogo from 'shared/assets/trikowork_logo.png';
 import PropTypes from 'prop-types';
-import useStyles from 'hooks/useStyles';
+import {useStyles} from '@triko-app/hooks';
 import styles from './styles';
 
 /**

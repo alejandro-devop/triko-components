@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import BorderedButton from 'shared/components/base/buttons/bordered-button';
 import ActionsWrapper from '../actions-wrapper';
 import useTranslation from 'shared/hooks/use-translate';
-import {useStyles} from 'hooks/index';
+import {useStyles} from '@triko-app/hooks';
 import {
   STATUS_ACCEPTED,
   STATUS_PAYMENT,

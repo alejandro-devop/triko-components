@@ -1,6 +1,6 @@
 import React from 'react';
 import {Linking, View} from 'react-native';
-import {useStyles} from 'hooks/index';
+import {useStyles} from '@triko-app/hooks';
 import MapView, {PROVIDER_GOOGLE} from 'react-native-maps';
 import Dialog from 'shared/components/dialogs/dialog';
 import classNames from 'shared/utils/classnames';

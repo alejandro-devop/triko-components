@@ -4,7 +4,7 @@ import Text from 'components/base/text';
 import MapPreview from './MapPreview';
 import Icon from 'components/base/icon';
 import Button from 'components/base/buttons/button';
-import useStyles from 'shared/hooks/use-styles';
+import {useStyles} from '@triko-app/hooks';
 import useTranslation from 'shared/hooks/use-translate';
 
 const MarketPreview = ({market = {}, onSelectMarket, onClearSelection}) => {

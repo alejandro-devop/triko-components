@@ -5,7 +5,7 @@ import {View} from 'react-native';
 import Dialog from 'shared/components/dialogs/dialog';
 import Label from 'shared/components/base/label';
 import CircleButton from 'shared/components/base/buttons/circle-button';
-import useStyles from 'shared/hooks/use-styles';
+import {useStyles} from '@triko-app/hooks';
 import Calendar from '../calendar';
 import {formatNumber} from '../commons';
 import styles from './styles';

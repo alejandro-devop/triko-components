@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import {KeyboardAvoidingView, Platform, View} from 'react-native';
-import useStyles from 'hooks/useStyles';
+import {useStyles} from '@triko-app/hooks';
 import TextField from 'components/base/controls/text-field';
 import CircleButton from 'components/base/buttons/circle-button';
 import classNames from 'utils/classnames';

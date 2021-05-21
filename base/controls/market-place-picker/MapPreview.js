@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {View} from 'react-native';
-import useStyles from 'shared/hooks/use-styles';
+import {useStyles} from '@triko-app/hooks';
 import MapView, {PROVIDER_GOOGLE} from 'react-native-maps';
 import MapMarker from 'shared/components/base/map-marker';
 

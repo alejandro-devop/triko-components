@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {View, ScrollView} from 'react-native';
 import useTranslation from 'shared/hooks/use-translate';
 import Text from 'shared/components/base/text';
-import useStyles from 'shared/hooks/use-styles';
+import {useStyles} from '@triko-app/hooks';
 import Item from './Item';
 
 /**

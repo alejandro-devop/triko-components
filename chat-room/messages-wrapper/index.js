@@ -1,14 +1,13 @@
 import React, {useRef, useEffect} from 'react';
 import PropTypes from 'prop-types';
 import {ScrollView, View, Keyboard} from 'react-native';
-import useStyles from 'hooks/useStyles';
+import {useStyles} from '@triko-app/hooks';
 import MessageItem from '../message-item';
-import usePusherSubscriber from 'shared/hooks/use-pusher-subscriber';
-import {EVENT__MESSAGE} from 'helpers/PusherClient';
 import EmptyIcon from '../EmptyIcon';
 import {useMessagesFetcher} from '../hooks';
 import {CircularLoader} from 'components/base/loaders';
 import styles from './styles';
+import useFbListener from 'shared/hooks/use-fb-listener';
 
 /**
  * This component renders the presentation for the message container, it also fetch the chat messages
@@ -23,7 +22,6 @@ import styles from './styles';
 const MessagesWrapper = ({chatId, userTo, newMessages = [], onSaveMessage}) => {
   const [classes] = useStyles(styles);
   const scrollRef = useRef(null);
-  const {subscribeEvent, unSubscribeEvent} = usePusherSubscriber();
   const {loading, messages, user, refresh} = useMessagesFetcher({
     chatId,
     newMessages,
@@ -34,16 +32,18 @@ const MessagesWrapper = ({chatId, userTo, newMessages = [], onSaveMessage}) => {
     const inListener = Keyboard.addListener('keyboardDidShow', () =>
       scrollRef.current.scrollToEnd(),
     );
-    const id = subscribeEvent(EVENT__MESSAGE, onGetNewMessages);
     return () => {
       inListener.remove();
-      unSubscribeEvent(EVENT__MESSAGE, id);
     };
   }, [messages]);
 
   const onGetNewMessages = async () => {
     await refresh();
   };
+
+  useFbListener(() => {
+    onGetNewMessages();
+  }, ['execution-update', 'message-received']);
 
   const onMessageSaved = async (newMessage, oldMessage) => {
     try {

@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import {View} from 'react-native';
 import Dialog from 'shared/components/dialogs/dialog';
-import useStyles from 'shared/hooks/use-styles';
+import {useStyles} from '@triko-app/hooks';
 import styles from './styles';
 import Text from 'shared/components/base/text';
 import CircleButton from 'components/base/buttons/circle-button';

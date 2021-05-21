@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {SafeAreaView, View} from 'react-native';
-import useStyles from 'hooks/useStyles';
+import {useStyles} from '@triko-app/hooks';
 import Text from 'components/base/text';
 import defaultPhoto from 'assets/avatars/real-profile-photo.jpg';
 import CircleButton from 'components/base/buttons/circle-button';

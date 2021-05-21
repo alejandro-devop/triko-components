@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {TouchableOpacity, View} from 'react-native';
 import Slide from 'shared/components/anims/Slide';
-import useStyles from 'shared/hooks/use-styles';
+import {useStyles} from '@triko-app/hooks';
 import classNames from 'shared/utils/classnames';
 import NormalCard from '../normal-card';
 import ShopperCard from '../shopper-card';

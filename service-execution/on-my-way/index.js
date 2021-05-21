@@ -1,7 +1,7 @@
 import React, {useRef, useState} from 'react';
 import {View} from 'react-native';
 import Text from 'components/base/text';
-import {useStyles} from 'hooks';
+import {useStyles} from '@triko-app/hooks';
 import styles from './styles';
 import MapView, {PROVIDER_GOOGLE} from 'react-native-maps';
 import TrikoMarker from 'main/components/base/triko-marker';

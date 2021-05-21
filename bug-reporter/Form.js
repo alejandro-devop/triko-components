@@ -4,7 +4,7 @@ import TextArea from 'components/base/controls/text-area';
 import EmailField from 'components/base/controls/email-field';
 import PhoneField from 'components/base/controls/phone-field';
 import {formStyles as styles} from './styles';
-import useStyles from 'shared/hooks/use-styles';
+import {useStyles} from '@triko-app/hooks';
 import Button from 'components/base/buttons/button';
 import SuccessMessage from 'shared/components/messages/SuccessMessage';
 import {isEmpty} from 'utils/functions';

@@ -1,6 +1,6 @@
 import React from 'react';
 import ImageIcon from 'shared/components/base/image-icon';
-import useStyles from 'shared/hooks/use-styles';
+import {useStyles} from '@triko-app/hooks';
 
 const ItemIcon = ({icon}) => {
   const [classes] = useStyles(styles);

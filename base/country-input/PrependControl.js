@@ -1,7 +1,7 @@
 import React from 'react';
 import {Platform, View} from 'react-native';
 import Flag from 'react-native-flags';
-import useStyles from 'shared/hooks/use-styles';
+import {useStyles} from '@triko-app/hooks';
 
 /**
  * This component renders a flag icon for the selected country

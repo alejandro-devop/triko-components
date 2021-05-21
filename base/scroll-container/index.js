@@ -1,6 +1,6 @@
 import React from 'react';
 import {ScrollView} from 'react-native';
-import {useStyles} from 'hooks';
+import {useStyles} from '@triko-app/hooks';
 import styles from './styles';
 
 const ScrollContainer = ({children, ...otherProps}) => {

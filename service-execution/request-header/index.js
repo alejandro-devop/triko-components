@@ -1,6 +1,6 @@
 import React from 'react';
 import {SafeAreaView, StatusBar, View} from 'react-native';
-import {useStyles} from 'hooks/index';
+import {useStyles} from '@triko-app/hooks';
 import styles from './styles';
 import ServiceInfo from '../service-info';
 import UserInfo from '../user-info';

@@ -4,11 +4,12 @@ import {RefreshControl, View} from 'react-native';
 import {ScrollView} from 'shared/components/commons';
 import {useFocusEffect} from '@react-navigation/native';
 import styles from './styles';
-import useStyles from 'shared/hooks/use-styles';
+import {useStyles} from '@triko-app/hooks';
 import EmptyList from './empty-list';
 import Loader from './Loader';
 import PostItem from './post-item';
 import useUserPosts from 'shared/components/news-component/hooks';
+import useFbListener from 'shared/hooks/use-fb-listener';
 
 /**
  * This component allows to render the user histories, its used for client news
@@ -22,7 +23,13 @@ import useUserPosts from 'shared/components/news-component/hooks';
  */
 const NewsComponent = ({isTriko, onlyPublic, onlyOwned, clientId, trikoId}) => {
   const [classes] = useStyles(styles);
-  const {posts = [], loading, loaded, refresh, refreshing} = useUserPosts({
+  const {
+    posts = [],
+    loading,
+    loaded,
+    refresh,
+    refreshing,
+  } = useUserPosts({
     clientId,
     trikoId,
     isTriko,
@@ -35,6 +42,10 @@ const NewsComponent = ({isTriko, onlyPublic, onlyOwned, clientId, trikoId}) => {
       return () => {};
     }, []),
   );
+
+  useFbListener(() => {
+    refresh();
+  }, 'refreshPostsWall');
 
   return (
     <ScrollView

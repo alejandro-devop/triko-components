@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {TouchableOpacity, View} from 'react-native';
 import Text from 'components/base/text';
-import useStyles from 'hooks/useStyles';
+import {useStyles} from '@triko-app/hooks';
 import Icon from 'components/base/icon';
 import IconButton from 'components/base/buttons/icon-button';
 import {getElapsedTime} from 'utils/functions';

@@ -2,7 +2,7 @@ import React, {useRef, useEffect} from 'react';
 import PropTypes from 'prop-types';
 import {View} from 'react-native';
 import MapView, {PROVIDER_GOOGLE} from 'react-native-maps';
-import {useStyles} from 'hooks/index';
+import {useStyles} from '@triko-app/hooks';
 import styles from './styles';
 
 /**

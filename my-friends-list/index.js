@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {ScrollView, View} from 'react-native';
-import useStyles from 'shared/hooks/use-styles';
+import {useStyles} from '@triko-app/hooks';
 import styles from './styles';
 import {useFriendshipRequests} from 'shared/components/friendship-requests/hooks';
 import FriendItem from './friend-item';

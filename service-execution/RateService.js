@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {View} from 'react-native';
 import Label from 'components/base/label';
-import useStyles from 'hooks/useStyles';
+import {useStyles} from '@triko-app/hooks';
 import RatingStars from 'components/base/rating-stars';
 import TextArea from 'components/base/controls/text-area';
 import Button from 'components/base/buttons/button';

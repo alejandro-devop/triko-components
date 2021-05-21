@@ -1,7 +1,7 @@
 import React from 'react';
 import {View} from 'react-native';
 import {ScrollView} from 'shared/components/commons';
-import useStyles from 'hooks/useStyles';
+import {useStyles} from '@triko-app/hooks';
 
 const Wrapper = ({children}) => {
   const [classes] = useStyles(styles);

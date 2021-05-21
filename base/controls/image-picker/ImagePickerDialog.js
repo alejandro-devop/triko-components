@@ -3,7 +3,7 @@ import {View} from 'react-native';
 import Button from 'shared/components/base/buttons/button';
 import Dialog from 'shared/components/dialogs/dialog';
 import styles from './styles';
-import {useStyles} from 'hooks/index';
+import {useStyles} from '@triko-app/hooks';
 import usePhotoCapture from 'shared/hooks/use-photo-capture';
 import {isEmpty} from 'shared/utils/functions';
 import useTranslation from 'shared/hooks/use-translate';

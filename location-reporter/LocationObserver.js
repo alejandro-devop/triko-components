@@ -2,7 +2,8 @@ import React, {useEffect} from 'react';
 import {View} from 'react-native';
 import Text from 'shared/components/base/text';
 import useLocationObserver from 'shared/hooks/use-location-observer';
-import {useSession, useStyles} from 'hooks/index';
+import {useSession} from 'hooks/index';
+import {useStyles} from '@triko-app/hooks';
 
 /**
  * This component watches the user location and
@@ -12,12 +13,8 @@ import {useSession, useStyles} from 'hooks/index';
  */
 const LocationObserver = ({interval = 10000, onLocationChange}) => {
   const [classes] = useStyles(styles);
-  const {
-    initialize,
-    initialized,
-    location,
-    stopObserver,
-  } = useLocationObserver();
+  const {initialize, initialized, location, stopObserver} =
+    useLocationObserver();
   const {
     stack: {currentLocation = {}},
   } = useSession();

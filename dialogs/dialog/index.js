@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {ScrollView, View} from 'react-native';
 import DialogBase from 'shared/components/dialogs/dialog-base';
 import Text from 'shared/components/base/text';
-import useStyles from 'shared/hooks/use-styles';
+import {useStyles} from '@triko-app/hooks';
 import styles from './styles';
 
 /**

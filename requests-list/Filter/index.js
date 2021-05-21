@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {View} from 'react-native';
 import styles from './styles';
 import Button from 'components/base/buttons/button';
-import {useStyles} from 'hooks/index';
+import {useStyles} from '@triko-app/hooks';
 import useTranslation from 'shared/hooks/use-translate';
 
 /**

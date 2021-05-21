@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {TouchableOpacity, View} from 'react-native';
 import Text from 'shared/components/base/text';
 import Icon from 'shared/components/base/icon';
-import useStyles from 'shared/hooks/use-styles';
+import {useStyles} from '@triko-app/hooks';
 import classNames from 'shared/utils/classnames';
 import styles from './styles';
 
@@ -39,7 +39,8 @@ const BorderedButton = ({
     <View style={[classes.root, otherClasses.root]}>
       <WrapperComponent
         // onPress={() => (!disabled && onPress ? onPress() : null)}
-        onPress={() => (disabled || disabledAction ? null : handlePress())}P
+        onPress={() => (disabled || disabledAction ? null : handlePress())}
+        P
         style={classNames(
           {
             buttonWrapper: true,

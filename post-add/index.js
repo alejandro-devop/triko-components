@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import {TextInput, TouchableOpacity, View} from 'react-native';
 import {ScrollView} from 'shared/components/commons';
-import {useStyles} from 'hooks/index';
+import {useStyles} from '@triko-app/hooks';
 import styles from './styles';
 import palette from 'themes/styles/palette';
 import Button from 'shared/components/base/buttons/button';
@@ -35,7 +35,11 @@ const PostAddComponent = ({isTriko}) => {
   const [classes] = useStyles(styles);
   const [checked, setChecked] = useState(true);
   const [photo, setPhoto] = useState(null);
-  const {form = {}, isValid, onChange} = useForm(
+  const {
+    form = {},
+    isValid,
+    onChange,
+  } = useForm(
     {
       content: '',
       title: '',

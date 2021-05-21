@@ -1,7 +1,7 @@
 import React from 'react';
 import {View} from 'react-native';
 import styles from './styles';
-import {useStyles} from 'hooks/index';
+import {useStyles} from '@triko-app/hooks';
 import Text from 'shared/components/base/text';
 import useCurrency from 'shared/hooks/use-currency';
 

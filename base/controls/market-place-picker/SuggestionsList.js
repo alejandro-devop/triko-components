@@ -1,7 +1,7 @@
 import React from 'react';
 import {ScrollView, View} from 'react-native';
 import Text from 'components/base/text';
-import useStyles from 'shared/hooks/use-styles';
+import {useStyles} from '@triko-app/hooks';
 import SuggestionItem from './SuggestionItem';
 import useTranslation from 'shared/hooks/use-translate';
 

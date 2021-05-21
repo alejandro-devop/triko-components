@@ -6,7 +6,7 @@ import {TouchableOpacity, View} from 'react-native';
 import Text from 'shared/components/base/text';
 import DayItem from '../day-item';
 import useLocales from 'shared/hooks/use-locales';
-import useStyles from 'shared/hooks/use-styles';
+import {useStyles} from '@triko-app/hooks';
 import IconButton from 'shared/components/base/buttons/icon-button';
 import YearPicker from '../year-picker';
 import MonthPicker from '../month-picker';

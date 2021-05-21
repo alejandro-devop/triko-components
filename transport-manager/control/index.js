@@ -1,7 +1,7 @@
 import React from 'react';
 import {TouchableOpacity, View} from 'react-native';
 import styles from '../styles/control.style';
-import useStyles from 'hooks/useStyles';
+import {useStyles} from '@triko-app/hooks';
 import Icon from 'components/base/icon';
 import AnimatedArrowLeft from 'components/anims/AnimatedArrowLeft';
 import PreImage from 'shared/components/base/pre-image';

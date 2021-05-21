@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {View} from 'react-native';
 import Text from 'components/base/text';
 import Avatar from 'main/components/base/avatar';
-import useStyles from 'hooks/useStyles';
+import {useStyles} from '@triko-app/hooks';
 import styles from './styles';
 
 const ClientProfile = ({client = {}}) => {

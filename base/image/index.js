@@ -1,7 +1,7 @@
 import React from 'react';
 import FastImage from 'react-native-fast-image';
-import useStyles from 'shared/hooks/use-styles';
-const getResizeMode = rm => {
+import {useStyles} from '@triko-app/hooks';
+const getResizeMode = (rm) => {
   switch (rm) {
     case 'contain':
       return FastImage.resizeMode.contain;

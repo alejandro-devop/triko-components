@@ -7,7 +7,7 @@ import {
   View,
 } from 'react-native';
 import {ScrollView} from 'shared/components/commons';
-import useStyles from 'hooks/useStyles';
+import {useStyles} from '@triko-app/hooks';
 import Logo from 'assets/logos/logo-triko-1.png';
 import PreImage from 'components/pre-image';
 import Text from 'components/base/text';

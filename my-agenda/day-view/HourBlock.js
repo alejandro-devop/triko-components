@@ -1,6 +1,6 @@
 import React from 'react';
 import {View} from 'react-native';
-import useStyles from 'shared/hooks/use-styles';
+import {useStyles} from '@triko-app/hooks';
 import Text from 'components/base/text';
 import useTranslation from 'shared/hooks/use-translate';
 import classNames from 'shared/utils/classnames';

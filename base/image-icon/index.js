@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, Image} from 'react-native';
-import useStyles from 'shared/hooks/use-styles';
+import {useStyles} from '@triko-app/hooks';
 import styles from './styles';
 
 const Index = ({source, wrapperClass, imageClass}) => {

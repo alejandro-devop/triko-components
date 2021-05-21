@@ -1,7 +1,7 @@
 import React from 'react';
 import TextField from 'components/base/controls/text-field';
 import Text from 'components/base/text';
-import useStyles from 'shared/hooks/use-styles';
+import {useStyles} from '@triko-app/hooks';
 import {isEmpty} from 'shared/utils/functions';
 
 const InputControl = ({

@@ -1,6 +1,6 @@
 import React from 'react';
 import {View} from 'react-native';
-import useStyles from 'hooks/useStyles';
+import {useStyles} from '@triko-app/hooks';
 import PrettyIcon from 'shared/components/pretty-icon';
 
 const NoRequestItems = () => {

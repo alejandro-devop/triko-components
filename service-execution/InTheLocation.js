@@ -9,7 +9,7 @@ import {
   STATUS_ON_YOUR_DOOR,
 } from 'config/request-statuses';
 import Label from 'components/base/label';
-import useStyles from 'hooks/useStyles';
+import {useStyles} from '@triko-app/hooks';
 import {UPDATE_REQUEST} from 'components/pending-services-/queries';
 import useSession from 'hooks/useSession';
 import useTranslation from 'shared/hooks/use-translate';
@@ -24,7 +24,7 @@ const InTheLocation = ({request = {}}) => {
     stack: {user = {}},
   } = useSession();
   const confirmTransition = history.find(
-    item => item.transition.workflow === STATUS_CONFIRM_START,
+    (item) => item.transition.workflow === STATUS_CONFIRM_START,
   );
   const {pi = {}} = client;
   const {first_name: clientName} = pi;

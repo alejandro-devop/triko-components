@@ -1,4 +1,4 @@
-import useStyles from 'shared/hooks/use-styles';
+import {useStyles} from '@triko-app/hooks';
 import {TouchableOpacity, View} from 'react-native';
 import Text from 'shared/components/base/text';
 import React from 'react';

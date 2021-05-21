@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {TouchableOpacity, View} from 'react-native';
 import Text from 'components/base/text';
 import PreImage from 'shared/components/base/pre-image';
-import {useStyles} from 'hooks/index';
+import {useStyles} from '@triko-app/hooks';
 import bellIcon from 'shared/assets/icons/notify-bell.png';
 import styles from './styles';
 import Scale from 'shared/components/anims/Scale';

@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {View} from 'react-native';
 import Text from 'components/base/text';
-import {useStyles} from 'hooks/index';
+import {useStyles} from '@triko-app/hooks';
 import LinkButton from 'components/base/buttons/link-button';
 import Geocoding from 'react-native-geocoding';
 import useTranslation from 'shared/hooks/use-translate';

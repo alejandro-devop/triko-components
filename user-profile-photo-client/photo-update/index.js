@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {View} from 'react-native';
 import Dialog from 'shared/components/dialogs/dialog';
 import Button from 'shared/components/base/buttons/button';
-import {useStyles} from 'hooks/index';
+import {useStyles} from '@triko-app/hooks';
 import styles from './styles';
 import PhotoDisplay from '../photo-display';
 import {useAvatarUpdate} from '../hooks';

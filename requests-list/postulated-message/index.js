@@ -2,7 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {View} from 'react-native';
 import Text from 'shared/components/base/text';
-import {useSession, useStyles} from 'hooks/index';
+import {useSession} from 'hooks/index';
+import {useStyles} from '@triko-app/hooks';
 import styles from './styles';
 import {startedStatuses} from 'shared/hooks/use-request-status';
 

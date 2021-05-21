@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {View} from 'react-native';
 import Text from 'components/base/text';
 import styles from './styles';
-import useStyles from 'shared/hooks/use-styles';
+import {useStyles} from '@triko-app/hooks';
 import MapView, {PROVIDER_GOOGLE} from 'react-native-maps';
 import MapMarker from 'shared/components/base/map-marker';
 import classNames from 'shared/utils/classnames';

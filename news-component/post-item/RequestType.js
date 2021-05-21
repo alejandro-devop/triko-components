@@ -1,6 +1,6 @@
 import React from 'react';
 import {View} from 'react-native';
-import useStyles from 'shared/hooks/use-styles';
+import {useStyles} from '@triko-app/hooks';
 import Text from 'components/base/text';
 import avatar from 'assets/avatars/profile-photo.jpg';
 import PreImage from 'shared/components/base/pre-image';

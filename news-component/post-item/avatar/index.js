@@ -1,4 +1,4 @@
-import useStyles from 'shared/hooks/use-styles';
+import {useStyles} from '@triko-app/hooks';
 import {getElapsedTime} from 'shared/utils/functions';
 import {View} from 'react-native';
 import PreImage from 'shared/components/base/pre-image';

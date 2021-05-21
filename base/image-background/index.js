@@ -1,6 +1,6 @@
 import React from 'react';
 import Image from 'shared/components/base/image';
-import {useStyles} from 'hooks/index';
+import {useStyles} from '@triko-app/hooks';
 
 const ImageBackground = ({source, style}) => {
   const [classes] = useStyles(styles);

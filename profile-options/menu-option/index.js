@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {TouchableOpacity} from 'react-native';
 import Text from 'shared/components/base/text';
 import styles from './styles';
-import {useStyles} from 'hooks/index';
+import {useStyles} from '@triko-app/hooks';
 
 /**
  * This component renders a single menu option

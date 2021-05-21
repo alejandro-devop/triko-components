@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import TextField from 'shared/components/base/controls/text-field';
 import CircularLoader from 'shared/components/loaders/circular-loader';
 import {View} from 'react-native';
-import useStyles from 'shared/hooks/use-styles';
+import {useStyles} from '@triko-app/hooks';
 import useCityFinder from 'shared/components/base/controls/g-city-select/useCityFinder';
 import SelectableList from 'shared/components/base/selectable-list';
 import Text from 'components/base/text';

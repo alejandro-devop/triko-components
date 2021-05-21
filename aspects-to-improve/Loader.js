@@ -2,7 +2,7 @@ import React from 'react';
 import {View} from 'react-native';
 import ListLoader from 'components/base/loaders/ListLoader';
 import Skeleton from 'components/base/loaders/skeleton';
-import useStyles from 'hooks/useStyles';
+import {useStyles} from '@triko-app/hooks';
 
 const Loader = () => {
   const [classes] = useStyles(styles);

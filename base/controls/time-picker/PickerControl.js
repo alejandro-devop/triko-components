@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {View} from 'react-native';
 import IconButton from 'shared/components/base/buttons/icon-button';
 import Text from 'shared/components/base/text';
-import useStyles from 'shared/hooks/use-styles';
+import {useStyles} from '@triko-app/hooks';
 import {formatNumber} from './commons';
 
 const PickerControl = ({onChange, value = 0, min = 0, max = 60, step = 1}) => {
@@ -10,7 +10,7 @@ const PickerControl = ({onChange, value = 0, min = 0, max = 60, step = 1}) => {
   const [currentValue, setValue] = useState(parseInt(value, 10));
   const formattedValue = formatNumber(currentValue);
 
-  const handleChange = decrease => {
+  const handleChange = (decrease) => {
     let newValue = currentValue + (decrease ? -step : step);
     if (newValue >= max) {
       newValue = min;

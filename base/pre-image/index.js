@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {Image, View} from 'react-native';
-import useStyles from 'hooks/useStyles';
+import {useStyles} from '@triko-app/hooks';
 import SkeletonLoader from 'shared/components/loaders/skeleton';
 
 const PreImage = ({source, style}) => {

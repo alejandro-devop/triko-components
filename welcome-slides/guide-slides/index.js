@@ -1,6 +1,6 @@
 import React, {useRef, useState} from 'react';
 import {StatusBar, Dimensions, ScrollView, View} from 'react-native';
-import useStyles from 'hooks/useStyles';
+import {useStyles} from '@triko-app/hooks';
 import GuideSlide from '../guide-slide';
 const screenWidth = Dimensions.get('window').width;
 

@@ -3,7 +3,7 @@ import {View} from 'react-native';
 import {ScrollView} from 'shared/components/commons';
 import Dialog from 'shared/components/dialogs/dialog';
 import {isEmpty} from 'shared/utils/functions';
-import {useStyles} from 'hooks/index';
+import {useStyles} from '@triko-app/hooks';
 import styles from './styles';
 import useForm from 'shared/hooks/use-form';
 import Text from 'shared/components/base/text';
@@ -35,8 +35,7 @@ const ProductEdit = ({
   const {image, measure = {}, unitPrice = 0, quantity = 0, attrs} = productItem;
   const productAttrs = !isEmpty(attrs) ? JSON.parse(attrs) : {};
   const reportError = useErrorReporter({
-    path:
-      'src/shared/components/service-execution/shopper-request/product-edit/index.js',
+    path: 'src/shared/components/service-execution/shopper-request/product-edit/index.js',
   });
   const {found: defaultFound = true} = productAttrs;
   const {_t} = useTranslation();

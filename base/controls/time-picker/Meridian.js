@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {Platform, View} from 'react-native';
 import IconButton from 'shared/components/base/buttons/icon-button';
 import Text from 'shared/components/base/text';
-import useStyles from 'shared/hooks/use-styles';
+import {useStyles} from '@triko-app/hooks';
 
 const Meridian = ({value = 'a.m', onChange}) => {
   const [classes] = useStyles(styles);

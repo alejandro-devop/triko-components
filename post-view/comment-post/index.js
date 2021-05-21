@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {View} from 'react-native';
-import useStyles from 'shared/hooks/use-styles';
+import {useStyles} from '@triko-app/hooks';
 import styles from './styles';
 import TextArea from 'shared/components/base/controls/text-area';
 import CircleButton from 'shared/components/base/buttons/circle-button';

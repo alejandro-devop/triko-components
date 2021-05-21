@@ -4,7 +4,7 @@ import AddressSuggester from 'shared/components/address-suggester';
 import useTranslation from 'shared/hooks/use-translate';
 import Button from 'components/base/buttons/button';
 import Options from './Options';
-import {useStyles} from 'hooks/index';
+import {useStyles} from '@triko-app/hooks';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import AddressMapPicker from 'shared/components/base/address-map-picker';
 

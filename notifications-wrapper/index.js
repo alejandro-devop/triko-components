@@ -1,10 +1,14 @@
-import {ACTIVATING_STATE, ACTIVE_STATE} from 'config/user-statuses';
+import {
+  ACTIVATING_STATE,
+  ACTIVE_STATE,
+  REQUIRED_DOC_STATE,
+} from 'config/user-statuses';
 import NotificationPermissionsBox from './notification-permissions-box';
 import NotificationsProvider from './NotificationsContenxtProvider';
 import React, {useEffect} from 'react';
 import {useSession} from 'hooks/index';
 
-const NotificationsWrapper = ({children}) => {
+const NotificationsWrapper = ({children, message}) => {
   const {
     stack: {logged, user = {}, hasNotifyPermissions},
     setKey,
@@ -12,8 +16,12 @@ const NotificationsWrapper = ({children}) => {
   useEffect(() => {
     setKey('hasNotifyPermissions', false);
   }, []);
-
-  if (!logged || ![ACTIVE_STATE, ACTIVATING_STATE].includes(user.workflow)) {
+  if (
+    !logged ||
+    ![ACTIVE_STATE, ACTIVATING_STATE, REQUIRED_DOC_STATE].includes(
+      user.workflow,
+    )
+  ) {
     return children;
   }
   return hasNotifyPermissions ? (
@@ -21,7 +29,7 @@ const NotificationsWrapper = ({children}) => {
   ) : (
     <>
       {children}
-      <NotificationPermissionsBox />
+      <NotificationPermissionsBox message={message} />
     </>
   );
 };

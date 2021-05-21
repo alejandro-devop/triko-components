@@ -16,7 +16,11 @@ const TranslationRemote = ({children}) => {
   const {stack = {}, setAll} = useSession();
   const {locale = 'en', region: regionCode = 'en-US', regionId} = stack;
   const [stored, setStored] = useState(false);
-  const {loading, error, data: response} = useQuery(GET_TRANSLATIONS, {
+  const {
+    loading,
+    error,
+    data: response,
+  } = useQuery(GET_TRANSLATIONS, {
     variables: {locale, group: TRANSLATION_GROUP, regionCode},
     watchQuery: {
       fetchPolicy: 'no-cache',

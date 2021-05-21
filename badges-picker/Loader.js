@@ -1,7 +1,7 @@
 import React from 'react';
 import {View} from 'react-native';
 import Skeleton from 'components/base/loaders/skeleton';
-import useStyles from 'hooks/useStyles';
+import {useStyles} from '@triko-app/hooks';
 import _ from 'lodash';
 
 const Loader = () => {
@@ -10,7 +10,7 @@ const Loader = () => {
     <View style={classes.root}>
       <Skeleton size="sm" />
       <View style={classes.badges}>
-        {_.times(12, key => (
+        {_.times(12, (key) => (
           <Skeleton key={`loader-badge-${key}`} type="circle" />
         ))}
       </View>

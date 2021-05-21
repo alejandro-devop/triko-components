@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import IconButton from 'components/base/buttons/icon-button';
-import {useStyles} from 'hooks/index';
+import {useStyles} from '@triko-app/hooks';
 import styles from './styles';
 import classNames from 'shared/utils/classnames';
 import InputHelp from 'components/base/controls/input-help';

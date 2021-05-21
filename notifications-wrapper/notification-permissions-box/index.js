@@ -1,14 +1,17 @@
 import React, {useEffect, useState} from 'react';
 import {SafeAreaView, View} from 'react-native';
 import styles from './styles';
-import {useSession, useStyles} from 'hooks/index';
+import {useSession} from 'hooks/index';
+import {useStyles} from '@triko-app/hooks';
 import Text from 'shared/components/base/text';
 import Button from 'shared/components/base/buttons/button';
 import useHasNotifyPermission, {
   useRequestNotificationPermission,
 } from 'shared/hooks/use-has-notify-permission';
 
-const NotificationPermissionsBox = () => {
+const NotificationPermissionsBox = ({
+  message = 'notifications_permissions_explanation',
+}) => {
   const [classes] = useStyles(styles);
   const [] = useRequestNotificationPermission();
   const [hasPermission, checkPermission] = useHasNotifyPermission();
@@ -58,9 +61,7 @@ const NotificationPermissionsBox = () => {
       <View style={classes.wrapper}>
         <View style={classes.boxWrapper}>
           <View style={classes.textWrapper}>
-            <Text style={classes.text}>
-              notifications_permissions_explanation
-            </Text>
+            <Text style={classes.text}>{message}</Text>
             <View style={classes.actions}>
               <Button size="xxs" primary onPress={handleRequestPermissions}>
                 allow_notifications_text

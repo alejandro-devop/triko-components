@@ -1,6 +1,6 @@
 import React from 'react';
 import Dialog from 'shared/components/dialogs/dialog';
-import useStyles from 'shared/hooks/use-styles';
+import {useStyles} from '@triko-app/hooks';
 
 const MyAddressesList = ({open, onClose}) => {
   const [classes] = useStyles(styles);

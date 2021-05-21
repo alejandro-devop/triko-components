@@ -3,7 +3,7 @@ import {Linking, Platform, View} from 'react-native';
 import Text from 'components/base/text';
 import Dialog from 'shared/components/dialogs/dialog';
 import styles from './styles';
-import {useStyles} from 'hooks/index';
+import {useStyles} from '@triko-app/hooks';
 import Button from 'components/base/buttons/button';
 import {
   ANDROID_PERMISSIONS,

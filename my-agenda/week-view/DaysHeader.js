@@ -2,7 +2,7 @@ import React from 'react';
 import {View} from 'react-native';
 import classNames from 'shared/utils/classnames';
 import Text from 'shared/components/base/text';
-import useStyles from 'shared/hooks/use-styles';
+import {useStyles} from '@triko-app/hooks';
 
 const DaysHeader = ({blockWidth, days = [], currentDay}) => {
   const [classes] = useStyles(styles);

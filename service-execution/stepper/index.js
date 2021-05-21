@@ -2,7 +2,7 @@ import React from 'react';
 import {View} from 'react-native';
 import Wrapper from './wrapper';
 import StepItem from './step-item';
-import {useStyles} from 'hooks/index';
+import {useStyles} from '@triko-app/hooks';
 import styles from './styles';
 
 const Stepper = ({

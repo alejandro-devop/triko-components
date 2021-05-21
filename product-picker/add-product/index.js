@@ -1,6 +1,6 @@
 import React from 'react';
 import {View} from 'react-native';
-import {useStyles} from 'hooks/index';
+import {useStyles} from '@triko-app/hooks';
 import styles from './styles';
 import TextField from 'shared/components/base/controls/text-field';
 import TextArea from 'shared/components/base/controls/text-area';
@@ -18,7 +18,11 @@ const AddProduct = ({
 }) => {
   const [classes] = useStyles(styles);
   const {loading, saveProduct} = useSaveProduct();
-  const {form = {}, isValid, onChange} = useForm(
+  const {
+    form = {},
+    isValid,
+    onChange,
+  } = useForm(
     {
       name: defaultName,
       description: '',

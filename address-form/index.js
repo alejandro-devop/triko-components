@@ -4,7 +4,7 @@ import {ScrollView, View} from 'react-native';
 import AddressSuggester from 'shared/components/address-suggester';
 import Button from 'components/base/buttons/button';
 import useTranslation from 'shared/hooks/use-translate';
-import useStyles from 'hooks/useStyles';
+import {useStyles} from '@triko-app/hooks';
 import Dialog from 'components/base/dialogs/dialog';
 import styles from './styles';
 import PermissionsManager, {

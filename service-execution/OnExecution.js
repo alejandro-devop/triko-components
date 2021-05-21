@@ -4,7 +4,7 @@ import Text from 'components/base/text';
 import ControlButton from './control-button';
 import useTimer from 'shared/hooks/use-timer';
 import Button from 'components/base/buttons/button';
-import useStyles from 'hooks/useStyles';
+import {useStyles} from '@triko-app/hooks';
 import {useMutation} from '@apollo/react-hooks';
 import useNotify from 'shared/hooks/use-notification';
 import LoadingCurtain from 'components/base/dialogs/loading-curtain';
@@ -26,10 +26,10 @@ const OnExecution = ({request = {}}) => {
   const {error} = useNotify();
   const {duration = 1, transition = {}, history = []} = request;
   const lastTransition = history.find(
-    item => item.transition.workflow === STATUS_STARTED,
+    (item) => item.transition.workflow === STATUS_STARTED,
   );
   const finishTransition = history.find(
-    item => item.transition.workflow === STATUS_CONFIRM_FINISHED,
+    (item) => item.transition.workflow === STATUS_CONFIRM_FINISHED,
   );
   const timeInfo = getElapsedTime(lastTransition.created_at, null, true);
   const {hours = 0, minutes = 0, seconds = 0} = timeInfo;

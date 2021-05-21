@@ -11,7 +11,7 @@ import {
 import Text from 'shared/components/base/text';
 import classNames from 'shared/utils/classnames';
 import handleChange from 'shared/components/base/commons/handle-change';
-import useStyles from 'shared/hooks/use-styles';
+import {useStyles} from '@triko-app/hooks';
 import InputHelp from 'shared/components/base/controls/input-help';
 import IconButton from 'shared/components/base/buttons/icon-button';
 import useTranslation from 'shared/hooks/use-translate';

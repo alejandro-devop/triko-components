@@ -4,7 +4,7 @@ import {View} from 'react-native';
 import Text from 'shared/components/base/text';
 import Button from 'shared/components/base/buttons/button';
 import styles from './styles';
-import {useStyles} from 'hooks/index';
+import {useStyles} from '@triko-app/hooks';
 import HelpTextRender from 'shared/components/permissions-manager/help-text-render';
 
 const BlackScreen = ({

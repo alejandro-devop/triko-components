@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {SafeAreaView, TouchableOpacity, View} from 'react-native';
 import styles from './styles';
-import {useStyles} from 'hooks/index';
+import {useStyles} from '@triko-app/hooks';
 import Slide from 'shared/components/anims/Slide';
 import trikoAvatar from 'shared/assets/avatars/triko-avatar.png';
 import PreImage from 'shared/components/base/pre-image';

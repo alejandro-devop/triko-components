@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {View} from 'react-native';
-import {useStyles} from 'hooks/index';
+import {useStyles} from '@triko-app/hooks';
 import Icon from 'shared/components/base/icon';
 import Text from 'shared/components/base/text';
 import styles from './styles';

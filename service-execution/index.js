@@ -10,11 +10,10 @@ import useSession from 'hooks/useSession';
 import {useQuery} from '@apollo/react-hooks';
 import {GET_REQUEST} from './queries';
 import LoadingCurtain from 'components/base/dialogs/loading-curtain';
-import usePusherSubscriber from 'shared/hooks/use-pusher-subscriber';
-import {EVENT__MESSAGE, EVENT__SERVICE_REQUEST} from 'helpers/PusherClient';
 import {isEmpty} from 'shared/utils/functions';
 import useErrorReporter from 'shared/hooks/use-error-reporter';
 import useRegionConfig from 'shared/hooks/use-regional-config';
+import useFbListener from 'shared/hooks/use-fb-listener';
 
 const ServiceExecution = ({isTriko}) => {
   const {
@@ -23,13 +22,16 @@ const ServiceExecution = ({isTriko}) => {
   const [refreshing, setRefreshing] = useState(false);
   const [appState, setAppState] = useState('active');
   const [tempImage, setTempImage] = useState();
-  const {subscribeEvent, unSubscribeEvent} = usePusherSubscriber();
   const reportError = useErrorReporter({
     path: 'src/shared/components/service-execution/index.js',
   });
   const {requestFetchInterval} = useRegionConfig();
   const {location, loading} = useUserLocation();
-  const {loading: loadingRequest, refetch, data = {}} = useQuery(GET_REQUEST, {
+  const {
+    loading: loadingRequest,
+    refetch,
+    data = {},
+  } = useQuery(GET_REQUEST, {
     fetchPolicy: 'no-cache',
     pollInterval: requestFetchInterval,
     variables: {
@@ -63,17 +65,19 @@ const ServiceExecution = ({isTriko}) => {
   };
 
   useEffect(() => {
-    const idSubscription = subscribeEvent(EVENT__SERVICE_REQUEST, onRefresh);
-    const messageSubscription = subscribeEvent(EVENT__MESSAGE, () => {
-      onRefresh();
-    });
     AppState.addEventListener('change', onAppFocusChange);
     return () => {
-      unSubscribeEvent(EVENT__SERVICE_REQUEST, idSubscription);
-      unSubscribeEvent(EVENT__MESSAGE, messageSubscription);
       AppState.removeEventListener('change', onAppFocusChange);
     };
   });
+
+  useFbListener(() => {
+    onRefresh();
+  }, ['execution-update', 'view-execution']);
+
+  useFbListener(() => {
+    onRefresh();
+  }, 'message-received');
 
   if (appState !== 'active' && Platform.OS !== 'android') {
     return null;

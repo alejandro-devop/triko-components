@@ -11,7 +11,7 @@ import useTranslation from 'shared/hooks/use-translate';
 import RequiredLabel from 'components/base/commons/RequiredLabel';
 import Button from 'components/base/buttons/button';
 import styles from './styles';
-import {useStyles} from 'hooks/index';
+import {useStyles} from '@triko-app/hooks';
 import {LoadingCurtain} from 'components/base/dialogs';
 
 /**

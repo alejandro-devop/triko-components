@@ -1,7 +1,7 @@
 import React from 'react';
 import {TouchableOpacity, View} from 'react-native';
 import Text from 'components/base/text';
-import {useStyles} from 'hooks/index';
+import {useStyles} from '@triko-app/hooks';
 import useTranslation from 'shared/hooks/use-translate';
 import classNames from 'shared/utils/classnames';
 

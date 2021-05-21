@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {View} from 'react-native';
-import {useSession, useStyles} from 'hooks/index';
+import {useSession} from 'hooks/index';
+import {useStyles} from '@triko-app/hooks';
 import styles from './styles';
 import Actions from '../request-actions';
 import RateClientWrapper from '../rate-client';
@@ -24,6 +25,7 @@ import {
 import ServiceResume from '../service-resume';
 import useNavigate from 'shared/hooks/use-navigate';
 import ConfirmSlide from 'components/base/confirm-slide';
+import useFbListener from 'shared/hooks/use-fb-listener';
 
 const ComponentWrapper = ({
   isTriko,

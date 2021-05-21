@@ -2,7 +2,7 @@ import React from 'react';
 import {View} from 'react-native';
 import Dialog from 'shared/components/dialogs/dialog';
 import Text from 'shared/components/base/text';
-import useStyles from 'shared/hooks/use-styles';
+import {useStyles} from '@triko-app/hooks';
 import styles from './styles';
 import useTranslation from 'shared/hooks/use-translate';
 import Button from 'shared/components/base/buttons/button';

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {ScrollView, View} from 'react-native';
 import useSession from 'hooks/useSession';
-import useStyles from 'hooks/useStyles';
+import {useStyles} from '@triko-app/hooks';
 import styles from '../styles/my-transport.style';
 import CircleButton from 'components/base/buttons/circle-button';
 import TransportItem from '../transport-item';

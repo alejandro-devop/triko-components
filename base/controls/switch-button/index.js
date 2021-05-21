@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {View} from 'react-native';
 import Button from './Button';
-import useStyles from 'shared/hooks/use-styles';
+import {useStyles} from '@triko-app/hooks';
 import Label from 'shared/components/base/label';
 import useTranslation from 'shared/hooks/use-translate';
 

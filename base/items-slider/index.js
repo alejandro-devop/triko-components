@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {Dimensions, ScrollView, View} from 'react-native';
 import SliderItem from './SliderItem';
 import CursorRight from 'shared/components/anims/AnimatedArrowRight';
-import useStyles from 'hooks/useStyles';
+import {useStyles} from '@triko-app/hooks';
 import styles from './styles';
 
 const defaultElements = 3;

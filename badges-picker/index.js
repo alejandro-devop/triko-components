@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {View} from 'react-native';
 import styles from './styles';
-import useStyles from 'hooks/useStyles';
+import {useStyles} from '@triko-app/hooks';
 import Loader from './Loader';
 import Label from 'components/base/label';
 import BadgeItem from './BadgeItem';

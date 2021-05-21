@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {View} from 'react-native';
-import useStyles from 'hooks/useStyles';
+import {useStyles} from '@triko-app/hooks';
 import Loader from './Loader';
 import styles from './styles';
 import {CheckboxField} from '../base/controls';

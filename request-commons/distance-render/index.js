@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {View} from 'react-native';
 import Text from 'components/base/text';
-import {useStyles} from 'hooks/index';
+import {useStyles} from '@triko-app/hooks';
 import Icon from 'components/base/icon';
 import styles from './styles';
 import useTranslation from 'shared/hooks/use-translate';

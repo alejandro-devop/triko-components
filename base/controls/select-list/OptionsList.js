@@ -4,7 +4,7 @@ import {ScrollView, View} from 'react-native';
 import Dialog from 'shared/components/dialogs/dialog';
 import Option from './Option';
 import {optionListStyles} from './styles';
-import useStyles from 'shared/hooks/use-styles';
+import {useStyles} from '@triko-app/hooks';
 import FilterBar from 'shared/components/base/filter-bar';
 import CircleButton from 'shared/components/base/buttons/circle-button';
 import useTranslation from 'shared/hooks/use-translate';
@@ -41,11 +41,13 @@ const OptionsList = ({
   const [selectedValues, setSelectedValues] = useState([]);
   const totalRecords = options.length;
 
-  const handleSelect = selectedItem => {
+  const handleSelect = (selectedItem) => {
     if (multiple) {
       let newValues = [...selectedValues];
       if (selectedValues.includes(selectedItem.value)) {
-        newValues = selectedValues.filter(item => item !== selectedItem.value);
+        newValues = selectedValues.filter(
+          (item) => item !== selectedItem.value,
+        );
       } else {
         newValues.push(selectedItem.value);
       }
@@ -77,7 +79,7 @@ const OptionsList = ({
     () => () => {
       let filteredOptions = [...options];
       if (query) {
-        filteredOptions = filteredOptions.filter(item => {
+        filteredOptions = filteredOptions.filter((item) => {
           const exp = new RegExp(`.*(${query.toLowerCase()}).*`, 'g');
           return `${item[labelKey].toLowerCase()}`.match(exp);
         });
@@ -96,7 +98,7 @@ const OptionsList = ({
       {enableFilter && (
         <FilterBar
           primary
-          onChange={value => setQuery(value)}
+          onChange={(value) => setQuery(value)}
           placeholder={_t('filter_text')}
           alwaysVisible
         />

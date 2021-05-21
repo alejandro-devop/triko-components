@@ -1,6 +1,6 @@
 import React from 'react';
 import {Image, View} from 'react-native';
-import useStyles from 'shared/hooks/use-styles';
+import {useStyles} from '@triko-app/hooks';
 import markerImage from 'shared/assets/triko-work-marker.png';
 import styles from './styles';
 

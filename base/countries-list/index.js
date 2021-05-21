@@ -1,24 +1,24 @@
 import React, {useState} from 'react';
 import {ScrollView} from 'react-native';
 import Dialog from 'shared/components/dialogs/dialog';
-import useStyles from 'shared/hooks/use-styles';
+import {useStyles} from '@triko-app/hooks';
 import {countries} from 'countries-list';
 import Filter from './Filter';
 import {isEmpty} from 'shared/utils/functions';
 import CountryItem from './CountryItem';
 
 const countryKeys = Object.keys(countries);
-const countriesMap = countryKeys.map(key => ({
+const countriesMap = countryKeys.map((key) => ({
   key,
   ...countries[key],
 }));
 
 const getFilteredCountries = (filter, available = []) => {
   let filteredCountries = [
-    ...countriesMap.filter(country => available.includes(country.key)),
+    ...countriesMap.filter((country) => available.includes(country.key)),
   ];
   if (!isEmpty(filter)) {
-    filteredCountries = filteredCountries.filter(item => {
+    filteredCountries = filteredCountries.filter((item) => {
       const regExp = new RegExp(`.*(${filter.toLowerCase()}).*`, 'g');
       return `${item.name.toLowerCase()}`.match(regExp);
     });

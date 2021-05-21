@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import {Dimensions, Platform, View} from 'react-native';
-import useStyles from 'shared/hooks/use-styles';
+import {useStyles} from '@triko-app/hooks';
 import Dialog from 'shared/components/dialogs/dialog';
 import AddressItem from './AddressItem';
 import Button from 'shared/components/base/buttons/button';
@@ -73,7 +73,7 @@ const AddressesList = ({
           )}
           {myAddresses.length > 0 && (
             <>
-              {myAddresses.map(item => (
+              {myAddresses.map((item) => (
                 <AddressItem
                   addressItem={item}
                   onPress={() => (onSelect ? onSelect(item) : null)}

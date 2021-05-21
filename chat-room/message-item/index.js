@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 import {ActivityIndicator, View} from 'react-native';
 import Text from 'components/base/text';
-import useStyles from 'hooks/useStyles';
+import {useStyles} from '@triko-app/hooks';
 import classNames from 'utils/classnames';
 import ImageIcon from 'components/ImageIcon';
 import profilePhoto from 'assets/avatars/real-profile-photo.jpg';

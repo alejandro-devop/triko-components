@@ -2,7 +2,7 @@ import React, {useRef, useState} from 'react';
 import PropTypes from 'prop-types';
 import {Animated, Easing, View, TouchableWithoutFeedback} from 'react-native';
 import dynamicStyles from './animated.styles';
-import useStyles from 'shared/hooks/use-styles';
+import {useStyles} from '@triko-app/hooks';
 import styles from './styles';
 import classNames from 'shared/utils/classnames';
 

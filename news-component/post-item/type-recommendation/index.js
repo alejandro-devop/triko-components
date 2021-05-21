@@ -1,4 +1,4 @@
-import useStyles from 'shared/hooks/use-styles';
+import {useStyles} from '@triko-app/hooks';
 import {View} from 'react-native';
 import Text from 'shared/components/base/text';
 import classNames from 'shared/utils/classnames';

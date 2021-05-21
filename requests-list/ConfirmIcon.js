@@ -1,6 +1,6 @@
 import React from 'react';
 import {View} from 'react-native';
-import useStyles from 'hooks/useStyles';
+import {useStyles} from '@triko-app/hooks';
 import PreImage from 'shared/components/base/pre-image';
 import checkIcon from 'assets/icons/check-icon.png';
 

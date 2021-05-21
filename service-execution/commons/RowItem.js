@@ -2,7 +2,7 @@ import React from 'react';
 import {View} from 'react-native';
 import Text from 'components/base/text';
 import Icon from 'components/base/icon';
-import {useStyles} from 'hooks';
+import {useStyles} from '@triko-app/hooks';
 
 const RowItem = ({title, description, icon}) => {
   const [classes] = useStyles(styles);

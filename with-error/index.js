@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {View} from 'react-native';
 import Text from 'shared/components/base/text';
-import useStyles from 'shared/hooks/use-styles';
+import {useStyles} from '@triko-app/hooks';
 import PrettyIcon from 'shared/components/pretty-icon';
 import useTranslation from 'shared/hooks/use-translate';
 import Button from 'shared/components/base/buttons/button';

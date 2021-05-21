@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {View} from 'react-native';
 import styles from './styles';
-import {useStyles} from 'hooks/index';
+import {useStyles} from '@triko-app/hooks';
 import SkeletonLoader from 'shared/components/loaders/skeleton';
 import _ from 'lodash';
 

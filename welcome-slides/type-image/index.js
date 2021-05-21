@@ -1,7 +1,7 @@
 import React from 'react';
 import {View} from 'react-native';
 import PreImage from 'shared/components/base/pre-image';
-import {useStyles} from 'hooks/index';
+import {useStyles} from '@triko-app/hooks';
 import styles from './styles';
 
 const TypeImage = ({

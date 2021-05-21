@@ -4,7 +4,7 @@ import {TouchableOpacity, View} from 'react-native';
 import Text from 'shared/components/base/text';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import classNames from 'shared/utils/classnames';
-import useStyles from 'shared/hooks/use-styles';
+import {useStyles} from '@triko-app/hooks';
 import styles from './styles';
 
 /**

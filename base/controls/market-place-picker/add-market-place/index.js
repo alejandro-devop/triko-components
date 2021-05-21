@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import Dialog from 'shared/components/dialogs/dialog';
 import {View} from 'react-native';
 import styles from './styles';
-import {useStyles} from 'hooks/index';
+import {useStyles} from '@triko-app/hooks';
 import ShopperNeedsHorizontal from 'shared/components/base/controls/shopper-needs-horizontal';
 import NationalitySelect from 'shared/components/base/controls/nationality-select';
 import useForm from 'shared/hooks/use-form';
@@ -20,7 +20,11 @@ const AddMarketPlace = ({open, onClose, onSaved}) => {
   const [classes] = useStyles(styles);
   const [selectedCity, setSelectedCity] = useState(null);
   const {saveMarket, loading} = useSaveMarketPlace();
-  const {form = {}, isValid, onChange} = useForm(
+  const {
+    form = {},
+    isValid,
+    onChange,
+  } = useForm(
     {
       address: null,
       country: 48,

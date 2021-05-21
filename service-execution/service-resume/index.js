@@ -4,7 +4,8 @@ import Text from 'components/base/text';
 import RowItem from '../commons/RowItem';
 import styles from './styles';
 import Label from 'shared/components/base/label';
-import {useStyles, useSession} from 'hooks/index';
+import {useSession} from 'hooks/index';
+import {useStyles} from '@triko-app/hooks';
 import currency from 'currency-formatter';
 import moment from 'moment';
 import {
@@ -19,7 +20,6 @@ import Button from 'shared/components/base/buttons/button';
 import useRequestUpdateAttrs from 'shared/hooks/use-request-update-attrs';
 import {LoadingCurtain} from 'components/base/dialogs';
 import {isEmpty} from 'shared/utils/functions';
-import SwitchButton from 'shared/components/status-control/switch-button';
 import palette from 'themes/styles/palette';
 
 const ServiceResume = ({

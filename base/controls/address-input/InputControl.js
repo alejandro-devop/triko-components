@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {View} from 'react-native';
 import {TextField} from 'shared/components/base/controls';
 import IconButton from 'shared/components/base/buttons/icon-button';
-import useStyles from 'shared/hooks/use-styles';
+import {useStyles} from '@triko-app/hooks';
 import ConfirmSlide from 'components/base/confirm-slide';
 import useTranslation from 'shared/hooks/use-translate';
 

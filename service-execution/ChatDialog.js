@@ -1,7 +1,7 @@
 import React from 'react';
 import {Modal, SafeAreaView} from 'react-native';
 import Chat from 'components/chat';
-import useStyles from 'hooks/useStyles';
+import {useStyles} from '@triko-app/hooks';
 
 const ChatDialog = ({open, onClose, request}) => {
   const [classes] = useStyles(styles);

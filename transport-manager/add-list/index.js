@@ -4,7 +4,7 @@ import useSession from 'hooks/useSession';
 import TransportItem from '../transport-item';
 import ConfirmSlide from 'components/base/confirm-slide';
 import LoaderScreen from 'components/base/loaders/LoaderScreen';
-import useStyles from 'hooks/useStyles';
+import {useStyles} from '@triko-app/hooks';
 import {useTransportsList, useSaveTransport} from '../hooks';
 import styles from '../styles/add.style';
 

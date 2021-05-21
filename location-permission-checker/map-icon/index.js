@@ -1,6 +1,6 @@
 import React from 'react';
 import {View} from 'react-native';
-import {useStyles} from 'hooks/index';
+import {useStyles} from '@triko-app/hooks';
 import styles from './styles';
 import PreImage from 'shared/components/base/pre-image';
 import mapImage from 'shared/assets/icons/map-display.png';

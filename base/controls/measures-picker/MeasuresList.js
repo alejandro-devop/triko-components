@@ -1,6 +1,6 @@
 import React from 'react';
 import {Platform, View} from 'react-native';
-import useStyles from 'shared/hooks/use-styles';
+import {useStyles} from '@triko-app/hooks';
 import MeasureItem from './MeasureItem';
 
 const MeasuresList = ({options = [], onSelect, selected = {}}) => {

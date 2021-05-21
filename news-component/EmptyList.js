@@ -3,7 +3,7 @@ import {View} from 'react-native';
 import PreImage from 'shared/components/base/pre-image';
 import Text from 'shared/components/base/text';
 import noNewsIcon from 'shared/assets/icons/news-icon.png';
-import useStyles from 'shared/hooks/use-styles';
+import {useStyles} from '@triko-app/hooks';
 import useTranslation from 'shared/hooks/use-translate';
 
 const EmptyList = () => {

@@ -18,6 +18,7 @@ import useMyServices from 'shared/hooks/use-my-services';
 import {startedStatuses} from 'shared/hooks/use-request-status';
 import moment from 'moment';
 import {useFocusEffect} from '@react-navigation/native';
+import useFbListener from 'shared/hooks/use-fb-listener';
 
 const TrikoServicesFetcher = () => {
   useMyServices();
@@ -75,7 +76,11 @@ const MyActivityComponent = ({
   const [rejecting, setRejecting] = useState(false);
   const [accepting, setApproving] = useState(false);
   const {location, loading: loadingLocation} = useUserLocation();
-  const {getPendingRequests, loading, requests = []} = useRequestList({
+  const {
+    getPendingRequests,
+    loading,
+    requests = [],
+  } = useRequestList({
     allTypes,
     noRunning,
     onlyFavors,
@@ -149,6 +154,10 @@ const MyActivityComponent = ({
   const onRefresh = async () => {
     await getPendingRequests();
   };
+
+  useFbListener(() => {
+    onRefresh();
+  }, 'refreshPendingServices');
 
   useEffect(() => {
     getPendingRequests();

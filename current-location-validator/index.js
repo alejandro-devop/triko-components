@@ -1,6 +1,7 @@
 import React from 'react';
 import {View} from 'react-native';
-import {useSession, useStyles} from 'hooks/index';
+import {useSession} from 'hooks/index';
+import {useStyles} from '@triko-app/hooks';
 import {isEmpty} from 'shared/utils/functions';
 import styles from './styles';
 import Icon from 'shared/components/base/icon';

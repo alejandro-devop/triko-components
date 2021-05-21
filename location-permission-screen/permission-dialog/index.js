@@ -3,7 +3,7 @@ import {Linking, Platform, View} from 'react-native';
 import Text from 'components/base/text';
 import Dialog from 'shared/components/dialogs/dialog';
 import styles from './styles';
-import {useSession, useStyles} from 'hooks/index';
+import {useStyles} from '@triko-app/hooks';
 import Button from 'components/base/buttons/button';
 import {
   ANDROID_PERMISSIONS,
@@ -28,9 +28,6 @@ const PermissionDialog = ({
 }) => {
   const [classes] = useStyles(styles);
   const {error} = useNotify();
-  const {
-    stack: {gpsEnabled},
-  } = useSession();
   const reportError = useErrorReporter({
     path: 'src/shared/components/location-permission-checker/index.js',
   });

@@ -2,7 +2,7 @@ import React from 'react';
 import {View} from 'react-native';
 import Text from 'components/base/text';
 import Icon from 'components/base/icon';
-import useStyles from 'shared/hooks/use-styles';
+import {useStyles} from '@triko-app/hooks';
 import styles from './styles';
 
 const InfoRow = ({description, label = '', subtitle, value, icon}) => {

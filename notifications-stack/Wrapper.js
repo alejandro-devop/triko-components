@@ -1,6 +1,6 @@
 import React from 'react';
 import {View} from 'react-native';
-import useStyles from 'hooks/useStyles';
+import {useStyles} from '@triko-app/hooks';
 import ImageIcon from 'components/ImageIcon';
 import bellIcon from 'assets/icons/bell.png';
 

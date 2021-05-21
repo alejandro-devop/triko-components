@@ -1,6 +1,6 @@
 import React from 'react';
 import {TouchableOpacity, View} from 'react-native';
-import useStyles from 'shared/hooks/use-styles';
+import {useStyles} from '@triko-app/hooks';
 import Text from 'components/base/text';
 import Icon from 'components/base/icon';
 
@@ -11,7 +11,9 @@ const SuggestionItem = ({description, label, onPress}) => {
       <View style={classes.textWrapper}>
         <Text style={classes.text}>{label}</Text>
         {description && (
-          <Text style={[classes.text, classes.textDescription]}>{description}</Text>
+          <Text style={[classes.text, classes.textDescription]}>
+            {description}
+          </Text>
         )}
       </View>
       <Icon name="map-marker" style={classes.icon} />

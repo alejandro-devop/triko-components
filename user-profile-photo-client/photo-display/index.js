@@ -7,7 +7,8 @@ import profilePhoto from 'assets/avatars/profile-photo.jpg';
 import CircleButton from 'components/base/buttons/circle-button';
 import RatingStars from 'components/base/rating-stars';
 import Text from 'shared/components/base/text';
-import {useSession, useStyles} from 'hooks/index';
+import {useSession} from 'hooks/index';
+import {useStyles} from '@triko-app/hooks';
 import styles from './styles';
 
 /**

@@ -1,7 +1,7 @@
 import React from 'react';
 import Dialog from 'shared/components/dialogs/dialog';
 import styles from './styles';
-import {useStyles} from 'hooks/index';
+import {useStyles} from '@triko-app/hooks';
 import PreImage from 'shared/components/base/pre-image';
 
 /**

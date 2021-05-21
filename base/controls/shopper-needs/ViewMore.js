@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {ScrollView, View} from 'react-native';
 import Dialog from 'shared/components/dialogs/dialog';
 import ItemList from './ItemList';
-import useStyles from 'shared/hooks/use-styles';
+import {useStyles} from '@triko-app/hooks';
 import CircleButton from 'shared/components/base/buttons/circle-button';
 
 /**

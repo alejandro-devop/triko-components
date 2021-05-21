@@ -1,6 +1,6 @@
 import React from 'react';
 import {View} from 'react-native';
-import useStyles from 'shared/hooks/use-styles';
+import {useStyles} from '@triko-app/hooks';
 import styles from './styles';
 import PreImage from 'shared/components/base/pre-image';
 import {getElapsedTime, isEmpty} from 'shared/utils/functions';
@@ -11,9 +11,8 @@ import moment from 'moment';
 
 const Author = ({author = {}, format = 'YYYY-MM-DD HH:mm:ss', published}) => {
   const currentTime = moment();
-  const publishedDate = (!isEmpty(published)
-    ? moment(published, format)
-    : moment()
+  const publishedDate = (
+    !isEmpty(published) ? moment(published, format) : moment()
   ).format(format);
 
   const {user = {}, pi = {}} = author;

@@ -1,6 +1,6 @@
 import React from 'react';
 import {View} from 'react-native';
-import useStyles from 'shared/hooks/use-styles';
+import {useStyles} from '@triko-app/hooks';
 import SkeletonLoader from 'shared/components/loaders/skeleton';
 import _ from 'lodash';
 
@@ -8,7 +8,7 @@ const Loader = ({times = 4}) => {
   const [classes] = useStyles(styles);
   return (
     <View style={classes.root}>
-      {_.times(times, index => (
+      {_.times(times, (index) => (
         <View style={classes.loaderCard} key={`chat-item-${index}`}>
           <View style={classes.avatarWrapper}>
             <SkeletonLoader type="circle" style={classes.avatar} />
@@ -60,8 +60,7 @@ const styles = ({palette}) => ({
   nameText: {
     // width: 200,
   },
-  root: {
-  },
+  root: {},
   textWrapper: {
     flex: 9,
   },

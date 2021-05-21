@@ -2,7 +2,7 @@ import React from 'react';
 import {TouchableOpacity} from 'react-native';
 import Text from 'shared/components/base/text';
 import Icon from 'shared/components/base/icon';
-import useStyles from 'shared/hooks/use-styles';
+import {useStyles} from '@triko-app/hooks';
 import useApplicationConfig from 'shared/hooks/use-application-env';
 
 /**

@@ -10,7 +10,7 @@ import {GOOGLE_API_KEY} from 'react-native-dotenv';
 import palette from 'themes/styles/palette';
 import CircleButton from 'shared/components/base/buttons/bordered-button';
 import Dialog from 'shared/components/dialogs/dialog';
-import {useStyles} from 'hooks/index';
+import {useStyles} from '@triko-app/hooks';
 import styles from './styles';
 
 const PADDING = 20;

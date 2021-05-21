@@ -4,7 +4,7 @@ import {Platform, TouchableOpacity, View} from 'react-native';
 import Text from 'shared/components/base/text';
 import Icon from 'shared/components/base/icon';
 import classNames from 'shared/utils/classnames';
-import useStyles from 'shared/hooks/use-styles';
+import {useStyles} from '@triko-app/hooks';
 import ImageIcon from 'shared/components/base/image-icon';
 
 /**

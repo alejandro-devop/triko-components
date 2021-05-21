@@ -1,6 +1,6 @@
 import React from 'react';
 import {View} from 'react-native';
-import useStyles from 'shared/hooks/use-styles';
+import {useStyles} from '@triko-app/hooks';
 import taskIcon from 'shared/assets/icons/triko-task.png';
 import CardIcon from '../card-icon';
 import Text from 'components/base/text';

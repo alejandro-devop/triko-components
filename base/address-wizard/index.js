@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {View, ScrollView} from 'react-native';
 import useTranslation from 'shared/hooks/use-translate';
-import useStyles from 'shared/hooks/use-styles';
+import {useStyles} from '@triko-app/hooks';
 import GCitySelect from 'shared/components/base/controls/g-city-select';
 import EnterAddress from 'shared/components/base/address-wizard/EnterAddress';
 import FixTheAddress from 'shared/components/address-suggester/FixTheAddress';

@@ -4,7 +4,7 @@ import IconFW from 'react-native-vector-icons/FontAwesome5';
 import IconFW4 from 'react-native-vector-icons/FontAwesome';
 
 import styles from './styles';
-import useStyles from 'shared/hooks/use-styles';
+import {useStyles} from '@triko-app/hooks';
 
 export const FONTAWESOME5 = 'fw5';
 export const FONTAWESOME4 = 'fw4';
@@ -14,7 +14,7 @@ export const FONTAWESOME4 = 'fw4';
  * @param type
  * @returns {Class<Icon<FontAwesome5Glyphs>>|Class<Icon<FontAwesomeGlyphs>>}
  */
-const resolveComponent = type => {
+const resolveComponent = (type) => {
   switch (type) {
     case FONTAWESOME5:
       return IconFW;

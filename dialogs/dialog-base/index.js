@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {Modal, TouchableOpacity, Platform, View} from 'react-native';
 import {dialogStyles as styles} from './styles';
 import CloseButton from './CloseButton';
-import useStyles from 'shared/hooks/use-styles';
+import {useStyles} from '@triko-app/hooks';
 import useKeyboard from 'shared/hooks/use-keyboard';
 import LoaderScreen from 'shared/components/loaders/loader-screen';
 

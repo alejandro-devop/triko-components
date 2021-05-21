@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './styles';
 import {View} from 'react-native';
-import {useStyles} from 'hooks/index';
+import {useStyles} from '@triko-app/hooks';
 import classNames from 'shared/utils/classnames';
 import Slide from 'shared/components/anims/Slide';
 

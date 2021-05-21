@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import PropTypes from 'prop-types';
 import {View} from 'react-native';
 import styles from './styles';
-import useStyles from 'shared/hooks/use-styles';
+import {useStyles} from '@triko-app/hooks';
 import useAddressLocation from 'shared/hooks/use-address-location';
 import MapFixer from './map-fixer';
 import LoaderScreen from 'shared/components/loaders/loader-screen';

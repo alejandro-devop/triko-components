@@ -1,6 +1,6 @@
 import React from 'react';
 import {TouchableOpacity, View} from 'react-native';
-import {useStyles} from 'hooks';
+import {useStyles} from '@triko-app/hooks';
 import classNames from 'utils/classnames';
 
 const SliderItem = ({

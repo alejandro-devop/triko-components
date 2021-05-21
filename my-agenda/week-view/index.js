@@ -4,7 +4,7 @@ import DaysHeader from './DaysHeader';
 import HoursRender from './HoursRender';
 import DayRender from './DayRender';
 import Guide from './Guide';
-import useStyles from 'shared/hooks/use-styles';
+import {useStyles} from '@triko-app/hooks';
 import useLocales from 'shared/hooks/use-locales';
 import Text from 'components/base/text';
 import moment from 'moment';

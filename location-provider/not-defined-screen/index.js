@@ -6,7 +6,7 @@ import Text from 'shared/components/base/text';
 import styles from './styles';
 import LandingLayout from 'main/layouts/landing-layout';
 import {HeaderIcon} from 'main/screens/landing/components';
-import {useStyles} from 'hooks/index';
+import {useStyles} from '@triko-app/hooks';
 import useAvailableCountries from 'shared/hooks/use-available-countries';
 import Slide from 'shared/components/anims/Slide';
 import Flag from 'react-native-flags';

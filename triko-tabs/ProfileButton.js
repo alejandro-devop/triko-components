@@ -1,7 +1,7 @@
 import React from 'react';
 import userPhoto from 'assets/avatars/profile-photo.jpg';
 import PreImage from 'components/pre-image';
-import useStyles from 'hooks/useStyles';
+import {useStyles} from '@triko-app/hooks';
 import useSession from 'hooks/useSession';
 
 /**

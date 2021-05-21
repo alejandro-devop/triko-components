@@ -6,7 +6,7 @@ import {View} from 'react-native';
 import useNavigate from 'shared/hooks/use-navigate';
 import useUserNotifications from 'shared/hooks/use-user-notifications';
 import styles from './styles';
-import {useStyles} from 'hooks/index';
+import {useStyles} from '@triko-app/hooks';
 
 /**
  * This component renders the notifications button only, it displays

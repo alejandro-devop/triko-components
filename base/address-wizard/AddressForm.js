@@ -5,7 +5,7 @@ import HomePickerType from 'shared/components/base/home-type-picker';
 import useTranslation from 'shared/hooks/use-translate';
 import TextField from 'shared/components/base/controls/text-field';
 import Button from 'shared/components/base/buttons/button';
-import useStyles from 'shared/hooks/use-styles';
+import {useStyles} from '@triko-app/hooks';
 import useForm from 'shared/hooks/use-form';
 import {isEmpty} from 'shared/utils/functions';
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import {View} from 'react-native';
-import useStyles from 'shared/hooks/use-styles';
+import {useStyles} from '@triko-app/hooks';
 import SwitchButton from 'shared/components/base/controls/switch-button';
 import useTranslation from 'shared/hooks/use-translate';
 

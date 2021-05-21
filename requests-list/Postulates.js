@@ -1,6 +1,6 @@
 import React from 'react';
 import {View} from 'react-native';
-import {useStyles} from 'hooks/index';
+import {useStyles} from '@triko-app/hooks';
 import PreImage from 'shared/components/base/pre-image';
 import Text from 'components/base/text';
 import LinkButton from 'components/base/buttons/link-button';

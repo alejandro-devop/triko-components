@@ -1,6 +1,6 @@
 import React from 'react';
 import {TouchableOpacity, View} from 'react-native';
-import useStyles from 'shared/hooks/use-styles';
+import {useStyles} from '@triko-app/hooks';
 import Text from 'components/base/text';
 import classNames from 'shared/utils/classnames';
 import _ from 'lodash';
@@ -36,7 +36,7 @@ const DayItem = ({
         </Text>
       </View>
       <View style={classes.eventsWrapper}>
-        {_.times(eventsToDisplay.length, key => (
+        {_.times(eventsToDisplay.length, (key) => (
           <View key={`dayevent-${key}=${day}`} style={classes.eventItem} />
         ))}
         {otherEvents.length > 0 && (

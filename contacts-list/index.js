@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {ScrollView, TouchableOpacity, View} from 'react-native';
-import {useStyles} from 'hooks/index';
+import {useStyles} from '@triko-app/hooks';
 import styles from './styles';
 import {useContacts} from './hooks';
 import defaultPhoto from 'assets/avatars/profile-photo.jpg';
@@ -22,7 +22,11 @@ const ContactsList = ({onSelectContacts}) => {
   const [selected, setSelected] = useState([]);
   const [filter, setFilter] = useState('');
   const [classes] = useStyles(styles);
-  const {contacts = [], total = 0, displaying = 0} = useContacts({
+  const {
+    contacts = [],
+    total = 0,
+    displaying = 0,
+  } = useContacts({
     page: page,
     view: 20,
     filter,

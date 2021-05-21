@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, TouchableOpacity} from 'react-native';
 import Slide from 'shared/components/anims/Slide';
-import useStyles from 'shared/hooks/use-styles';
+import {useStyles} from '@triko-app/hooks';
 import RequestType from './type-request';
 import RecommendationType from './type-recommendation';
 import Avatar from './avatar';

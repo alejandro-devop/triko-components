@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {TouchableOpacity, View} from 'react-native';
 import PreImage from 'components/pre-image';
-import useStyles from 'hooks/useStyles';
+import {useStyles} from '@triko-app/hooks';
 import Text from 'components/base/text';
 import classNames from 'utils/classnames';
 import styles from './styles';

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {View} from 'react-native';
 import Slide from 'shared/components/anims/Slide';
 import styles from './styles/guidance-item.style';
-import useStyles from 'hooks/useStyles';
+import {useStyles} from '@triko-app/hooks';
 import PreImage from 'components/pre-image';
 import CircleButton from 'components/base/buttons/circle-button';
 import StepInfo from './StepInfo';

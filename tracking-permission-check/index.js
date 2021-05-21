@@ -1,9 +1,9 @@
-import React, {useCallback, useEffect} from 'react';
+import React, {useEffect} from 'react';
 import {Platform} from 'react-native';
 import CheckerComponent from './CheckerComponent';
 import {useSession} from 'hooks/index';
 
-const TrackingPermissionChecker = ({children}) => {
+const TrackingPermissionChecker = ({children, shouldRequest}) => {
   const {setKey} = useSession();
   useEffect(() => {
     if (Platform.OS === 'android') {
@@ -13,7 +13,9 @@ const TrackingPermissionChecker = ({children}) => {
 
   return (
     <>
-      {Platform.OS === 'ios' && <CheckerComponent />}
+      {Platform.OS === 'ios' && (
+        <CheckerComponent shouldRequest={shouldRequest} />
+      )}
       {children}
     </>
   );

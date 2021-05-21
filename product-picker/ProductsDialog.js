@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {ScrollView, View} from 'react-native';
 import Dialog from 'shared/components/dialogs/dialog';
 import TextField from 'components/base/controls/text-field';
-import useStyles from 'shared/hooks/use-styles';
+import {useStyles} from '@triko-app/hooks';
 import Button from 'components/base/buttons/button';
 import useTranslation from 'shared/hooks/use-translate';
 import ListLoader from 'shared/components/loaders/list-loader';
@@ -26,7 +26,11 @@ const ProductsDialog = ({
   const [openAdd, setOpenAdd] = useState(false);
   const [query, setQuery] = useState('');
   const {_t} = useTranslation();
-  const {loading, products = [], refresh} = useProductsList({
+  const {
+    loading,
+    products = [],
+    refresh,
+  } = useProductsList({
     query,
     categories,
   });

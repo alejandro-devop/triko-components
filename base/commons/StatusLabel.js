@@ -1,7 +1,7 @@
 import React from 'react';
 import {View} from 'react-native';
 import Text from 'shared/components/base/text';
-import useStyles from 'shared/hooks/use-styles';
+import {useStyles} from '@triko-app/hooks';
 import classNames from 'shared/utils/classnames';
 import {
   STATUS_ACCEPTED,
@@ -19,7 +19,7 @@ import {
 } from 'config/request-statuses';
 import useTranslation from 'shared/hooks/use-translate';
 
-const getStatus = workflow => {
+const getStatus = (workflow) => {
   switch (workflow) {
     case STATUS_ACCEPTED:
       return {label: 'services_status_label_accepted', accepted: true};

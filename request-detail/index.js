@@ -9,7 +9,7 @@ import Other from './other';
 import Shopper from './shopper';
 import Courier from './courier';
 import Task from './task';
-import useStyles from 'shared/hooks/use-styles';
+import {useStyles} from '@triko-app/hooks';
 import useTranslation from 'shared/hooks/use-translate';
 import usePayment from 'shared/hooks/use-payment';
 import {LoadingCurtain} from 'components/base/dialogs';

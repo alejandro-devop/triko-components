@@ -1,6 +1,6 @@
 import React from 'react';
 import {View} from 'react-native';
-import useStyles from 'hooks/useStyles';
+import {useStyles} from '@triko-app/hooks';
 import styles from './styles/guides-wrapper.style';
 import GuidanceItem from './GuidanceItem';
 import useGuide from 'shared/hooks/use-guide';

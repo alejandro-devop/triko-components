@@ -3,7 +3,7 @@ import {Animated, Easing, View, TouchableWithoutFeedback} from 'react-native';
 import textStyles from 'shared/components/base/text/styles';
 import palette from 'themes/styles/palette';
 import Icon from 'shared/components/base/icon';
-import useStyles from 'shared/hooks/use-styles';
+import {useStyles} from '@triko-app/hooks';
 import useTranslation from 'shared/hooks/use-translate';
 import styles from './styles';
 

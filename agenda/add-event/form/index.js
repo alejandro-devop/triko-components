@@ -4,7 +4,7 @@ import {View} from 'react-native';
 import {ScrollView} from 'shared/components/commons';
 import TextField from 'shared/components/base/controls/text-field';
 import useTranslation from 'shared/hooks/use-translate';
-import {useStyles} from 'hooks/index';
+import {useStyles} from '@triko-app/hooks';
 import ToggleButton from 'shared/components/base/buttons/toggle-button';
 import styles from './styles';
 import Label from 'shared/components/base/label';
@@ -42,7 +42,11 @@ const validateTime = (starts, ends) => {
  */
 const Form = ({onCancel, onSubmit}) => {
   const [classes] = useStyles(styles);
-  const {form = {}, isValid, onChange} = useForm(
+  const {
+    form = {},
+    isValid,
+    onChange,
+  } = useForm(
     {
       allDay: false,
       day: null,

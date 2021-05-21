@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scrollview';
 import {ScrollView as ScrollViewBase} from 'react-native';
 import styles from './styles';
-import {useStyles} from 'hooks/index';
+import {useStyles} from '@triko-app/hooks';
 
 /**
  * This component renders a scroll view with custom styles

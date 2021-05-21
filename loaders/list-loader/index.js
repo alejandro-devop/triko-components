@@ -4,7 +4,7 @@ import SkeletonLoader from 'shared/components/loaders/skeleton';
 import classNames from 'shared/utils/classnames';
 import {View} from 'react-native';
 import _ from 'lodash';
-import useStyles from 'shared/hooks/use-styles';
+import {useStyles} from '@triko-app/hooks';
 
 /**
  * This component allows to generate a list item loader
@@ -12,7 +12,7 @@ import useStyles from 'shared/hooks/use-styles';
  */
 const ListLoader = ({figure = 'circle', lines = 6, size = 'sm'}) => {
   const [classes] = useStyles(styles);
-  return _.times(lines, index => (
+  return _.times(lines, (index) => (
     <View key={`text-line-${index}`} style={classes.root}>
       <View
         style={classNames(

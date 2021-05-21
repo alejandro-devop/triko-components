@@ -4,7 +4,7 @@ import useTrikoCredits from 'shared/hooks/use-triko-credits';
 import Text from 'shared/components/base/text';
 import styles from './styles';
 import CircularLoader from 'shared/components/loaders/circular-loader';
-import useStyles from 'shared/hooks/use-styles';
+import {useStyles} from '@triko-app/hooks';
 import useCurrency from 'shared/hooks/use-currency';
 import IconButton from 'shared/components/base/buttons/icon-button';
 import useNavigate from 'shared/hooks/use-navigate';

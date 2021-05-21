@@ -1,7 +1,7 @@
 import React from 'react';
 import {View} from 'react-native';
 import Icon from 'shared/components/base/icon';
-import {useStyles} from 'hooks/index';
+import {useStyles} from '@triko-app/hooks';
 
 const Avatar = () => {
   const [classes] = useStyles(styles);

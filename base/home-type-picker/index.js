@@ -5,7 +5,7 @@ import SliderLoader from 'components/base/loaders/slider-loader';
 import ItemsSlider from 'shared/components/base/items-slider';
 import BuildingItem from './building-item';
 import styles from './styles';
-import useStyles from 'hooks/useStyles';
+import {useStyles} from '@triko-app/hooks';
 import {useBuildingTypesList} from './hooks';
 import {isEmpty} from 'shared/utils/functions';
 

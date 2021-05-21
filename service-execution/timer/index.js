@@ -1,6 +1,6 @@
 import React from 'react';
 import {View} from 'react-native';
-import {useStyles} from 'hooks/index';
+import {useStyles} from '@triko-app/hooks';
 import Text from 'shared/components/base/text';
 import styles from './styles';
 import {getElapsedTime, isEmpty} from 'shared/utils/functions';
@@ -29,7 +29,11 @@ const ExecutionTimer = ({
 
   const timeInfo = getElapsedTime(startedTransition.created_at, null, true);
   const {hours = 0, minutes = 0, seconds = 0} = timeInfo;
-  const {formattedAlt, time = {}, overPassed} = useTimer({
+  const {
+    formattedAlt,
+    time = {},
+    overPassed,
+  } = useTimer({
     initialDate: !isEmpty(startedTransition)
       ? startedTransition.created_at
       : moment().format('YYYY-MM-DD HH:mm:ss'),

@@ -1,27 +1,20 @@
 import React from 'react';
 import {Linking, View} from 'react-native';
-import {useSession, useStyles} from 'hooks/index';
+import {useSession} from 'hooks/index';
+import {useStyles} from '@triko-app/hooks';
 import styles from './styles';
 import Text from 'shared/components/base/text';
 import Button from 'shared/components/base/buttons/button';
-import trackingEs from 'assets/tracking-permission-es.png';
-import trackingEn from 'assets/tracking-permission-en.png';
-import PreImage from 'shared/components/base/pre-image';
 import {ScrollView} from 'shared/components/commons';
 import {
   getTrackingStatus,
   requestTrackingPermission,
 } from 'react-native-tracking-transparency';
 
-const images = {
-  es: trackingEs,
-  en: trackingEn,
-};
-
 const NoTrackingPermission = () => {
   const [classes] = useStyles(styles);
   const {
-    stack: {locale},
+    stack: {},
     setKey,
   } = useSession();
 

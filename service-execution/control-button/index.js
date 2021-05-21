@@ -1,6 +1,6 @@
 import React from 'react';
 import {TouchableOpacity, View} from 'react-native';
-import {useStyles} from 'hooks';
+import {useStyles} from '@triko-app/hooks';
 import {AnimatedCircularProgress} from 'react-native-circular-progress';
 import Icon from 'components/base/icon';
 import styles from './styles';

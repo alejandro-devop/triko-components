@@ -1,7 +1,7 @@
 import React, {useEffect, useCallback} from 'react';
 import {View, Animated, Easing} from 'react-native';
 import PropTypes from 'prop-types';
-import useStyles from 'shared/hooks/use-styles';
+import {useStyles} from '@triko-app/hooks';
 
 /**
  * This component allows to generate a wave animation.

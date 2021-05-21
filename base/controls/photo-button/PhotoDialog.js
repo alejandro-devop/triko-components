@@ -3,7 +3,7 @@ import Dialog from 'shared/components/dialogs/dialog';
 import useTranslation from 'shared/hooks/use-translate';
 import classNames from 'shared/utils/classnames';
 import PreImage from 'shared/components/base/pre-image';
-import useStyles from 'shared/hooks/use-styles';
+import {useStyles} from '@triko-app/hooks';
 
 const PhotoDialog = ({open, photo, onClose}) => {
   const [classes] = useStyles(styles);

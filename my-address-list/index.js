@@ -7,7 +7,7 @@ import {GET_CLIENT_ADDRESSES, GET_TRIKO_ADDRESSES} from './queries';
 import {useSession} from 'hooks/index';
 import ListLoader from 'shared/components/loaders/list-loader';
 import AddressItem from './addresses-item';
-import useStyles from 'shared/hooks/use-styles';
+import {useStyles} from '@triko-app/hooks';
 import CircleButton from 'shared/components/base/buttons/circle-button';
 import Label from 'shared/components/base/label';
 import Text from 'shared/components/base/text';

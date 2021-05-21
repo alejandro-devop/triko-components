@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {SafeAreaView} from 'react-native';
-import useStyles from 'shared/hooks/use-styles';
+import {useStyles} from '@triko-app/hooks';
 import Text from 'shared/components/base/text';
 import useApplicationConfig from 'shared/hooks/use-application-env';
 

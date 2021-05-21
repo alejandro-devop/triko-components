@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import Dialog from 'components/base/dialogs/dialog';
 import MyTransportsList from '../my-transport-list';
-import useStyles from 'hooks/useStyles';
+import {useStyles} from '@triko-app/hooks';
 import useTranslation from 'shared/hooks/use-translate';
 import useNotify from 'shared/hooks/use-notification';
 import {useMutation, useQuery} from '@apollo/react-hooks';

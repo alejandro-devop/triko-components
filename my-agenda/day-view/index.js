@@ -1,7 +1,7 @@
 import React from 'react';
 import {View} from 'react-native';
 import moment from 'moment';
-import useStyles from 'shared/hooks/use-styles';
+import {useStyles} from '@triko-app/hooks';
 import HourBlock from './HourBlock';
 import Text from 'components/base/text';
 import {getBlockInfo} from '../commons';
@@ -63,13 +63,8 @@ const DayView = ({
         </View>
         <View style={classes.eventsWrapper}>
           {dateBlocks.map((item, key) => {
-            const {
-              duration,
-              isOccupied,
-              firstBlock,
-              title,
-              inRange,
-            } = getBlockInfo(currentDay, events, item, inputFormat, 22);
+            const {duration, isOccupied, firstBlock, title, inRange} =
+              getBlockInfo(currentDay, events, item, inputFormat, 22);
             return (
               <HourBlock
                 duration={duration}

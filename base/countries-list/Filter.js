@@ -1,7 +1,7 @@
 import React from 'react';
 import {View} from 'react-native';
 import FilterBar from 'shared/components/base/filter-bar';
-import useStyles from 'shared/hooks/use-styles';
+import {useStyles} from '@triko-app/hooks';
 import useTranslation from 'shared/hooks/use-translate';
 
 const Filter = ({onChange}) => {

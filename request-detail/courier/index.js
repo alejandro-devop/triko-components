@@ -2,7 +2,7 @@ import React from 'react';
 import {View} from 'react-native';
 import {ScrollView} from 'shared/components/commons';
 import Text from 'components/base/text';
-import useStyles from 'shared/hooks/use-styles';
+import {useStyles} from '@triko-app/hooks';
 import InfoRow from '../info-row';
 import Icon from 'components/base/icon';
 import ShoppingItem from './ShoppingItem';

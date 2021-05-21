@@ -3,7 +3,7 @@ import moment from 'moment';
 import {Platform, View} from 'react-native';
 import Dialog from 'shared/components/dialogs/dialog';
 import Label from 'shared/components/base/label';
-import useStyles from 'shared/hooks/use-styles';
+import {useStyles} from '@triko-app/hooks';
 import PickerControl from 'shared/components/base/controls/time-picker/PickerControl';
 import CircleButton from 'shared/components/base/buttons/circle-button';
 import Meridian from 'shared/components/base/controls/time-picker/Meridian';
@@ -30,7 +30,7 @@ const DialogControl = ({
     meridian: currentDate.format('a'),
   });
 
-  const onChangeDate = newDate => {
+  const onChangeDate = (newDate) => {
     setSelectedDate({
       ...selectedDate,
       ...newDate,
@@ -54,16 +54,16 @@ const DialogControl = ({
           max={13}
           min={1}
           value={hours}
-          onChange={h => onChangeDate({hours: h})}
+          onChange={(h) => onChangeDate({hours: h})}
         />
         <PickerControl
           value={minutes}
           step={step}
-          onChange={m => onChangeDate({minutes: m})}
+          onChange={(m) => onChangeDate({minutes: m})}
         />
         <Meridian
           value={meridian}
-          onChange={m => onChangeDate({meridian: m})}
+          onChange={(m) => onChangeDate({meridian: m})}
         />
       </View>
       <View style={classes.actions}>

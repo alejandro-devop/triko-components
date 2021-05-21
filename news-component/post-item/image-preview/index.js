@@ -1,6 +1,6 @@
 import React, {useState, useEffect, useRef} from 'react';
 import {Dimensions, Image, View} from 'react-native';
-import useStyles from 'shared/hooks/use-styles';
+import {useStyles} from '@triko-app/hooks';
 import styles from './styles';
 import Text from 'shared/components/base/text';
 import useDimensions from 'shared/hooks/use-dimensions';

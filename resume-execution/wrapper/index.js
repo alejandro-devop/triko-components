@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './styles';
-import {useStyles} from 'hooks/index';
+import {useStyles} from '@triko-app/hooks';
 import Slide from 'shared/components/anims/Slide';
 
 const Wrapper = ({children}) => {

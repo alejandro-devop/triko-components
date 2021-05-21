@@ -1,7 +1,8 @@
 import React, {useState} from 'react';
 import {Platform, View} from 'react-native';
 import styles from './styles';
-import {useSession, useStyles} from 'hooks/index';
+import {useSession} from 'hooks/index';
+import {useStyles} from '@triko-app/hooks';
 import Text from 'shared/components/base/text';
 import useCurrency from 'shared/hooks/use-currency';
 import ImagePicker from 'shared/components/base/controls/image-picker';

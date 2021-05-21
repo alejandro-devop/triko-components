@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {View} from 'react-native';
-import useStyles from 'hooks/useStyles';
+import {useStyles} from '@triko-app/hooks';
 import styles from './styles';
 import RatingStars from 'components/base/rating-stars';
 import BadgesPicker from 'shared/components/badges-picker';

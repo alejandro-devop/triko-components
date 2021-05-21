@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {View} from 'react-native';
 import Stepper from '../stepper';
-import {useStyles} from 'hooks/index';
+import {useStyles} from '@triko-app/hooks';
 import styles from './styles';
 import Button from 'shared/components/base/buttons/button';
 import useExecutionStep from 'shared/hooks/use-execution-step';

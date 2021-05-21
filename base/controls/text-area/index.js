@@ -10,7 +10,7 @@ import {
 } from 'shared/utils/constants';
 import Text from 'shared/components/base/text';
 import classNames from 'shared/utils/classnames';
-import useStyles from 'shared/hooks/use-styles';
+import {useStyles} from '@triko-app/hooks';
 import palette from 'themes/styles/palette';
 import useTranslation from 'shared/hooks/use-translate';
 import {isEmpty} from 'shared/utils/functions';

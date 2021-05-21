@@ -2,7 +2,7 @@ import React from 'react';
 import {TouchableOpacity, Platform, View} from 'react-native';
 import Text from 'shared/components/base/text';
 import Flag from 'react-native-flags';
-import useStyles from 'shared/hooks/use-styles';
+import {useStyles} from '@triko-app/hooks';
 
 const CountryItem = ({name, country, onPress}) => {
   const [classes] = useStyles(styles);

@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {View} from 'react-native';
-import useStyles from 'shared/hooks/use-styles';
+import {useStyles} from '@triko-app/hooks';
 import styles from './styles';
 import Text from 'shared/components/base/text';
 import PreImage from 'shared/components/base/pre-image';
@@ -29,15 +29,14 @@ const CommentItem = ({
   const {created_at, text, author = {}, id} = comment;
   const currentTime = moment().format(format);
   const [removeComment, loading] = useCommentRemove(id, postId);
-  const postedDate = (!isEmpty(created_at)
-    ? moment(created_at, format)
-    : moment()
+  const postedDate = (
+    !isEmpty(created_at) ? moment(created_at, format) : moment()
   ).format(format);
   const {user = {}, pi = {}} = author;
   const {photo} = user;
   const {firstName, lastName} = pi;
   const elapsedTime = getElapsedTime(postedDate, currentTime);
-  const isMe = (isTriko? triko : client).id === author.id;
+  const isMe = (isTriko ? triko : client).id === author.id;
   const handleRemove = async () => {
     await removeComment();
     setRemoved(true);

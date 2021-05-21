@@ -7,7 +7,7 @@ import {
 } from 'react-native-tracking-transparency';
 import {useSession} from 'hooks/index';
 
-const CheckerComponent = () => {
+const CheckerComponent = ({shouldRequest}) => {
   const {
     setKey,
     stack: {trackingPermissions},
@@ -25,7 +25,24 @@ const CheckerComponent = () => {
     }
   };
 
+  const requestStatus = async () => {
+    const trackingStatus = await getTrackingStatus();
+    if (trackingStatus === 'not-determined') {
+      const response = await requestTrackingPermission();
+      if (response === 'denied') {
+        setKey('trackingPermissions', false);
+      } else if (response === 'authorized') {
+        setKey('trackingPermissions', true);
+      }
+    } else if (trackingStatus === 'denied') {
+      setKey('trackingPermissions', false);
+    }
+  };
+
   useEffect(() => {
+    if (shouldRequest) {
+      requestStatus();
+    }
     if (trackingPermissions === false) {
       timer = setInterval(() => {
         checkStatus();

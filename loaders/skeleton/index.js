@@ -4,7 +4,7 @@ import styles from './styles';
 import {View} from 'react-native';
 import classNames from 'utils/classnames';
 import Text from 'components/base/text';
-import useStyles from 'hooks/useStyles';
+import {useStyles} from '@triko-app/hooks';
 import {ActivityIndicator} from 'react-native';
 export const BAR_TYPE = 'bar';
 export const CIRCLE_TYPE = 'circle';

@@ -2,7 +2,7 @@ import React from 'react';
 import {TouchableOpacity} from 'react-native';
 import Dialog from 'shared/components/dialogs/dialog';
 import {ScrollView} from 'shared/components/commons';
-import useStyles from 'shared/hooks/use-styles';
+import {useStyles} from '@triko-app/hooks';
 import Text from 'shared/components/base/text';
 import Label from 'shared/components/base/label';
 import classNames from 'shared/utils/classnames';

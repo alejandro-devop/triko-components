@@ -5,7 +5,7 @@ import IconButton from 'shared/components/base/buttons/icon-button';
 import Text from 'shared/components/base/text';
 import Icon from 'shared/components/base/icon';
 import classNames from 'shared/utils/classnames';
-import useStyles from 'shared/hooks/use-styles';
+import {useStyles} from '@triko-app/hooks';
 import ImageIcon from 'shared/components/base/image-icon';
 import styles from './styles';
 

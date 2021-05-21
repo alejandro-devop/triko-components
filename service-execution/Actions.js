@@ -1,7 +1,7 @@
 import React from 'react';
 import {Linking, View} from 'react-native';
 import {CircleButton} from '../base/buttons';
-import useStyles from 'hooks/useStyles';
+import {useStyles} from '@triko-app/hooks';
 import {countries} from 'countries-list';
 import CircleWave from 'components/anims/CircleWave';
 
@@ -19,7 +19,7 @@ const Actions = ({currentStep, messages = 0, request = {}, toggleChat}) => {
     const {latitude, longitude} = request.attrs;
     Linking.openURL(
       `https://waze.com/ul?ll=${latitude},${longitude}&navigate=yes`,
-    ).catch(error => {});
+    ).catch((error) => {});
   };
   return (
     <View style={classes.root}>

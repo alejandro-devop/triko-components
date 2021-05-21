@@ -4,7 +4,7 @@ import Text from 'shared/components/base/text';
 import {useRoute} from '@react-navigation/native';
 import {View} from 'react-native';
 import Icon from 'shared/components/base/icon';
-import {useStyles} from 'hooks/index';
+import {useStyles} from '@triko-app/hooks';
 import styles from './styles';
 import BugReporter from 'shared/components/bug-reporter';
 import useErrorReporter from 'shared/hooks/use-error-reporter';

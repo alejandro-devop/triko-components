@@ -1,6 +1,6 @@
 import React from 'react';
 import Dialog from 'shared/components/dialogs/dialog';
-import {useStyles} from 'hooks/index';
+import {useStyles} from '@triko-app/hooks';
 import styles from './styles';
 
 const WizardDialog = ({children, open, onClose}) => {
