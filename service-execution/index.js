@@ -27,11 +27,7 @@ const ServiceExecution = ({isTriko}) => {
   });
   const {requestFetchInterval} = useRegionConfig();
   const {location, loading} = useUserLocation();
-  const {
-    loading: loadingRequest,
-    refetch,
-    data = {},
-  } = useQuery(GET_REQUEST, {
+  const {loading: loadingRequest, refetch, data = {}} = useQuery(GET_REQUEST, {
     fetchPolicy: 'no-cache',
     pollInterval: requestFetchInterval,
     variables: {

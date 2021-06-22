@@ -20,7 +20,7 @@ export default ({palette, variables: {textMedium}}) => ({
   seconds: {
     textAlign: 'right',
     marginBottom: 14,
-    fontSize: 35,
+    fontSize: 32,
     width: 50,
   },
   text: {

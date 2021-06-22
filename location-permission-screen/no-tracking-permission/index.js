@@ -46,9 +46,6 @@ const NoTrackingPermission = () => {
           <Text variant="caption" style={classes.descriptionText}>
             why_do_we_need_tracking_permissions
           </Text>
-          <Text variant="" style={classes.descriptionText}>
-            ask_to_allow_access
-          </Text>
         </View>
         <View style={classes.actionsButtons}>
           <Button primary onPress={checkStatus}>

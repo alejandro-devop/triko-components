@@ -13,6 +13,7 @@ import Button from 'components/base/buttons/button';
 import styles from './styles';
 import {useStyles} from '@triko-app/hooks';
 import {LoadingCurtain} from 'components/base/dialogs';
+import StateSelect from 'shared/components/base/controls/state-select';
 
 /**
  * This component only renders the personal information form (Presentation)
@@ -47,6 +48,7 @@ const PIForm = ({
     firstName,
     lastName,
     gender,
+    state,
     nationality,
   } = form;
   const {_t} = useTranslation();
@@ -66,11 +68,28 @@ const PIForm = ({
           value={nationality}
         />
         {Boolean(nationality) && (
+          <StateSelect
+            primary
+            error={errors.state}
+            label={_t('register_wizard_services_prsl_info_label_state')}
+            name="state"
+            country={nationality}
+            onChange={onChange}
+            placeholder={_t('register_wizard_services_prsl_info_state_ph')}
+            required
+            value={state}
+            help={_t('help_text_why_do_we_need_this')}
+            helpText={_t('state_help_text')}
+          />
+        )}
+        {Boolean(nationality) && (
           <CitySelect
+            disabled={!state}
             primary
             error={errors.city}
             label={_t('register_wizard_services_prsl_info_label_2')}
             name="city"
+            state={state}
             country={nationality}
             onChange={onChange}
             placeholder={_t('register_wizard_services_prsl_info_ph_2')}

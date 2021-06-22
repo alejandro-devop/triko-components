@@ -9,6 +9,7 @@ import useTimer from 'shared/hooks/use-timer';
 import useTranslation from 'shared/hooks/use-translate';
 import BorderedButton from 'shared/components/base/buttons/bordered-button';
 import moment from 'moment';
+import _ from 'lodash';
 
 const ExecutionTimer = ({
   onPressFinish,
@@ -29,11 +30,7 @@ const ExecutionTimer = ({
 
   const timeInfo = getElapsedTime(startedTransition.created_at, null, true);
   const {hours = 0, minutes = 0, seconds = 0} = timeInfo;
-  const {
-    formattedAlt,
-    time = {},
-    overPassed,
-  } = useTimer({
+  const {formattedAlt, time = {}, overPassed} = useTimer({
     initialDate: !isEmpty(startedTransition)
       ? startedTransition.created_at
       : moment().format('YYYY-MM-DD HH:mm:ss'),
@@ -47,7 +44,7 @@ const ExecutionTimer = ({
       <View style={classes.timeWrapper}>
         <Text style={[classes.text, classes.time]}>{formattedAlt}</Text>
         <Text style={[classes.text, classes.seconds]}>
-          {(time.seconds < 10 ? '0' : '') + time.seconds}
+          {_.trim((time.seconds < 10 ? '0' : '') + time.seconds)}
         </Text>
       </View>
       {!hideDuration && (
